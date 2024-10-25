@@ -1,0 +1,50 @@
+package com.example.winyourlife.presentation.loginpage
+
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.winyourlife.data.dto.LoginRequest
+import com.example.winyourlife.domain.AuthenticationService
+import com.example.winyourlife.presentation.State
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+class LoginViewModel @Inject constructor(val authenticationService: AuthenticationService) : ViewModel(){
+
+    var state by mutableStateOf(State<Any>())
+        private set
+
+    fun login(email: String, password: String) {
+
+        viewModelScope.launch {
+            val loginRequest = LoginRequest(email, password)
+
+            state = state.copy(
+                error = null,
+                isReady = false
+            )
+
+            val result = authenticationService.login(loginRequest)
+            state = when (result) {
+                is com.example.winyourlife.domain.Resource.Success -> {
+                    state.copy(
+                        obj = result,
+                        isReady = true
+                    )
+                }
+                is com.example.winyourlife.domain.Resource.Error -> {
+                    state.copy(
+                        error = result.message,
+                        isReady = true
+                    )
+                }
+            }
+
+
+        }
+    }
+}
