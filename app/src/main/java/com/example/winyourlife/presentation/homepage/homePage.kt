@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,11 +17,12 @@ import androidx.navigation.NavHostController
 
 @Composable
 fun homePage(navController: NavHostController, viewModel: HomePageViewModel = hiltViewModel()) {
-    viewModel.getUserName()
 
-    when (viewModel.state.isReady) {
+    val state by viewModel.state
+
+    when (state.isReady) {
         true -> {
-            when (viewModel.state.error != null) {
+            when (state.error != null) {
                 true -> {
                     Column(
                         modifier = Modifier.fillMaxHeight(),
@@ -42,14 +44,19 @@ fun homePage(navController: NavHostController, viewModel: HomePageViewModel = hi
             }
         }
         false -> {
+
             Column(
                 modifier = Modifier.fillMaxHeight(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                CircularProgressIndicator()
+
                 Spacer(modifier = Modifier.padding(16.dp))
                 Text("Loading...")
+                Spacer(modifier = Modifier.padding(16.dp))
+                Button ( onClick = { viewModel.getUserName() }) {
+                    Text("Get User Name")
+                }
             }
         }
     }

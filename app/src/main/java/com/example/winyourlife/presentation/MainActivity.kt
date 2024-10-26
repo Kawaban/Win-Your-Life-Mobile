@@ -16,7 +16,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.winyourlife.presentation.navigation.AppNavHost
 import com.example.winyourlife.presentation.navigation.NavigationScreens
 import com.example.winyourlife.ui.theme.WinYourLifeTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -23,20 +23,23 @@ class HomePageViewModel @Inject constructor(val userService: UserService): ViewM
         viewModelScope.launch {
             state = state.copy(
                 error = null,
-                isReady = false
+                isReady = false,
+                isLoading = true
             )
             val result = userService.getUser()
             state = when (result) {
                 is Resource.Success -> {
                     state.copy(
                         obj = result,
-                        isReady = true
+                        isReady = true,
+                        isLoading = true
                     )
                 }
                 is Resource.Error -> {
                     state.copy(
                         error = result.message,
-                        isReady = true
+                        isReady = true,
+                        isLoading = true
                     )
                 }
             }
