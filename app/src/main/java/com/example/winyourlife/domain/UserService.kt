@@ -1,8 +1,8 @@
 package com.example.winyourlife.domain
 
 import com.example.winyourlife.data.dto.UserResponse
-import com.example.winyourlife.data.ApiService
-import com.example.winyourlife.data.JwtManager
+import com.example.winyourlife.data.network.ApiService
+import com.example.winyourlife.domain.dto.Resource
 import javax.inject.Inject
 import javax.inject.Singleton
 

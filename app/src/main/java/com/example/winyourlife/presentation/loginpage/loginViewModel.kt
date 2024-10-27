@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.winyourlife.data.dto.LoginRequest
 import com.example.winyourlife.domain.AuthenticationService
+import com.example.winyourlife.domain.dto.Resource
 import com.example.winyourlife.presentation.State
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -31,14 +32,14 @@ class LoginViewModel @Inject constructor(val authenticationService: Authenticati
 
             val result = authenticationService.login(loginRequest)
             state = when (result) {
-                is com.example.winyourlife.domain.Resource.Success -> {
+                is Resource.Success -> {
                     state.copy(
                         obj = result,
                         isReady = true,
                         isLoading = false
                     )
                 }
-                is com.example.winyourlife.domain.Resource.Error -> {
+                is Resource.Error -> {
                     state.copy(
                         error = result.message,
                         isReady = true,

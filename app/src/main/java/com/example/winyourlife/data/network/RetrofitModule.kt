@@ -1,8 +1,5 @@
-package com.example.winyourlife.di
+package com.example.winyourlife.data.network
 
-import com.example.winyourlife.data.ApiService
-import com.example.winyourlife.data.ErrorInterceptor
-import com.example.winyourlife.data.JwtManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
