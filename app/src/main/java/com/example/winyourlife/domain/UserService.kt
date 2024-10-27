@@ -7,10 +7,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class UserService @Inject constructor(private val apiService: ApiService, private val jwtManager: JwtManager){
+class UserService @Inject constructor(private val apiService: ApiService){
     suspend fun getUser(): Resource<UserResponse> {
         return try {
-            val result = apiService.getUser(jwtManager.getJwt().orEmpty())
+            val result = apiService.getUser()
             Resource.Success(result)
         } catch (e: Exception) {
             Resource.Error(e.javaClass.name, null)

@@ -4,7 +4,10 @@ import com.example.winyourlife.data.dto.LoginRequest
 import com.example.winyourlife.data.dto.LoginResponse
 import com.example.winyourlife.data.ApiService
 import com.example.winyourlife.data.JwtManager
+import com.example.winyourlife.data.exceptions.BadCredentialsException
 import retrofit2.HttpException
+import java.io.IOException
+import java.net.SocketTimeoutException
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -17,8 +20,14 @@ class AuthenticationService @Inject constructor(private val apiService: ApiServi
             jwtManager.setJwt(result.access)
             Resource.Success(null)
         }
-        catch (e: HttpException){
-            Resource.Error(e.message(), null)
+        catch (e: SocketTimeoutException){
+            Resource.Error("Server is not available", null)
+        }
+        catch (e: BadCredentialsException){
+            Resource.Error(e.message ?: "Internal Server Error", null)
+        }
+        catch (e: IOException){
+            Resource.Error("Network error", null)
         }
         catch (e: Exception) {
             println(e.printStackTrace())

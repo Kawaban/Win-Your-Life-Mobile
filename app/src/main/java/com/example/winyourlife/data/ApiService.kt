@@ -13,5 +13,5 @@ interface ApiService {
     suspend fun login(@Body loginRequest: LoginRequest): LoginResponse
 
     @GET("user/")
-    suspend fun getUser(@Header("Authorization") token:String): UserResponse
+    suspend fun getUser(): UserResponse
 }

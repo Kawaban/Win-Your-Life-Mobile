@@ -1,10 +1,13 @@
 package com.example.winyourlife.di
 
 import com.example.winyourlife.data.ApiService
+import com.example.winyourlife.data.ErrorInterceptor
+import com.example.winyourlife.data.JwtManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -14,11 +17,26 @@ object RetrofitModule{
     private const val BASE_URL ="http://192.168.117.35:8000/"
 
     @Provides
-    fun getInstance(): Retrofit {
+    fun okHttpClient(jwtManager: JwtManager): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(ErrorInterceptor())
+            .addInterceptor { chain ->
+                val request = chain.request().newBuilder()
+                    .addHeader("Authorization", jwtManager.getJwt() ?: "")
+                    .build()
+                chain.proceed(request)
+            }
+            .build()
+    }
+
+    @Provides
+    fun getInstance(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder().baseUrl(BASE_URL)
             .addConverterFactory(
                 GsonConverterFactory.create()
-            ).build()
+            )
+            .client(okHttpClient)
+            .build()
     }
 
     @Provides
