@@ -32,17 +32,21 @@ class HomePageViewModel @Inject constructor(val userService: UserService): ViewM
                     state.copy(
                         obj = result,
                         isReady = true,
-                        isLoading = true
+                        isLoading = false
                     )
                 }
                 is Resource.Error -> {
                     state.copy(
                         error = result.message,
                         isReady = true,
-                        isLoading = true
+                        isLoading = false
                     )
                 }
             }
         }
+    }
+
+    fun reset () {
+        state = State()
     }
 }

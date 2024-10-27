@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 @InstallIn(SingletonComponent::class)
 object RetrofitModule{
-    private const val BASE_URL ="http://192.168.88.35:8000/"
+    private const val BASE_URL ="http://192.168.117.35:8000/"
 
     @Provides
     fun getInstance(): Retrofit {

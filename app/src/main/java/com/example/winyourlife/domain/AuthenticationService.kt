@@ -11,7 +11,7 @@ import javax.inject.Singleton
 @Singleton
 class AuthenticationService @Inject constructor(private val apiService: ApiService, private val jwtManager: JwtManager) {
 
-    suspend fun login(loginRequest: LoginRequest): Resource<Any>{
+    suspend fun login(loginRequest: LoginRequest): Resource<Nothing>{
         return try{
             val result = apiService.login(loginRequest)
             jwtManager.setJwt(result.access)

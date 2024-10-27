@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(val authenticationService: AuthenticationService) : ViewModel(){
 
-    var state by mutableStateOf(State<Any>())
+    var state by mutableStateOf(State<Nothing>())
         private set
 
     fun login(email: String, password: String) {
@@ -25,7 +25,8 @@ class LoginViewModel @Inject constructor(val authenticationService: Authenticati
 
             state = state.copy(
                 error = null,
-                isReady = false
+                isReady = false,
+                isLoading = true
             )
 
             val result = authenticationService.login(loginRequest)
@@ -33,18 +34,24 @@ class LoginViewModel @Inject constructor(val authenticationService: Authenticati
                 is com.example.winyourlife.domain.Resource.Success -> {
                     state.copy(
                         obj = result,
-                        isReady = true
+                        isReady = true,
+                        isLoading = false
                     )
                 }
                 is com.example.winyourlife.domain.Resource.Error -> {
                     state.copy(
                         error = result.message,
-                        isReady = true
+                        isReady = true,
+                        isLoading = false
                     )
                 }
             }
 
 
         }
+    }
+
+    fun reset () {
+        state = State()
     }
 }

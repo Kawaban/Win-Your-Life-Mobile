@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -18,46 +19,36 @@ import androidx.navigation.NavHostController
 @Composable
 fun homePage(navController: NavHostController, viewModel: HomePageViewModel = hiltViewModel()) {
 
-    val state by viewModel.state
-
-    when (state.isReady) {
+    when(!viewModel.state.isLoading && !viewModel.state.isReady) {
         true -> {
-            when (state.error != null) {
+            viewModel.getUserName()
+        }
+        false -> {
+            when(viewModel.state.isLoading) {
                 true -> {
                     Column(
-                        modifier = Modifier.fillMaxHeight(),
+                        modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text("Error: ${viewModel.state.error}")
+                        CircularProgressIndicator()
+                        Spacer(modifier = Modifier.padding(16.dp))
+                        Text(text = "Loading...")
                     }
                 }
                 false -> {
                     Column(
-                        modifier = Modifier.fillMaxHeight(),
+                        modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(text = "Hello, ${viewModel.state.obj?.data?.name}")
+                        Text("Hello ${viewModel.state.obj?.data?.name}")
                     }
                 }
             }
         }
-        false -> {
-
-            Column(
-                modifier = Modifier.fillMaxHeight(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-
-                Spacer(modifier = Modifier.padding(16.dp))
-                Text("Loading...")
-                Spacer(modifier = Modifier.padding(16.dp))
-                Button ( onClick = { viewModel.getUserName() }) {
-                    Text("Get User Name")
-                }
-            }
-        }
     }
+
+
+
 }

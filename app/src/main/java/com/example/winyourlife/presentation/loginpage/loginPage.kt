@@ -46,23 +46,39 @@ fun loginPage(navController: NavHostController, viewModel: LoginViewModel = hilt
                     }
                 }
                 false -> {
+                    viewModel.reset()
                     navController.navigate(NavigationScreens.HOME.name)
                 }
             }
         }
         false -> {
-            Column( modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                Text(text ="Login", modifier = Modifier.padding(16.dp))
-
-                TextField(value = email, onValueChange = { email = it }, label = { Text("Email") }, modifier = Modifier.padding(16.dp))
-
-                TextField(value = password, onValueChange = { password = it }, label = { Text("Password") }, modifier = Modifier.padding(16.dp))
-
-                Button(onClick = { viewModel.login(email, password) }) {
-                    Text("Login")
+            when(viewModel.state.isLoading) {
+                true -> {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        CircularProgressIndicator()
+                        Spacer(modifier = Modifier.padding(16.dp))
+                        Text("Loading...")
+                    }
                 }
+                false -> {
+                    Column( modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                        Text(text ="Login", modifier = Modifier.padding(16.dp))
 
-                Spacer(modifier = Modifier.padding(16.dp))
+                        TextField(value = email, onValueChange = { email = it }, label = { Text("Email") }, modifier = Modifier.padding(16.dp))
+
+                        TextField(value = password, onValueChange = { password = it }, label = { Text("Password") }, modifier = Modifier.padding(16.dp))
+
+                        Button(onClick = { viewModel.login(email, password) }) {
+                            Text("Login")
+                        }
+
+                        Spacer(modifier = Modifier.padding(16.dp))
+                    }
+                }
             }
         }
     }
