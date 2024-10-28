@@ -1,8 +1,6 @@
 package com.example.winyourlife.presentation.loginpage
 
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.winyourlife.data.dto.LoginRequest
@@ -12,14 +10,21 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+interface LoginViewModelInterface {
+    var state: State<Any>
+    fun login(email: String, password: String)
+}
+
 @HiltViewModel
-class LoginViewModel @Inject constructor(val authenticationService: AuthenticationService) : ViewModel(){
+class LoginViewModel @Inject constructor(val authenticationService: AuthenticationService) : ViewModel(), LoginViewModelInterface {
+    private val _state = mutableStateOf(State<Any>())
+    override var state: State<Any>
+        get() = _state.value
+        set(value) {
+            _state.value = value
+        }
 
-    var state by mutableStateOf(State<Any>())
-        private set
-
-    fun login(email: String, password: String) {
-
+    override fun login(email: String, password: String) {
         viewModelScope.launch {
             val loginRequest = LoginRequest(email, password)
 
@@ -43,8 +48,18 @@ class LoginViewModel @Inject constructor(val authenticationService: Authenticati
                     )
                 }
             }
+        }
+    }
+}
 
+class FakeLoginViewModel : LoginViewModelInterface {
+    override var state = State<Any>(isReady = true, error = null)
 
+    override fun login(email: String, password: String) {
+        if (email.isEmpty() || password.isEmpty()) {
+            state = State(isReady = true, error = "Email and password cannot be empty.")
+        } else {
+            state = State(isReady = true, error = null)
         }
     }
 }
