@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModel
 import com.example.winyourlife.data.dto.UserResponse
 import com.example.winyourlife.domain.UserService
-import com.example.winyourlife.domain.Resource
+import com.example.winyourlife.domain.dto.Resource
 import com.example.winyourlife.presentation.State
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -32,17 +32,21 @@ class HomePageViewModel @Inject constructor(val userService: UserService): ViewM
                     state.copy(
                         obj = result,
                         isReady = true,
-                        isLoading = true
+                        isLoading = false
                     )
                 }
                 is Resource.Error -> {
                     state.copy(
                         error = result.message,
                         isReady = true,
-                        isLoading = true
+                        isLoading = false
                     )
                 }
             }
         }
+    }
+
+    fun reset () {
+        state = State()
     }
 }

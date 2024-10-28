@@ -1,6 +1,6 @@
 package com.example.winyourlife.presentation
 
-import com.example.winyourlife.domain.Resource
+import com.example.winyourlife.domain.dto.Resource
 import kotlin.reflect.KProperty
 
 data class State<T>(

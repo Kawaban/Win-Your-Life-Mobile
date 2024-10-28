@@ -1,4 +1,4 @@
-package com.example.winyourlife.data
+package com.example.winyourlife.data.network
 
 import javax.inject.Inject
 import javax.inject.Singleton
