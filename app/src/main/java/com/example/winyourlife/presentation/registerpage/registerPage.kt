@@ -1,5 +1,6 @@
 package com.example.winyourlife.presentation.registerpage
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -50,7 +52,12 @@ fun RegisterScreen(navController: NavHostController, viewModel: RegisterViewMode
                 }
 
                 false -> {
+
                     viewModel.reset()
+
+                    val context = LocalContext.current
+                    Toast.makeText(context,"Account has been created", Toast.LENGTH_SHORT).show()
+
                     navController.navigate(NavigationScreens.LOGIN.name)
                 }
             }
@@ -180,7 +187,7 @@ fun RegisterMainContent(viewModel: RegisterViewModel, navController: NavHostCont
         )
 
         Button(
-            onClick = {viewModel.register(nick, email, password, repeatPassword)},
+            onClick = {viewModel.register(email, nick, password, repeatPassword)},
             modifier = Modifier
                 .padding(bottom = 16.dp)
                 .width(280.dp)
