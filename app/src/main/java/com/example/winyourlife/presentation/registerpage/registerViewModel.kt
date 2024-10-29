@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.winyourlife.data.dto.LoginRequest
 import com.example.winyourlife.data.dto.RegisterRequest
 import com.example.winyourlife.domain.AuthenticationService
 import com.example.winyourlife.domain.dto.Resource

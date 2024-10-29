@@ -10,12 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import com.example.winyourlife.presentation.loginpage.LoginViewModel
 
 @Composable
-fun ResetPasswordScreen() {
+fun ResetPasswordScreen(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -123,10 +125,4 @@ fun ResetPasswordScreen() {
 
         Spacer(modifier = Modifier.weight(1f))
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ResetPasswordScreenPreview() {
-    ResetPasswordScreen()
 }

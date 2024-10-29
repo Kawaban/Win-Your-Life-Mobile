@@ -19,7 +19,7 @@ class HomePageViewModel @Inject constructor(val userService: UserService): ViewM
     var state by mutableStateOf(State<UserResponse>())
         private set
 
-    fun getUserName(){
+    fun getUserName() {
         viewModelScope.launch {
             state = state.copy(
                 error = null,

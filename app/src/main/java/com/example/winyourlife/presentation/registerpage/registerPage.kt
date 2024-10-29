@@ -10,7 +10,6 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,11 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.winyourlife.presentation.navigation.NavigationScreens
 import com.example.winyourlife.presentation.util.ErrorScreen
@@ -59,11 +56,7 @@ fun RegisterScreen(navController: NavHostController, viewModel: RegisterViewMode
             }
         }
     }
-
-
-
 }
-
 
 @Composable
 fun RegisterMainContent(viewModel: RegisterViewModel, navController: NavHostController){
@@ -236,9 +229,3 @@ fun RegisterMainContent(viewModel: RegisterViewModel, navController: NavHostCont
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun RegisterScreenPreview() {
-//    RegisterMainContent()
-//}

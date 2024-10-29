@@ -74,7 +74,7 @@ fun LoadingScreenMainContent(viewModel: LoginViewModel, navController: NavHostCo
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(35.dp))
 
         Image(
             painter = painterResource(id = R.drawable.logo),
@@ -84,7 +84,7 @@ fun LoadingScreenMainContent(viewModel: LoginViewModel, navController: NavHostCo
                 .padding(16.dp)
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         OutlinedTextField(
             value = email,
@@ -165,7 +165,7 @@ fun LoadingScreenMainContent(viewModel: LoginViewModel, navController: NavHostCo
             text = "Forgot your password?",
             fontSize = 16.sp,
             color = Color.White,
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(bottom = 16.dp),
             fontWeight = FontWeight.Light
         )
 
@@ -188,6 +188,6 @@ fun LoadingScreenMainContent(viewModel: LoginViewModel, navController: NavHostCo
             )
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(30.dp))
     }
 }
