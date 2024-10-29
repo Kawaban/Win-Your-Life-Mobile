@@ -1,6 +1,5 @@
 package com.example.winyourlife.presentation.navigation
 
-import android.window.SplashScreen
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController

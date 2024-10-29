@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(val authenticationService: AuthenticationService) : ViewModel(){
+class LoginViewModel @Inject constructor(val authenticationService: AuthenticationService) : ViewModel() {
 
     var state by mutableStateOf(State<Nothing>())
         private set
@@ -47,8 +47,6 @@ class LoginViewModel @Inject constructor(val authenticationService: Authenticati
                     )
                 }
             }
-
-
         }
     }
 

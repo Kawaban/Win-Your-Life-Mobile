@@ -10,5 +10,4 @@ data class State<T>(
     val isReady: Boolean = false
 ) {
     operator fun getValue(thisRef: Any?, property: KProperty<*>): State<T> = this
-
 }

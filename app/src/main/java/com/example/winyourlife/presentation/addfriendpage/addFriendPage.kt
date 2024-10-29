@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ResetPasswordScreen() {
+fun AddFriendScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -109,6 +109,6 @@ fun ResetPasswordScreen() {
 
 @Preview(showBackground = true)
 @Composable
-fun ResetPasswordScreenPreview() {
-    ResetPasswordScreen()
+fun AddFriendScreenPreview() {
+    AddFriendScreen()
 }
