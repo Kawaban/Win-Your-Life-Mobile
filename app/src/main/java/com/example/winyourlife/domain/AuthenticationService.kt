@@ -1,6 +1,7 @@
 package com.example.winyourlife.domain
 
 import com.example.winyourlife.data.dto.LoginRequest
+import com.example.winyourlife.data.dto.RegisterRequest
 import com.example.winyourlife.data.network.ApiService
 import com.example.winyourlife.data.network.JwtManager
 import com.example.winyourlife.data.exceptions.BadCredentialsException
@@ -34,4 +35,25 @@ class AuthenticationService @Inject constructor(private val apiService: ApiServi
         }
 
     }
+
+    suspend fun register(registerRequest: RegisterRequest): Resource<Nothing> {
+        return try{
+            val result = apiService.register(registerRequest)
+            Resource.Success(null)
+        }
+        catch (e: SocketTimeoutException){
+            Resource.Error("Server is not available", null)
+        }
+        catch (e: BadCredentialsException){
+            Resource.Error(e.message ?: "Internal Server Error", null)
+        }
+        catch (e: IOException){
+            Resource.Error("Network error", null)
+        }
+        catch (e: Exception) {
+            println(e.printStackTrace())
+            Resource.Error(e.javaClass.name, null)
+        }
+    }
+
 }

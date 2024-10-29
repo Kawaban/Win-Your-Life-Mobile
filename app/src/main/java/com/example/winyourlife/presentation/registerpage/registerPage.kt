@@ -10,6 +10,11 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,9 +23,68 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import com.example.winyourlife.presentation.navigation.NavigationScreens
+import com.example.winyourlife.presentation.util.ErrorScreen
+import com.example.winyourlife.presentation.util.LoadingScreen
 
 @Composable
-fun RegisterScreen() {
+fun RegisterScreen(navController: NavHostController, viewModel: RegisterViewModel = hiltViewModel()) {
+
+    when(viewModel.state.isReady) {
+        false -> {
+            when(viewModel.state.isLoading){
+                true ->{
+                    LoadingScreen()
+                }
+                false -> {
+                    RegisterMainContent(viewModel, navController)
+                }
+            }
+
+        }
+
+        true -> {
+            when (viewModel.state.error != null) {
+                true -> {
+                    ErrorScreen(message = viewModel.state.error)
+                }
+
+                false -> {
+                    viewModel.reset()
+                    navController.navigate(NavigationScreens.LOGIN.name)
+                }
+            }
+        }
+    }
+
+
+
+}
+
+
+@Composable
+fun RegisterMainContent(viewModel: RegisterViewModel, navController: NavHostController){
+
+    var nick by remember {
+        mutableStateOf ("")
+    }
+
+    var email by remember {
+        mutableStateOf ("")
+    }
+
+    var password by remember {
+        mutableStateOf ("")
+    }
+
+    var repeatPassword by remember {
+        mutableStateOf ("")
+    }
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -45,8 +109,8 @@ fun RegisterScreen() {
         Spacer(modifier = Modifier.weight(1f))
 
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = nick,
+            onValueChange = { nick = it},
             label = { Text("Nick") },
             modifier = Modifier
                 .width(280.dp)
@@ -64,8 +128,8 @@ fun RegisterScreen() {
         )
 
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = email,
+            onValueChange = {email = it},
             label = { Text("Email") },
             modifier = Modifier
                 .width(280.dp)
@@ -83,8 +147,8 @@ fun RegisterScreen() {
         )
 
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = password,
+            onValueChange = {password = it},
             label = { Text("Password") },
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier
@@ -103,8 +167,8 @@ fun RegisterScreen() {
         )
 
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = repeatPassword,
+            onValueChange = {repeatPassword = it},
             label = { Text("Repeat password") },
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier
@@ -123,7 +187,7 @@ fun RegisterScreen() {
         )
 
         Button(
-            onClick = {},
+            onClick = {viewModel.register(nick, email, password, repeatPassword)},
             modifier = Modifier
                 .padding(bottom = 16.dp)
                 .width(280.dp)
@@ -153,7 +217,10 @@ fun RegisterScreen() {
         )
 
         Button(
-            onClick = {},
+            onClick = {
+                viewModel.reset()
+                navController.navigate(NavigationScreens.LOGIN.name)
+            },
             modifier = Modifier
                 .padding(bottom = 24.dp)
                 .width(280.dp)
@@ -164,13 +231,14 @@ fun RegisterScreen() {
             Text(
                 text = "Sign up",
                 color = Color.White,
-                fontSize = 20.sp)
+                fontSize = 20.sp
+            )
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun RegisterScreenPreview() {
-    RegisterScreen()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun RegisterScreenPreview() {
+//    RegisterMainContent()
+//}

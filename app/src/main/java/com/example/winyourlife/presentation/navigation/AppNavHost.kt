@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.winyourlife.presentation.homepage.homePage
 import com.example.winyourlife.presentation.loginpage.loginPage
+import com.example.winyourlife.presentation.registerpage.RegisterScreen
 
 @Composable
 fun AppNavHost(
@@ -26,5 +27,9 @@ fun AppNavHost(
         composable(NavigationScreens.HOME.name) {
             homePage(navController)
         }
+        composable(NavigationScreens.REGISTER.name){
+            RegisterScreen(navController)
+        }
+
     }
 }
