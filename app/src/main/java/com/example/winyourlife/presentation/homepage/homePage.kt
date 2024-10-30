@@ -44,7 +44,8 @@ fun HomeScreenMainContent(viewModel: HomePageViewModel, navController: NavHostCo
             .background(Color(0xFF1A1A1A)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Headline("HELLO X!")
+
+        Headline("HELLO " + (viewModel.state.obj?.data?.name) + "!")
 
         Spacer(modifier = Modifier.weight(1f))
 
