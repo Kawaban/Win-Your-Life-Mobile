@@ -11,8 +11,8 @@ import com.example.winyourlife.presentation.createtaskpage.CreateTaskScreen
 import com.example.winyourlife.presentation.forgotpasswordpage.ForgotPasswordScreen
 import com.example.winyourlife.presentation.friendspage.FriendsScreen
 import com.example.winyourlife.presentation.goalspage.GoalsScreen
-import com.example.winyourlife.presentation.homepage.homePage
-import com.example.winyourlife.presentation.loginpage.loginPage
+import com.example.winyourlife.presentation.homepage.HomePage
+import com.example.winyourlife.presentation.loginpage.LoginPage
 import com.example.winyourlife.presentation.motivationpage.MotivationScreen
 import com.example.winyourlife.presentation.notificationspage.NotificationsScreen
 import com.example.winyourlife.presentation.profilepage.ProfileScreen
@@ -33,10 +33,10 @@ fun AppNavHost(
         startDestination = startDestination
     ) {
         composable(NavigationScreens.LOGIN.name) {
-            loginPage(navController)
+            LoginPage(navController)
         }
         composable(NavigationScreens.HOME.name) {
-            homePage(navController)
+            HomePage(navController)
         }
         composable(NavigationScreens.REGISTER.name) {
             RegisterScreen(navController)

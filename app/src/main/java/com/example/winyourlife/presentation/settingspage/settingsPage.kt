@@ -13,40 +13,22 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.winyourlife.presentation.loginpage.LoginViewModel
+import com.example.winyourlife.presentation.util.Headline
+import com.example.winyourlife.presentation.util.MyHorizontalDivider
 
 @Composable
-fun SettingsScreen(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
+fun SettingsScreen(navController: NavHostController, viewModel: SettingsViewModel = hiltViewModel()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF1A1A1A)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color(0xFFFFA500), shape = RoundedCornerShape(16.dp)),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = "Settings",
-                color = Color.White,
-                fontSize = 24.sp,
-                modifier = Modifier.padding(16.dp),
-                fontWeight = FontWeight.Medium
-            )
-        }
+        Headline("SETTINGS")
 
         Spacer(modifier = Modifier.height(40.dp))
 
-        HorizontalDivider(
-            color = Color.White,
-            thickness = 1.dp,
-            modifier = Modifier
-                .width(280.dp)
-                .padding(vertical = 16.dp)
-        )
+        MyHorizontalDivider()
 
         Text(
             text = "Notifications",
@@ -96,13 +78,7 @@ fun SettingsScreen(navController: NavHostController, viewModel: LoginViewModel =
             )
         }
 
-        HorizontalDivider(
-            color = Color.White,
-            thickness = 1.dp,
-            modifier = Modifier
-                .width(280.dp)
-                .padding(vertical = 30.dp)
-        )
+        MyHorizontalDivider()
 
         Button(
             onClick = {},

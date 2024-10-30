@@ -14,40 +14,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.winyourlife.presentation.loginpage.LoginViewModel
+import com.example.winyourlife.presentation.util.Headline
+import com.example.winyourlife.presentation.util.MyHorizontalDivider
 
 @Composable
-fun StatisticsScreen(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
+fun StatisticsScreen(navController: NavHostController, viewModel: StatisticsViewModel = hiltViewModel()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF1A1A1A)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color(0xFFFFA500), shape = RoundedCornerShape(16.dp)),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = "Statistics",
-                color = Color.White,
-                fontSize = 24.sp,
-                modifier = Modifier.padding(16.dp),
-                fontWeight = FontWeight.Medium
-            )
-        }
+        Headline("STATISTICS")
 
         Spacer(modifier = Modifier.height(40.dp))
 
-        HorizontalDivider(
-            color = Color.White,
-            thickness = 1.dp,
-            modifier = Modifier
-                .width(280.dp)
-                .padding(vertical = 16.dp)
-        )
+        MyHorizontalDivider()
 
         Text(
             text = "Longest streak",
@@ -90,13 +72,7 @@ fun StatisticsScreen(navController: NavHostController, viewModel: LoginViewModel
         
         Spacer(modifier = Modifier.height(10.dp))
 
-        HorizontalDivider(
-            color = Color.White,
-            thickness = 1.dp,
-            modifier = Modifier
-                .width(280.dp)
-                .padding(vertical = 16.dp)
-        )
+        MyHorizontalDivider()
 
         Text(
             text = "Number of tasks completed",
@@ -139,13 +115,7 @@ fun StatisticsScreen(navController: NavHostController, viewModel: LoginViewModel
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        HorizontalDivider(
-            color = Color.White,
-            thickness = 1.dp,
-            modifier = Modifier
-                .width(280.dp)
-                .padding(vertical = 16.dp)
-        )
+        MyHorizontalDivider()
 
         Text(
             text = "Number of friends",
@@ -188,13 +158,7 @@ fun StatisticsScreen(navController: NavHostController, viewModel: LoginViewModel
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        HorizontalDivider(
-            color = Color.White,
-            thickness = 1.dp,
-            modifier = Modifier
-                .width(280.dp)
-                .padding(vertical = 16.dp)
-        )
+        MyHorizontalDivider()
 
         Text(
             text = "You've been with us for ...",

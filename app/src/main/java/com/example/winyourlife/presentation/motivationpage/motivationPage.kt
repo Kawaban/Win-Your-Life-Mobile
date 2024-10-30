@@ -3,7 +3,6 @@ package com.example.winyourlife.presentation.motivationpage
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,30 +17,17 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.R
-import com.example.winyourlife.presentation.loginpage.LoginViewModel
+import com.example.winyourlife.presentation.util.Headline
 
 @Composable
-fun MotivationScreen(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
+fun MotivationScreen(navController: NavHostController, viewModel: MotivationViewModel = hiltViewModel()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF1A1A1A)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color(0xFFFFA500), shape = RoundedCornerShape(16.dp)),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = "Create an account",
-                fontSize = 24.sp,
-                color = Color.White,
-                modifier = Modifier.padding(16.dp),
-                fontWeight = FontWeight.Medium
-            )
-        }
+        Headline("MOTIVATION")
 
         Spacer(modifier = Modifier.height(24.dp))
 

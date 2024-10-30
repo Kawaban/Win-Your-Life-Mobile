@@ -2,7 +2,6 @@ package com.example.winyourlife.presentation.resetpasswordpage
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -14,40 +13,62 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.winyourlife.presentation.loginpage.LoginViewModel
+import com.example.winyourlife.presentation.navigation.NavigationScreens
+import com.example.winyourlife.presentation.util.ErrorScreen
+import com.example.winyourlife.presentation.util.Headline
+import com.example.winyourlife.presentation.util.LoadingScreen
+import com.example.winyourlife.presentation.util.MyHorizontalDivider
+import com.example.winyourlife.presentation.util.OrangeButton
+import com.example.winyourlife.presentation.util.WhiteOutlinedTextField
 
 @Composable
-fun ResetPasswordScreen(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
+fun ResetPasswordScreen(navController: NavHostController, viewModel: ResetPasswordViewModel = hiltViewModel()) {
+    when (viewModel.state.isReady) {
+        true -> {
+            when (viewModel.state.error != null) {
+                true -> {
+                    ErrorScreen(message = viewModel.state.error)
+                }
+                false -> {
+                    viewModel.reset()
+                    navController.navigate(NavigationScreens.HOME.name)
+                }
+            }
+        }
+        false -> {
+            when(viewModel.state.isLoading) {
+                true -> {
+                    LoadingScreen()
+                }
+                false -> {
+                    ResetPasswordMainContent(navController, viewModel)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun ResetPasswordMainContent(navController: NavHostController, viewModel: ResetPasswordViewModel = hiltViewModel()) {
+
+    var password by remember {
+        mutableStateOf("")
+    }
+
+    var repeatPassword by remember {
+        mutableStateOf("")
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF1A1A1A)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color(0xFFFFA500), shape = RoundedCornerShape(16.dp)),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = "Reset password",
-                color = Color.White,
-                fontSize = 24.sp,
-                modifier = Modifier.padding(16.dp),
-                fontWeight = FontWeight.Medium
-            )
-        }
+        Headline("RESET PASSWORD")
 
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(50.dp))
 
-        HorizontalDivider(
-            color = Color.White,
-            thickness = 1.dp,
-            modifier = Modifier
-                .width(280.dp)
-                .padding(vertical = 16.dp)
-        )
+        MyHorizontalDivider()
 
         Text(
             text = "Enter new password",
@@ -57,72 +78,20 @@ fun ResetPasswordScreen(navController: NavHostController, viewModel: LoginViewMo
             fontWeight = FontWeight.Medium
         )
 
-        OutlinedTextField(
-            value = "",
-            onValueChange = {},
-            label = { Text("Password") },
-            visualTransformation = PasswordVisualTransformation(),
-            modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 16.dp),
-            shape = RoundedCornerShape(8.dp),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = Color.White,
-                unfocusedContainerColor = Color.White,
-                focusedTextColor = Color.Black,
-                unfocusedTextColor = Color.Black,
-                focusedBorderColor = Color.White,
-                unfocusedBorderColor = Color.White,
-                cursorColor = Color.Black
-            )
-        )
+        Spacer(modifier = Modifier.weight(0.3f))
 
-        OutlinedTextField(
-            value = "",
-            onValueChange = {},
-            label = { Text("Repeat password") },
-            visualTransformation = PasswordVisualTransformation(),
-            modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 32.dp),
-            shape = RoundedCornerShape(8.dp),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = Color.White,
-                unfocusedContainerColor = Color.White,
-                focusedTextColor = Color.Black,
-                unfocusedTextColor = Color.Black,
-                focusedBorderColor = Color.White,
-                unfocusedBorderColor = Color.White,
-                cursorColor = Color.Black
-            )
-        )
+        WhiteOutlinedTextField(password,{ password = it },"Password", PasswordVisualTransformation())
 
-        Button(
-            onClick = {},
-            modifier = Modifier
-                .padding(60.dp)
-                .width(280.dp)
-                .height(60.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFA500)),
-            shape = RoundedCornerShape(24.dp)
-        ) {
-            Text(
-                text = "Change password",
-                color = Color.White,
-                fontSize = 20.sp
-            )
-        }
+        WhiteOutlinedTextField(repeatPassword,{ repeatPassword = it },"Repeat Password", PasswordVisualTransformation())
 
-        Spacer(modifier = Modifier.weight(1.6f))
+        Spacer(modifier = Modifier.height(30.dp))
 
-        HorizontalDivider(
-            color = Color.White,
-            thickness = 1.dp,
-            modifier = Modifier
-                .width(280.dp)
-                .padding(vertical = 16.dp)
-        )
+        OrangeButton({},"Change password")
 
         Spacer(modifier = Modifier.weight(1f))
+
+        MyHorizontalDivider()
+
+        Spacer(modifier = Modifier.height(70.dp))
     }
 }
