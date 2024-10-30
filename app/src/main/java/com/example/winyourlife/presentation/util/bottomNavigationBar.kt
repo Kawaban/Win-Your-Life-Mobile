@@ -28,13 +28,13 @@ fun BottomNavigationBar(navController: NavController) {
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceAround
         ) {
-            IconButton(onClick = { NavigationScreens.HOME.name }) {
+            IconButton(onClick = { navController.navigate(NavigationScreens.HOME.name) }) {
                 Icon(Icons.Default.Home, contentDescription = "Home")
             }
-            IconButton(onClick = { NavigationScreens.NOTIFICATIONS.name }) {
+            IconButton(onClick = { navController.navigate(NavigationScreens.NOTIFICATIONS.name) }) {
                 Icon(Icons.Default.Notifications, contentDescription = "Notifications")
             }
-            IconButton(onClick = { NavigationScreens.SETTINGS.name }) {
+            IconButton(onClick = { navController.navigate(NavigationScreens.SETTINGS.name) }) {
                 Icon(Icons.Default.Settings, contentDescription = "Settings")
             }
         }

@@ -2,6 +2,7 @@ package com.example.winyourlife.presentation.friendspage
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -9,7 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.winyourlife.presentation.navigation.NavigationScreens
+import com.example.winyourlife.presentation.util.BottomNavigationBar
 import com.example.winyourlife.presentation.util.Headline
+import com.example.winyourlife.presentation.util.OrangeButton
 
 @Composable
 fun FriendsScreen(navController: NavHostController, viewModel: FriendsViewModel = hiltViewModel()) {
@@ -20,5 +24,13 @@ fun FriendsScreen(navController: NavHostController, viewModel: FriendsViewModel 
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Headline("YOUR FRIENDS")
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        OrangeButton({ navController.navigate(NavigationScreens.ADD_FRIEND.name) }, "Add new friend")
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        BottomNavigationBar(navController)
     }
 }

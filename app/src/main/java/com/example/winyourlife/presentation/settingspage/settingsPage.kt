@@ -2,7 +2,6 @@ package com.example.winyourlife.presentation.settingspage
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,8 +12,11 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.winyourlife.presentation.navigation.NavigationScreens
+import com.example.winyourlife.presentation.util.BottomNavigationBar
 import com.example.winyourlife.presentation.util.Headline
 import com.example.winyourlife.presentation.util.MyHorizontalDivider
+import com.example.winyourlife.presentation.util.OrangeButton
 
 @Composable
 fun SettingsScreen(navController: NavHostController, viewModel: SettingsViewModel = hiltViewModel()) {
@@ -45,7 +47,7 @@ fun SettingsScreen(navController: NavHostController, viewModel: SettingsViewMode
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "Friend notifications", fontSize = 20.sp, color = Color.White)
+            Text(text = "Friend's notifications", fontSize = 20.sp, color = Color.White)
             Switch(
                 checked = true,
                 onCheckedChange = {},
@@ -78,56 +80,20 @@ fun SettingsScreen(navController: NavHostController, viewModel: SettingsViewMode
             )
         }
 
+        Spacer(modifier = Modifier.weight(1f))
+
         MyHorizontalDivider()
 
-        Button(
-            onClick = {},
-            modifier = Modifier
-                .padding(16.dp)
-                .width(280.dp)
-                .height(60.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFA500)),
-            shape = RoundedCornerShape(24.dp)
-        ) {
-            Text(
-                text = "Your profile",
-                color = Color.White,
-                fontSize = 20.sp
-            )
-        }
+        Spacer(modifier = Modifier.height(20.dp))
 
-        Button(
-            onClick = {},
-            modifier = Modifier
-                .padding(16.dp)
-                .width(280.dp)
-                .height(60.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFA500)),
-            shape = RoundedCornerShape(24.dp)
-        ) {
-            Text(
-                text = "Statistics",
-                color = Color.White,
-                fontSize = 20.sp
-            )
-        }
+        OrangeButton({ navController.navigate(NavigationScreens.PROFILE.name) },"Your profile")
 
-        Button(
-            onClick = {},
-            modifier = Modifier
-                .padding(16.dp)
-                .width(280.dp)
-                .height(60.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFA500)),
-            shape = RoundedCornerShape(24.dp)
-        ) {
-            Text(
-                text = "Log out",
-                color = Color.White,
-                fontSize = 20.sp
-            )
-        }
+        OrangeButton({ navController.navigate(NavigationScreens.STATISTICS.name) }, "Statistics")
 
-        Spacer(modifier = Modifier.weight(1f))
+        OrangeButton({}, "Log out")
+
+        Spacer(modifier = Modifier.height(30.dp))
+
+        BottomNavigationBar(navController)
     }
 }

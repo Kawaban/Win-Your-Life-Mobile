@@ -49,7 +49,7 @@ fun AddFriendScreen(navController: NavHostController, viewModel: AddFriendViewMo
 
         Spacer(modifier = Modifier.weight(0.3f))
 
-        WhiteOutlinedTextField(email,{ email = it },"Email")
+        WhiteOutlinedTextField(email,{ email = it },"Email", true)
 
         Spacer(modifier = Modifier.height(30.dp))
 

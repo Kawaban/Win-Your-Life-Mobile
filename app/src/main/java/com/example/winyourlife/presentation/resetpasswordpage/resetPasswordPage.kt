@@ -80,9 +80,9 @@ fun ResetPasswordMainContent(navController: NavHostController, viewModel: ResetP
 
         Spacer(modifier = Modifier.weight(0.3f))
 
-        WhiteOutlinedTextField(password,{ password = it },"Password", PasswordVisualTransformation())
+        WhiteOutlinedTextField(password,{ password = it },"Password", true, PasswordVisualTransformation())
 
-        WhiteOutlinedTextField(repeatPassword,{ repeatPassword = it },"Repeat Password", PasswordVisualTransformation())
+        WhiteOutlinedTextField(repeatPassword,{ repeatPassword = it },"Repeat Password", true, PasswordVisualTransformation())
 
         Spacer(modifier = Modifier.height(30.dp))
 

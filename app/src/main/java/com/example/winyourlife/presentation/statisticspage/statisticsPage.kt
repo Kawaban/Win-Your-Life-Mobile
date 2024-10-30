@@ -2,7 +2,6 @@ package com.example.winyourlife.presentation.statisticspage
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -11,11 +10,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.winyourlife.presentation.util.BottomNavigationBar
 import com.example.winyourlife.presentation.util.Headline
 import com.example.winyourlife.presentation.util.MyHorizontalDivider
+import com.example.winyourlife.presentation.util.OrangeOutlinedTextField
 
 @Composable
 fun StatisticsScreen(navController: NavHostController, viewModel: StatisticsViewModel = hiltViewModel()) {
@@ -27,7 +27,7 @@ fun StatisticsScreen(navController: NavHostController, viewModel: StatisticsView
     ) {
         Headline("STATISTICS")
 
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         MyHorizontalDivider()
 
@@ -39,37 +39,8 @@ fun StatisticsScreen(navController: NavHostController, viewModel: StatisticsView
             fontWeight = FontWeight.Light
         )
 
-        OutlinedTextField(
-            value = "",
-            onValueChange = {},
-            label = {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = "37 days",
-                        fontSize = 20.sp,
-                        color = Color.White
-                    )
-                }
-            },
-            visualTransformation = PasswordVisualTransformation(),
-            modifier = Modifier
-                .width(240.dp)
-                .padding(bottom = 32.dp),
-            shape = RoundedCornerShape(24.dp),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = Color(0xFF1A1A1A),
-                unfocusedContainerColor = Color(0xFF1A1A1A),
-                focusedTextColor = Color.White,
-                unfocusedTextColor = Color.White,
-                focusedBorderColor = Color(0xFFFFA500),
-                unfocusedBorderColor = Color(0xFFFFA500),
-                cursorColor = Color.White
-            )
-        )
-        
+        OrangeOutlinedTextField("37 days")
+
         Spacer(modifier = Modifier.height(10.dp))
 
         MyHorizontalDivider()
@@ -82,36 +53,7 @@ fun StatisticsScreen(navController: NavHostController, viewModel: StatisticsView
             fontWeight = FontWeight.Light
         )
 
-        OutlinedTextField(
-            value = "",
-            onValueChange = {},
-            label = {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = "1112",
-                        fontSize = 20.sp,
-                        color = Color.White
-                    )
-                }
-            },
-            visualTransformation = PasswordVisualTransformation(),
-            modifier = Modifier
-                .width(240.dp)
-                .padding(bottom = 32.dp),
-            shape = RoundedCornerShape(24.dp),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = Color(0xFF1A1A1A),
-                unfocusedContainerColor = Color(0xFF1A1A1A),
-                focusedTextColor = Color.White,
-                unfocusedTextColor = Color.White,
-                focusedBorderColor = Color(0xFFFFA500),
-                unfocusedBorderColor = Color(0xFFFFA500),
-                cursorColor = Color.White
-            )
-        )
+        OrangeOutlinedTextField("1112")
 
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -125,36 +67,7 @@ fun StatisticsScreen(navController: NavHostController, viewModel: StatisticsView
             fontWeight = FontWeight.Light
         )
 
-        OutlinedTextField(
-            value = "",
-            onValueChange = {},
-            label = {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = "4",
-                        fontSize = 20.sp,
-                        color = Color.White
-                    )
-                }
-            },
-            visualTransformation = PasswordVisualTransformation(),
-            modifier = Modifier
-                .width(240.dp)
-                .padding(bottom = 32.dp),
-            shape = RoundedCornerShape(24.dp),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = Color(0xFF1A1A1A),
-                unfocusedContainerColor = Color(0xFF1A1A1A),
-                focusedTextColor = Color.White,
-                unfocusedTextColor = Color.White,
-                focusedBorderColor = Color(0xFFFFA500),
-                unfocusedBorderColor = Color(0xFFFFA500),
-                cursorColor = Color.White
-            )
-        )
+        OrangeOutlinedTextField("4")
 
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -168,37 +81,10 @@ fun StatisticsScreen(navController: NavHostController, viewModel: StatisticsView
             fontWeight = FontWeight.Light
         )
 
-        OutlinedTextField(
-            value = "",
-            onValueChange = {},
-            label = {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = "210 days!",
-                        fontSize = 20.sp,
-                        color = Color.White
-                    )
-                }
-            },
-            visualTransformation = PasswordVisualTransformation(),
-            modifier = Modifier
-                .width(240.dp)
-                .padding(bottom = 32.dp),
-            shape = RoundedCornerShape(24.dp),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = Color(0xFF1A1A1A),
-                unfocusedContainerColor = Color(0xFF1A1A1A),
-                focusedTextColor = Color.White,
-                unfocusedTextColor = Color.White,
-                focusedBorderColor = Color(0xFFFFA500),
-                unfocusedBorderColor = Color(0xFFFFA500),
-                cursorColor = Color.White
-            )
-        )
+        OrangeOutlinedTextField("210 days!")
 
         Spacer(modifier = Modifier.weight(1f))
+
+        BottomNavigationBar(navController)
     }
 }

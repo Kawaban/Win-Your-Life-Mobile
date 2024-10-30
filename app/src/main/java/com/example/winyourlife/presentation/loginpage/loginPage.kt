@@ -99,9 +99,9 @@ fun LoginScreenMainContent(viewModel: LoginViewModel, navController: NavHostCont
 
         Spacer(modifier = Modifier.weight(1f))
 
-        WhiteOutlinedTextField(email,{ email = it },"Email")
+        WhiteOutlinedTextField(email,{ email = it },"Email", true)
 
-        WhiteOutlinedTextField(password,{ password = it },"Password", PasswordVisualTransformation())
+        WhiteOutlinedTextField(password,{ password = it },"Password", true, PasswordVisualTransformation())
 
         Spacer(modifier = Modifier.height(30.dp))
 

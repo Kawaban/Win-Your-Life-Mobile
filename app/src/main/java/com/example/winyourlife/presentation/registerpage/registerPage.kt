@@ -83,13 +83,13 @@ fun RegisterMainContent(viewModel: RegisterViewModel, navController: NavHostCont
 
         Spacer(modifier = Modifier.weight(1f))
 
-        WhiteOutlinedTextField(nick,{ nick = it },"Nick")
+        WhiteOutlinedTextField(nick,{ nick = it },"Nick", true)
 
-        WhiteOutlinedTextField(email,{ email = it },"Email")
+        WhiteOutlinedTextField(email,{ email = it },"Email", true)
 
-        WhiteOutlinedTextField(password,{ password = it },"Password", PasswordVisualTransformation())
+        WhiteOutlinedTextField(password,{ password = it },"Password", true, PasswordVisualTransformation())
 
-        WhiteOutlinedTextField(repeatPassword,{ repeatPassword = it },"Repeat Password", PasswordVisualTransformation())
+        WhiteOutlinedTextField(repeatPassword,{ repeatPassword = it },"Repeat Password", true, PasswordVisualTransformation())
 
         Spacer(modifier = Modifier.height(30.dp))
 

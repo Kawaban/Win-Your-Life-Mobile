@@ -16,8 +16,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.R
+import com.example.winyourlife.presentation.navigation.NavigationScreens
+import com.example.winyourlife.presentation.util.BottomNavigationBar
 import com.example.winyourlife.presentation.util.Headline
-import com.example.winyourlife.presentation.util.MyHorizontalDivider
 import com.example.winyourlife.presentation.util.OrangeButton
 import com.example.winyourlife.presentation.util.WhiteOutlinedTextField
 
@@ -39,9 +40,7 @@ fun ProfileScreen(navController: NavHostController, viewModel: ProfileViewModel 
     ) {
         Headline("YOUR PROFILE")
 
-        Spacer(modifier = Modifier.height(40.dp))
-
-        MyHorizontalDivider()
+        Spacer(modifier = Modifier.height(60.dp))
 
         Image(
             painter = painterResource(id = R.drawable.avatar),
@@ -51,18 +50,22 @@ fun ProfileScreen(navController: NavHostController, viewModel: ProfileViewModel 
                 .padding(16.dp)
         )
 
-        WhiteOutlinedTextField(nick,{ nick = it },"Nick")
+        Spacer(modifier = Modifier.weight(1f))
 
-        WhiteOutlinedTextField(email,{ email = it },"Email")
+        WhiteOutlinedTextField(nick,{ nick = it },"Nick", false)
+
+        WhiteOutlinedTextField(email,{ email = it },"Email", false)
+
+        Spacer(modifier = Modifier.weight(1f))
 
         OrangeButton({}, "Change avatar")
 
         OrangeButton({}, "Change nick")
 
-        OrangeButton({}, "Change password")
-
-        MyHorizontalDivider()
+        OrangeButton({ navController.navigate(NavigationScreens.RESET_PASSWORD.name) }, "Change password")
 
         Spacer(modifier = Modifier.weight(1f))
+
+        BottomNavigationBar(navController)
     }
 }

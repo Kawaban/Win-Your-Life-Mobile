@@ -48,7 +48,7 @@ fun ForgotPasswordScreen(navController: NavHostController, viewModel: ForgotPass
 
         Spacer(modifier = Modifier.height(60.dp))
 
-        WhiteOutlinedTextField(email,{ email = it },"Email")
+        WhiteOutlinedTextField(email,{ email = it },"Email", true)
 
         Spacer(modifier = Modifier.height(30.dp))
 

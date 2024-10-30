@@ -15,6 +15,7 @@ fun WhiteOutlinedTextField(
     value: String,
     onValueChange: (String) -> Unit,
     label: String,
+    isEditable: Boolean,
     visualTransformation: VisualTransformation = VisualTransformation.None
 ) {
     OutlinedTextField(
@@ -29,11 +30,16 @@ fun WhiteOutlinedTextField(
         colors = OutlinedTextFieldDefaults.colors(
             focusedContainerColor = Color.White,
             unfocusedContainerColor = Color.White,
+            disabledContainerColor = Color.White,
             focusedTextColor = Color.Black,
             unfocusedTextColor = Color.Black,
             focusedBorderColor = Color.White,
             unfocusedBorderColor = Color.White,
-            cursorColor = Color.Black
-        )
+            cursorColor = Color.Black,
+            disabledBorderColor = Color.White,
+            disabledTextColor = Color.Black,
+            disabledLabelColor = Color.Black
+        ),
+        enabled = isEditable
     )
 }
