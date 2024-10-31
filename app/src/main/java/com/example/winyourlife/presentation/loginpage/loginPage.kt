@@ -27,12 +27,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.R
 import com.example.winyourlife.presentation.navigation.NavigationScreens
-import com.example.winyourlife.presentation.util.ErrorScreen
-import com.example.winyourlife.presentation.util.LoadingScreen
-import com.example.winyourlife.presentation.util.MyHorizontalDivider
-import com.example.winyourlife.presentation.util.OrangeButton
-import com.example.winyourlife.presentation.util.TransparentButton
-import com.example.winyourlife.presentation.util.WhiteOutlinedTextField
+import com.example.winyourlife.presentation.utilScreens.ErrorScreen
+import com.example.winyourlife.presentation.utilScreens.LoadingScreen
+import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
+import com.example.winyourlife.presentation.customItems.OrangeButton
+import com.example.winyourlife.presentation.customItems.TransparentButton
+import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
 
 @Composable
 fun LoginPage(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {

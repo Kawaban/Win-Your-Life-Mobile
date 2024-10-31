@@ -1,4 +1,4 @@
-package com.example.winyourlife.presentation.util
+package com.example.winyourlife.presentation.utilScreens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

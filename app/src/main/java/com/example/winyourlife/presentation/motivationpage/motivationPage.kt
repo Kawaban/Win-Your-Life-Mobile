@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.R
-import com.example.winyourlife.presentation.util.BottomNavigationBar
-import com.example.winyourlife.presentation.util.Headline
+import com.example.winyourlife.presentation.customItems.BottomNavigationBar
+import com.example.winyourlife.presentation.customItems.Headline
 
 @Composable
 fun MotivationScreen(navController: NavHostController, viewModel: MotivationViewModel = hiltViewModel()) {

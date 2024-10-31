@@ -13,10 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.presentation.navigation.NavigationScreens
-import com.example.winyourlife.presentation.util.BottomNavigationBar
-import com.example.winyourlife.presentation.util.Headline
-import com.example.winyourlife.presentation.util.MyHorizontalDivider
-import com.example.winyourlife.presentation.util.OrangeButton
+import com.example.winyourlife.presentation.customItems.BottomNavigationBar
+import com.example.winyourlife.presentation.customItems.Headline
+import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
+import com.example.winyourlife.presentation.customItems.OrangeButton
 
 @Composable
 fun SettingsScreen(navController: NavHostController, viewModel: SettingsViewModel = hiltViewModel()) {
@@ -90,7 +90,7 @@ fun SettingsScreen(navController: NavHostController, viewModel: SettingsViewMode
 
         OrangeButton({ navController.navigate(NavigationScreens.STATISTICS.name) }, "Statistics")
 
-        OrangeButton({}, "Log out")
+        OrangeButton({ navController.navigate(NavigationScreens.LOGIN.name) }, "Log out")
 
         Spacer(modifier = Modifier.height(30.dp))
 

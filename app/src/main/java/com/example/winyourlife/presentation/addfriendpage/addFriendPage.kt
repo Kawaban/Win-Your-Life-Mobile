@@ -13,11 +13,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.winyourlife.presentation.util.BottomNavigationBar
-import com.example.winyourlife.presentation.util.Headline
-import com.example.winyourlife.presentation.util.MyHorizontalDivider
-import com.example.winyourlife.presentation.util.OrangeButton
-import com.example.winyourlife.presentation.util.WhiteOutlinedTextField
+import com.example.winyourlife.presentation.customItems.BottomNavigationBar
+import com.example.winyourlife.presentation.customItems.Headline
+import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
+import com.example.winyourlife.presentation.customItems.OrangeButton
+import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
 
 @Composable
 fun AddFriendScreen(navController: NavHostController, viewModel: AddFriendViewModel = hiltViewModel()) {

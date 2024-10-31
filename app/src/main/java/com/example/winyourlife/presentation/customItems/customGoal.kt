@@ -1,4 +1,4 @@
-package com.example.winyourlife.presentation.util
+package com.example.winyourlife.presentation.customItems
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -38,8 +38,9 @@ fun CustomGoal(
                 checked = isCompleted,
                 onCheckedChange = { },
                 colors = CheckboxDefaults.colors(
-                    checkmarkColor = Color(0xFFFFA500),
-                    uncheckedColor = Color(0xFFFFA500)
+                    checkmarkColor = Color.White,
+                    uncheckedColor = Color(0xFFFFA500),
+                    checkedColor = Color(0xFFFFA500)
                 ),
                 modifier = Modifier.size(24.dp)
             )

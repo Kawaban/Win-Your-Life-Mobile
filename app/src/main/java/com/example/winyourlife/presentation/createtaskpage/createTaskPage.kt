@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.winyourlife.presentation.util.Headline
+import com.example.winyourlife.presentation.customItems.Headline
 
 @Composable
 fun CreateTaskScreen(navController: NavHostController, viewModel: CreateTaskViewModel = hiltViewModel()) {

@@ -14,13 +14,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.R
 import com.example.winyourlife.presentation.navigation.NavigationScreens
-import com.example.winyourlife.presentation.util.BottomNavigationBar
-import com.example.winyourlife.presentation.util.CustomGoal
-import com.example.winyourlife.presentation.util.CustomStreak
-import com.example.winyourlife.presentation.util.Headline
-import com.example.winyourlife.presentation.util.LoadingScreen
-import com.example.winyourlife.presentation.util.MyHorizontalDivider
-import com.example.winyourlife.presentation.util.OrangeButton
+import com.example.winyourlife.presentation.customItems.BottomNavigationBar
+import com.example.winyourlife.presentation.customItems.CustomStreak
+import com.example.winyourlife.presentation.customItems.GoalsList
+import com.example.winyourlife.presentation.customItems.Headline
+import com.example.winyourlife.presentation.utilScreens.LoadingScreen
+import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
+import com.example.winyourlife.presentation.customItems.OrangeButton
+import com.example.winyourlife.presentation.dataObjects.GoalData
 
 @Composable
 fun HomePage(navController: NavHostController, viewModel: HomePageViewModel = hiltViewModel()) {
@@ -44,6 +45,35 @@ fun HomePage(navController: NavHostController, viewModel: HomePageViewModel = hi
 
 @Composable
 fun HomeScreenMainContent(viewModel: HomePageViewModel, navController: NavHostController) {
+
+    val goals = listOf(
+        GoalData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        GoalData(
+            isCompleted = true,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        GoalData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        GoalData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        GoalData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        )
+    )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -53,23 +83,23 @@ fun HomeScreenMainContent(viewModel: HomePageViewModel, navController: NavHostCo
 
         Headline("HELLO " + (viewModel.state.obj?.data?.name) + "!")
 
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.height(20.dp))
 
-        CustomStreak(true, "26")
+        CustomStreak("26")
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        MyHorizontalDivider()
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        GoalsList(goals = goals, 280)
 
         Spacer(modifier = Modifier.weight(1f))
 
         MyHorizontalDivider()
 
-        Spacer(modifier = Modifier.weight(1f))
-
-        CustomGoal(false, "Touch grass", R.drawable.avatar)
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        MyHorizontalDivider()
-
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.height(10.dp))
 
         OrangeButton({ navController.navigate(NavigationScreens.GOALS.name) }, "Your Tasks")
 
@@ -77,7 +107,7 @@ fun HomeScreenMainContent(viewModel: HomePageViewModel, navController: NavHostCo
 
         OrangeButton({ navController.navigate(NavigationScreens.MOTIVATION.name) }, "Motivation")
 
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         BottomNavigationBar(navController)
     }

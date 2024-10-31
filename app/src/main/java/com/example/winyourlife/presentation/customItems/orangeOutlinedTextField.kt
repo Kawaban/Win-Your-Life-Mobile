@@ -1,4 +1,4 @@
-package com.example.winyourlife.presentation.util
+package com.example.winyourlife.presentation.customItems
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape

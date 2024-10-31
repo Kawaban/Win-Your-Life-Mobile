@@ -1,4 +1,4 @@
-package com.example.winyourlife.presentation.util
+package com.example.winyourlife.presentation.customItems
 
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.border
@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,7 +16,6 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun CustomStreak(
-    isCompleted: Boolean,
     period: String
 ) {
     Box(
@@ -32,25 +30,15 @@ fun CustomStreak(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth()
         ) {
-            if (isCompleted)
-            {
-                Icon(
-                    imageVector = Icons.Default.Star,
-                    contentDescription = "Star Icon",
-                    tint = Color(0xFFFFA500),
-                    modifier = Modifier.size(24.dp)
-                )
-            }
-            else {
-                Icon(
-                    imageVector = Icons.Outlined.Star,
-                    contentDescription = "Star Icon",
-                    tint = Color(0xFFFFA500),
-                    modifier = Modifier.size(24.dp)
-                )
-            }
+            Icon(
+                imageVector = Icons.Default.Star,
+                contentDescription = "Star Icon",
+                tint = Color(0xFFFFA500),
+                modifier = Modifier.size(24.dp)
+            )
 
             Text(
                 text = "STREAK: ",

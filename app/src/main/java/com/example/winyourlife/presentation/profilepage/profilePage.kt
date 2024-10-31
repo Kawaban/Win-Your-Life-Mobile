@@ -17,15 +17,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.R
 import com.example.winyourlife.presentation.navigation.NavigationScreens
-import com.example.winyourlife.presentation.util.BottomNavigationBar
-import com.example.winyourlife.presentation.util.Headline
-import com.example.winyourlife.presentation.util.OrangeButton
-import com.example.winyourlife.presentation.util.WhiteOutlinedTextField
+import com.example.winyourlife.presentation.customItems.BottomNavigationBar
+import com.example.winyourlife.presentation.customItems.Headline
+import com.example.winyourlife.presentation.customItems.OrangeButton
+import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
 
 @Composable
 fun ProfileScreen(navController: NavHostController, viewModel: ProfileViewModel = hiltViewModel()) {
 
-    var nick by remember {
+    var nickname by remember {
         mutableStateOf("")
     }
     var email by remember {
@@ -52,7 +52,7 @@ fun ProfileScreen(navController: NavHostController, viewModel: ProfileViewModel 
 
         Spacer(modifier = Modifier.weight(1f))
 
-        WhiteOutlinedTextField(nick,{ nick = it },"Nick", false)
+        WhiteOutlinedTextField(nickname,{ nickname = it },"Nickname", false)
 
         WhiteOutlinedTextField(email,{ email = it },"Email", false)
 
@@ -60,7 +60,7 @@ fun ProfileScreen(navController: NavHostController, viewModel: ProfileViewModel 
 
         OrangeButton({}, "Change avatar")
 
-        OrangeButton({}, "Change nick")
+        OrangeButton({}, "Change nickname")
 
         OrangeButton({ navController.navigate(NavigationScreens.RESET_PASSWORD.name) }, "Change password")
 

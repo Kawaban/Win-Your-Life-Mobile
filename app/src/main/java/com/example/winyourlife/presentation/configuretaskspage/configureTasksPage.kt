@@ -18,10 +18,10 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.presentation.navigation.NavigationScreens
-import com.example.winyourlife.presentation.util.BottomNavigationBar
-import com.example.winyourlife.presentation.util.Headline
-import com.example.winyourlife.presentation.util.MyHorizontalDivider
-import com.example.winyourlife.presentation.util.OrangeButton
+import com.example.winyourlife.presentation.customItems.BottomNavigationBar
+import com.example.winyourlife.presentation.customItems.Headline
+import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
+import com.example.winyourlife.presentation.customItems.OrangeButton
 
 @Composable
 fun ConfigureTasksScreen(navController: NavHostController, viewModel: ConfigureTasksViewModel = hiltViewModel()) {
@@ -50,7 +50,7 @@ fun ConfigureTasksScreen(navController: NavHostController, viewModel: ConfigureT
 
         OrangeButton({ navController.navigate(NavigationScreens.CREATE_TASK.name) }, "Create a new task")
 
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.height(40.dp))
 
         BottomNavigationBar(navController)
     }

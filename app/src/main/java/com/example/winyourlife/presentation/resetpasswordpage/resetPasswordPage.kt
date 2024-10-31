@@ -14,12 +14,12 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.presentation.navigation.NavigationScreens
-import com.example.winyourlife.presentation.util.ErrorScreen
-import com.example.winyourlife.presentation.util.Headline
-import com.example.winyourlife.presentation.util.LoadingScreen
-import com.example.winyourlife.presentation.util.MyHorizontalDivider
-import com.example.winyourlife.presentation.util.OrangeButton
-import com.example.winyourlife.presentation.util.WhiteOutlinedTextField
+import com.example.winyourlife.presentation.utilScreens.ErrorScreen
+import com.example.winyourlife.presentation.customItems.Headline
+import com.example.winyourlife.presentation.utilScreens.LoadingScreen
+import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
+import com.example.winyourlife.presentation.customItems.OrangeButton
+import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
 
 @Composable
 fun ResetPasswordScreen(navController: NavHostController, viewModel: ResetPasswordViewModel = hiltViewModel()) {

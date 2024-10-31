@@ -17,13 +17,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.presentation.navigation.NavigationScreens
-import com.example.winyourlife.presentation.util.ErrorScreen
-import com.example.winyourlife.presentation.util.Headline
-import com.example.winyourlife.presentation.util.LoadingScreen
-import com.example.winyourlife.presentation.util.MyHorizontalDivider
-import com.example.winyourlife.presentation.util.OrangeButton
-import com.example.winyourlife.presentation.util.TransparentButton
-import com.example.winyourlife.presentation.util.WhiteOutlinedTextField
+import com.example.winyourlife.presentation.utilScreens.ErrorScreen
+import com.example.winyourlife.presentation.customItems.Headline
+import com.example.winyourlife.presentation.utilScreens.LoadingScreen
+import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
+import com.example.winyourlife.presentation.customItems.OrangeButton
+import com.example.winyourlife.presentation.customItems.TransparentButton
+import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
 
 @Composable
 fun RegisterScreen(navController: NavHostController, viewModel: RegisterViewModel = hiltViewModel()) {
@@ -57,7 +57,7 @@ fun RegisterScreen(navController: NavHostController, viewModel: RegisterViewMode
 @Composable
 fun RegisterMainContent(viewModel: RegisterViewModel, navController: NavHostController) {
 
-    var nick by remember {
+    var nickname by remember {
         mutableStateOf ("")
     }
 
@@ -83,7 +83,7 @@ fun RegisterMainContent(viewModel: RegisterViewModel, navController: NavHostCont
 
         Spacer(modifier = Modifier.weight(1f))
 
-        WhiteOutlinedTextField(nick,{ nick = it },"Nick", true)
+        WhiteOutlinedTextField(nickname,{ nickname = it },"Nickname", true)
 
         WhiteOutlinedTextField(email,{ email = it },"Email", true)
 
@@ -93,7 +93,7 @@ fun RegisterMainContent(viewModel: RegisterViewModel, navController: NavHostCont
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        OrangeButton({viewModel.register(email, nick, password, repeatPassword)}, "Register")
+        OrangeButton({viewModel.register(email, nickname, password, repeatPassword)}, "Register")
 
         Spacer(modifier = Modifier.weight(1f))
 

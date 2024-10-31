@@ -1,4 +1,4 @@
-package com.example.winyourlife.presentation.util
+package com.example.winyourlife.presentation.customItems
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
