@@ -1,4 +1,4 @@
-package com.example.winyourlife.presentation.customItems
+package com.example.winyourlife.presentation.notifications
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background

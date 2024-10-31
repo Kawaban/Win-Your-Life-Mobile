@@ -33,11 +33,11 @@ fun SettingsScreen(navController: NavHostController, viewModel: SettingsViewMode
         MyHorizontalDivider()
 
         Text(
-            text = "Notifications",
-            fontSize = 20.sp,
+            text = "NOTIFICATIONS OPTIONS",
+            fontSize = 16.sp,
             color = Color.White,
             modifier = Modifier.padding(bottom = 60.dp),
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Bold
         )
 
         Row(

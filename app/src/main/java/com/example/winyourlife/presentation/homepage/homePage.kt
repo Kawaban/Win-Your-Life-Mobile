@@ -93,7 +93,7 @@ fun HomeScreenMainContent(viewModel: HomePageViewModel, navController: NavHostCo
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        GoalsList(goals = goals, 280)
+        GoalsList(goals = goals, 250)
 
         Spacer(modifier = Modifier.weight(1f))
 

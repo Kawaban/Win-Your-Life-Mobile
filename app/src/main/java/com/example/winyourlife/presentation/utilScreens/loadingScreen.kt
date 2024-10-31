@@ -12,7 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun LoadingScreen() {
@@ -25,6 +27,11 @@ fun LoadingScreen() {
     ) {
         CircularProgressIndicator(color = Color(0xFFFFA500))
         Spacer(modifier = Modifier.padding(16.dp))
-        Text("Loading...")
+        Text(
+            text = "Loading ...",
+            fontSize = 18.sp,
+            color = Color.White,
+            fontWeight = FontWeight.Light
+        )
     }
 }

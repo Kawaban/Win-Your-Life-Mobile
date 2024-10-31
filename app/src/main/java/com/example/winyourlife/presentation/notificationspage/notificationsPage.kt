@@ -112,7 +112,7 @@ fun NotificationList(notifications: List<NotificationData>) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
-            .heightIn(max = 550.dp),
+            .heightIn(max = 570.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(notifications) { notification ->

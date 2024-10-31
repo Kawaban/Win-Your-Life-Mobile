@@ -21,11 +21,14 @@ import com.example.winyourlife.presentation.resetpasswordpage.ResetPasswordScree
 import com.example.winyourlife.presentation.settingspage.SettingsScreen
 import com.example.winyourlife.presentation.statisticspage.StatisticsScreen
 
+//TODO goals, prepare the next day, create new task, change avatar
+//TODO motivation, task completion effects, notification classes, light theme, horizontal view
+
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    startDestination: String = NavigationScreens.HOME.name,
+    startDestination: String = NavigationScreens.GOALS.name,
 ) {
     NavHost(
         modifier = modifier,
