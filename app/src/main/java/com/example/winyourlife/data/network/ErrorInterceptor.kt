@@ -21,6 +21,16 @@ class ErrorInterceptor : Interceptor {
             throw BadCredentialsException(errorResponse?.error ?: "Unknown error")
         }
 
+        if (response.code() == 404) {
+            val errorBody = response.body()?.string()
+            val gson = Gson()
+            val errorResponse = errorBody?.let {
+                gson.fromJson(it, ErrorResponse::class.java)
+            }
+
+            throw BadCredentialsException(errorResponse?.error ?: "Unknown error")
+        }
+
         if(response.code() == 500){
             throw IOException("Internal Server Error");
         }

@@ -4,17 +4,22 @@ import com.example.winyourlife.data.dto.LoginRequest
 import com.example.winyourlife.data.dto.LoginResponse
 import com.example.winyourlife.data.dto.RegisterRequest
 import com.example.winyourlife.data.dto.UserResponse
+import com.example.winyourlife.data.dto.UserUpdateDataRequest
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 
 interface ApiService {
-    @POST("login/")
+    @POST("api/auth/login")
     suspend fun login(@Body loginRequest: LoginRequest): LoginResponse
 
-    @POST("register/")
+    @POST("api/auth/register")
     suspend fun register(@Body registerRequest: RegisterRequest): Any
 
-    @GET("user/")
+    @GET("api/users")
     suspend fun getUser(): UserResponse
+
+    @PATCH("api/users/data")
+    suspend fun updateUserData(@Body userUpdateDataRequest: UserUpdateDataRequest): Any
 }
