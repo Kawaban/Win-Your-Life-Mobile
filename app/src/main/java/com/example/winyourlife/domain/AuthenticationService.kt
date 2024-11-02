@@ -34,7 +34,7 @@ class AuthenticationService @Inject constructor(private val apiService: ApiServi
     suspend fun login(loginRequest: LoginRequest): Resource<Nothing> {
         return performNetworkOperation {
             val result = apiService.login(loginRequest)
-            jwtManager.setJwt(result.access)
+            jwtManager.setJwt(result.token)
         }
     }
 

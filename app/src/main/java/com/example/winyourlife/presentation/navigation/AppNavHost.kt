@@ -28,7 +28,7 @@ import com.example.winyourlife.presentation.statisticspage.StatisticsScreen
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    startDestination: String = NavigationScreens.HOME.name,
+    startDestination: String = NavigationScreens.LOGIN.name,
 ) {
     NavHost(
         modifier = modifier,
