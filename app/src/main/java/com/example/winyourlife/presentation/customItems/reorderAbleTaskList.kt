@@ -9,7 +9,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import com.example.winyourlife.presentation.dataObjects.TaskData
@@ -34,7 +33,7 @@ fun ReorderAbleTaskList(initialGoals: List<TaskData>, height: Int) {
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.White)
+                    .background(MaterialTheme.colorScheme.background)
                     .padding(8.dp)
                     .pointerInput(Unit) {
                         detectDragGestures(
@@ -56,14 +55,14 @@ fun ReorderAbleTaskList(initialGoals: List<TaskData>, height: Int) {
                 Box(
                     modifier = Modifier
                         .size(24.dp)
-                        .background(Color.Gray)
+                        .background(MaterialTheme.colorScheme.background)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
 
                 Text(
                     text = task.label,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.padding(start = 8.dp)
                 )
             }

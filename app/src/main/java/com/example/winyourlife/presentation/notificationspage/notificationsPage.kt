@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
@@ -37,14 +36,14 @@ fun NotificationCard(
 ) {
     Card(
         shape = RoundedCornerShape(8.dp),
-        border = BorderStroke(1.dp, Color(0xFFFFA500)),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
     ) {
         Column(
             modifier = Modifier
-                .background(Color(0xFF1C1C1E))
+                .background(MaterialTheme.colorScheme.background)
                 .padding(16.dp)
         ) {
             Row(
@@ -54,14 +53,14 @@ fun NotificationCard(
                 Text(
                     text = time,
                     fontSize = 12.sp,
-                    color = Color.Gray,
+                    color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.weight(1f)
                 )
                 IconButton(onClick = onClose) {
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = "Close notification",
-                        tint = Color(0xFFFFA500)
+                        tint = MaterialTheme.colorScheme.primary
                     )
                 }
             }
@@ -71,7 +70,7 @@ fun NotificationCard(
             Text(
                 text = message,
                 style = MaterialTheme.typography.bodyMedium,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -85,20 +84,20 @@ fun NotificationCard(
                     Button(
                         onClick = { onAccept?.invoke() },
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = Color(0xFFFFA500)
+                            containerColor = MaterialTheme.colorScheme.primary
                         ),
-                        modifier = Modifier.width(100.dp)
+                        modifier = Modifier.width(110.dp)
                     ) {
-                        Text("Accept", color = Color.White, fontWeight = FontWeight.Bold)
+                        Text("Accept", color = MaterialTheme.colorScheme.onPrimary, style = MaterialTheme.typography.bodyLarge)
                     }
                     Spacer(modifier = Modifier.width(8.dp))
                     Button(
                         onClick = { onReject?.invoke() },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1A1A1A)),
-                        border = BorderStroke(1.dp, Color(0xFFFFA500)),
-                        modifier = Modifier.width(100.dp)
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.background),
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
+                        modifier = Modifier.width(110.dp)
                     ) {
-                        Text("Reject", color = Color.White)
+                        Text("Reject", color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Normal)
                     }
                 }
             }
@@ -169,7 +168,7 @@ fun NotificationsScreen(navController: NavHostController, viewModel: Notificatio
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF1A1A1A)),
+            .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Headline("NOTIFICATIONS")

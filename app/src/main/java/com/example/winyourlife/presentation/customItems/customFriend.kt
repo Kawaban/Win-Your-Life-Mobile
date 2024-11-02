@@ -11,10 +11,8 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun CustomFriend(
@@ -27,7 +25,7 @@ fun CustomFriend(
         modifier = Modifier
             .border(
                 width = 1.dp,
-                color = Color(0xFFFFA500),
+                color = MaterialTheme.colorScheme.primary,
                 shape = RoundedCornerShape(8.dp)
             )
             .width(280.dp)
@@ -49,7 +47,7 @@ fun CustomFriend(
             Text(
                 text = nickname,
                 style = MaterialTheme.typography.bodyMedium,
-                color = Color.White
+                color = MaterialTheme.colorScheme.onBackground
             )
 
             Row(
@@ -58,21 +56,21 @@ fun CustomFriend(
                 Text(
                     text = period,
                     style = MaterialTheme.typography.bodyLarge,
-                    color = Color(0xFFFFA500)
+                    color = MaterialTheme.colorScheme.primary
                 )
 
                 if (isBetter) {
                     Icon(
                         imageVector = Icons.Default.Star,
                         contentDescription = "Star Icon",
-                        tint = Color(0xFFD32F2F),
+                        tint = MaterialTheme.colorScheme.error,
                         modifier = Modifier.size(24.dp)
                     )
                 } else {
                     Icon(
                         imageVector = Icons.Default.Star,
                         contentDescription = "Star Icon",
-                        tint = Color(0xFFFFA500),
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(24.dp)
                     )
                 }

@@ -81,6 +81,4 @@ dependencies {
     implementation(libs.androix.navigation.compose)
 
     implementation(libs.hilt.navigation.compose)
-
-
 }

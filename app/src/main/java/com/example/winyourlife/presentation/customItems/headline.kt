@@ -8,7 +8,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -17,13 +16,13 @@ fun Headline(text: String) {
         modifier = Modifier
             .fillMaxWidth()
             .height(90.dp)
-            .background(Color(0xFFFFA500), shape = RoundedCornerShape(16.dp)),
+            .background(color = MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(16.dp)),
         contentAlignment = Alignment.BottomCenter
     ) {
         Text(
             text = text,
             style = MaterialTheme.typography.headlineLarge,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onPrimary,
             modifier = Modifier.padding(bottom = 13.dp)
         )
     }

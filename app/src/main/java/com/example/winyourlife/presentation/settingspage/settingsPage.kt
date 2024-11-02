@@ -1,15 +1,15 @@
 package com.example.winyourlife.presentation.settingspage
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.presentation.navigation.NavigationScreens
@@ -17,102 +17,125 @@ import com.example.winyourlife.presentation.customItems.BottomNavigationBar
 import com.example.winyourlife.presentation.customItems.Headline
 import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
+import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun SettingsScreen(navController: NavHostController, viewModel: SettingsViewModel = hiltViewModel()) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFF1A1A1A)),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Headline("SETTINGS")
 
-        Spacer(modifier = Modifier.height(40.dp))
+    val initialDarkTheme = isSystemInDarkTheme()
 
-        MyHorizontalDivider()
+    val isDarkTheme = remember {
+        mutableStateOf(initialDarkTheme)
+    }
 
-        Text(
-            text = "NOTIFICATIONS OPTIONS",
-            style = MaterialTheme.typography.bodyLarge,
-            color = Color.White,
-            modifier = Modifier.padding(bottom = 20.dp)
-        )
+    WinYourLifeTheme(darkTheme = isDarkTheme.value) {
 
-        Row(
+        Column(
             modifier = Modifier
-                .width(280.dp)
-                .padding(vertical = 16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Friend's notifications", style = MaterialTheme.typography.bodyLarge, color = Color.White)
-            Switch(
-                checked = true,
-                onCheckedChange = {},
-                colors = SwitchDefaults.colors(
-                    checkedThumbColor = Color.White,
-                    checkedTrackColor = Color(0xFFFFA500),
-                    uncheckedThumbColor = Color.White,
-                    uncheckedTrackColor = Color.Gray
-                )
+            Headline("SETTINGS")
+
+            Spacer(modifier = Modifier.height(40.dp))
+
+            MyHorizontalDivider()
+
+            Text(
+                text = "NOTIFICATIONS OPTIONS",
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.padding(bottom = 20.dp)
             )
-        }
 
-        Row(
-            modifier = Modifier
-                .width(280.dp)
-                .padding(vertical = 16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(text = "Daily reminders", style = MaterialTheme.typography.bodyLarge, color = Color.White)
-            Switch(
-                checked = false,
-                onCheckedChange = {},
-                colors = SwitchDefaults.colors(
-                    checkedThumbColor = Color.White,
-                    checkedTrackColor = Color(0xFFFFA500),
-                    uncheckedThumbColor = Color.White,
-                    uncheckedTrackColor = Color.Gray
+            Row(
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(vertical = 16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Friend's notifications",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onBackground
                 )
-            )
-        }
-
-        MyHorizontalDivider()
-
-        Row(
-            modifier = Modifier
-                .width(280.dp)
-                .padding(vertical = 16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(text = "Dark theme", style = MaterialTheme.typography.bodyLarge, color = Color.White)
-            Switch(
-                checked = true,
-                onCheckedChange = {},
-                colors = SwitchDefaults.colors(
-                    checkedThumbColor = Color.White,
-                    checkedTrackColor = Color(0xFFFFA500),
-                    uncheckedThumbColor = Color.White,
-                    uncheckedTrackColor = Color.Gray
+                Switch(
+                    checked = true,
+                    onCheckedChange = {},
+                    colors = SwitchDefaults.colors(
+                        checkedThumbColor = MaterialTheme.colorScheme.onBackground,
+                        checkedTrackColor = MaterialTheme.colorScheme.primary,
+                        uncheckedThumbColor = MaterialTheme.colorScheme.onBackground,
+                        uncheckedTrackColor = MaterialTheme.colorScheme.secondary
+                    )
                 )
-            )
+            }
+
+            Row(
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(vertical = 16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Daily reminders",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+                Switch(
+                    checked = false,
+                    onCheckedChange = {},
+                    colors = SwitchDefaults.colors(
+                        checkedThumbColor = MaterialTheme.colorScheme.onBackground,
+                        checkedTrackColor = MaterialTheme.colorScheme.primary,
+                        uncheckedThumbColor = MaterialTheme.colorScheme.onBackground,
+                        uncheckedTrackColor = MaterialTheme.colorScheme.secondary
+                    )
+                )
+            }
+
+            MyHorizontalDivider()
+
+            Row(
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(vertical = 16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Dark theme",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+                Switch(
+                    checked = isDarkTheme.value,
+                    onCheckedChange = { isDarkTheme.value = it },
+                    colors = SwitchDefaults.colors(
+                        checkedThumbColor = MaterialTheme.colorScheme.onBackground,
+                        checkedTrackColor = MaterialTheme.colorScheme.primary,
+                        uncheckedThumbColor = MaterialTheme.colorScheme.onBackground,
+                        uncheckedTrackColor = MaterialTheme.colorScheme.secondary
+                    )
+                )
+            }
+
+            MyHorizontalDivider()
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            OrangeButton({ navController.navigate(NavigationScreens.PROFILE.name) }, "Your profile")
+
+            OrangeButton({ navController.navigate(NavigationScreens.STATISTICS.name) }, "Statistics")
+
+            OrangeButton({ navController.navigate(NavigationScreens.LOGIN.name) }, "Log out")
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            BottomNavigationBar(navController)
         }
-
-        MyHorizontalDivider()
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        OrangeButton({ navController.navigate(NavigationScreens.PROFILE.name) },"Your profile")
-
-        OrangeButton({ navController.navigate(NavigationScreens.STATISTICS.name) }, "Statistics")
-
-        OrangeButton({ navController.navigate(NavigationScreens.LOGIN.name) }, "Log out")
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        BottomNavigationBar(navController)
     }
 }

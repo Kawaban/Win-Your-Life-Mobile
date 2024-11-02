@@ -15,8 +15,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -61,7 +59,7 @@ fun PrepareNextDayScreen(navController: NavHostController, viewModel: PrepareNex
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF1A1A1A)),
+            .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Headline("PREPARE THE NEXT DAY")
@@ -73,7 +71,7 @@ fun PrepareNextDayScreen(navController: NavHostController, viewModel: PrepareNex
         Text(
             text = "To win the day you need to complete 75% of your tasks",
             style = MaterialTheme.typography.bodyMedium,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(horizontal = 60.dp),
             textAlign = TextAlign.Center
         )
@@ -87,10 +85,10 @@ fun PrepareNextDayScreen(navController: NavHostController, viewModel: PrepareNex
             modifier = Modifier
                 .padding(bottom = 16.dp)
                 .size(60.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.onBackground),
             shape = RoundedCornerShape(12.dp)
         ) {
-            Text(text = "+", color = Color.Black, fontSize = 20.sp, fontWeight = Bold)
+            Text(text = "+", color = MaterialTheme.colorScheme.background, fontSize = 20.sp, fontWeight = Bold)
         }
 
         Spacer(modifier = Modifier.weight(1f))

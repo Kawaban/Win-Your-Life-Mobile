@@ -6,11 +6,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
@@ -29,7 +26,7 @@ fun AddFriendScreen(navController: NavHostController, viewModel: AddFriendViewMo
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF1A1A1A)),
+            .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Headline("ADD NEW FRIEND")
@@ -41,7 +38,7 @@ fun AddFriendScreen(navController: NavHostController, viewModel: AddFriendViewMo
         Text(
             text = "Enter the email address of the person you want to invite to your friends",
             style = MaterialTheme.typography.bodyMedium,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(horizontal = 60.dp),
             textAlign = TextAlign.Center
         )
