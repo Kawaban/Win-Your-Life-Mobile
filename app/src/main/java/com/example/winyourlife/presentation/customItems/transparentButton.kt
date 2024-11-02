@@ -10,9 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun TransparentButton(
@@ -34,7 +32,7 @@ fun TransparentButton(
         Text(
             text = text,
             style = MaterialTheme.typography.bodySmall,
-            color = Color.White
+            color = MaterialTheme.colorScheme.onBackground
         )
     }
 }

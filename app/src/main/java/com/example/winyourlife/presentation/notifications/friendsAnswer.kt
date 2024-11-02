@@ -14,11 +14,11 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,14 +31,14 @@ fun FriendsAnswer(
 ) {
     Card(
         shape = RoundedCornerShape(8.dp),
-        border = BorderStroke(1.dp, Color(0xFFFFA500)),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
     ) {
         Column(
             modifier = Modifier
-                .background(Color(0xFF1C1C1E))
+                .background(MaterialTheme.colorScheme.background)
                 .padding(16.dp)
         ) {
             Row(
@@ -48,14 +48,14 @@ fun FriendsAnswer(
                 Text(
                     text = time,
                     fontSize = 12.sp,
-                    color = Color.Gray,
+                    color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.weight(1f)
                 )
                 IconButton(onClick = {}) {
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = "Close notification",
-                        tint = Color(0xFFFFA500)
+                        tint = MaterialTheme.colorScheme.primary
                     )
                 }
             }
@@ -65,8 +65,8 @@ fun FriendsAnswer(
             if (isPositive) {
                 Text(
                     text = "$nickname accepted your friend request!",
-                    fontSize = 18.sp,
-                    color = Color.White,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -74,8 +74,8 @@ fun FriendsAnswer(
             else {
                 Text(
                     text = "$nickname rejected your friend request!",
-                    fontSize = 18.sp,
-                    color = Color.White,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
                 )

@@ -6,11 +6,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.presentation.navigation.NavigationScreens
@@ -61,7 +58,7 @@ fun ResetPasswordMainContent(navController: NavHostController, viewModel: ResetP
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF1A1A1A)),
+            .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Headline("RESET PASSWORD")
@@ -73,7 +70,7 @@ fun ResetPasswordMainContent(navController: NavHostController, viewModel: ResetP
         Text(
             text = "Enter new password",
             style = MaterialTheme.typography.bodyMedium,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(bottom = 60.dp)
         )
 

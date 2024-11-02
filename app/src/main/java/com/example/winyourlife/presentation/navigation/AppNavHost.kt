@@ -22,7 +22,7 @@ import com.example.winyourlife.presentation.settingspage.SettingsScreen
 import com.example.winyourlife.presentation.statisticspage.StatisticsScreen
 
 //TODO prepare the next day, create new task, motivation, snack bars
-//TODO task completion effects, notification classes, light theme, landscape view
+//TODO task completion effects, notification classes, landscape view, polish language
 
 @Composable
 fun AppNavHost(

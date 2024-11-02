@@ -9,10 +9,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun CustomGoal(
@@ -24,7 +22,7 @@ fun CustomGoal(
         modifier = Modifier
             .border(
                 width = 1.dp,
-                color = Color(0xFFFFA500),
+                color = MaterialTheme.colorScheme.primary,
                 shape = RoundedCornerShape(8.dp)
             )
             .padding(8.dp)
@@ -38,9 +36,9 @@ fun CustomGoal(
                 checked = isCompleted,
                 onCheckedChange = { },
                 colors = CheckboxDefaults.colors(
-                    checkmarkColor = Color.White,
-                    uncheckedColor = Color(0xFFFFA500),
-                    checkedColor = Color(0xFFFFA500)
+                    checkmarkColor = MaterialTheme.colorScheme.onBackground,
+                    uncheckedColor = MaterialTheme.colorScheme.primary,
+                    checkedColor = MaterialTheme.colorScheme.primary
                 ),
                 modifier = Modifier.size(24.dp)
             )
@@ -48,7 +46,7 @@ fun CustomGoal(
             Text(
                 text = label,
                 style = MaterialTheme.typography.bodyMedium,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.padding(start = 8.dp)
             )
 
