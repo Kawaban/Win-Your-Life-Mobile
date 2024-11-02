@@ -47,8 +47,6 @@ class RegisterViewModel @Inject constructor(val authenticationService: Authentic
                     )
                 }
             }
-
-
         }
     }
 

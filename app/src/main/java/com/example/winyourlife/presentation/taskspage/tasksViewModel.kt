@@ -1,10 +1,10 @@
-package com.example.winyourlife.presentation.configuretaskspage
+package com.example.winyourlife.presentation.taskspage
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ConfigureTasksViewModel @Inject constructor() : ViewModel() {
+class TasksViewModel @Inject constructor() : ViewModel() {
 
 }

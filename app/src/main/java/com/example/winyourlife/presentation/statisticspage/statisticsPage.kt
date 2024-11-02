@@ -33,7 +33,7 @@ fun StatisticsScreen(navController: NavHostController, viewModel: StatisticsView
 
         Text(
             text = "Longest streak",
-            fontSize = 20.sp,
+            style = MaterialTheme.typography.bodyLarge,
             color = Color.White,
             modifier = Modifier.padding(bottom = 16.dp),
             fontWeight = FontWeight.Light
@@ -47,7 +47,7 @@ fun StatisticsScreen(navController: NavHostController, viewModel: StatisticsView
 
         Text(
             text = "Number of tasks completed",
-            fontSize = 20.sp,
+            style = MaterialTheme.typography.bodyLarge,
             color = Color.White,
             modifier = Modifier.padding(bottom = 16.dp),
             fontWeight = FontWeight.Light
@@ -60,14 +60,14 @@ fun StatisticsScreen(navController: NavHostController, viewModel: StatisticsView
         MyHorizontalDivider()
 
         Text(
-            text = "Number of friends",
-            fontSize = 20.sp,
+            text = "Number of days won",
+            style = MaterialTheme.typography.bodyLarge,
             color = Color.White,
             modifier = Modifier.padding(bottom = 16.dp),
             fontWeight = FontWeight.Light
         )
 
-        OrangeOutlinedTextField("4")
+        OrangeOutlinedTextField("64")
 
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -75,7 +75,7 @@ fun StatisticsScreen(navController: NavHostController, viewModel: StatisticsView
 
         Text(
             text = "You've been with us for ...",
-            fontSize = 20.sp,
+            style = MaterialTheme.typography.bodyLarge,
             color = Color.White,
             modifier = Modifier.padding(bottom = 16.dp),
             fontWeight = FontWeight.Light

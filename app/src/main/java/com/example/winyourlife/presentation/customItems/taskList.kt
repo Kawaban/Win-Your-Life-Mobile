@@ -9,22 +9,22 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.winyourlife.presentation.dataObjects.GoalData
+import com.example.winyourlife.presentation.dataObjects.TaskData
 
 @Composable
-fun GoalsList(goals: List<GoalData>, height: Int) {
+fun TaskList(tasks: List<TaskData>, height: Int) {
     LazyColumn(
         modifier = Modifier
-            .width(280.dp)
+            .width(316.dp)
             .padding(16.dp)
             .heightIn(max = height.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        items(goals) { goal ->
+        items(tasks) { task ->
             CustomGoal(
-                isCompleted = goal.isCompleted,
-                label = goal.label,
-                image = goal.image
+                isCompleted = task.isCompleted,
+                label = task.label,
+                image = task.image
             )
         }
     }

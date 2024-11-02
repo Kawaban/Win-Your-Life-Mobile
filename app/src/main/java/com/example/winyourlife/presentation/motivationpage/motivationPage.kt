@@ -3,6 +3,7 @@ package com.example.winyourlife.presentation.motivationpage
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,23 +32,22 @@ fun MotivationScreen(navController: NavHostController, viewModel: MotivationView
     ) {
         Headline("MOTIVATION")
 
+        Spacer(modifier = Modifier.weight(1f))
+
         Box(
             modifier = Modifier
-                .fillMaxSize(0.9f)
+                .fillMaxSize(0.85f)
         ) {
             Text(
-                text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-                fontSize = 18.sp,
+                text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                style = MaterialTheme.typography.bodyMedium,
                 color = Color.White,
                 lineHeight = 24.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .padding(30.dp)
                     .fillMaxWidth(0.7f)
-                    .align(Alignment.TopEnd),
-                style = TextStyle(
-                    fontWeight = FontWeight.Normal
-                )
+                    .align(Alignment.TopEnd)
             )
 
             Image(
@@ -56,7 +56,7 @@ fun MotivationScreen(navController: NavHostController, viewModel: MotivationView
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .fillMaxWidth(0.6f)
-                    .aspectRatio(0.65f)
+                    .aspectRatio(0.6f)
                     .align(Alignment.BottomStart)
             )
         }

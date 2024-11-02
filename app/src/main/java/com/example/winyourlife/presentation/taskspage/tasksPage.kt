@@ -1,15 +1,25 @@
-package com.example.winyourlife.presentation.homepage
+package com.example.winyourlife.presentation.taskspage
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.R
@@ -23,29 +33,11 @@ import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.dataObjects.TaskData
 
 @Composable
-fun HomePage(navController: NavHostController, viewModel: HomeViewModel = hiltViewModel()) {
+fun TasksScreen(navController: NavHostController, viewModel: TasksViewModel = hiltViewModel()) {
 
-    HomeScreenMainContent(viewModel, navController)
-
-//    when (!viewModel.state.isLoading && !viewModel.state.isReady) {
-//        true -> {
-//            viewModel.getUserName()
-//        }
-//        false -> {
-//            when(viewModel.state.isLoading) {
-//                true -> {
-//                    LoadingScreen()
-//                }
-//                false -> {
-//                    HomeScreenMainContent(viewModel, navController)
-//                }
-//            }
-//        }
-//    }
-}
-
-@Composable
-fun HomeScreenMainContent(viewModel: HomeViewModel, navController: NavHostController) {
+    var streak by remember {
+        mutableStateOf("")
+    }
 
     val tasks = listOf(
         TaskData(
@@ -72,6 +64,16 @@ fun HomeScreenMainContent(viewModel: HomeViewModel, navController: NavHostContro
             isCompleted = false,
             label = "Touch grass",
             image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
         )
     )
 
@@ -81,32 +83,35 @@ fun HomeScreenMainContent(viewModel: HomeViewModel, navController: NavHostContro
             .background(Color(0xFF1A1A1A)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        Headline("HELLO " + (viewModel.state.obj?.data?.name) + "!")
+        Headline("TODAY'S GOALS")
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        CustomStreak("26")
+        CustomStreak("12")
 
         Spacer(modifier = Modifier.height(10.dp))
 
         MyHorizontalDivider()
 
-        TaskList(tasks = tasks, 250)
+        Text(
+            text = "To win the day you need to complete x more tasks",
+            style = MaterialTheme.typography.bodyMedium,
+            color = Color.White,
+            modifier = Modifier.padding(horizontal = 60.dp),
+            textAlign = TextAlign.Center
+        )
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        TaskList(tasks = tasks, 320)
 
         Spacer(modifier = Modifier.weight(1f))
 
         MyHorizontalDivider()
 
-        Spacer(modifier = Modifier.height(10.dp))
+        OrangeButton({ navController.navigate(NavigationScreens.PREPARE_NEXT_DAY.name) }, "Prepare the Next Day")
 
-        OrangeButton({ navController.navigate(NavigationScreens.GOALS.name) }, "Your Tasks")
-
-        OrangeButton({ navController.navigate(NavigationScreens.FRIENDS.name) }, "Your Friends")
-
-        OrangeButton({ navController.navigate(NavigationScreens.MOTIVATION.name) }, "Motivation")
-
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         BottomNavigationBar(navController)
     }

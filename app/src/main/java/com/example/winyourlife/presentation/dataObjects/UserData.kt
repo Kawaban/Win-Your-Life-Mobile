@@ -7,7 +7,7 @@ data class UserData(
     val streak: Int,
     val longestStreak: Int,
     val completedTasks: Int,
-    val numberOfFriends: Int,
+    val numberOfDaysWon: Int,
     val accountSince: Int,
     val isFriendNotificationActive: Boolean,
     val isDailyReminderActive: Boolean

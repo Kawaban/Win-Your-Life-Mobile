@@ -26,8 +26,8 @@ fun OrangeOutlinedTextField(
             ) {
                 Text(
                     text = label,
-                    fontSize = 20.sp,
-                    color = Color.White
+                    style = MaterialTheme.typography.labelLarge,
+                    color = Color(0xFFFFA500)
                 )
             }
         },

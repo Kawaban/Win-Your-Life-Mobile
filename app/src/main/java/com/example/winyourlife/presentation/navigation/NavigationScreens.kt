@@ -5,7 +5,7 @@ enum class NavigationScreens {
     HOME,
     REGISTER,
     ADD_FRIEND,
-    CONFIGURE_TASKS,
+    PREPARE_NEXT_DAY,
     CREATE_TASK,
     FORGOT_PASSWORD,
     FRIENDS,

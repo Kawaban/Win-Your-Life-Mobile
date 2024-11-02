@@ -70,7 +70,7 @@ fun NotificationCard(
 
             Text(
                 text = message,
-                fontSize = 18.sp,
+                style = MaterialTheme.typography.bodyMedium,
                 color = Color.White,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
@@ -110,7 +110,7 @@ fun NotificationCard(
 fun NotificationList(notifications: List<NotificationData>) {
     LazyColumn(
         modifier = Modifier
-            .fillMaxWidth()
+            .width(316.dp)
             .padding(16.dp)
             .heightIn(max = 570.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -134,7 +134,7 @@ fun NotificationsScreen(navController: NavHostController, viewModel: Notificatio
     val notifications = listOf(
         NotificationData(
             time = "9:41 AM",
-            message = "Kasia invites you to be friends!",
+            message = "Greg invites you to be friends!",
             hasActions = true,
             onClose = { },
             onAccept = { },
@@ -143,12 +143,6 @@ fun NotificationsScreen(navController: NavHostController, viewModel: Notificatio
         NotificationData(
             time = "9:41 AM",
             message = "Don't forget to plan your tasks for tomorrow!",
-            hasActions = false,
-            onClose = { }
-        ),
-        NotificationData(
-            time = "9:41 AM",
-            message = "Marcin accepted your friend request;ns;gbassodgb[asodbgi[sdbg[oasbdg[oasbdg[osbdgbaskldgb[aodgb;kjasdb g[as!",
             hasActions = false,
             onClose = { }
         ),

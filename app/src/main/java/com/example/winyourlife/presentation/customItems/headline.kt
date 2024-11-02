@@ -9,9 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun Headline(text: String) {
@@ -24,10 +22,9 @@ fun Headline(text: String) {
     ) {
         Text(
             text = text,
-            fontSize = 24.sp,
+            style = MaterialTheme.typography.headlineLarge,
             color = Color.White,
-            modifier = Modifier.padding(bottom = 13.dp),
-            fontWeight = FontWeight.Medium
+            modifier = Modifier.padding(bottom = 13.dp)
         )
     }
 }

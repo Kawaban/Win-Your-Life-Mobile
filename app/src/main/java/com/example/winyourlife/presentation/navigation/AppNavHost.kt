@@ -6,11 +6,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.winyourlife.presentation.addfriendpage.AddFriendScreen
-import com.example.winyourlife.presentation.configuretaskspage.ConfigureTasksScreen
+import com.example.winyourlife.presentation.preparenextdaypage.PrepareNextDayScreen
 import com.example.winyourlife.presentation.createtaskpage.CreateTaskScreen
 import com.example.winyourlife.presentation.forgotpasswordpage.ForgotPasswordScreen
 import com.example.winyourlife.presentation.friendspage.FriendsScreen
-import com.example.winyourlife.presentation.goalspage.GoalsScreen
+import com.example.winyourlife.presentation.taskspage.TasksScreen
 import com.example.winyourlife.presentation.homepage.HomePage
 import com.example.winyourlife.presentation.loginpage.LoginPage
 import com.example.winyourlife.presentation.motivationpage.MotivationScreen
@@ -21,14 +21,14 @@ import com.example.winyourlife.presentation.resetpasswordpage.ResetPasswordScree
 import com.example.winyourlife.presentation.settingspage.SettingsScreen
 import com.example.winyourlife.presentation.statisticspage.StatisticsScreen
 
-//TODO goals, prepare the next day, create new task, change avatar
-//TODO motivation, task completion effects, notification classes, light theme, horizontal view
+//TODO prepare the next day, create new task, motivation, snack bars
+//TODO task completion effects, notification classes, light theme, landscape view
 
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    startDestination: String = NavigationScreens.GOALS.name,
+    startDestination: String = NavigationScreens.HOME.name,
 ) {
     NavHost(
         modifier = modifier,
@@ -47,8 +47,8 @@ fun AppNavHost(
         composable(NavigationScreens.ADD_FRIEND.name) {
             AddFriendScreen(navController)
         }
-        composable(NavigationScreens.CONFIGURE_TASKS.name) {
-            ConfigureTasksScreen(navController)
+        composable(NavigationScreens.PREPARE_NEXT_DAY.name) {
+            PrepareNextDayScreen(navController)
         }
         composable(NavigationScreens.CREATE_TASK.name) {
             CreateTaskScreen(navController)
@@ -60,7 +60,7 @@ fun AppNavHost(
             FriendsScreen(navController)
         }
         composable(NavigationScreens.GOALS.name) {
-            GoalsScreen(navController)
+            TasksScreen(navController)
         }
         composable(NavigationScreens.MOTIVATION.name) {
             MotivationScreen(navController)

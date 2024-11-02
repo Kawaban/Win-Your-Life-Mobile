@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 
 @Composable
@@ -27,6 +28,6 @@ fun OrangeButton(
         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFA500)),
         shape = RoundedCornerShape(24.dp)
     ) {
-        Text(text = text, color = Color.White, fontSize = 20.sp)
+        Text(text = text, color = Color.White, style = MaterialTheme.typography.labelLarge)
     }
 }

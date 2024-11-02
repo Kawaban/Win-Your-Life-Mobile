@@ -72,10 +72,9 @@ fun ResetPasswordMainContent(navController: NavHostController, viewModel: ResetP
 
         Text(
             text = "Enter new password",
-            fontSize = 16.sp,
+            style = MaterialTheme.typography.bodyMedium,
             color = Color.White,
-            modifier = Modifier.padding(bottom = 60.dp),
-            fontWeight = FontWeight.Medium
+            modifier = Modifier.padding(bottom = 60.dp)
         )
 
         Spacer(modifier = Modifier.weight(0.3f))
@@ -89,9 +88,5 @@ fun ResetPasswordMainContent(navController: NavHostController, viewModel: ResetP
         OrangeButton({},"Change password")
 
         Spacer(modifier = Modifier.weight(1f))
-
-        MyHorizontalDivider()
-
-        Spacer(modifier = Modifier.height(70.dp))
     }
 }

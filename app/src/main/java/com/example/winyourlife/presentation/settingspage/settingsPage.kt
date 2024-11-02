@@ -34,10 +34,9 @@ fun SettingsScreen(navController: NavHostController, viewModel: SettingsViewMode
 
         Text(
             text = "NOTIFICATIONS OPTIONS",
-            fontSize = 16.sp,
+            style = MaterialTheme.typography.bodyLarge,
             color = Color.White,
-            modifier = Modifier.padding(bottom = 60.dp),
-            fontWeight = FontWeight.Bold
+            modifier = Modifier.padding(bottom = 20.dp)
         )
 
         Row(
@@ -47,7 +46,7 @@ fun SettingsScreen(navController: NavHostController, viewModel: SettingsViewMode
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "Friend's notifications", fontSize = 20.sp, color = Color.White)
+            Text(text = "Friend's notifications", style = MaterialTheme.typography.bodyLarge, color = Color.White)
             Switch(
                 checked = true,
                 onCheckedChange = {},
@@ -67,7 +66,7 @@ fun SettingsScreen(navController: NavHostController, viewModel: SettingsViewMode
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "Daily reminders", fontSize = 20.sp, color = Color.White)
+            Text(text = "Daily reminders", style = MaterialTheme.typography.bodyLarge, color = Color.White)
             Switch(
                 checked = false,
                 onCheckedChange = {},
@@ -80,11 +79,31 @@ fun SettingsScreen(navController: NavHostController, viewModel: SettingsViewMode
             )
         }
 
-        Spacer(modifier = Modifier.weight(1f))
+        MyHorizontalDivider()
+
+        Row(
+            modifier = Modifier
+                .width(280.dp)
+                .padding(vertical = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(text = "Dark theme", style = MaterialTheme.typography.bodyLarge, color = Color.White)
+            Switch(
+                checked = true,
+                onCheckedChange = {},
+                colors = SwitchDefaults.colors(
+                    checkedThumbColor = Color.White,
+                    checkedTrackColor = Color(0xFFFFA500),
+                    uncheckedThumbColor = Color.White,
+                    uncheckedTrackColor = Color.Gray
+                )
+            )
+        }
 
         MyHorizontalDivider()
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.weight(1f))
 
         OrangeButton({ navController.navigate(NavigationScreens.PROFILE.name) },"Your profile")
 
@@ -92,7 +111,7 @@ fun SettingsScreen(navController: NavHostController, viewModel: SettingsViewMode
 
         OrangeButton({ navController.navigate(NavigationScreens.LOGIN.name) }, "Log out")
 
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         BottomNavigationBar(navController)
     }

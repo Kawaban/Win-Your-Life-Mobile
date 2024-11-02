@@ -47,14 +47,14 @@ fun CustomGoal(
 
             Text(
                 text = label,
-                fontSize = 16.sp,
+                style = MaterialTheme.typography.bodyMedium,
                 color = Color.White,
                 modifier = Modifier.padding(start = 8.dp)
             )
 
             Image(
                 painter = painterResource(id = image),
-                contentDescription = "Goal image",
+                contentDescription = "Task image",
                 modifier = Modifier
                     .size(40.dp)
                     .padding(start = 8.dp)

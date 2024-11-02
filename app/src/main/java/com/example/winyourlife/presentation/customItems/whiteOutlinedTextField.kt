@@ -21,7 +21,10 @@ fun WhiteOutlinedTextField(
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
-        label = { Text(label) },
+        label = { Text(
+            text = label,
+            style = MaterialTheme.typography.bodyLarge
+        ) },
         visualTransformation = visualTransformation,
         modifier = Modifier
             .padding(bottom = 16.dp)
@@ -38,7 +41,9 @@ fun WhiteOutlinedTextField(
             cursorColor = Color.Black,
             disabledBorderColor = Color.White,
             disabledTextColor = Color.Black,
-            disabledLabelColor = Color.Black
+            disabledLabelColor = Color.Black,
+            focusedLabelColor = Color.White,
+            unfocusedLabelColor = Color.Black
         ),
         enabled = isEditable
     )

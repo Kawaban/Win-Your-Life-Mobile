@@ -40,11 +40,10 @@ fun AddFriendScreen(navController: NavHostController, viewModel: AddFriendViewMo
 
         Text(
             text = "Enter the email address of the person you want to invite to your friends",
-            fontSize = 16.sp,
+            style = MaterialTheme.typography.bodyMedium,
             color = Color.White,
             modifier = Modifier.padding(horizontal = 60.dp),
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Medium
+            textAlign = TextAlign.Center
         )
 
         Spacer(modifier = Modifier.weight(0.3f))
@@ -56,10 +55,6 @@ fun AddFriendScreen(navController: NavHostController, viewModel: AddFriendViewMo
         OrangeButton({}, "Send invitation")
 
         Spacer(modifier = Modifier.weight(1f))
-
-        MyHorizontalDivider()
-
-        Spacer(modifier = Modifier.height(70.dp))
 
         BottomNavigationBar(navController)
     }

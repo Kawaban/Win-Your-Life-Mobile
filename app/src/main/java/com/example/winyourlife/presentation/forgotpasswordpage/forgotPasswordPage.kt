@@ -39,11 +39,10 @@ fun ForgotPasswordScreen(navController: NavHostController, viewModel: ForgotPass
 
         Text(
             text = "Enter your email address and we will send you a link to reset your password",
-            fontSize = 16.sp,
+            style = MaterialTheme.typography.bodyMedium,
             color = Color.White,
             modifier = Modifier.padding(horizontal = 60.dp),
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Medium
+            textAlign = TextAlign.Center
         )
 
         Spacer(modifier = Modifier.height(60.dp))
@@ -55,9 +54,5 @@ fun ForgotPasswordScreen(navController: NavHostController, viewModel: ForgotPass
         OrangeButton({}, "Send an email")
 
         Spacer(modifier = Modifier.weight(1f))
-
-        MyHorizontalDivider()
-
-        Spacer(modifier = Modifier.height(70.dp))
     }
 }

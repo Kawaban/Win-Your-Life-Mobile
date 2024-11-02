@@ -48,7 +48,7 @@ fun CustomFriend(
 
             Text(
                 text = nickname,
-                fontSize = 16.sp,
+                style = MaterialTheme.typography.bodyMedium,
                 color = Color.White
             )
 
@@ -57,7 +57,7 @@ fun CustomFriend(
             ) {
                 Text(
                     text = period,
-                    fontSize = 16.sp,
+                    style = MaterialTheme.typography.bodyLarge,
                     color = Color(0xFFFFA500)
                 )
 
@@ -65,7 +65,7 @@ fun CustomFriend(
                     Icon(
                         imageVector = Icons.Default.Star,
                         contentDescription = "Star Icon",
-                        tint = Color.Red,
+                        tint = Color(0xFFD32F2F),
                         modifier = Modifier.size(24.dp)
                     )
                 } else {
