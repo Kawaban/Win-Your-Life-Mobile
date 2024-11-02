@@ -4,8 +4,10 @@ import com.example.winyourlife.data.dto.LoginRequest
 import com.example.winyourlife.data.dto.LoginResponse
 import com.example.winyourlife.data.dto.RegisterRequest
 import com.example.winyourlife.data.dto.UserResponse
+import com.example.winyourlife.data.dto.UserUpdateDataRequest
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 
 interface ApiService {
@@ -17,4 +19,7 @@ interface ApiService {
 
     @GET("api/users")
     suspend fun getUser(): UserResponse
+
+    @PATCH("api/users/data")
+    suspend fun updateUserData(@Body userUpdateDataRequest: UserUpdateDataRequest): Any
 }
