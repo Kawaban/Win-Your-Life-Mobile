@@ -9,7 +9,7 @@ enum class NavigationScreens {
     CREATE_TASK,
     FORGOT_PASSWORD,
     FRIENDS,
-    GOALS,
+    TASKS,
     MOTIVATION,
     NOTIFICATIONS,
     PROFILE,

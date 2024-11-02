@@ -5,30 +5,30 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.winyourlife.presentation.addfriendpage.AddFriendScreen
-import com.example.winyourlife.presentation.preparenextdaypage.PrepareNextDayScreen
-import com.example.winyourlife.presentation.createtaskpage.CreateTaskScreen
-import com.example.winyourlife.presentation.forgotpasswordpage.ForgotPasswordScreen
-import com.example.winyourlife.presentation.friendspage.FriendsScreen
-import com.example.winyourlife.presentation.taskspage.TasksScreen
+import com.example.winyourlife.presentation.addfriendpage.AddFriendPage
+import com.example.winyourlife.presentation.createtaskpage.CreateTaskPage
+import com.example.winyourlife.presentation.forgotpasswordpage.ForgotPasswordPage
+import com.example.winyourlife.presentation.friendspage.FriendsPage
+import com.example.winyourlife.presentation.taskspage.TasksPage
 import com.example.winyourlife.presentation.homepage.HomePage
 import com.example.winyourlife.presentation.loginpage.LoginPage
-import com.example.winyourlife.presentation.motivationpage.MotivationScreen
-import com.example.winyourlife.presentation.notificationspage.NotificationsScreen
-import com.example.winyourlife.presentation.profilepage.ProfileScreen
-import com.example.winyourlife.presentation.registerpage.RegisterScreen
-import com.example.winyourlife.presentation.resetpasswordpage.ResetPasswordScreen
-import com.example.winyourlife.presentation.settingspage.SettingsScreen
-import com.example.winyourlife.presentation.statisticspage.StatisticsScreen
+import com.example.winyourlife.presentation.motivationpage.MotivationPage
+import com.example.winyourlife.presentation.notificationspage.NotificationsPage
+import com.example.winyourlife.presentation.preparenextdaypage.PrepareNextDayPage
+import com.example.winyourlife.presentation.profilepage.ProfilePage
+import com.example.winyourlife.presentation.registerpage.RegisterPage
+import com.example.winyourlife.presentation.resetpasswordpage.ResetPasswordPage
+import com.example.winyourlife.presentation.settingspage.SettingsPage
+import com.example.winyourlife.presentation.statisticspage.StatisticsPage
 
-//TODO prepare the next day, create new task, motivation, snack bars
-//TODO task completion effects, notification classes, landscape view, polish language
+//TODO prepare the next day, create new task, motivation, snack bars, delete friend button
+//TODO task completion effects, notification classes, polish language
 
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    startDestination: String = NavigationScreens.HOME.name,
+    startDestination: String = NavigationScreens.ADD_FRIEND.name,
 ) {
     NavHost(
         modifier = modifier,
@@ -42,43 +42,43 @@ fun AppNavHost(
             HomePage(navController)
         }
         composable(NavigationScreens.REGISTER.name) {
-            RegisterScreen(navController)
+            RegisterPage(navController)
         }
         composable(NavigationScreens.ADD_FRIEND.name) {
-            AddFriendScreen(navController)
+            AddFriendPage(navController)
         }
         composable(NavigationScreens.PREPARE_NEXT_DAY.name) {
-            PrepareNextDayScreen(navController)
+            PrepareNextDayPage(navController)
         }
         composable(NavigationScreens.CREATE_TASK.name) {
-            CreateTaskScreen(navController)
+           CreateTaskPage(navController)
         }
         composable(NavigationScreens.FORGOT_PASSWORD.name) {
-            ForgotPasswordScreen(navController)
+            ForgotPasswordPage(navController)
         }
         composable(NavigationScreens.FRIENDS.name) {
-            FriendsScreen(navController)
+            FriendsPage(navController)
         }
-        composable(NavigationScreens.GOALS.name) {
-            TasksScreen(navController)
+        composable(NavigationScreens.TASKS.name) {
+            TasksPage(navController)
         }
         composable(NavigationScreens.MOTIVATION.name) {
-            MotivationScreen(navController)
+            MotivationPage(navController)
         }
         composable(NavigationScreens.NOTIFICATIONS.name) {
-            NotificationsScreen(navController)
+            NotificationsPage(navController)
         }
         composable(NavigationScreens.PROFILE.name) {
-            ProfileScreen(navController)
+            ProfilePage(navController)
         }
         composable(NavigationScreens.RESET_PASSWORD.name) {
-            ResetPasswordScreen(navController)
+            ResetPasswordPage(navController)
         }
         composable(NavigationScreens.SETTINGS.name) {
-           SettingsScreen(navController)
+           SettingsPage(navController)
         }
         composable(NavigationScreens.STATISTICS.name) {
-            StatisticsScreen(navController)
+            StatisticsPage(navController)
         }
     }
 }

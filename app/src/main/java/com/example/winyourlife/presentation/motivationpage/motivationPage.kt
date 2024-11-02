@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -18,9 +19,92 @@ import androidx.navigation.NavHostController
 import com.example.winyourlife.R
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
 import com.example.winyourlife.presentation.customItems.Headline
+import com.example.winyourlife.presentation.customItems.SideNavigationBar
 
 @Composable
-fun MotivationScreen(navController: NavHostController, viewModel: MotivationViewModel = hiltViewModel()) {
+fun MotivationPage(navController: NavHostController) {
+    ResponsiveLayout(navController)
+}
+
+@Composable
+fun ResponsiveLayout(navController: NavHostController) {
+    val configuration = LocalConfiguration.current
+    val isPortrait = configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT
+
+    if (isPortrait) {
+        PortraitLayout(navController)
+    } else {
+        LandscapeLayout(navController)
+    }
+}
+
+@Composable
+fun LandscapeLayout(navController: NavHostController, viewModel: MotivationViewModel = hiltViewModel()) {
+
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(
+            modifier = Modifier
+                .weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.weight(1f))
+
+            Box(
+                modifier = Modifier
+                    .fillMaxSize(0.85f)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.tate),
+                    contentDescription = "Motivational Image",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .fillMaxWidth(0.6f)
+                        .aspectRatio(0.6f)
+                        .align(Alignment.BottomCenter)
+                )
+            }
+        }
+
+        Column(
+            modifier = Modifier
+                .weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.weight(1f))
+
+            Box(
+                modifier = Modifier
+                    .fillMaxSize(0.85f)
+            ) {
+                Text(
+                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    lineHeight = 24.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .fillMaxWidth(0.7f)
+                        .align(Alignment.CenterStart)
+                )
+            }
+
+            Spacer(modifier = Modifier.weight(1f))
+        }
+
+        SideNavigationBar(navController)
+    }
+}
+
+
+@Composable
+fun PortraitLayout(navController: NavHostController, viewModel: MotivationViewModel = hiltViewModel()) {
+
     Column(
         modifier = Modifier
             .fillMaxSize()

@@ -13,8 +13,6 @@ import androidx.navigation.NavHostController
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
 import com.example.winyourlife.presentation.customItems.Headline
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.ui.text.font.FontWeight
@@ -23,6 +21,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalConfiguration
+import com.example.winyourlife.presentation.createtaskpage.CreateTaskViewModel
+import com.example.winyourlife.presentation.customItems.MyVerticalDivider
+import com.example.winyourlife.presentation.customItems.NotificationList
+import com.example.winyourlife.presentation.customItems.OrangeButton
+import com.example.winyourlife.presentation.customItems.SideNavigationBar
+import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
 import com.example.winyourlife.presentation.dataObjects.NotificationData
 
 @Composable
@@ -106,29 +115,84 @@ fun NotificationCard(
 }
 
 @Composable
-fun NotificationList(notifications: List<NotificationData>) {
-    LazyColumn(
-        modifier = Modifier
-            .width(316.dp)
-            .padding(16.dp)
-            .heightIn(max = 570.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        items(notifications) { notification ->
-            NotificationCard(
-                time = notification.time,
-                message = notification.message,
-                hasActions = notification.hasActions,
-                onClose = notification.onClose,
-                onAccept = notification.onAccept,
-                onReject = notification.onReject
-            )
-        }
+fun NotificationsPage(navController: NavHostController) {
+    ResponsiveLayout(navController)
+}
+
+@Composable
+fun ResponsiveLayout(navController: NavHostController) {
+    val configuration = LocalConfiguration.current
+    val isPortrait = configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT
+
+    if (isPortrait) {
+        PortraitLayout(navController)
+    } else {
+        LandscapeLayout(navController)
     }
 }
 
 @Composable
-fun NotificationsScreen(navController: NavHostController, viewModel: NotificationsViewModel = hiltViewModel()) {
+fun LandscapeLayout(navController: NavHostController, viewModel: NotificationsViewModel = hiltViewModel()) {
+
+    val notifications = listOf(
+        NotificationData(
+            time = "9:41 AM",
+            message = "Greg invites you to be friends!",
+            hasActions = true,
+            onClose = { },
+            onAccept = { },
+            onReject = { }
+        ),
+        NotificationData(
+            time = "9:41 AM",
+            message = "Don't forget to plan your tasks for tomorrow!",
+            hasActions = false,
+            onClose = { }
+        ),
+        NotificationData(
+            time = "9:41 AM",
+            message = "Marcin accepted your friend request!",
+            hasActions = false,
+            onClose = { }
+        ),
+        NotificationData(
+            time = "9:41 AM",
+            message = "Marcin accepted your friend request!",
+            hasActions = false,
+            onClose = { }
+        ),
+        NotificationData(
+            time = "9:41 AM",
+            message = "Marcin accepted your friend request!",
+            hasActions = false,
+            onClose = { }
+        )
+    )
+
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(
+            modifier = Modifier
+                .weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.weight(1f))
+
+            NotificationList(notifications = notifications)
+
+            Spacer(modifier = Modifier.weight(1f))
+        }
+
+        SideNavigationBar(navController)
+    }
+}
+
+@Composable
+fun PortraitLayout(navController: NavHostController, viewModel: NotificationsViewModel = hiltViewModel()) {
 
     val notifications = listOf(
         NotificationData(

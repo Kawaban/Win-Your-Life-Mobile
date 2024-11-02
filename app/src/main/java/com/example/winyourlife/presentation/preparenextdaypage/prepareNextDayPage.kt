@@ -2,6 +2,7 @@ package com.example.winyourlife.presentation.preparenextdaypage
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -15,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -27,11 +29,120 @@ import com.example.winyourlife.presentation.customItems.BottomNavigationBar
 import com.example.winyourlife.presentation.customItems.TaskList
 import com.example.winyourlife.presentation.customItems.Headline
 import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
+import com.example.winyourlife.presentation.customItems.MyVerticalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
+import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.dataObjects.TaskData
 
 @Composable
-fun PrepareNextDayScreen(navController: NavHostController, viewModel: PrepareNextDayViewModel = hiltViewModel()) {
+fun PrepareNextDayPage(navController: NavHostController) {
+    ResponsiveLayout(navController)
+}
+
+@Composable
+fun ResponsiveLayout(navController: NavHostController) {
+    val configuration = LocalConfiguration.current
+    val isPortrait = configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT
+
+    if (isPortrait) {
+        PortraitLayout(navController)
+    } else {
+        LandscapeLayout(navController)
+    }
+}
+
+@Composable
+fun LandscapeLayout(navController: NavHostController, viewModel: PrepareNextDayViewModel = hiltViewModel()) {
+
+    val tasks = listOf(
+        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = true,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        )
+    )
+
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(
+            modifier = Modifier
+                .weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.weight(1f))
+
+            TaskList(tasks = tasks, 250)
+
+            Button(
+                onClick = {},
+                modifier = Modifier
+                    .padding(bottom = 16.dp)
+                    .size(60.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.onBackground),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Text(text = "+", color = MaterialTheme.colorScheme.background, fontSize = 20.sp, fontWeight = Bold)
+            }
+
+            Spacer(modifier = Modifier.weight(1f))
+        }
+
+        MyVerticalDivider()
+
+        Column(
+            modifier = Modifier
+                .weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.weight(1f))
+
+            MyHorizontalDivider()
+
+            Text(
+                text = "To win the day you need to complete 75% of your tasks",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.padding(horizontal = 60.dp),
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.height(50.dp))
+
+            OrangeButton({ navController.navigate(NavigationScreens.CREATE_TASK.name) }, "Create a new task")
+
+            Spacer(modifier = Modifier.weight(1f))
+        }
+
+        SideNavigationBar(navController)
+    }
+}
+
+@Composable
+fun PortraitLayout(navController: NavHostController, viewModel: PrepareNextDayViewModel = hiltViewModel()) {
 
     val tasks = listOf(
         TaskData(
