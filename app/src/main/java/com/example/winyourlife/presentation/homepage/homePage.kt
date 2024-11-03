@@ -26,27 +26,28 @@ import com.example.winyourlife.presentation.customItems.MyVerticalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.dataObjects.TaskData
+import com.example.winyourlife.presentation.utilScreens.LoadingScreen
 
 @Composable
 fun HomePage(navController: NavHostController, viewModel: HomeViewModel = hiltViewModel()) {
 
-    ResponsiveLayout(viewModel, navController)
+//    HomeScreenMainContent(viewModel, navController)
 
-//    when (!viewModel.state.isLoading && !viewModel.state.isReady) {
-//        true -> {
-//            viewModel.getUserName()
-//        }
-//        false -> {
-//            when(viewModel.state.isLoading) {
-//                true -> {
-//                    LoadingScreen()
-//                }
-//                false -> {
-//                    ResponsiveLayout(viewModel, navController)
-//                }
-//            }
-//        }
-//    }
+    when (!viewModel.state.isLoading && !viewModel.state.isReady) {
+        true -> {
+            viewModel.getUserName()
+        }
+        false -> {
+            when(viewModel.state.isLoading) {
+                true -> {
+                    LoadingScreen()
+                }
+                false -> {
+                    HomeScreenMainContent(viewModel, navController)
+                }
+            }
+        }
+    }
 }
 
 @Composable

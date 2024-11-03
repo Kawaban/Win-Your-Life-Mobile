@@ -1,6 +1,7 @@
 package com.example.winyourlife.presentation.profilepage
 
 import android.graphics.BitmapFactory
+import android.util.Base64
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -163,14 +164,10 @@ fun PortraitLayout(navController: NavHostController, viewModel: ProfileViewModel
     }
 
     val pickMedia = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-
-        avatar = ImageEncoder().encodeImage(uri, context)
-
-        if (uri != null) {
-            println("Media selected: $uri")
-        } else {
-            println("No media selected")
-        }
+        if (uri != null)
+            avatar = ImageEncoder().encodeImage(uri, context)
+        else
+            avatar = null
     }
 
     Column(
@@ -183,16 +180,9 @@ fun PortraitLayout(navController: NavHostController, viewModel: ProfileViewModel
 
         Spacer(modifier = Modifier.height(60.dp))
 
-        when(avatar) {
-            null -> Image(
-                painter = painterResource(id = R.drawable.avatar),
-                contentDescription = stringResource(id = R.string.user_avatar_description),
-                modifier = Modifier
-                    .clickable { pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }
-                    .size(128.dp)
-                    .padding(16.dp)
-            )
-            byteArrayOf(0) -> Image(
+        when {
+            avatar == null ||
+            avatar?.decodeToString() == Base64.decode("",Base64.DEFAULT).decodeToString() -> Image(
                 painter = painterResource(id = R.drawable.avatar),
                 contentDescription = stringResource(id = R.string.user_avatar_description),
                 modifier = Modifier
@@ -213,14 +203,19 @@ fun PortraitLayout(navController: NavHostController, viewModel: ProfileViewModel
         Spacer(modifier = Modifier.weight(1f))
 
         WhiteOutlinedTextField(nickname ?: "",{ nickname = it },stringResource(id = R.string.nickname_label), false)
+        WhiteOutlinedTextField(nickname ?: "",{ nickname = it },"nickname", true)
 
         WhiteOutlinedTextField(email ?: "",{ email = it },stringResource(id = R.string.email_label), false)
+        WhiteOutlinedTextField(email ?: "",{ email = it },"email", true)
 
         Spacer(modifier = Modifier.weight(1f))
 
         OrangeButton({viewModel.updateUserData(email=email?:"", name = nickname?:"", avatar =avatar)}, stringResource(id = R.string.change_data_button))
 
         OrangeButton({ navController.navigate(NavigationScreens.RESET_PASSWORD.name) }, stringResource(id = R.string.change_password_button))
+        OrangeButton(onClick = {viewModel.updateUserData(email=email?:"", name = nickname?:"", avatar =avatar)}, "Change data")
+
+        OrangeButton({ navController.navigate(NavigationScreens.RESET_PASSWORD.name) }, "Change password")
 
         Spacer(modifier = Modifier.weight(1f))
 

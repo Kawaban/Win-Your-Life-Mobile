@@ -12,10 +12,12 @@ import com.example.winyourlife.presentation.State
 import com.example.winyourlife.presentation.dataObjects.CurrentUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.Base64
 import javax.inject.Inject
 
+
 @HiltViewModel
-class ProfileViewModel @Inject constructor(val userService: UserService, val imageEncoder: ImageEncoder, val currentUser: CurrentUser) : ViewModel() {
+class ProfileViewModel @Inject constructor(val userService: UserService, val currentUser: CurrentUser) : ViewModel() {
 
     var stateUpdateData by mutableStateOf(State<Nothing>())
         private set
@@ -23,7 +25,7 @@ class ProfileViewModel @Inject constructor(val userService: UserService, val ima
     fun updateUserData(email: String, name: String, avatar: ByteArray?) {
         viewModelScope.launch {
             val updateUserUpdateDataRequest =
-                UserUpdateDataRequest(name, email, avatar?: byteArrayOf(0))
+                UserUpdateDataRequest(name, email, Base64.getEncoder().encodeToString(avatar))
 
             stateUpdateData = stateUpdateData.copy(
                 error = null,
@@ -46,6 +48,9 @@ class ProfileViewModel @Inject constructor(val userService: UserService, val ima
                         isLoading = false
                     )
                 }
+            }
+            if(result is com.example.winyourlife.domain.dto.Resource.Success){
+                currentUser.updateUserData(email, name, avatar!!)
             }
         }
     }

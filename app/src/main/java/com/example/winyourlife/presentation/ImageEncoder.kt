@@ -7,7 +7,8 @@ import java.io.InputStream
 import javax.inject.Inject
 import javax.inject.Singleton
 
-class ImageEncoder @Inject constructor() {
+
+class ImageEncoder{
     fun encodeImage(image: Uri?, context: Context): ByteArray {
         return try {
             if(image == null) return ByteArray(0)
