@@ -13,8 +13,12 @@ import androidx.navigation.NavController
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.winyourlife.presentation.navigation.NavigationScreens
+import androidx.compose.foundation.layout.height
+import androidx.compose.material.icons.filled.AccountCircle
+import com.example.winyourlife.R
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
@@ -29,13 +33,16 @@ fun BottomNavigationBar(navController: NavController) {
         horizontalArrangement = Arrangement.SpaceAround
         ) {
             IconButton(onClick = { navController.navigate(NavigationScreens.HOME.name) }) {
-                Icon(Icons.Default.Home, contentDescription = "Home")
+                Icon(Icons.Default.Home, contentDescription = stringResource(id = R.string.home_description))
             }
             IconButton(onClick = { navController.navigate(NavigationScreens.NOTIFICATIONS.name) }) {
-                Icon(Icons.Default.Notifications, contentDescription = "Notifications")
+                Icon(Icons.Default.Notifications, contentDescription = stringResource(id = R.string.notifications_description))
+            }
+            IconButton(onClick = { navController.navigate(NavigationScreens.PROFILE.name) }) {
+                Icon(Icons.Default.AccountCircle, contentDescription = stringResource(id = R.string.profile_description))
             }
             IconButton(onClick = { navController.navigate(NavigationScreens.SETTINGS.name) }) {
-                Icon(Icons.Default.Settings, contentDescription = "Settings")
+                Icon(Icons.Default.Settings, contentDescription = stringResource(id = R.string.settings_description))
             }
         }
     }

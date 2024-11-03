@@ -15,9 +15,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.winyourlife.R
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
 import com.example.winyourlife.presentation.customItems.Headline
 import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
@@ -75,11 +77,11 @@ fun LandscapeLayout(navController: NavHostController, viewModel: CreateTaskViewM
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            WhiteOutlinedTextField("", {}, "Task name", true)
+            WhiteOutlinedTextField("", {}, stringResource(id = R.string.task_name_label), true)
 
-            OrangeButton({},"Pick an image")
+            OrangeButton({}, stringResource(id = R.string.pick_image_button))
 
-            OrangeButton({},"Save the Task")
+            OrangeButton({}, stringResource(id = R.string.save_task_button))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -97,23 +99,23 @@ fun PortraitLayout(navController: NavHostController, viewModel: CreateTaskViewMo
             .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Headline("CREATE A NEW TASK")
+        Headline(stringResource(id = R.string.create_task_hd))
 
         Spacer(modifier = Modifier.height(30.dp))
 
         MyHorizontalDivider()
 
-        WhiteOutlinedTextField("", {}, "Task name", true)
+        WhiteOutlinedTextField("", {}, stringResource(id = R.string.task_name_label), true)
 
         MyHorizontalDivider()
 
-        OrangeButton({},"Pick an image")
+        OrangeButton({}, stringResource(id = R.string.pick_image_button))
 
         Spacer(modifier = Modifier.weight(1f))
 
         MyHorizontalDivider()
 
-        OrangeButton({},"Save the Task")
+        OrangeButton({}, stringResource(id = R.string.save_task_button))
 
         Spacer(modifier = Modifier.height(30.dp))
 

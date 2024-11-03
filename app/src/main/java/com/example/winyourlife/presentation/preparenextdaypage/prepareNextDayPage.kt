@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -105,7 +106,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: PrepareNextDayV
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.onBackground),
                 shape = RoundedCornerShape(12.dp)
             ) {
-                Text(text = "+", color = MaterialTheme.colorScheme.background, fontSize = 20.sp, fontWeight = Bold)
+                Text(text = stringResource(id = R.string.plus_sign_description), color = MaterialTheme.colorScheme.background, fontSize = 20.sp, fontWeight = Bold)
             }
 
             Spacer(modifier = Modifier.weight(1f))
@@ -123,7 +124,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: PrepareNextDayV
             MyHorizontalDivider()
 
             Text(
-                text = "To win the day you need to complete 75% of your tasks",
+                text = stringResource(id = R.string.prepare_day_text),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.padding(horizontal = 60.dp),
@@ -132,7 +133,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: PrepareNextDayV
 
             Spacer(modifier = Modifier.height(50.dp))
 
-            OrangeButton({ navController.navigate(NavigationScreens.CREATE_TASK.name) }, "Create a new task")
+            OrangeButton({ navController.navigate(NavigationScreens.CREATE_TASK.name) }, stringResource(id = R.string.create_task_button))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -173,14 +174,14 @@ fun PortraitLayout(navController: NavHostController, viewModel: PrepareNextDayVi
             .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Headline("PREPARE THE NEXT DAY")
+        Headline(stringResource(id = R.string.prepare_day_hd))
 
         Spacer(modifier = Modifier.height(20.dp))
 
         MyHorizontalDivider()
 
         Text(
-            text = "To win the day you need to complete 75% of your tasks",
+            text = stringResource(id = R.string.prepare_day_text),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(horizontal = 60.dp),
@@ -199,14 +200,14 @@ fun PortraitLayout(navController: NavHostController, viewModel: PrepareNextDayVi
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.onBackground),
             shape = RoundedCornerShape(12.dp)
         ) {
-            Text(text = "+", color = MaterialTheme.colorScheme.background, fontSize = 20.sp, fontWeight = Bold)
+            Text(text = stringResource(id = R.string.plus_sign_description), color = MaterialTheme.colorScheme.background, fontSize = 20.sp, fontWeight = Bold)
         }
 
         Spacer(modifier = Modifier.weight(1f))
 
         MyHorizontalDivider()
 
-        OrangeButton({ navController.navigate(NavigationScreens.CREATE_TASK.name) }, "Create a new task")
+        OrangeButton({ navController.navigate(NavigationScreens.CREATE_TASK.name) }, stringResource(id = R.string.create_task_button))
 
         Spacer(modifier = Modifier.height(30.dp))
 

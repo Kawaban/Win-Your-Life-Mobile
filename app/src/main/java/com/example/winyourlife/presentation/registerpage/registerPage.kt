@@ -1,7 +1,6 @@
 package com.example.winyourlife.presentation.registerpage
 
 import android.widget.Toast
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -14,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -27,10 +26,8 @@ import com.example.winyourlife.presentation.utilScreens.LoadingScreen
 import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
 import com.example.winyourlife.presentation.customItems.MyVerticalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
-import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.customItems.TransparentButton
 import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
-import com.example.winyourlife.presentation.profilepage.ProfileViewModel
 
 @Composable
 fun RegisterPage(navController: NavHostController, viewModel: RegisterViewModel = hiltViewModel()) {
@@ -53,7 +50,7 @@ fun RegisterPage(navController: NavHostController, viewModel: RegisterViewModel 
                 false -> {
                     viewModel.reset()
                     val context = LocalContext.current
-                    Toast.makeText(context,"Account has been created", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,stringResource(id = R.string.account_created_snack), Toast.LENGTH_SHORT).show()
                     navController.navigate(NavigationScreens.LOGIN.name)
                 }
             }
@@ -105,13 +102,14 @@ fun LandscapeLayout(navController: NavHostController, viewModel: RegisterViewMod
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            WhiteOutlinedTextField(nickname,{ nickname = it },"Nickname", true)
+            WhiteOutlinedTextField(nickname,{ nickname = it },stringResource(id = R.string.nickname_label), true)
 
-            WhiteOutlinedTextField(email,{ email = it },"Email", true)
+            WhiteOutlinedTextField(email,{ email = it },stringResource(id = R.string.email_label), true)
 
-            WhiteOutlinedTextField(password,{ password = it },"Password", true, PasswordVisualTransformation())
+            WhiteOutlinedTextField(password,{ password = it },stringResource(id = R.string.password_label), true, PasswordVisualTransformation())
 
-            WhiteOutlinedTextField(repeatPassword,{ repeatPassword = it },"Repeat Password", true, PasswordVisualTransformation())
+            WhiteOutlinedTextField(repeatPassword,{ repeatPassword = it },
+                stringResource(id = R.string.repeat_password_label), true, PasswordVisualTransformation())
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -125,18 +123,18 @@ fun LandscapeLayout(navController: NavHostController, viewModel: RegisterViewMod
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            OrangeButton({viewModel.register(email, nickname, password, repeatPassword)}, "Register")
+            OrangeButton({viewModel.register(email, nickname, password, repeatPassword)}, stringResource(id = R.string.register_button))
 
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(0.4f))
 
             MyHorizontalDivider()
 
             TransparentButton({
                 viewModel.reset()
                 navController.navigate(NavigationScreens.LOGIN.name)
-            }, "Already have an account?")
+            }, stringResource(id = R.string.register_text))
 
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(0.4f))
         }
     }
 }
@@ -166,21 +164,21 @@ fun PortraitLayout(navController: NavHostController, viewModel: RegisterViewMode
             .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Headline("CREATE AN ACCOUNT")
+        Headline(stringResource(id = R.string.register_hd))
 
         Spacer(modifier = Modifier.weight(1f))
 
-        WhiteOutlinedTextField(nickname,{ nickname = it },"Nickname", true)
+        WhiteOutlinedTextField(nickname,{ nickname = it },stringResource(id = R.string.nickname_label), true)
 
-        WhiteOutlinedTextField(email,{ email = it },"Email", true)
+        WhiteOutlinedTextField(email,{ email = it },stringResource(id = R.string.email_label), true)
 
-        WhiteOutlinedTextField(password,{ password = it },"Password", true, PasswordVisualTransformation())
+        WhiteOutlinedTextField(password,{ password = it },stringResource(id = R.string.password_label), true, PasswordVisualTransformation())
 
-        WhiteOutlinedTextField(repeatPassword,{ repeatPassword = it },"Repeat Password", true, PasswordVisualTransformation())
+        WhiteOutlinedTextField(repeatPassword,{ repeatPassword = it },stringResource(id = R.string.repeat_password_label), true, PasswordVisualTransformation())
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        OrangeButton({viewModel.register(email, nickname, password, repeatPassword)}, "Register")
+        OrangeButton({viewModel.register(email, nickname, password, repeatPassword)}, stringResource(id = R.string.register_button))
 
         Spacer(modifier = Modifier.weight(1f))
 
@@ -189,7 +187,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: RegisterViewMode
         TransparentButton({
             viewModel.reset()
             navController.navigate(NavigationScreens.LOGIN.name)
-        }, "Already have an account?")
+        }, stringResource(id = R.string.register_text))
 
         Spacer(modifier = Modifier.height(50.dp))
     }

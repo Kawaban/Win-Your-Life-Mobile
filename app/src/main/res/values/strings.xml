@@ -1,3 +1,109 @@
 <resources>
-    <string name="app_name">Win Your Life</string>
+    <string name="app_name" translatable="false">Win Your Life</string>
+
+    <string name="add_friend_text">Enter the email address of the person you want to invite to your friends.</string>
+    <string name="forgot_password_text">Enter your email address and we will send you a link to reset your password.</string>
+    <string name="daily_reminder_text">Don\'t forget to plan your tasks for tomorrow!</string>
+    <string name="friend_answer_positive_text"> accepted your friend request!</string>
+    <string name="friend_answer_negative_text">" rejected your friend request."</string>
+    <string name="invitation_text"> invites you to be friends!</string>
+    <string name="prepare_day_text">To win the day you need to complete 75% of your tasks.</string>
+    <string name="register_text">Already have an account?</string>
+    <string name="reset_password_text">Enter new password.</string>
+    <string name="tasks_text1">To win the day you need to complete </string>
+    <string name="tasks_text2">" more tasks."</string>
+
+    <string name="email_label" translatable="false">Email</string>
+    <string name="task_name_label">Task name</string>
+    <string name="password_label">Password</string>
+    <string name="nickname_label">Nickname</string>
+    <string name="repeat_password_label">Repeat Password</string>
+
+    <string name="home_description">Home</string>
+    <string name="notifications_description">Notifications</string>
+    <string name="profile_description">Profile</string>
+    <string name="settings_description">Settings</string>
+    <string name="friends_avatar_description">Friend\'s avatar</string>
+    <string name="star_icon_description">Star Icon</string>
+    <string name="remove_friend_description">Remove Friend</string>
+    <string name="task_image_description">Task image</string>
+    <string name="app_logo_description">App logo</string>
+    <string name="motivation_image_description">Motivational Image</string>
+    <string name="close_notification_description">Close notification</string>
+    <string name="plus_sign_description" translatable="false">+</string>
+    <string name="user_avatar_description">User avatar</string>
+    <string name="expand_description">Expand</string>
+
+    <string name="streak" translatable="false">STREAK:</string>
+    <string name="days"> days</string>
+
+    <string name="notifications_options">NOTIFICATIONS OPTIONS</string>
+
+    <string name="longest_streak">Longest streak</string>
+    <string name="tasks_completed">Number of tasks completed</string>
+    <string name="days_won">Number of days won</string>
+    <string name="account_since">You\'ve been with us for …</string>
+    <string name="days2"> days!</string>
+
+    <string name="friends_notifications_switch">Friend\'s notifications</string>
+    <string name="daily_reminders_switch">Daily reminders</string>
+    <string name="dark_theme_switch">Dark theme</string>
+
+    <string name="app_language">Application language</string>
+    <string name="language_pl">Polish</string>
+    <string name="language_en">English</string>
+
+    <string name="accept_button">Accept</string>
+    <string name="reject_button">Reject</string>
+    <string name="pick_image_button">Pick an image</string>
+    <string name="save_task_button">Save the Task</string>
+    <string name="log_out_button">Log out</string>
+    <string name="invite_button">Send invitation</string>
+    <string name="send_email_button">Send an email</string>
+    <string name="add_friend_button">Add new friend</string>
+    <string name="your_tasks_button">Your Tasks</string>
+    <string name="your_friends_button">Your Friends</string>
+    <string name="motivation_button">Motivation</string>
+    <string name="log_in_button">Log in</string>
+    <string name="sign_up_button">Sign up</string>
+    <string name="forgot_password_button">Forgot your password?</string>
+    <string name="create_task_button">Create a new task</string>
+    <string name="register_button">Register</string>
+    <string name="change_password_button">Change password</string>
+    <string name="your_profile_button">Your profile</string>
+    <string name="statistics_button">Statistics</string>
+    <string name="change_data_button">Change data</string>
+    <string name="prepare_day_button">Prepare the Next Day</string>
+
+    <string name="notifications_hd">NOTIFICATIONS</string>
+    <string name="add_friend_hd">ADD NEW FRIEND</string>
+    <string name="create_task_hd">CREATE A NEW TASK</string>
+    <string name="reset_password_hd">RESET PASSWORD</string>
+    <string name="friends_hd">YOUR FRIENDS</string>
+    <string name="home_hd1">HELLO </string>
+    <string name="home_hd2" translatable="false">!</string>
+    <string name="motivation_hd">MOTIVATION</string>
+    <string name="prepare_day_hd">PREPARE THE NEXT DAY</string>
+    <string name="register_hd">CREATE AN ACCOUNT</string>
+    <string name="settings_hd">SETTINGS</string>
+    <string name="statistics_hd">STATISTICS</string>
+    <string name="tasks_hd">TODAY\'S TASKS</string>
+    <string name="profile_hd">YOUR PROFILE</string>
+
+    <string name="loading">Loading …</string>
+    <string name="error1">"Error: </string>
+    <string name="error2">Unknown error</string>
+
+    <string name="account_created_snack">Account has been created</string>
+
+    <string name="motivation1">You only have one life, so what are you waiting for? Start taking action today, or you\’ll always be the one watching others succeed.</string>
+    <string name="motivation2">The world has no mercy for the lazy. Want to achieve something? You need to work ten times harder than everyone else around you. No one\’s handing you success on a silver platter.</string>
+    <string name="motivation3">Your excuses are worthless. Failure is a choice, and success is a decision. Which path are you going to take?</string>
+    <string name="motivation4">Every day is a chance to be better than yesterday. If you do nothing, you\’re robbing yourself of a better future.</string>
+    <string name="motivation5">People will say you can\’t make it. Prove them wrong. The best revenge is massive success.</string>
+    <string name="motivation6">Sitting around waiting for the perfect moment is a waste of time. Start now, even if it\’s just small steps, because every one of them brings you closer to your goal.</string>
+    <string name="motivation7">Life is a war, and every day is a battle. If you\’re not fighting, you\’re already losing. Get up and show the world what you\’re made of!</string>
+    <string name="motivation8">Dreams are free, but making them real costs hard work. Do you just want to dream, or do you want to actually achieve something?</string>
+    <string name="motivation9">Your life won\’t change if you keep doing the same thing you\’ve always done. Start thinking differently, acting stronger, living bolder.</string>
+    <string name="motivation10">If you really want it, you\’ll make it happen. If you don\’t, you\’ll find an excuse. It\’s your choice.</string>
 </resources>

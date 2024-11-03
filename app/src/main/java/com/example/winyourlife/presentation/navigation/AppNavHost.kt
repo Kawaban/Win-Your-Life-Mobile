@@ -21,14 +21,14 @@ import com.example.winyourlife.presentation.resetpasswordpage.ResetPasswordPage
 import com.example.winyourlife.presentation.settingspage.SettingsPage
 import com.example.winyourlife.presentation.statisticspage.StatisticsPage
 
-//TODO prepare the next day, create new task, motivation, snack bars, delete friend button
-//TODO task completion effects, notification classes, polish language
+//TODO prepare the next day, create new task, notification classes, snack bars
+//TODO task completion effects, motivation speech, delete friend option, remove tasks page
 
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    startDestination: String = NavigationScreens.LOGIN.name,
+    startDestination: String = NavigationScreens.HOME.name,
 ) {
     NavHost(
         modifier = modifier,

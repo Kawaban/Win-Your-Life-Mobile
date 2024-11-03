@@ -23,24 +23,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.R
-import com.example.winyourlife.presentation.customItems.CustomStreak
 import com.example.winyourlife.presentation.navigation.NavigationScreens
 import com.example.winyourlife.presentation.utilScreens.ErrorScreen
 import com.example.winyourlife.presentation.utilScreens.LoadingScreen
 import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
 import com.example.winyourlife.presentation.customItems.MyVerticalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
-import com.example.winyourlife.presentation.customItems.SideNavigationBar
-import com.example.winyourlife.presentation.customItems.TaskList
 import com.example.winyourlife.presentation.customItems.TransparentButton
 import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
-import com.example.winyourlife.presentation.dataObjects.TaskData
-import com.example.winyourlife.presentation.homepage.HomeViewModel
 
 @Composable
 fun LoginPage(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
@@ -115,17 +111,17 @@ fun LandscapeLayout(viewModel: LoginViewModel, navController: NavHostController)
                 Box() {
                     Image(
                         painter = painterResource(id = R.drawable.logo),
-                        contentDescription = "App logo",
+                        contentDescription = stringResource(id = R.string.app_logo_description),
                         contentScale = ContentScale.Crop
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.weight(1f))
 
-            WhiteOutlinedTextField(email,{ email = it },"Email", true)
+            WhiteOutlinedTextField(email,{ email = it },stringResource(id = R.string.email_label), true)
 
-            WhiteOutlinedTextField(password,{ password = it },"Password", true, PasswordVisualTransformation())
+            WhiteOutlinedTextField(password,{ password = it },stringResource(id = R.string.password_label), true, PasswordVisualTransformation())
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -139,23 +135,23 @@ fun LandscapeLayout(viewModel: LoginViewModel, navController: NavHostController)
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            OrangeButton({ viewModel.login(email, password) }, "Log in")
+            OrangeButton({ viewModel.login(email, password) }, stringResource(id = R.string.log_in_button))
 
             OrangeButton({
                 viewModel.reset()
                 navController.navigate(NavigationScreens.REGISTER.name)
-            }, "Sign up")
+            }, stringResource(id = R.string.sign_up_button))
 
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(0.4f))
 
             MyHorizontalDivider()
 
             TransparentButton({
                 viewModel.reset()
                 navController.navigate(NavigationScreens.FORGOT_PASSWORD.name)
-            }, "Forgot your password?")
+            }, stringResource(id = R.string.forgot_password_button))
 
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(0.4f))
         }
     }
 }
@@ -190,7 +186,7 @@ fun PortraitLayout(viewModel: LoginViewModel, navController: NavHostController) 
             Box() {
                 Image(
                     painter = painterResource(id = R.drawable.logo),
-                    contentDescription = "App logo",
+                    contentDescription = stringResource(id = R.string.app_logo_description),
                     contentScale = ContentScale.Crop
                 )
             }
@@ -198,18 +194,18 @@ fun PortraitLayout(viewModel: LoginViewModel, navController: NavHostController) 
 
         Spacer(modifier = Modifier.weight(1f))
 
-        WhiteOutlinedTextField(email,{ email = it },"Email", true)
+        WhiteOutlinedTextField(email,{ email = it },stringResource(id = R.string.email_label), true)
 
-        WhiteOutlinedTextField(password,{ password = it },"Password", true, PasswordVisualTransformation())
+        WhiteOutlinedTextField(password,{ password = it },stringResource(id = R.string.password_label), true, PasswordVisualTransformation())
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        OrangeButton({ viewModel.login(email, password) }, "Log in")
+        OrangeButton({ viewModel.login(email, password) }, stringResource(id = R.string.log_in_button))
 
         OrangeButton({
             viewModel.reset()
             navController.navigate(NavigationScreens.REGISTER.name)
-        }, "Sign up")
+        }, stringResource(id = R.string.sign_up_button))
 
         Spacer(modifier = Modifier.weight(1f))
 
@@ -218,7 +214,7 @@ fun PortraitLayout(viewModel: LoginViewModel, navController: NavHostController) 
         TransparentButton({
             viewModel.reset()
             navController.navigate(NavigationScreens.FORGOT_PASSWORD.name)
-        }, "Forgot your password?")
+        }, stringResource(id = R.string.forgot_password_button))
 
         Spacer(modifier = Modifier.height(50.dp))
     }

@@ -8,8 +8,10 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.winyourlife.R
 
 @Composable
 fun CustomStreak(
@@ -26,19 +28,19 @@ fun CustomStreak(
             ) {
                 Icon(
                     imageVector = Icons.Default.Star,
-                    contentDescription = "Star Icon",
+                    contentDescription = stringResource(id = R.string.star_icon_description),
                     tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(24.dp)
                 )
 
                 Text(
-                    text = "STREAK:",
+                    text = stringResource(id = R.string.streak),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground
                 )
 
                 Text(
-                    text = "$period days",
+                    text = period + stringResource(id = R.string.days),
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary

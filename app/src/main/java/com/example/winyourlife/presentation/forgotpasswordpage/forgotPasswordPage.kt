@@ -7,15 +7,15 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.winyourlife.R
 import com.example.winyourlife.presentation.customItems.Headline
 import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
-import com.example.winyourlife.presentation.customItems.MyVerticalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
-import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
 
 @Composable
@@ -58,7 +58,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ForgotPasswordV
             MyHorizontalDivider()
 
             Text(
-                text = "Enter your email address and we will send you a link to reset your password",
+                text = stringResource(id = R.string.forgot_password_text),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.width(250.dp),
@@ -67,9 +67,9 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ForgotPasswordV
 
             Spacer(modifier = Modifier.weight(1f))
 
-            WhiteOutlinedTextField(email,{ email = it },"Email", true)
+            WhiteOutlinedTextField(email,{ email = it },stringResource(id = R.string.email_label), true)
 
-            OrangeButton({}, "Send an email")
+            OrangeButton({}, stringResource(id = R.string.send_email_button))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -89,14 +89,14 @@ fun PortraitLayout(navController: NavHostController, viewModel: ForgotPasswordVi
             .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Headline("RESET PASSWORD")
+        Headline(stringResource(id = R.string.reset_password_hd))
 
         Spacer(modifier = Modifier.height(50.dp))
 
         MyHorizontalDivider()
 
         Text(
-            text = "Enter your email address and we will send you a link to reset your password",
+            text = stringResource(id = R.string.forgot_password_text),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(horizontal = 60.dp),
@@ -105,11 +105,11 @@ fun PortraitLayout(navController: NavHostController, viewModel: ForgotPasswordVi
 
         Spacer(modifier = Modifier.height(60.dp))
 
-        WhiteOutlinedTextField(email,{ email = it },"Email", true)
+        WhiteOutlinedTextField(email,{ email = it },stringResource(id = R.string.email_label), true)
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        OrangeButton({}, "Send an email")
+        OrangeButton({}, stringResource(id = R.string.send_email_button))
 
         Spacer(modifier = Modifier.weight(1f))
     }

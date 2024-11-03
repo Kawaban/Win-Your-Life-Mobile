@@ -13,7 +13,7 @@ class UserService @Inject constructor(private val apiService: ApiService, privat
     suspend fun getUser(): Resource<UserResponse> {
         return try {
             val result = apiService.getUser()
-            currentUser.setUserData(result)
+            currentUser.userData = result
             Resource.Success(result)
         } catch (e: Exception) {
             Resource.Error(e.javaClass.name, null)

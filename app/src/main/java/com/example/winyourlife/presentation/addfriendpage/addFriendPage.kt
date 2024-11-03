@@ -7,14 +7,16 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.winyourlife.R
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
+import com.example.winyourlife.presentation.customItems.CustomSnackBar
 import com.example.winyourlife.presentation.customItems.Headline
 import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
-import com.example.winyourlife.presentation.customItems.MyVerticalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
@@ -59,7 +61,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: AddFriendViewMo
             MyHorizontalDivider()
 
             Text(
-                text = "Enter the email address of the person you want to invite to your friends",
+                text = stringResource(id = R.string.add_friend_text),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.width(280.dp),
@@ -68,11 +70,11 @@ fun LandscapeLayout(navController: NavHostController, viewModel: AddFriendViewMo
 
             Spacer(modifier = Modifier.weight(1f))
 
-            WhiteOutlinedTextField(email,{ email = it },"Email", true)
+            WhiteOutlinedTextField(email,{ email = it },stringResource(id = R.string.email_label), true)
 
             Spacer(modifier = Modifier.weight(1f))
 
-            OrangeButton({}, "Send invitation")
+            OrangeButton({}, stringResource(id = R.string.invite_button))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -88,36 +90,60 @@ fun PortraitLayout(navController: NavHostController, viewModel: AddFriendViewMod
         mutableStateOf("")
     }
 
-    Column(
+    val snackBarHostState = remember {
+        SnackbarHostState()
+    }
+
+    LaunchedEffect(viewModel.emailSent) {
+        if (viewModel.emailSent) {
+            viewModel.reset()
+            snackBarHostState.showSnackbar(
+                message = "",
+                duration = SnackbarDuration.Long
+            )
+        }
+    }
+
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
-        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Headline("ADD NEW FRIEND")
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Headline(stringResource(id = R.string.add_friend_hd))
 
-        Spacer(modifier = Modifier.height(50.dp))
+            Spacer(modifier = Modifier.height(50.dp))
 
-        MyHorizontalDivider()
+            MyHorizontalDivider()
 
-        Text(
-            text = "Enter the email address of the person you want to invite to your friends",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.padding(horizontal = 60.dp),
-            textAlign = TextAlign.Center
-        )
+            Text(
+                text = stringResource(id = R.string.add_friend_text),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.padding(horizontal = 60.dp),
+                textAlign = TextAlign.Center
+            )
 
-        Spacer(modifier = Modifier.weight(0.3f))
+            Spacer(modifier = Modifier.weight(0.3f))
 
-        WhiteOutlinedTextField(email,{ email = it },"Email", true)
+            WhiteOutlinedTextField(email,{ email = it },stringResource(id = R.string.email_label), true)
 
-        Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(30.dp))
 
-        OrangeButton({}, "Send invitation")
+            OrangeButton({ viewModel.sendEmail() }, stringResource(id = R.string.invite_button))
 
-        Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(1f))
 
-        BottomNavigationBar(navController)
+            BottomNavigationBar(navController)
+        }
     }
+
+    CustomSnackBar(
+        message = stringResource(id = R.string.account_created_snack),
+        snackBarHostState = snackBarHostState
+    )
 }

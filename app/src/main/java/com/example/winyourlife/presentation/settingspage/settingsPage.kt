@@ -11,16 +11,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.winyourlife.R
 import com.example.winyourlife.presentation.navigation.NavigationScreens
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
 import com.example.winyourlife.presentation.customItems.Headline
 import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
+import com.example.winyourlife.presentation.customItems.MySwitch
 import com.example.winyourlife.presentation.customItems.MyVerticalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.ui.theme.WinYourLifeTheme
+import com.example.winyourlife.presentation.customItems.LanguageDropDownMenu
 
 @Composable
 fun SettingsPage(navController: NavHostController) {
@@ -67,7 +71,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: SettingsViewMod
                 MyHorizontalDivider()
 
                 Text(
-                    text = "NOTIFICATIONS OPTIONS",
+                    text = stringResource(id = R.string.notifications_options),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.padding(bottom = 20.dp)
@@ -81,20 +85,12 @@ fun LandscapeLayout(navController: NavHostController, viewModel: SettingsViewMod
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Friend's notifications",
+                        text = stringResource(id = R.string.friends_notifications_switch),
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onBackground
                     )
-                    Switch(
-                        checked = true,
-                        onCheckedChange = {},
-                        colors = SwitchDefaults.colors(
-                            checkedThumbColor = MaterialTheme.colorScheme.onBackground,
-                            checkedTrackColor = MaterialTheme.colorScheme.primary,
-                            uncheckedThumbColor = MaterialTheme.colorScheme.onBackground,
-                            uncheckedTrackColor = MaterialTheme.colorScheme.secondary
-                        )
-                    )
+
+                    MySwitch(true, { })
                 }
 
                 Row(
@@ -105,20 +101,12 @@ fun LandscapeLayout(navController: NavHostController, viewModel: SettingsViewMod
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Daily reminders",
+                        text = stringResource(id = R.string.daily_reminders_switch),
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onBackground
                     )
-                    Switch(
-                        checked = false,
-                        onCheckedChange = {},
-                        colors = SwitchDefaults.colors(
-                            checkedThumbColor = MaterialTheme.colorScheme.onBackground,
-                            checkedTrackColor = MaterialTheme.colorScheme.primary,
-                            uncheckedThumbColor = MaterialTheme.colorScheme.onBackground,
-                            uncheckedTrackColor = MaterialTheme.colorScheme.secondary
-                        )
-                    )
+
+                    MySwitch(false, { })
                 }
 
                 MyHorizontalDivider()
@@ -131,20 +119,12 @@ fun LandscapeLayout(navController: NavHostController, viewModel: SettingsViewMod
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Dark theme",
+                        text = stringResource(id = R.string.dark_theme_switch),
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onBackground
                     )
-                    Switch(
-                        checked = isDarkTheme.value,
-                        onCheckedChange = { isDarkTheme.value = it },
-                        colors = SwitchDefaults.colors(
-                            checkedThumbColor = MaterialTheme.colorScheme.onBackground,
-                            checkedTrackColor = MaterialTheme.colorScheme.primary,
-                            uncheckedThumbColor = MaterialTheme.colorScheme.onBackground,
-                            uncheckedTrackColor = MaterialTheme.colorScheme.secondary
-                        )
-                    )
+
+                    MySwitch(isDarkTheme.value) { isDarkTheme.value = it }
                 }
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -159,14 +139,19 @@ fun LandscapeLayout(navController: NavHostController, viewModel: SettingsViewMod
             ) {
                 Spacer(modifier = Modifier.weight(1f))
 
-                OrangeButton({ navController.navigate(NavigationScreens.PROFILE.name) }, "Your profile")
+                LanguageDropDownMenu()
+
+                Spacer(modifier = Modifier.weight(0.8f))
+
+                MyHorizontalDivider()
+
+                Spacer(modifier = Modifier.weight(1f))
 
                 OrangeButton(
-                    { navController.navigate(NavigationScreens.STATISTICS.name) },
-                    "Statistics"
+                    { navController.navigate(NavigationScreens.STATISTICS.name) }, stringResource(id = R.string.statistics_button)
                 )
 
-                OrangeButton({ navController.navigate(NavigationScreens.LOGIN.name) }, "Log out")
+                OrangeButton({ navController.navigate(NavigationScreens.LOGIN.name) }, stringResource(id = R.string.log_out_button))
 
                 Spacer(modifier = Modifier.weight(1f))
             }
@@ -193,14 +178,14 @@ fun PortraitLayout(navController: NavHostController, viewModel: SettingsViewMode
                 .background(MaterialTheme.colorScheme.background),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Headline("SETTINGS")
+            Headline(stringResource(id = R.string.settings_hd))
 
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             MyHorizontalDivider()
 
             Text(
-                text = "NOTIFICATIONS OPTIONS",
+                text = stringResource(id = R.string.notifications_options),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.padding(bottom = 20.dp)
@@ -214,20 +199,12 @@ fun PortraitLayout(navController: NavHostController, viewModel: SettingsViewMode
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Friend's notifications",
+                    text = stringResource(id = R.string.friends_notifications_switch),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground
                 )
-                Switch(
-                    checked = true,
-                    onCheckedChange = {},
-                    colors = SwitchDefaults.colors(
-                        checkedThumbColor = MaterialTheme.colorScheme.onBackground,
-                        checkedTrackColor = MaterialTheme.colorScheme.primary,
-                        uncheckedThumbColor = MaterialTheme.colorScheme.onBackground,
-                        uncheckedTrackColor = MaterialTheme.colorScheme.secondary
-                    )
-                )
+
+                MySwitch(true, { })
             }
 
             Row(
@@ -238,20 +215,12 @@ fun PortraitLayout(navController: NavHostController, viewModel: SettingsViewMode
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Daily reminders",
+                    text = stringResource(id = R.string.daily_reminders_switch),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground
                 )
-                Switch(
-                    checked = false,
-                    onCheckedChange = {},
-                    colors = SwitchDefaults.colors(
-                        checkedThumbColor = MaterialTheme.colorScheme.onBackground,
-                        checkedTrackColor = MaterialTheme.colorScheme.primary,
-                        uncheckedThumbColor = MaterialTheme.colorScheme.onBackground,
-                        uncheckedTrackColor = MaterialTheme.colorScheme.secondary
-                    )
-                )
+
+                MySwitch(false, { })
             }
 
             MyHorizontalDivider()
@@ -264,31 +233,25 @@ fun PortraitLayout(navController: NavHostController, viewModel: SettingsViewMode
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Dark theme",
+                    text = stringResource(id = R.string.dark_theme_switch),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground
                 )
-                Switch(
-                    checked = isDarkTheme.value,
-                    onCheckedChange = { isDarkTheme.value = it },
-                    colors = SwitchDefaults.colors(
-                        checkedThumbColor = MaterialTheme.colorScheme.onBackground,
-                        checkedTrackColor = MaterialTheme.colorScheme.primary,
-                        uncheckedThumbColor = MaterialTheme.colorScheme.onBackground,
-                        uncheckedTrackColor = MaterialTheme.colorScheme.secondary
-                    )
-                )
+
+                MySwitch(isDarkTheme.value) { isDarkTheme.value = it }
             }
+
+            MyHorizontalDivider()
+
+            LanguageDropDownMenu()
 
             MyHorizontalDivider()
 
             Spacer(modifier = Modifier.weight(1f))
 
-            OrangeButton({ navController.navigate(NavigationScreens.PROFILE.name) }, "Your profile")
+            OrangeButton({ navController.navigate(NavigationScreens.STATISTICS.name) }, stringResource(id = R.string.statistics_button))
 
-            OrangeButton({ navController.navigate(NavigationScreens.STATISTICS.name) }, "Statistics")
-
-            OrangeButton({ navController.navigate(NavigationScreens.LOGIN.name) }, "Log out")
+            OrangeButton({ navController.navigate(NavigationScreens.LOGIN.name) }, stringResource(id = R.string.log_out_button))
 
             Spacer(modifier = Modifier.height(10.dp))
 

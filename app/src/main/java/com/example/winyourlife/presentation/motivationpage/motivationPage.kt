@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -60,7 +61,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: MotivationViewM
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.tate),
-                    contentDescription = "Motivational Image",
+                    contentDescription = stringResource(id = R.string.motivation_image_description),
                     contentScale = ContentScale.Fit,
                     modifier = Modifier
                         .fillMaxWidth(0.6f)
@@ -82,8 +83,8 @@ fun LandscapeLayout(navController: NavHostController, viewModel: MotivationViewM
                     .fillMaxSize(0.85f)
             ) {
                 Text(
-                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                    style = MaterialTheme.typography.bodyMedium,
+                    text = stringResource(id = R.string.motivation1),
+                    style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground,
                     lineHeight = 24.sp,
                     textAlign = TextAlign.Center,
@@ -111,17 +112,17 @@ fun PortraitLayout(navController: NavHostController, viewModel: MotivationViewMo
             .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Headline("MOTIVATION")
+        Headline(stringResource(id = R.string.motivation_hd))
 
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.weight(0.1f))
 
         Box(
             modifier = Modifier
-                .fillMaxSize(0.85f)
+                .weight(1f)
         ) {
             Text(
-                text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                style = MaterialTheme.typography.bodyMedium,
+                text = stringResource(id = R.string.motivation1),
+                style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground,
                 lineHeight = 24.sp,
                 textAlign = TextAlign.Center,
@@ -133,7 +134,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: MotivationViewMo
 
             Image(
                 painter = painterResource(id = R.drawable.tate),
-                contentDescription = "Motivational Image",
+                contentDescription = stringResource(id = R.string.motivation_image_description),
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .fillMaxWidth(0.6f)

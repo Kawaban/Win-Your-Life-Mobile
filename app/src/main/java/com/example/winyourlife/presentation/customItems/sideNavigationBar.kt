@@ -9,9 +9,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.ui.res.stringResource
+import com.example.winyourlife.R
 import com.example.winyourlife.presentation.navigation.NavigationScreens
 
 @Composable
@@ -25,13 +28,16 @@ fun SideNavigationBar(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         IconButton(onClick = { navController.navigate(NavigationScreens.SETTINGS.name) }) {
-            Icon(Icons.Default.Settings, contentDescription = "Settings", tint = MaterialTheme.colorScheme.onPrimary)
+            Icon(Icons.Default.Settings, contentDescription = stringResource(id = R.string.settings_description), tint = MaterialTheme.colorScheme.onPrimary)
+        }
+        IconButton(onClick = { navController.navigate(NavigationScreens.PROFILE.name) }) {
+            Icon(Icons.Default.AccountCircle, contentDescription = stringResource(id = R.string.profile_description))
         }
         IconButton(onClick = { navController.navigate(NavigationScreens.NOTIFICATIONS.name) }) {
-            Icon(Icons.Default.Notifications, contentDescription = "Notifications", tint = MaterialTheme.colorScheme.onPrimary)
+            Icon(Icons.Default.Notifications, contentDescription = stringResource(id = R.string.notifications_description), tint = MaterialTheme.colorScheme.onPrimary)
         }
         IconButton(onClick = { navController.navigate(NavigationScreens.HOME.name) }) {
-            Icon(Icons.Default.Home, contentDescription = "Home", tint = MaterialTheme.colorScheme.onPrimary)
+            Icon(Icons.Default.Home, contentDescription = stringResource(id = R.string.home_description), tint = MaterialTheme.colorScheme.onPrimary)
         }
     }
 }

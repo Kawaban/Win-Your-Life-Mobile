@@ -7,11 +7,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -98,28 +98,17 @@ fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) 
             .background(MaterialTheme.colorScheme.background),
         verticalAlignment = Alignment.CenterVertically
     ) {
+
         Column(
             modifier = Modifier
                 .weight(1f),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.weight(1f))
 
-            CustomStreak("26")
+            TaskList(tasks = tasks, 250)
 
-            Spacer(modifier = Modifier.height(10.dp))
-
-            MyHorizontalDivider()
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            OrangeButton({ navController.navigate(NavigationScreens.TASKS.name) }, "Your Tasks")
-
-            OrangeButton({ navController.navigate(NavigationScreens.FRIENDS.name) }, "Your Friends")
-
-            OrangeButton({ navController.navigate(NavigationScreens.MOTIVATION.name) }, "Motivation")
-
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.weight(1f))
         }
 
         MyVerticalDivider()
@@ -131,7 +120,19 @@ fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) 
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            TaskList(tasks = tasks, 250)
+            CustomStreak("26")
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            MyHorizontalDivider()
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            OrangeButton({  navController.navigate(NavigationScreens.TASKS.name)  }, stringResource(id = R.string.your_tasks_button))
+
+            OrangeButton({ navController.navigate(NavigationScreens.FRIENDS.name) }, stringResource(id = R.string.your_friends_button))
+
+            OrangeButton({ navController.navigate(NavigationScreens.MOTIVATION.name) }, stringResource(id = R.string.motivation_button))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -178,7 +179,11 @@ fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Headline("HELLO " + (viewModel.state.obj?.data?.name) + "!")
+        Headline(
+            stringResource(id = R.string.home_hd1) + (viewModel.state.obj?.data?.name) + stringResource(
+                id = R.string.home_hd2
+            )
+        )
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -196,11 +201,18 @@ fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        OrangeButton({ navController.navigate(NavigationScreens.TASKS.name) }, "Your Tasks")
+        OrangeButton({ navController.navigate(NavigationScreens.TASKS.name) },
+            stringResource(id = R.string.your_tasks_button))
 
-        OrangeButton({ navController.navigate(NavigationScreens.FRIENDS.name) }, "Your Friends")
+        OrangeButton(
+            { navController.navigate(NavigationScreens.FRIENDS.name) },
+            stringResource(id = R.string.your_friends_button)
+        )
 
-        OrangeButton({ navController.navigate(NavigationScreens.MOTIVATION.name) }, "Motivation")
+        OrangeButton(
+            { navController.navigate(NavigationScreens.MOTIVATION.name) },
+            stringResource(id = R.string.motivation_button)
+        )
 
         Spacer(modifier = Modifier.height(10.dp))
 

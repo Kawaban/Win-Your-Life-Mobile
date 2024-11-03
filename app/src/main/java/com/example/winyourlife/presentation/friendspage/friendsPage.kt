@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -81,7 +82,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: FriendsViewMode
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            OrangeButton({ navController.navigate(NavigationScreens.ADD_FRIEND.name) }, "Add new friend")
+            OrangeButton({ navController.navigate(NavigationScreens.ADD_FRIEND.name) }, stringResource(id = R.string.add_friend_button))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -110,7 +111,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: FriendsViewModel
             .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Headline("YOUR FRIENDS")
+        Headline(stringResource(id = R.string.friends_hd))
 
         Spacer(modifier = Modifier.height(90.dp))
 
@@ -118,7 +119,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: FriendsViewModel
 
         Spacer(modifier = Modifier.weight(1f))
 
-        OrangeButton({ navController.navigate(NavigationScreens.ADD_FRIEND.name) }, "Add new friend")
+        OrangeButton({ navController.navigate(NavigationScreens.ADD_FRIEND.name) }, stringResource(id = R.string.add_friend_button))
 
         Spacer(modifier = Modifier.height(60.dp))
 

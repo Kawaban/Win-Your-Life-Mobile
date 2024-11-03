@@ -19,9 +19,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.winyourlife.R
 
 @Composable
 fun DailyReminder(
@@ -52,7 +54,7 @@ fun DailyReminder(
                 IconButton(onClick = { }) {
                     Icon(
                         imageVector = Icons.Default.Close,
-                        contentDescription = "Close notification",
+                        contentDescription = stringResource(id = R.string.close_notification_description),
                         tint = MaterialTheme.colorScheme.primary
                     )
                 }
@@ -61,7 +63,7 @@ fun DailyReminder(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Don't forget to plan your tasks for tomorrow!",
+                text = stringResource(id = R.string.daily_reminder_text),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.Center,

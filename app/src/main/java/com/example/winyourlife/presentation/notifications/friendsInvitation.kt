@@ -23,10 +23,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.winyourlife.R
 
 
 @Composable
@@ -59,7 +61,7 @@ fun FriendsInvitation(
                 IconButton(onClick = { }) {
                     Icon(
                         imageVector = Icons.Default.Close,
-                        contentDescription = "Close notification",
+                        contentDescription = stringResource(id = R.string.close_notification_description),
                         tint = MaterialTheme.colorScheme.primary
                     )
                 }
@@ -68,7 +70,7 @@ fun FriendsInvitation(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "$nickname invites you to be friends!",
+                text = nickname + stringResource(id = R.string.invitation_text),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.Center,
@@ -84,10 +86,10 @@ fun FriendsInvitation(
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primary
                     ),
-                    modifier = Modifier.width(110.dp)
+                    modifier = Modifier.width(120.dp)
                 ) {
                     Text(
-                        text = "Accept",
+                        text = stringResource(id = R.string.accept_button),
                         color = MaterialTheme.colorScheme.onPrimary,
                         style = MaterialTheme.typography.bodyLarge
                     )
@@ -97,10 +99,10 @@ fun FriendsInvitation(
                     onClick = { },
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.background),
                     border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
-                    modifier = Modifier.width(110.dp)
+                    modifier = Modifier.width(210.dp)
                 ) {
                     Text(
-                        text = "Reject",
+                        text = stringResource(id = R.string.reject_button),
                         color = MaterialTheme.colorScheme.onBackground,
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Normal

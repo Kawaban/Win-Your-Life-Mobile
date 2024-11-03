@@ -21,17 +21,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalConfiguration
-import com.example.winyourlife.presentation.createtaskpage.CreateTaskViewModel
-import com.example.winyourlife.presentation.customItems.MyVerticalDivider
+import androidx.compose.ui.res.stringResource
+import com.example.winyourlife.R
 import com.example.winyourlife.presentation.customItems.NotificationList
-import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
-import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
 import com.example.winyourlife.presentation.dataObjects.NotificationData
 
 @Composable
@@ -68,7 +62,7 @@ fun NotificationCard(
                 IconButton(onClick = onClose) {
                     Icon(
                         imageVector = Icons.Default.Close,
-                        contentDescription = "Close notification",
+                        contentDescription = stringResource(id = R.string.close_notification_description),
                         tint = MaterialTheme.colorScheme.primary
                     )
                 }
@@ -95,18 +89,18 @@ fun NotificationCard(
                         colors = ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.primary
                         ),
-                        modifier = Modifier.width(110.dp)
+                        modifier = Modifier.width(120.dp)
                     ) {
-                        Text("Accept", color = MaterialTheme.colorScheme.onPrimary, style = MaterialTheme.typography.bodyLarge)
+                        Text(stringResource(id = R.string.accept_button), color = MaterialTheme.colorScheme.onPrimary, style = MaterialTheme.typography.bodyLarge)
                     }
                     Spacer(modifier = Modifier.width(8.dp))
                     Button(
                         onClick = { onReject?.invoke() },
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.background),
                         border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
-                        modifier = Modifier.width(110.dp)
+                        modifier = Modifier.width(120.dp)
                     ) {
-                        Text("Reject", color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Normal)
+                        Text(stringResource(id = R.string.reject_button), color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Normal)
                     }
                 }
             }
@@ -235,7 +229,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: NotificationsVie
             .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Headline("NOTIFICATIONS")
+        Headline(stringResource(id = R.string.notifications_hd))
 
         Spacer(modifier = Modifier.height(40.dp))
 

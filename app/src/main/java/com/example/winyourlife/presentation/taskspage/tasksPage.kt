@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -108,7 +109,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: TasksViewModel 
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            TaskList(tasks = tasks, 320)
+            TaskList(tasks = tasks, 250)
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -124,12 +125,12 @@ fun LandscapeLayout(navController: NavHostController, viewModel: TasksViewModel 
 
             CustomStreak("12")
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.weight(1f))
 
             MyHorizontalDivider()
 
             Text(
-                text = "To win the day you need to complete x more tasks",
+                text = stringResource(id = R.string.tasks_text1) + "x" + stringResource(id = R.string.tasks_text2),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.padding(horizontal = 60.dp),
@@ -138,7 +139,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: TasksViewModel 
 
             Spacer(modifier = Modifier.weight(1f))
 
-            OrangeButton({ navController.navigate(NavigationScreens.PREPARE_NEXT_DAY.name) }, "Prepare the Next Day")
+            OrangeButton({ navController.navigate(NavigationScreens.PREPARE_NEXT_DAY.name) }, stringResource(id = R.string.prepare_day_button))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -198,7 +199,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: TasksViewModel =
             .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Headline("TODAY'S GOALS")
+        Headline(stringResource(id = R.string.tasks_hd))
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -209,7 +210,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: TasksViewModel =
         MyHorizontalDivider()
 
         Text(
-            text = "To win the day you need to complete x more tasks",
+            text = stringResource(id = R.string.tasks_text1) + "x" + stringResource(id = R.string.tasks_text2),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(horizontal = 60.dp),
@@ -224,7 +225,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: TasksViewModel =
 
         MyHorizontalDivider()
 
-        OrangeButton({ navController.navigate(NavigationScreens.PREPARE_NEXT_DAY.name) }, "Prepare the Next Day")
+        OrangeButton({ navController.navigate(NavigationScreens.PREPARE_NEXT_DAY.name) }, stringResource(id = R.string.prepare_day_button))
 
         Spacer(modifier = Modifier.height(30.dp))
 

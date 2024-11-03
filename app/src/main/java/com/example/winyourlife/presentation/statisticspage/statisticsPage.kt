@@ -13,8 +13,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.winyourlife.R
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
 import com.example.winyourlife.presentation.customItems.Headline
 import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
@@ -65,25 +67,23 @@ fun LandscapeLayout(navController: NavHostController, viewModel: StatisticsViewM
             MyHorizontalDivider()
 
             Text(
-                text = "Longest streak",
+                text = stringResource(id = R.string.longest_streak),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(bottom = 16.dp),
-                fontWeight = FontWeight.Light
+                modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            OrangeOutlinedTextField("37 days")
+            OrangeOutlinedTextField("37" + stringResource(id = R.string.days))
 
             Spacer(modifier = Modifier.height(10.dp))
 
             MyHorizontalDivider()
 
             Text(
-                text = "Number of tasks completed",
+                text = stringResource(id = R.string.tasks_completed),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(bottom = 16.dp),
-                fontWeight = FontWeight.Light
+                modifier = Modifier.padding(bottom = 16.dp)
             )
 
             OrangeOutlinedTextField("1112")
@@ -103,11 +103,10 @@ fun LandscapeLayout(navController: NavHostController, viewModel: StatisticsViewM
             MyHorizontalDivider()
 
             Text(
-                text = "Number of days won",
+                text = stringResource(id = R.string.days_won),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(bottom = 16.dp),
-                fontWeight = FontWeight.Light
+                modifier = Modifier.padding(bottom = 16.dp)
             )
 
             OrangeOutlinedTextField("64")
@@ -117,14 +116,13 @@ fun LandscapeLayout(navController: NavHostController, viewModel: StatisticsViewM
             MyHorizontalDivider()
 
             Text(
-                text = "You've been with us for ...",
+                text = stringResource(id = R.string.account_since),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(bottom = 16.dp),
-                fontWeight = FontWeight.Light
+                modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            OrangeOutlinedTextField("210 days!")
+            OrangeOutlinedTextField("210" + stringResource(id = R.string.days2))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -142,32 +140,30 @@ fun PortraitLayout(navController: NavHostController, viewModel: StatisticsViewMo
             .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Headline("STATISTICS")
+        Headline(stringResource(id = R.string.statistics_hd))
 
         Spacer(modifier = Modifier.height(20.dp))
 
         MyHorizontalDivider()
 
         Text(
-            text = "Longest streak",
+            text = stringResource(id = R.string.longest_streak),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.padding(bottom = 16.dp),
-            fontWeight = FontWeight.Light
+            modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        OrangeOutlinedTextField("37 days")
+        OrangeOutlinedTextField("37" + stringResource(id = R.string.days))
 
         Spacer(modifier = Modifier.height(10.dp))
 
         MyHorizontalDivider()
 
         Text(
-            text = "Number of tasks completed",
+            text = stringResource(id = R.string.tasks_completed),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.padding(bottom = 16.dp),
-            fontWeight = FontWeight.Light
+            modifier = Modifier.padding(bottom = 16.dp)
         )
 
         OrangeOutlinedTextField("1112")
@@ -177,11 +173,10 @@ fun PortraitLayout(navController: NavHostController, viewModel: StatisticsViewMo
         MyHorizontalDivider()
 
         Text(
-            text = "Number of days won",
+            text = stringResource(id = R.string.days_won),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.padding(bottom = 16.dp),
-            fontWeight = FontWeight.Light
+            modifier = Modifier.padding(bottom = 16.dp)
         )
 
         OrangeOutlinedTextField("64")
@@ -191,14 +186,13 @@ fun PortraitLayout(navController: NavHostController, viewModel: StatisticsViewMo
         MyHorizontalDivider()
 
         Text(
-            text = "You've been with us for ...",
+            text = stringResource(id = R.string.account_since),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.padding(bottom = 16.dp),
-            fontWeight = FontWeight.Light
+            modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        OrangeOutlinedTextField("210 days!")
+        OrangeOutlinedTextField("210" + stringResource(id = R.string.days2))
 
         Spacer(modifier = Modifier.weight(1f))
 
