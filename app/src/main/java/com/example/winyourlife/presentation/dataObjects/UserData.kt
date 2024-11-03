@@ -1,14 +1,14 @@
 package com.example.winyourlife.presentation.dataObjects
 
-//data class UserData(
-//    val name: String,
-//    val email: String,
-//    val avatar: ByteArray,
-//    val streak: Int,
-//    val longestStreak: Int,
-//    val completedTasks: Int,
-////    val numberOfDaysWon: Int,
-////    val accountSince: Int,
-//    val isFriendNotificationActive: Boolean,
-//    val isDailyReminderActive: Boolean
-//)
+data class UserData(
+    var name: String,
+    var email: String,
+    var avatar: ByteArray,
+    var streak: Int,
+    var longestStreak: Int,
+    var completedTasks: Int,
+//    val numberOfDaysWon: Int,
+//    val accountSince: Int,
+    var isFriendNotificationActive: Boolean,
+    var isDailyReminderActive: Boolean
+)
