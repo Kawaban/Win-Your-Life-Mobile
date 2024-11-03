@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(val userService: UserService, val imageEncoder: ImageEncoder, val currentUser: CurrentUser) : ViewModel() {
+class ProfileViewModel @Inject constructor(val userService: UserService, val currentUser: CurrentUser) : ViewModel() {
 
     var stateUpdateData by mutableStateOf(State<Nothing>())
         private set
