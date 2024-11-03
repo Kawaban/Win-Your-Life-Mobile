@@ -31,7 +31,7 @@ import com.example.winyourlife.presentation.utilScreens.LoadingScreen
 @Composable
 fun HomePage(navController: NavHostController, viewModel: HomeViewModel = hiltViewModel()) {
 
-//    HomeScreenMainContent(viewModel, navController)
+//    ResponsiveLayout(viewModel, navController)
 
     when (!viewModel.state.isLoading && !viewModel.state.isReady) {
         true -> {
@@ -43,7 +43,7 @@ fun HomePage(navController: NavHostController, viewModel: HomeViewModel = hiltVi
                     LoadingScreen()
                 }
                 false -> {
-                    HomeScreenMainContent(viewModel, navController)
+                    ResponsiveLayout(viewModel, navController)
                 }
             }
         }

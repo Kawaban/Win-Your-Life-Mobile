@@ -4,8 +4,6 @@ import android.content.Context
 import android.net.Uri
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
-import javax.inject.Inject
-import javax.inject.Singleton
 
 
 class ImageEncoder{
