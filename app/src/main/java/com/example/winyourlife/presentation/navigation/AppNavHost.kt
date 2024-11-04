@@ -21,7 +21,7 @@ import com.example.winyourlife.presentation.settingspage.SettingsPage
 import com.example.winyourlife.presentation.statisticspage.StatisticsPage
 
 //TODO prepare the next day, create new task, notification classes, snack bars
-//TODO task completion effects, motivation speech, delete friend option, remove tasks page
+//TODO day won animation, motivation speech, delete friend option, remove tasks page
 
 @Composable
 fun AppNavHost(
