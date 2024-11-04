@@ -81,4 +81,6 @@ dependencies {
     implementation(libs.androix.navigation.compose)
 
     implementation(libs.hilt.navigation.compose)
+
+    implementation(libs.dionsegijn.konfetti.compose)
 }
