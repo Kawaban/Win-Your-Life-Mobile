@@ -69,6 +69,7 @@
     <string name="change_password_button">Change password</string>
     <string name="statistics_button">Statistics</string>
     <string name="change_data_button">Change data</string>
+    <string name="save_data_button">Save data</string>
 
     <string name="notifications_hd">NOTIFICATIONS</string>
     <string name="add_friend_hd">ADD NEW FRIEND</string>
@@ -90,6 +91,7 @@
 
     <string name="account_created_snack">Account has been created</string>
     <string name="email_sent_snack">An email has been sent.</string>
+    <string name="data_saved_snack">Data has been saved</string>
 
     <string name="motivation1">You only have one life, so what are you waiting for? Start taking action today, or you\’ll always be the one watching others succeed.</string>
     <string name="motivation2">The world has no mercy for the lazy. Want to achieve something? You need to work ten times harder than everyone else around you. No one\’s handing you success on a silver platter.</string>

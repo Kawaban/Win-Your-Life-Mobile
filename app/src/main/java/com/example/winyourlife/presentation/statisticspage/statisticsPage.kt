@@ -1,5 +1,6 @@
 package com.example.winyourlife.presentation.statisticspage
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -25,8 +26,12 @@ import com.example.winyourlife.presentation.customItems.OrangeOutlinedTextField
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 
 @Composable
-fun StatisticsPage(navController: NavHostController) {
+fun StatisticsPage(navController: NavHostController, viewModel: StatisticsViewModel = hiltViewModel()) {
     ResponsiveLayout(navController)
+    BackHandler {
+        viewModel.resetViewModel()
+        navController.popBackStack()
+    }
 }
 
 @Composable
@@ -127,7 +132,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: StatisticsViewM
             Spacer(modifier = Modifier.weight(1f))
         }
 
-        SideNavigationBar(navController)
+        SideNavigationBar(navController, viewModel)
     }
 }
 
@@ -196,6 +201,6 @@ fun PortraitLayout(navController: NavHostController, viewModel: StatisticsViewMo
 
         Spacer(modifier = Modifier.weight(1f))
 
-        BottomNavigationBar(navController)
+        BottomNavigationBar(navController, viewModel)
     }
 }

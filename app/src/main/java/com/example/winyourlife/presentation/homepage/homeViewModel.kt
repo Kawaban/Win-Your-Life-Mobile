@@ -9,12 +9,14 @@ import com.example.winyourlife.data.dto.UserResponse
 import com.example.winyourlife.domain.UserService
 import com.example.winyourlife.domain.dto.Resource
 import com.example.winyourlife.presentation.State
+import com.example.winyourlife.presentation.ViewModelCustomInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(val userService: UserService): ViewModel(){
+class HomeViewModel @Inject constructor(val userService: UserService): ViewModel(),
+    ViewModelCustomInterface {
 
     var state by mutableStateOf(State<UserResponse>())
         private set
@@ -46,7 +48,7 @@ class HomeViewModel @Inject constructor(val userService: UserService): ViewModel
         }
     }
 
-    fun reset () {
+    override fun resetViewModel () {
         state = State()
     }
 }

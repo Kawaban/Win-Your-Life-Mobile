@@ -1,5 +1,6 @@
 package com.example.winyourlife.presentation.settingspage
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
@@ -27,8 +28,12 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 import com.example.winyourlife.presentation.customItems.LanguageDropDownMenu
 
 @Composable
-fun SettingsPage(navController: NavHostController) {
+fun SettingsPage(navController: NavHostController, viewModel: SettingsViewModel = hiltViewModel()) {
     ResponsiveLayout(navController)
+    BackHandler {
+        viewModel.resetViewModel()
+        navController.popBackStack()
+    }
 }
 
 @Composable
@@ -156,7 +161,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: SettingsViewMod
                 Spacer(modifier = Modifier.weight(1f))
             }
 
-            SideNavigationBar(navController)
+            SideNavigationBar(navController, viewModel)
         }
     }
 }
@@ -255,7 +260,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: SettingsViewMode
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            BottomNavigationBar(navController)
+            BottomNavigationBar(navController, viewModel)
         }
     }
 }

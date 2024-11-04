@@ -6,9 +6,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import com.example.winyourlife.presentation.ViewModelCustomInterface
 
 @HiltViewModel
-class AddFriendViewModel @Inject constructor() : ViewModel() {
+class AddFriendViewModel @Inject constructor() : ViewModel(), ViewModelCustomInterface {
 
     var emailSent by mutableStateOf(false)
         private set
@@ -19,5 +20,9 @@ class AddFriendViewModel @Inject constructor() : ViewModel() {
 
     fun reset() {
         emailSent = false
+    }
+
+    override fun resetViewModel() {
+
     }
 }

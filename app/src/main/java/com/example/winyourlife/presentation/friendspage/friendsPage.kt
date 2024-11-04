@@ -1,5 +1,6 @@
 package com.example.winyourlife.presentation.friendspage
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,8 +27,12 @@ import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 
 @Composable
-fun FriendsPage(navController: NavHostController) {
+fun FriendsPage(navController: NavHostController, viewModel: FriendsViewModel = hiltViewModel()) {
     ResponsiveLayout(navController)
+    BackHandler {
+        viewModel.resetViewModel()
+        navController.popBackStack()
+    }
 }
 
 @Composable
@@ -87,7 +92,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: FriendsViewMode
             Spacer(modifier = Modifier.weight(1f))
         }
 
-        SideNavigationBar(navController)
+        SideNavigationBar(navController, viewModel)
     }
 }
 
@@ -123,6 +128,6 @@ fun PortraitLayout(navController: NavHostController, viewModel: FriendsViewModel
 
         Spacer(modifier = Modifier.height(60.dp))
 
-        BottomNavigationBar(navController)
+        BottomNavigationBar(navController, viewModel)
     }
 }

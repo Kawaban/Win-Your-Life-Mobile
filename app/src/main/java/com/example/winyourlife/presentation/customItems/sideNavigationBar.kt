@@ -15,10 +15,11 @@ import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.res.stringResource
 import com.example.winyourlife.R
+import com.example.winyourlife.presentation.ViewModelCustomInterface
 import com.example.winyourlife.presentation.navigation.NavigationScreens
 
 @Composable
-fun SideNavigationBar(navController: NavController) {
+fun SideNavigationBar(navController: NavController, viewModel: ViewModelCustomInterface) {
     Column(
         modifier = Modifier
             .fillMaxHeight()
@@ -27,16 +28,16 @@ fun SideNavigationBar(navController: NavController) {
         verticalArrangement = Arrangement.SpaceAround,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        IconButton(onClick = { navController.navigate(NavigationScreens.SETTINGS.name) }) {
+        IconButton(onClick = {viewModel.resetViewModel(); navController.navigate(NavigationScreens.SETTINGS.name) }) {
             Icon(Icons.Default.Settings, contentDescription = stringResource(id = R.string.settings_description), tint = MaterialTheme.colorScheme.onPrimary)
         }
-        IconButton(onClick = { navController.navigate(NavigationScreens.PROFILE.name) }) {
+        IconButton(onClick = {viewModel.resetViewModel(); navController.navigate(NavigationScreens.PROFILE.name) }) {
             Icon(Icons.Default.AccountCircle, contentDescription = stringResource(id = R.string.profile_description))
         }
-        IconButton(onClick = { navController.navigate(NavigationScreens.NOTIFICATIONS.name) }) {
+        IconButton(onClick = {viewModel.resetViewModel(); navController.navigate(NavigationScreens.NOTIFICATIONS.name) }) {
             Icon(Icons.Default.Notifications, contentDescription = stringResource(id = R.string.notifications_description), tint = MaterialTheme.colorScheme.onPrimary)
         }
-        IconButton(onClick = { navController.navigate(NavigationScreens.HOME.name) }) {
+        IconButton(onClick = {viewModel.resetViewModel(); navController.navigate(NavigationScreens.HOME.name) }) {
             Icon(Icons.Default.Home, contentDescription = stringResource(id = R.string.home_description), tint = MaterialTheme.colorScheme.onPrimary)
         }
     }

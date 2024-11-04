@@ -1,6 +1,7 @@
 package com.example.winyourlife.presentation.homepage
 
 import android.media.MediaPlayer
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -47,23 +48,28 @@ import java.util.concurrent.TimeUnit
 @Composable
 fun HomePage(navController: NavHostController, viewModel: HomeViewModel = hiltViewModel()) {
 
-    ResponsiveLayout(viewModel, navController)
+//    ResponsiveLayout(viewModel, navController)
 
-//    when (!viewModel.state.isLoading && !viewModel.state.isReady) {
-//        true -> {
-//            viewModel.getUserName()
-//        }
-//        false -> {
-//            when(viewModel.state.isLoading) {
-//                true -> {
-//                    LoadingScreen()
-//                }
-//                false -> {
-//                    ResponsiveLayout(viewModel, navController)
-//                }
-//            }
-//        }
-//    }
+    when (!viewModel.state.isLoading && !viewModel.state.isReady) {
+        true -> {
+            viewModel.getUserName()
+        }
+        false -> {
+            when(viewModel.state.isLoading) {
+                true -> {
+                    LoadingScreen()
+                }
+                false -> {
+                    ResponsiveLayout(viewModel, navController)
+                }
+            }
+        }
+    }
+
+    BackHandler {
+        viewModel.resetViewModel()
+        navController.popBackStack()
+    }
 }
 
 @Composable
@@ -177,16 +183,16 @@ fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) 
                     mediaPlayer.start() },
                     stringResource(id = R.string.prepare_day_button))
 
-                OrangeButton({ navController.navigate(NavigationScreens.FRIENDS.name) },
+                OrangeButton({viewModel.resetViewModel(); navController.navigate(NavigationScreens.FRIENDS.name) },
                     stringResource(id = R.string.your_friends_button))
 
-                OrangeButton({ navController.navigate(NavigationScreens.MOTIVATION.name) },
+                OrangeButton({viewModel.resetViewModel(); navController.navigate(NavigationScreens.MOTIVATION.name) },
                     stringResource(id = R.string.motivation_button))
 
                 Spacer(modifier = Modifier.weight(1f))
             }
 
-            SideNavigationBar(navController)
+            SideNavigationBar(navController, viewModel)
         }
 
         if (showConfetti) {
@@ -276,7 +282,7 @@ fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
         ) {
 
             Headline(
-                stringResource(id = R.string.home_hd1) + (viewModel.state.obj?.data?.name) + stringResource(
+                stringResource(id = R.string.home_hd1) +" "+ (viewModel.state.obj?.data?.name) + stringResource(
                     id = R.string.home_hd2
                 )
             )
@@ -303,18 +309,18 @@ fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
                 stringResource(id = R.string.prepare_day_button))
 
             OrangeButton(
-                { navController.navigate(NavigationScreens.FRIENDS.name) },
+                {viewModel.resetViewModel(); navController.navigate(NavigationScreens.FRIENDS.name) },
                 stringResource(id = R.string.your_friends_button)
             )
 
             OrangeButton(
-                { navController.navigate(NavigationScreens.MOTIVATION.name) },
+                {viewModel.resetViewModel(); navController.navigate(NavigationScreens.MOTIVATION.name) },
                 stringResource(id = R.string.motivation_button)
             )
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            BottomNavigationBar(navController)
+            BottomNavigationBar(navController, viewModel)
         }
 
         if (showConfetti) {

@@ -1,5 +1,6 @@
 package com.example.winyourlife.presentation.addfriendpage
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -21,8 +22,12 @@ import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
 
 @Composable
-fun AddFriendPage(navController: NavHostController) {
+fun AddFriendPage(navController: NavHostController, viewModel: AddFriendViewModel = hiltViewModel()) {
     ResponsiveLayout(navController)
+    BackHandler {
+        viewModel.resetViewModel()
+        navController.popBackStack()
+    }
 }
 
 @Composable
@@ -78,7 +83,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: AddFriendViewMo
             Spacer(modifier = Modifier.weight(1f))
         }
 
-        SideNavigationBar(navController)
+        SideNavigationBar(navController, viewModel)
     }
 }
 
@@ -119,6 +124,6 @@ fun PortraitLayout(navController: NavHostController, viewModel: AddFriendViewMod
 
         Spacer(modifier = Modifier.weight(1f))
 
-        BottomNavigationBar(navController)
+        BottomNavigationBar(navController, viewModel)
     }
 }

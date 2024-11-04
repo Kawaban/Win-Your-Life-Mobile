@@ -18,10 +18,12 @@ import androidx.compose.ui.unit.dp
 import com.example.winyourlife.presentation.navigation.NavigationScreens
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.lifecycle.ViewModel
 import com.example.winyourlife.R
+import com.example.winyourlife.presentation.ViewModelCustomInterface
 
 @Composable
-fun BottomNavigationBar(navController: NavController) {
+fun BottomNavigationBar(navController: NavController, viewModel:ViewModelCustomInterface) {
     BottomAppBar(
         containerColor = MaterialTheme.colorScheme.primary,
         contentColor = MaterialTheme.colorScheme.onPrimary,
@@ -32,16 +34,16 @@ fun BottomNavigationBar(navController: NavController) {
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceAround
         ) {
-            IconButton(onClick = { navController.navigate(NavigationScreens.HOME.name) }) {
+            IconButton(onClick = {viewModel.resetViewModel(); navController.navigate(NavigationScreens.HOME.name) }) {
                 Icon(Icons.Default.Home, contentDescription = stringResource(id = R.string.home_description))
             }
-            IconButton(onClick = { navController.navigate(NavigationScreens.NOTIFICATIONS.name) }) {
+            IconButton(onClick = {viewModel.resetViewModel(); navController.navigate(NavigationScreens.NOTIFICATIONS.name) }) {
                 Icon(Icons.Default.Notifications, contentDescription = stringResource(id = R.string.notifications_description))
             }
-            IconButton(onClick = { navController.navigate(NavigationScreens.PROFILE.name) }) {
+            IconButton(onClick = {viewModel.resetViewModel(); navController.navigate(NavigationScreens.PROFILE.name) }) {
                 Icon(Icons.Default.AccountCircle, contentDescription = stringResource(id = R.string.profile_description))
             }
-            IconButton(onClick = { navController.navigate(NavigationScreens.SETTINGS.name) }) {
+            IconButton(onClick = {viewModel.resetViewModel(); navController.navigate(NavigationScreens.SETTINGS.name) }) {
                 Icon(Icons.Default.Settings, contentDescription = stringResource(id = R.string.settings_description))
             }
         }

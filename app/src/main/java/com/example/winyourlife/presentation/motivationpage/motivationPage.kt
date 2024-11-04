@@ -1,5 +1,6 @@
 package com.example.winyourlife.presentation.motivationpage
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -23,8 +24,12 @@ import com.example.winyourlife.presentation.customItems.Headline
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 
 @Composable
-fun MotivationPage(navController: NavHostController) {
+fun MotivationPage(navController: NavHostController, viewModel: MotivationViewModel = hiltViewModel()) {
     ResponsiveLayout(navController)
+    BackHandler {
+        viewModel.resetViewModel()
+        navController.popBackStack()
+    }
 }
 
 @Composable
@@ -98,7 +103,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: MotivationViewM
             Spacer(modifier = Modifier.weight(1f))
         }
 
-        SideNavigationBar(navController)
+        SideNavigationBar(navController, viewModel)
     }
 }
 
@@ -143,6 +148,6 @@ fun PortraitLayout(navController: NavHostController, viewModel: MotivationViewMo
             )
         }
 
-        BottomNavigationBar(navController)
+        BottomNavigationBar(navController, viewModel)
     }
 }

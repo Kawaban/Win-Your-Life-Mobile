@@ -1,7 +1,8 @@
 package com.example.winyourlife.presentation.profilepage
 
 import android.graphics.BitmapFactory
-import android.util.Base64
+import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -34,6 +35,7 @@ import com.example.winyourlife.presentation.customItems.MyVerticalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
+import java.util.Base64
 
 @Composable
 fun ProfilePage(navController: NavHostController) {
@@ -44,11 +46,30 @@ fun ProfilePage(navController: NavHostController) {
 fun ResponsiveLayout(navController: NavHostController, viewModel: ProfileViewModel = hiltViewModel()) {
     val configuration = LocalConfiguration.current
     val isPortrait = configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT
-
+    val context = LocalContext.current
     if (isPortrait) {
        PortraitLayout(navController)
     } else {
         LandscapeLayout(navController)
+    }
+
+    when(viewModel.stateUpdateData.isReady){
+        true -> {
+            when(viewModel.stateUpdateData.error != null){
+                true -> {
+                    // ErrorScreen(message = viewModel.stateUpdateData.error)
+                }
+                false -> {
+                    Toast.makeText(context,stringResource(id = R.string.data_saved_snack), Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        false -> {}
+    }
+
+    BackHandler {
+        viewModel.resetViewModel()
+        navController.popBackStack()
     }
 }
 
@@ -69,13 +90,10 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ProfileViewMode
     }
 
     val pickMedia = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-
-        avatar = ImageEncoder().encodeImage(uri, context)
-        if (uri != null) {
-            println("Media selected: $uri")
-        } else {
-            println("No media selected")
-        }
+        avatar = if (uri != null)
+            ImageEncoder().encodeImage(uri, context)
+        else
+            null
     }
 
     Row(
@@ -91,20 +109,13 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ProfileViewMode
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            when(avatar) {
-                null -> Image(
+            when {
+                avatar == null ||
+                        avatar?.decodeToString() == Base64.getDecoder().decode("").decodeToString() -> Image(
                     painter = painterResource(id = R.drawable.avatar),
                     contentDescription = stringResource(id = R.string.user_avatar_description),
                     modifier = Modifier
-                        .clickable { pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }
-                        .size(128.dp)
-                        .padding(16.dp)
-                )
-                byteArrayOf(0) -> Image(
-                    painter = painterResource(id = R.drawable.avatar),
-                    contentDescription = stringResource(id = R.string.user_avatar_description),
-                    modifier = Modifier
-                        .clickable { pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }
+                        .clickable { if(viewModel.isEditProfile) pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }
                         .size(128.dp)
                         .padding(16.dp)
                 )
@@ -112,7 +123,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ProfileViewMode
                     bitmap = BitmapFactory.decodeByteArray(avatar, 0, avatar!!.size).asImageBitmap(),
                     contentDescription = stringResource(id = R.string.user_avatar_description),
                     modifier = Modifier
-                        .clickable { pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }
+                        .clickable { if(viewModel.isEditProfile) pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }
                         .size(128.dp)
                         .padding(16.dp)
                 )
@@ -136,14 +147,14 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ProfileViewMode
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            OrangeButton({viewModel.updateUserData(email=email?:"", name = nickname?:"", avatar = avatar)}, stringResource(id = R.string.change_data_button))
+            OrangeButton({viewModel.updateUserData(email=email?:"", name = nickname?:"", avatar = avatar?: Base64.getDecoder().decode(""))}, stringResource(id = R.string.change_data_button))
 
             OrangeButton({ navController.navigate(NavigationScreens.RESET_PASSWORD.name) }, stringResource(id = R.string.change_password_button))
 
             Spacer(modifier = Modifier.weight(1f))
         }
 
-        SideNavigationBar(navController)
+        SideNavigationBar(navController, viewModel)
     }
 }
 
@@ -163,11 +174,12 @@ fun PortraitLayout(navController: NavHostController, viewModel: ProfileViewModel
         mutableStateOf(viewModel.currentUser.userData?.avatar)
     }
 
+
     val pickMedia = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        if (uri != null)
-            avatar = ImageEncoder().encodeImage(uri, context)
+        avatar = if (uri != null)
+            ImageEncoder().encodeImage(uri, context)
         else
-            avatar = null
+            null
     }
 
     Column(
@@ -182,11 +194,11 @@ fun PortraitLayout(navController: NavHostController, viewModel: ProfileViewModel
 
         when {
             avatar == null ||
-            avatar?.decodeToString() == Base64.decode("",Base64.DEFAULT).decodeToString() -> Image(
+            avatar?.decodeToString() == Base64.getDecoder().decode("").decodeToString() -> Image(
                 painter = painterResource(id = R.drawable.avatar),
                 contentDescription = stringResource(id = R.string.user_avatar_description),
                 modifier = Modifier
-                    .clickable { pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }
+                    .clickable { if(viewModel.isEditProfile) pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }
                     .size(128.dp)
                     .padding(16.dp)
             )
@@ -194,7 +206,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: ProfileViewModel
                 bitmap = BitmapFactory.decodeByteArray(avatar, 0, avatar!!.size).asImageBitmap(),
                 contentDescription = stringResource(id = R.string.user_avatar_description),
                 modifier = Modifier
-                    .clickable { pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }
+                    .clickable { if(viewModel.isEditProfile) pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }
                     .size(128.dp)
                     .padding(16.dp)
             )
@@ -202,18 +214,18 @@ fun PortraitLayout(navController: NavHostController, viewModel: ProfileViewModel
 
         Spacer(modifier = Modifier.weight(1f))
 
-        WhiteOutlinedTextField(nickname ?: "",{ nickname = it },stringResource(id = R.string.nickname_label), false)
+        WhiteOutlinedTextField(nickname ?: "",{ nickname = it },stringResource(id = R.string.nickname_label), viewModel.isEditProfile)
 
-        WhiteOutlinedTextField(email ?: "",{ email = it },stringResource(id = R.string.email_label), false)
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        OrangeButton(onClick = {viewModel.updateUserData(email=email?:"", name = nickname?:"", avatar =avatar)}, stringResource(id = R.string.change_data_button))
-
-        OrangeButton({ navController.navigate(NavigationScreens.RESET_PASSWORD.name) }, stringResource(id = R.string.change_password_button))
+        WhiteOutlinedTextField(email ?: "",{ email = it },stringResource(id = R.string.email_label), viewModel.isEditProfile)
 
         Spacer(modifier = Modifier.weight(1f))
 
-        BottomNavigationBar(navController)
+        OrangeButton(onClick = {if (viewModel.isEditProfile) viewModel.updateUserData(email=email?:"", name = nickname?:"", avatar =avatar?:Base64.getDecoder().decode("")) else viewModel.editProfile()}, if(!viewModel.isEditProfile) stringResource(id = R.string.change_data_button) else stringResource(id = R.string.save_data_button))
+
+        OrangeButton({ viewModel.resetViewModel(); navController.navigate(NavigationScreens.RESET_PASSWORD.name) }, stringResource(id = R.string.change_password_button))
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        BottomNavigationBar(navController, viewModel)
     }
 }
