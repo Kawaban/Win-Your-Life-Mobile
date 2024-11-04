@@ -1,5 +1,6 @@
 package com.example.winyourlife.presentation.homepage
 
+import android.media.MediaPlayer
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,6 +28,21 @@ import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.dataObjects.TaskData
 import com.example.winyourlife.presentation.utilScreens.LoadingScreen
+import androidx.compose.foundation.layout.Box
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.delay
+import nl.dionsegijn.konfetti.compose.KonfettiView
+import nl.dionsegijn.konfetti.core.Party
+import nl.dionsegijn.konfetti.core.emitter.Emitter
+import nl.dionsegijn.konfetti.core.models.Size
+import nl.dionsegijn.konfetti.core.Position
+import java.util.concurrent.TimeUnit
 
 @Composable
 fun HomePage(navController: NavHostController, viewModel: HomeViewModel = hiltViewModel()) {
@@ -93,55 +109,104 @@ fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) 
         )
     )
 
-    Row(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
-        verticalAlignment = Alignment.CenterVertically
+    val context = LocalContext.current
+
+    val mediaPlayer = remember { MediaPlayer.create(context, R.raw.day_won) }
+
+    var showConfetti by remember { mutableStateOf(false) }
+
+    val konfettiPartyLeft = Party(
+        emitter = Emitter(duration = 1, TimeUnit.SECONDS)
+            .max(200),
+        position = Position.Relative(0.0, 0.0),
+        speed = 40f,
+        spread = 360,
+        size = listOf(Size.SMALL, Size.LARGE)
+    )
+
+    val konfettiPartyRight = Party(
+        emitter = Emitter(duration = 1, TimeUnit.SECONDS)
+            .max(200),
+        position = Position.Relative(1.0, 0.0),
+        speed = 40f,
+        spread = 360,
+        size = listOf(Size.SMALL, Size.LARGE)
+    )
+
+    Box(
+        modifier = Modifier.fillMaxSize()
     ) {
-
-        Column(
+        Row(
             modifier = Modifier
-                .weight(1f),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Spacer(modifier = Modifier.weight(1f))
 
-            TaskList(tasks = tasks, 250)
+            Column(
+                modifier = Modifier
+                    .weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Spacer(modifier = Modifier.weight(1f))
 
-            Spacer(modifier = Modifier.weight(1f))
+                TaskList(tasks = tasks, 250)
+
+                Spacer(modifier = Modifier.weight(1f))
+            }
+
+            MyVerticalDivider()
+
+            Column(
+                modifier = Modifier
+                    .weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Spacer(modifier = Modifier.weight(1f))
+
+                CustomStreak("26")
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                MyHorizontalDivider()
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                OrangeButton({
+                    showConfetti = true
+                    mediaPlayer.start() },
+                    stringResource(id = R.string.prepare_day_button))
+
+                OrangeButton({ navController.navigate(NavigationScreens.FRIENDS.name) },
+                    stringResource(id = R.string.your_friends_button))
+
+                OrangeButton({ navController.navigate(NavigationScreens.MOTIVATION.name) },
+                    stringResource(id = R.string.motivation_button))
+
+                Spacer(modifier = Modifier.weight(1f))
+            }
+
+            SideNavigationBar(navController)
         }
 
-        MyVerticalDivider()
-
-        Column(
-            modifier = Modifier
-                .weight(1f),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Spacer(modifier = Modifier.weight(1f))
-
-            CustomStreak("26")
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            MyHorizontalDivider()
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            OrangeButton({ navController.navigate(NavigationScreens.PREPARE_NEXT_DAY.name) },
-                stringResource(id = R.string.prepare_day_button))
-
-            OrangeButton({ navController.navigate(NavigationScreens.FRIENDS.name) },
-                stringResource(id = R.string.your_friends_button))
-
-            OrangeButton({ navController.navigate(NavigationScreens.MOTIVATION.name) },
-                stringResource(id = R.string.motivation_button))
-
-            Spacer(modifier = Modifier.weight(1f))
+        if (showConfetti) {
+            KonfettiView(
+                modifier = Modifier.fillMaxSize(),
+                parties = listOf(konfettiPartyLeft, konfettiPartyRight)
+            )
+            LaunchedEffect(Unit) {
+                delay(4000)
+                showConfetti = false
+                mediaPlayer.stop()
+                mediaPlayer.release()
+            }
         }
+    }
 
-        SideNavigationBar(navController)
+    DisposableEffect(Unit) {
+        onDispose {
+            mediaPlayer.release()
+        }
     }
 }
 
@@ -176,50 +241,99 @@ fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
         )
     )
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
-        horizontalAlignment = Alignment.CenterHorizontally
+    val context = LocalContext.current
+
+    val mediaPlayer = remember { MediaPlayer.create(context, R.raw.day_won) }
+
+    var showConfetti by remember { mutableStateOf(false) }
+
+    val konfettiPartyLeft = Party(
+        emitter = Emitter(duration = 1, TimeUnit.SECONDS)
+            .max(200),
+        position = Position.Relative(0.0, 0.0),
+        speed = 40f,
+        spread = 360,
+        size = listOf(Size.SMALL, Size.LARGE)
+    )
+
+    val konfettiPartyRight = Party(
+        emitter = Emitter(duration = 1, TimeUnit.SECONDS)
+            .max(200),
+        position = Position.Relative(1.0, 0.0),
+        speed = 40f,
+        spread = 360,
+        size = listOf(Size.SMALL, Size.LARGE)
+    )
+
+    Box(
+        modifier = Modifier.fillMaxSize()
     ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
-        Headline(
-            stringResource(id = R.string.home_hd1) + (viewModel.state.obj?.data?.name) + stringResource(
-                id = R.string.home_hd2
+            Headline(
+                stringResource(id = R.string.home_hd1) + (viewModel.state.obj?.data?.name) + stringResource(
+                    id = R.string.home_hd2
+                )
             )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            CustomStreak("26")
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            MyHorizontalDivider()
+
+            TaskList(tasks = tasks, 250)
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            MyHorizontalDivider()
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            OrangeButton({
+                showConfetti = true
+                mediaPlayer.start() },
+                stringResource(id = R.string.prepare_day_button))
+
+            OrangeButton(
+                { navController.navigate(NavigationScreens.FRIENDS.name) },
+                stringResource(id = R.string.your_friends_button)
+            )
+
+            OrangeButton(
+                { navController.navigate(NavigationScreens.MOTIVATION.name) },
+                stringResource(id = R.string.motivation_button)
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            BottomNavigationBar(navController)
+        }
+
+        if (showConfetti) {
+        KonfettiView(
+            modifier = Modifier.fillMaxSize(),
+            parties = listOf(konfettiPartyLeft, konfettiPartyRight)
         )
+        LaunchedEffect(Unit) {
+            delay(4000)
+            showConfetti = false
+            mediaPlayer.stop()
+            mediaPlayer.release()
+            }
+        }
+    }
 
-        Spacer(modifier = Modifier.height(20.dp))
-
-        CustomStreak("26")
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        MyHorizontalDivider()
-
-        TaskList(tasks = tasks, 250)
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        MyHorizontalDivider()
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        OrangeButton({ navController.navigate(NavigationScreens.PREPARE_NEXT_DAY.name) },
-            stringResource(id = R.string.prepare_day_button))
-
-        OrangeButton(
-            { navController.navigate(NavigationScreens.FRIENDS.name) },
-            stringResource(id = R.string.your_friends_button)
-        )
-
-        OrangeButton(
-            { navController.navigate(NavigationScreens.MOTIVATION.name) },
-            stringResource(id = R.string.motivation_button)
-        )
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        BottomNavigationBar(navController)
+    DisposableEffect(Unit) {
+        onDispose {
+            mediaPlayer.release()
+        }
     }
 }
