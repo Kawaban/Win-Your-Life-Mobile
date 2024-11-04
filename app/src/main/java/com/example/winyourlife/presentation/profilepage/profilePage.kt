@@ -203,19 +203,14 @@ fun PortraitLayout(navController: NavHostController, viewModel: ProfileViewModel
         Spacer(modifier = Modifier.weight(1f))
 
         WhiteOutlinedTextField(nickname ?: "",{ nickname = it },stringResource(id = R.string.nickname_label), false)
-        WhiteOutlinedTextField(nickname ?: "",{ nickname = it },"nickname", true)
 
         WhiteOutlinedTextField(email ?: "",{ email = it },stringResource(id = R.string.email_label), false)
-        WhiteOutlinedTextField(email ?: "",{ email = it },"email", true)
 
         Spacer(modifier = Modifier.weight(1f))
 
-        OrangeButton({viewModel.updateUserData(email=email?:"", name = nickname?:"", avatar =avatar)}, stringResource(id = R.string.change_data_button))
+        OrangeButton(onClick = {viewModel.updateUserData(email=email?:"", name = nickname?:"", avatar =avatar)}, stringResource(id = R.string.change_data_button))
 
         OrangeButton({ navController.navigate(NavigationScreens.RESET_PASSWORD.name) }, stringResource(id = R.string.change_password_button))
-        OrangeButton(onClick = {viewModel.updateUserData(email=email?:"", name = nickname?:"", avatar =avatar)}, "Change data")
-
-        OrangeButton({ navController.navigate(NavigationScreens.RESET_PASSWORD.name) }, "Change password")
 
         Spacer(modifier = Modifier.weight(1f))
 

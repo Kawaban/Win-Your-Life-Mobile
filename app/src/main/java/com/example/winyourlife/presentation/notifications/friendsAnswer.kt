@@ -37,6 +37,7 @@ fun FriendsAnswer(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
+            .height(130.dp)
     ) {
         Column(
             modifier = Modifier

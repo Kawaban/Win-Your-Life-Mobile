@@ -14,7 +14,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.R
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
-import com.example.winyourlife.presentation.customItems.CustomSnackBar
 import com.example.winyourlife.presentation.customItems.Headline
 import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
@@ -90,60 +89,36 @@ fun PortraitLayout(navController: NavHostController, viewModel: AddFriendViewMod
         mutableStateOf("")
     }
 
-    val snackBarHostState = remember {
-        SnackbarHostState()
-    }
-
-    LaunchedEffect(viewModel.emailSent) {
-        if (viewModel.emailSent) {
-            viewModel.reset()
-            snackBarHostState.showSnackbar(
-                message = "",
-                duration = SnackbarDuration.Long
-            )
-        }
-    }
-
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Headline(stringResource(id = R.string.add_friend_hd))
+        Headline(stringResource(id = R.string.add_friend_hd))
 
-            Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(50.dp))
 
-            MyHorizontalDivider()
+        MyHorizontalDivider()
 
-            Text(
-                text = stringResource(id = R.string.add_friend_text),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.padding(horizontal = 60.dp),
-                textAlign = TextAlign.Center
-            )
+        Text(
+            text = stringResource(id = R.string.add_friend_text),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier.padding(horizontal = 60.dp),
+            textAlign = TextAlign.Center
+        )
 
-            Spacer(modifier = Modifier.weight(0.3f))
+        Spacer(modifier = Modifier.weight(0.3f))
 
-            WhiteOutlinedTextField(email,{ email = it },stringResource(id = R.string.email_label), true)
+        WhiteOutlinedTextField(email,{ email = it },stringResource(id = R.string.email_label), true)
 
-            Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
-            OrangeButton({ viewModel.sendEmail() }, stringResource(id = R.string.invite_button))
+        OrangeButton({ }, stringResource(id = R.string.invite_button))
 
-            Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.weight(1f))
 
-            BottomNavigationBar(navController)
-        }
+        BottomNavigationBar(navController)
     }
-
-    CustomSnackBar(
-        message = stringResource(id = R.string.account_created_snack),
-        snackBarHostState = snackBarHostState
-    )
 }

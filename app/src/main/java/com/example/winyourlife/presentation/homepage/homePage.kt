@@ -31,23 +31,23 @@ import com.example.winyourlife.presentation.utilScreens.LoadingScreen
 @Composable
 fun HomePage(navController: NavHostController, viewModel: HomeViewModel = hiltViewModel()) {
 
-//    ResponsiveLayout(viewModel, navController)
+    ResponsiveLayout(viewModel, navController)
 
-    when (!viewModel.state.isLoading && !viewModel.state.isReady) {
-        true -> {
-            viewModel.getUserName()
-        }
-        false -> {
-            when(viewModel.state.isLoading) {
-                true -> {
-                    LoadingScreen()
-                }
-                false -> {
-                    ResponsiveLayout(viewModel, navController)
-                }
-            }
-        }
-    }
+//    when (!viewModel.state.isLoading && !viewModel.state.isReady) {
+//        true -> {
+//            viewModel.getUserName()
+//        }
+//        false -> {
+//            when(viewModel.state.isLoading) {
+//                true -> {
+//                    LoadingScreen()
+//                }
+//                false -> {
+//                    ResponsiveLayout(viewModel, navController)
+//                }
+//            }
+//        }
+//    }
 }
 
 @Composable
@@ -129,11 +129,14 @@ fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) 
 
             Spacer(modifier = Modifier.weight(1f))
 
-            OrangeButton({  navController.navigate(NavigationScreens.TASKS.name)  }, stringResource(id = R.string.your_tasks_button))
+            OrangeButton({ navController.navigate(NavigationScreens.PREPARE_NEXT_DAY.name) },
+                stringResource(id = R.string.prepare_day_button))
 
-            OrangeButton({ navController.navigate(NavigationScreens.FRIENDS.name) }, stringResource(id = R.string.your_friends_button))
+            OrangeButton({ navController.navigate(NavigationScreens.FRIENDS.name) },
+                stringResource(id = R.string.your_friends_button))
 
-            OrangeButton({ navController.navigate(NavigationScreens.MOTIVATION.name) }, stringResource(id = R.string.motivation_button))
+            OrangeButton({ navController.navigate(NavigationScreens.MOTIVATION.name) },
+                stringResource(id = R.string.motivation_button))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -202,8 +205,8 @@ fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        OrangeButton({ navController.navigate(NavigationScreens.TASKS.name) },
-            stringResource(id = R.string.your_tasks_button))
+        OrangeButton({ navController.navigate(NavigationScreens.PREPARE_NEXT_DAY.name) },
+            stringResource(id = R.string.prepare_day_button))
 
         OrangeButton(
             { navController.navigate(NavigationScreens.FRIENDS.name) },

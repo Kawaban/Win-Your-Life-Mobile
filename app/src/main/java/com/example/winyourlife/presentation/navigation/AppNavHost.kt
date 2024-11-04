@@ -9,7 +9,6 @@ import com.example.winyourlife.presentation.addfriendpage.AddFriendPage
 import com.example.winyourlife.presentation.createtaskpage.CreateTaskPage
 import com.example.winyourlife.presentation.forgotpasswordpage.ForgotPasswordPage
 import com.example.winyourlife.presentation.friendspage.FriendsPage
-import com.example.winyourlife.presentation.taskspage.TasksPage
 import com.example.winyourlife.presentation.homepage.HomePage
 import com.example.winyourlife.presentation.loginpage.LoginPage
 import com.example.winyourlife.presentation.motivationpage.MotivationPage
@@ -58,9 +57,6 @@ fun AppNavHost(
         }
         composable(NavigationScreens.FRIENDS.name) {
             FriendsPage(navController)
-        }
-        composable(NavigationScreens.TASKS.name) {
-            TasksPage(navController)
         }
         composable(NavigationScreens.MOTIVATION.name) {
             MotivationPage(navController)

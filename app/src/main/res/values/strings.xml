@@ -7,11 +7,9 @@
     <string name="friend_answer_positive_text"> accepted your friend request!</string>
     <string name="friend_answer_negative_text">" rejected your friend request."</string>
     <string name="invitation_text"> invites you to be friends!</string>
-    <string name="prepare_day_text">To win the day you need to complete 75% of your tasks.</string>
+    <string name="prepare_day_text">To win the day you need to complete all the tasks.</string>
     <string name="register_text">Already have an account?</string>
     <string name="reset_password_text">Enter new password.</string>
-    <string name="tasks_text1">To win the day you need to complete </string>
-    <string name="tasks_text2">" more tasks."</string>
 
     <string name="email_label" translatable="false">Email</string>
     <string name="task_name_label">Task name</string>
@@ -61,8 +59,7 @@
     <string name="invite_button">Send invitation</string>
     <string name="send_email_button">Send an email</string>
     <string name="add_friend_button">Add new friend</string>
-    <string name="your_tasks_button">Your Tasks</string>
-    <string name="your_friends_button">Your Friends</string>
+    <string name="your_friends_button">Friends</string>
     <string name="motivation_button">Motivation</string>
     <string name="log_in_button">Log in</string>
     <string name="sign_up_button">Sign up</string>
@@ -70,10 +67,8 @@
     <string name="create_task_button">Create a new task</string>
     <string name="register_button">Register</string>
     <string name="change_password_button">Change password</string>
-    <string name="your_profile_button">Your profile</string>
     <string name="statistics_button">Statistics</string>
     <string name="change_data_button">Change data</string>
-    <string name="prepare_day_button">Prepare the Next Day</string>
 
     <string name="notifications_hd">NOTIFICATIONS</string>
     <string name="add_friend_hd">ADD NEW FRIEND</string>
@@ -87,7 +82,6 @@
     <string name="register_hd">CREATE AN ACCOUNT</string>
     <string name="settings_hd">SETTINGS</string>
     <string name="statistics_hd">STATISTICS</string>
-    <string name="tasks_hd">TODAY\'S TASKS</string>
     <string name="profile_hd">YOUR PROFILE</string>
 
     <string name="loading">Loading …</string>
@@ -95,6 +89,7 @@
     <string name="error2">Unknown error</string>
 
     <string name="account_created_snack">Account has been created</string>
+    <string name="email_sent_snack">An email has been sent.</string>
 
     <string name="motivation1">You only have one life, so what are you waiting for? Start taking action today, or you\’ll always be the one watching others succeed.</string>
     <string name="motivation2">The world has no mercy for the lazy. Want to achieve something? You need to work ten times harder than everyone else around you. No one\’s handing you success on a silver platter.</string>
@@ -106,4 +101,5 @@
     <string name="motivation8">Dreams are free, but making them real costs hard work. Do you just want to dream, or do you want to actually achieve something?</string>
     <string name="motivation9">Your life won\’t change if you keep doing the same thing you\’ve always done. Start thinking differently, acting stronger, living bolder.</string>
     <string name="motivation10">If you really want it, you\’ll make it happen. If you don\’t, you\’ll find an excuse. It\’s your choice.</string>
+    <string name="prepare_day_button">Preparations</string>
 </resources>

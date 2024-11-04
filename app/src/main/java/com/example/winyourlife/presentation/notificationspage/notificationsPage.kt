@@ -48,6 +48,7 @@ fun NotificationCard(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.background)
                 .padding(16.dp)
+                .height(130.dp)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),

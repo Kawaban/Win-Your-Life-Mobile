@@ -6,11 +6,9 @@
     <string name="friend_answer_positive_text">" zaakceptował Twoje zaproszenie do grona znajomych!"</string>
     <string name="friend_answer_negative_text">" odrzucił Twoją prośbę o dodanie do znajomych."</string>
     <string name="invitation_text">" zaprasza Cię do grona znajomych!"</string>
-    <string name="prepare_day_text">Aby wygrać dzień musisz wykonać 75% swoich zadań.</string>
+    <string name="prepare_day_text">Aby wygrać dzień musisz wykonać wszystkie zadania.</string>
     <string name="register_text">Masz już konto?</string>
     <string name="reset_password_text">Wprowadź nowe hasło.</string>
-    <string name="tasks_text1">"Aby wygrać dzień musisz wykonać jeszcze "</string>
-    <string name="tasks_text2">" zadań."</string>
     <string name="task_name_label">Nazwa zadania</string>
     <string name="password_label">Hasło</string>
     <string name="nickname_label">Nick</string>
@@ -44,8 +42,7 @@
     <string name="invite_button">Wyślij zaproszenie</string>
     <string name="send_email_button">Wyślij email</string>
     <string name="add_friend_button">Dodaj znajomego</string>
-    <string name="your_tasks_button">Twoje zadania</string>
-    <string name="your_friends_button">Twoi znajomi</string>
+    <string name="your_friends_button">Znajomi</string>
     <string name="motivation_button">Motywacja</string>
     <string name="log_in_button">Zaloguj</string>
     <string name="sign_up_button">Załóż konto</string>
@@ -53,10 +50,9 @@
     <string name="create_task_button">Stwórz nowe zadanie</string>
     <string name="register_button">Zarejestruj</string>
     <string name="change_password_button">Zmień hasło</string>
-    <string name="your_profile_button">Twój profil</string>
     <string name="statistics_button">Statystyki</string>
     <string name="change_data_button">Zmień dane</string>
-    <string name="prepare_day_button">Przygotuj następny dzień</string>
+    <string name="prepare_day_button">Przygotowania</string>
     <string name="notifications_hd">POWIADOMIENIA</string>
     <string name="add_friend_hd">DODAJ ZNAJOMEGO</string>
     <string name="create_task_hd">STWÓRZ NOWE ZADANIE</string>
@@ -68,9 +64,9 @@
     <string name="register_hd">STWÓRZ KONTO</string>
     <string name="settings_hd">USTAWIENIA</string>
     <string name="statistics_hd">STATYSTYKI</string>
-    <string name="tasks_hd">DZISIEJSZE ZADANIA</string>
     <string name="profile_hd">TWÓJ PROFIL</string>
     <string name="profile_description">Profil</string>
+    <string name="email_sent_snack">Email został wysłany.</string>
     <string name="motivation1">Masz tylko jedno życie, więc na co czekasz? Zacznij działać dzisiaj, albo zawsze będziesz tym, kto tylko ogląda sukcesy innych.</string>
     <string name="motivation2">Świat nie ma litości dla leniwych. Chcesz coś osiągnąć? Musisz pracować 10 razy ciężej niż wszyscy dookoła. Nikt nie poda ci sukcesu na tacy.</string>
     <string name="motivation3">Twoje wymówki są bezwartościowe. Porażka to wybór, a sukces to decyzja. Którą ścieżką zamierzasz iść?</string>
