@@ -50,8 +50,11 @@ fun FriendsInvitation(
                 .padding(16.dp)
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+                modifier = Modifier
+                    .padding(bottom = 15.dp)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
             ) {
                 Text(
                     text = time,
@@ -59,13 +62,6 @@ fun FriendsInvitation(
                     color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.weight(1f)
                 )
-                IconButton(onClick = { }) {
-                    Icon(
-                        imageVector = Icons.Default.Close,
-                        contentDescription = stringResource(id = R.string.close_notification_description),
-                        tint = MaterialTheme.colorScheme.primary
-                    )
-                }
             }
 
             Spacer(modifier = Modifier.height(8.dp))

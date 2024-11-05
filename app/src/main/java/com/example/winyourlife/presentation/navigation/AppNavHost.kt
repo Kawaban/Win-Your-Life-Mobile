@@ -11,6 +11,7 @@ import com.example.winyourlife.presentation.forgotpasswordpage.ForgotPasswordPag
 import com.example.winyourlife.presentation.friendspage.FriendsPage
 import com.example.winyourlife.presentation.homepage.HomePage
 import com.example.winyourlife.presentation.loginpage.LoginPage
+import com.example.winyourlife.presentation.managefriendspage.ManageFriendsPage
 import com.example.winyourlife.presentation.motivationpage.MotivationPage
 import com.example.winyourlife.presentation.notificationspage.NotificationsPage
 import com.example.winyourlife.presentation.preparenextdaypage.PrepareNextDayPage
@@ -20,8 +21,8 @@ import com.example.winyourlife.presentation.resetpasswordpage.ResetPasswordPage
 import com.example.winyourlife.presentation.settingspage.SettingsPage
 import com.example.winyourlife.presentation.statisticspage.StatisticsPage
 
-//TODO prepare the next day, create new task, notification classes, snack bars
-//TODO day won animation, motivation speech, delete friend option, remove tasks page
+//TODO prepare next day page, create new task page, manage tasks page, manage friends page
+//TODO motivation speech, notification classes, snack bars, sound effects
 
 @Composable
 fun AppNavHost(
@@ -57,6 +58,9 @@ fun AppNavHost(
         }
         composable(NavigationScreens.FRIENDS.name) {
             FriendsPage(navController)
+        }
+        composable(NavigationScreens.MANAGE_FRIENDS.name) {
+            ManageFriendsPage(navController)
         }
         composable(NavigationScreens.MOTIVATION.name) {
             MotivationPage(navController)

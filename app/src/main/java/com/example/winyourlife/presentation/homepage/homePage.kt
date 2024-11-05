@@ -117,7 +117,7 @@ fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) 
 
     val context = LocalContext.current
 
-    val mediaPlayer = remember { MediaPlayer.create(context, R.raw.day_won) }
+    var mediaPlayer = remember { MediaPlayer.create(context, R.raw.day_won) }
 
     var showConfetti by remember { mutableStateOf(false) }
 
@@ -204,7 +204,8 @@ fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) 
                 delay(4000)
                 showConfetti = false
                 mediaPlayer.stop()
-                mediaPlayer.release()
+                mediaPlayer.reset()
+                mediaPlayer = MediaPlayer.create(context, R.raw.day_won)
             }
         }
     }
@@ -249,7 +250,7 @@ fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
 
     val context = LocalContext.current
 
-    val mediaPlayer = remember { MediaPlayer.create(context, R.raw.day_won) }
+    var mediaPlayer = remember { MediaPlayer.create(context, R.raw.day_won) }
 
     var showConfetti by remember { mutableStateOf(false) }
 
@@ -324,15 +325,16 @@ fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
         }
 
         if (showConfetti) {
-        KonfettiView(
-            modifier = Modifier.fillMaxSize(),
-            parties = listOf(konfettiPartyLeft, konfettiPartyRight)
-        )
-        LaunchedEffect(Unit) {
-            delay(4000)
-            showConfetti = false
-            mediaPlayer.stop()
-            mediaPlayer.release()
+            KonfettiView(
+                modifier = Modifier.fillMaxSize(),
+                parties = listOf(konfettiPartyLeft, konfettiPartyRight)
+            )
+            LaunchedEffect(Unit) {
+                delay(4000)
+                showConfetti = false
+                mediaPlayer.stop()
+                mediaPlayer.reset()
+                mediaPlayer = MediaPlayer.create(context, R.raw.day_won)
             }
         }
     }

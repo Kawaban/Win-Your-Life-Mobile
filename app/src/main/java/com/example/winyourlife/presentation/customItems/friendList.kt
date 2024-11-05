@@ -13,6 +13,9 @@ import com.example.winyourlife.presentation.dataObjects.FriendData
 
 @Composable
 fun FriendList(friends: List<FriendData>, height: Int) {
+
+    val sortedFriends = friends.sortedBy { it.id }
+
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -20,12 +23,13 @@ fun FriendList(friends: List<FriendData>, height: Int) {
         verticalArrangement = Arrangement.spacedBy(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        items(friends) { friend ->
+        items(sortedFriends) { friend ->
             CustomFriend(
                 avatar = friend.avatar,
                 nickname = friend.nickname,
                 isBetter = friend.isBetter,
-                period = friend.period
+                period = friend.period,
+                id = friend.id
             )
         }
     }

@@ -11,7 +11,7 @@ private val LightColorScheme = lightColorScheme(
     onPrimary = LightOnPrimary,
     background = LightBackground,
     onBackground = LightOnBackground,
-    secondary = Secondary,
+    secondary = LightOnTextField,
     error = Error
 )
 
@@ -20,7 +20,7 @@ private val DarkColorScheme = darkColorScheme(
     onPrimary = DarkOnPrimary,
     background = DarkBackground,
     onBackground = DarkOnBackground,
-    secondary = Secondary,
+    secondary = DarkOnTextField,
     error = Error
 )
 
