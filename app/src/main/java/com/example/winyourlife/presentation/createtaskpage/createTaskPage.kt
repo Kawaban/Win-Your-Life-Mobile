@@ -1,5 +1,6 @@
 package com.example.winyourlife.presentation.createtaskpage
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,8 +30,12 @@ import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
 
 @Composable
-fun CreateTaskPage(navController: NavHostController) {
+fun CreateTaskPage(navController: NavHostController, viewModel: CreateTaskViewModel = hiltViewModel()) {
     ResponsiveLayout(navController)
+    BackHandler {
+        viewModel.resetViewModel()
+        navController.popBackStack()
+    }
 }
 
 @Composable
@@ -86,7 +91,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: CreateTaskViewM
             Spacer(modifier = Modifier.weight(1f))
         }
 
-        SideNavigationBar(navController)
+        SideNavigationBar(navController, viewModel)
     }
 }
 
@@ -119,6 +124,6 @@ fun PortraitLayout(navController: NavHostController, viewModel: CreateTaskViewMo
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        BottomNavigationBar(navController)
+        BottomNavigationBar(navController, viewModel)
     }
 }

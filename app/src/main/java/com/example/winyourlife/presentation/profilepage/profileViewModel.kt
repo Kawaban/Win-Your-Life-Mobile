@@ -9,6 +9,7 @@ import com.example.winyourlife.data.dto.UserUpdateDataRequest
 import com.example.winyourlife.domain.UserService
 import com.example.winyourlife.presentation.ImageEncoder
 import com.example.winyourlife.presentation.State
+import com.example.winyourlife.presentation.ViewModelCustomInterface
 import com.example.winyourlife.presentation.dataObjects.CurrentUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,12 +18,15 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(val userService: UserService, val currentUser: CurrentUser) : ViewModel() {
+class ProfileViewModel @Inject constructor(val userService: UserService, val currentUser: CurrentUser) : ViewModel(), ViewModelCustomInterface {
 
     var stateUpdateData by mutableStateOf(State<Nothing>())
         private set
 
-    fun updateUserData(email: String, name: String, avatar: ByteArray?) {
+    var isEditProfile by mutableStateOf(false)
+        private set
+
+    fun updateUserData(email: String, name: String, avatar: ByteArray) {
         viewModelScope.launch {
             val updateUserUpdateDataRequest =
                 UserUpdateDataRequest(name, email, Base64.getEncoder().encodeToString(avatar))
@@ -50,8 +54,19 @@ class ProfileViewModel @Inject constructor(val userService: UserService, val cur
                 }
             }
             if(result is com.example.winyourlife.domain.dto.Resource.Success){
-                currentUser.updateUserData(email, name, avatar!!)
+                currentUser.updateUserData(email, name, avatar)
             }
         }
     }
+
+    fun editProfile(){
+        isEditProfile = !isEditProfile
+    }
+
+    override fun resetViewModel(){
+        isEditProfile = false
+        stateUpdateData = State()
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.example.winyourlife.presentation.preparenextdaypage
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,8 +37,12 @@ import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.dataObjects.TaskData
 
 @Composable
-fun PrepareNextDayPage(navController: NavHostController) {
+fun PrepareNextDayPage(navController: NavHostController, viewModel: PrepareNextDayViewModel = hiltViewModel()) {
     ResponsiveLayout(navController)
+    BackHandler {
+        viewModel.resetViewModel()
+        navController.popBackStack()
+    }
 }
 
 @Composable
@@ -50,6 +55,7 @@ fun ResponsiveLayout(navController: NavHostController) {
     } else {
         LandscapeLayout(navController)
     }
+
 }
 
 @Composable
@@ -138,7 +144,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: PrepareNextDayV
             Spacer(modifier = Modifier.weight(1f))
         }
 
-        SideNavigationBar(navController)
+        SideNavigationBar(navController, viewModel)
     }
 }
 
@@ -211,6 +217,6 @@ fun PortraitLayout(navController: NavHostController, viewModel: PrepareNextDayVi
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        BottomNavigationBar(navController)
+        BottomNavigationBar(navController, viewModel)
     }
 }

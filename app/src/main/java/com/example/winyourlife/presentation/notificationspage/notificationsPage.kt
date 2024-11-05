@@ -1,5 +1,6 @@
 package com.example.winyourlife.presentation.notificationspage
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -112,8 +113,12 @@ fun NotificationCard(
 }
 
 @Composable
-fun NotificationsPage(navController: NavHostController) {
+fun NotificationsPage(navController: NavHostController, viewModel: NotificationsViewModel = hiltViewModel()) {
     ResponsiveLayout(navController)
+    BackHandler {
+        viewModel.resetViewModel()
+        navController.popBackStack()
+    }
 }
 
 @Composable
@@ -184,7 +189,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: NotificationsVi
             Spacer(modifier = Modifier.weight(1f))
         }
 
-        SideNavigationBar(navController)
+        SideNavigationBar(navController, viewModel)
     }
 }
 
@@ -240,6 +245,6 @@ fun PortraitLayout(navController: NavHostController, viewModel: NotificationsVie
 
         Spacer(modifier = Modifier.weight(1f))
 
-        BottomNavigationBar(navController)
+        BottomNavigationBar(navController, viewModel)
     }
 }

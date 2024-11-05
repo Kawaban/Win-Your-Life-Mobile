@@ -1,10 +1,14 @@
 package com.example.winyourlife.presentation.motivationpage
 
 import androidx.lifecycle.ViewModel
+import com.example.winyourlife.presentation.ViewModelCustomInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MotivationViewModel @Inject constructor() : ViewModel() {
+class MotivationViewModel @Inject constructor() : ViewModel(), ViewModelCustomInterface {
+    override fun resetViewModel() {
+
+    }
 
 }
