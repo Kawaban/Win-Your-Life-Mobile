@@ -85,4 +85,6 @@
     <string name="language_en">Angielski</string>
     <string name="language_pl">Polski</string>
     <string name="expand_description">Rozwiń</string>
+    <string name="manage_friends_button">Zarządzaj znajomymi</string>
+    <string name="manage_friends_hd">ZARZĄDZAJ ZNAJOMYMI</string>
 </resources>

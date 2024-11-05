@@ -55,14 +55,14 @@ fun LanguageDropDownMenu() {
                         Icon(
                             imageVector = Icons.Default.ArrowDropDown,
                             contentDescription = stringResource(id = R.string.expand_description),
-                            tint = MaterialTheme.colorScheme.background,
+                            tint = MaterialTheme.colorScheme.secondary,
                             modifier = Modifier.weight(0.1f)
                         )
                     },
 
                     colors = TextFieldDefaults.colors(
-                        focusedTextColor = MaterialTheme.colorScheme.background,
-                        unfocusedTextColor = MaterialTheme.colorScheme.background,
+                        focusedTextColor = MaterialTheme.colorScheme.secondary,
+                        unfocusedTextColor = MaterialTheme.colorScheme.secondary,
                         focusedContainerColor = MaterialTheme.colorScheme.onBackground,
                         unfocusedContainerColor = MaterialTheme.colorScheme.onBackground,
                         focusedIndicatorColor = Color.Transparent,
@@ -82,7 +82,7 @@ fun LanguageDropDownMenu() {
                             text = {
                                 Text(
                                     text = text,
-                                    color = MaterialTheme.colorScheme.background,
+                                    color = MaterialTheme.colorScheme.secondary,
                                     style = MaterialTheme.typography.bodyLarge,
                                 )
                             },

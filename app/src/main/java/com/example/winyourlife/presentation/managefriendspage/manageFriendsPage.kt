@@ -1,32 +1,27 @@
-package com.example.winyourlife.presentation.friendspage
+package com.example.winyourlife.presentation.managefriendspage
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.R
-import com.example.winyourlife.presentation.navigation.NavigationScreens
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
-import com.example.winyourlife.presentation.customItems.FriendList
 import com.example.winyourlife.presentation.dataObjects.FriendData
 import com.example.winyourlife.presentation.customItems.Headline
-import com.example.winyourlife.presentation.customItems.MyVerticalDivider
-import com.example.winyourlife.presentation.customItems.OrangeButton
+import com.example.winyourlife.presentation.customItems.ReorderableFriendList
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 
 @Composable
-fun FriendsPage(navController: NavHostController) {
+fun ManageFriendsPage(navController: NavHostController) {
     ResponsiveLayout(navController)
 }
 
@@ -43,7 +38,7 @@ fun ResponsiveLayout(navController: NavHostController) {
 }
 
 @Composable
-fun LandscapeLayout(navController: NavHostController, viewModel: FriendsViewModel = hiltViewModel()) {
+fun LandscapeLayout(navController: NavHostController, viewModel: ManageFriendsViewModel = hiltViewModel()) {
 
     val friends = listOf(
         FriendData(R.drawable.avatar, "Joe", false, "12", 0),
@@ -68,23 +63,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: FriendsViewMode
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            FriendList(friends, 300)
-
-            Spacer(modifier = Modifier.weight(1f))
-        }
-
-        MyVerticalDivider()
-
-        Column(
-            modifier = Modifier
-                .weight(1f),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Spacer(modifier = Modifier.weight(1f))
-
-            OrangeButton({ navController.navigate(NavigationScreens.MANAGE_FRIENDS.name) }, stringResource(id = R.string.manage_friends_button))
-
-            OrangeButton({ navController.navigate(NavigationScreens.ADD_FRIEND.name) }, stringResource(id = R.string.add_friend_button))
+            ReorderableFriendList(friends, 300)
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -95,7 +74,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: FriendsViewMode
 
 
 @Composable
-fun PortraitLayout(navController: NavHostController, viewModel: FriendsViewModel = hiltViewModel()) {
+fun PortraitLayout(navController: NavHostController, viewModel: ManageFriendsViewModel = hiltViewModel()) {
 
     val friends = listOf(
         FriendData(R.drawable.avatar, "Joe", false, "12", 0),
@@ -113,19 +92,13 @@ fun PortraitLayout(navController: NavHostController, viewModel: FriendsViewModel
             .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Headline(stringResource(id = R.string.friends_hd))
-
-        Spacer(modifier = Modifier.height(90.dp))
-
-        FriendList(friends, 380)
+        Headline(stringResource(id = R.string.manage_friends_hd))
 
         Spacer(modifier = Modifier.weight(1f))
 
-        OrangeButton({ navController.navigate(NavigationScreens.MANAGE_FRIENDS.name) }, stringResource(id = R.string.manage_friends_button))
+        ReorderableFriendList(friends, 520)
 
-        OrangeButton({ navController.navigate(NavigationScreens.ADD_FRIEND.name) }, stringResource(id = R.string.add_friend_button))
-
-        Spacer(modifier = Modifier.height(60.dp))
+        Spacer(modifier = Modifier.weight(1f))
 
         BottomNavigationBar(navController)
     }

@@ -69,7 +69,9 @@
     <string name="change_password_button">Change password</string>
     <string name="statistics_button">Statistics</string>
     <string name="change_data_button">Change data</string>
+    <string name="manage_friends_button">Manage friends</string>
 
+    <string name="manage_friends_hd">MANAGE FRIENDS</string>
     <string name="notifications_hd">NOTIFICATIONS</string>
     <string name="add_friend_hd">ADD NEW FRIEND</string>
     <string name="create_task_hd">CREATE A NEW TASK</string>
