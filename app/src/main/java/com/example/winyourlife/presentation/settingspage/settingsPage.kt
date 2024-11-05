@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.R
+import com.example.winyourlife.presentation.Settings
 import com.example.winyourlife.presentation.navigation.NavigationScreens
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
 import com.example.winyourlife.presentation.customItems.Headline
@@ -144,7 +145,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: SettingsViewMod
             ) {
                 Spacer(modifier = Modifier.weight(1f))
 
-                LanguageDropDownMenu()
+                LanguageDropDownMenu(viewModel)
 
                 Spacer(modifier = Modifier.weight(0.8f))
 
@@ -172,8 +173,18 @@ fun PortraitLayout(navController: NavHostController, viewModel: SettingsViewMode
     val initialDarkTheme = isSystemInDarkTheme()
 
     val isDarkTheme = remember {
-        mutableStateOf(initialDarkTheme)
+        mutableStateOf(
+            viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)?.toBooleanStrictOrNull() ?: initialDarkTheme)
     }
+
+    val isDailyReminders = remember {
+        mutableStateOf(viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DAILY_REMINDER.name)?.toBooleanStrictOrNull() ?: true)
+    }
+
+    val isFriendsNotifications = remember {
+        mutableStateOf(viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_FRIENDS_NOTIFICATION.name)?.toBooleanStrictOrNull() ?: true)
+    }
+
 
     WinYourLifeTheme(darkTheme = isDarkTheme.value) {
 
@@ -209,7 +220,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: SettingsViewMode
                     color = MaterialTheme.colorScheme.onBackground
                 )
 
-                MySwitch(true, { })
+                MySwitch(isFriendsNotifications.value) { isFriendsNotifications.value = it; viewModel.saveSettings(Settings.IS_FRIENDS_NOTIFICATION.name,it.toString()) }
             }
 
             Row(
@@ -225,7 +236,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: SettingsViewMode
                     color = MaterialTheme.colorScheme.onBackground
                 )
 
-                MySwitch(false, { })
+                MySwitch(isDailyReminders.value) { isDailyReminders.value = it; viewModel.saveSettings(Settings.IS_DAILY_REMINDER.name,it.toString()) }
             }
 
             MyHorizontalDivider()
@@ -243,12 +254,12 @@ fun PortraitLayout(navController: NavHostController, viewModel: SettingsViewMode
                     color = MaterialTheme.colorScheme.onBackground
                 )
 
-                MySwitch(isDarkTheme.value) { isDarkTheme.value = it }
+                MySwitch(isDarkTheme.value) { isDarkTheme.value = it; viewModel.saveSettings(Settings.IS_DARK_THEME.name,it.toString()) }
             }
 
             MyHorizontalDivider()
 
-            LanguageDropDownMenu()
+            LanguageDropDownMenu(viewModel)
 
             MyHorizontalDivider()
 

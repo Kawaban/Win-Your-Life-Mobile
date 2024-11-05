@@ -9,6 +9,5 @@ data class UserData(
     var completedTasks: Int,
 //    val numberOfDaysWon: Int,
 //    val accountSince: Int,
-    var isFriendNotificationActive: Boolean,
-    var isDailyReminderActive: Boolean
+    val mapOfSettings : MutableMap<String, String?> = mutableMapOf()
 )

@@ -17,6 +17,7 @@ ksp ="1.9.23-1.0.20"
 retrofit = "2.11.0"
 nav_version = "2.8.3"
 hilt-nvaigation-compose = "1.0.0"
+datastore-preferences = "1.0.0"
 
 
 [libraries]
@@ -52,6 +53,8 @@ retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", ve
 androix-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "nav_version" }
 
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-nvaigation-compose" }
+datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore-preferences" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -14,14 +14,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.example.winyourlife.R
+import com.example.winyourlife.presentation.Settings
+import com.example.winyourlife.presentation.settingspage.SettingsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LanguageDropDownMenu() {
+fun LanguageDropDownMenu(viewModel: SettingsViewModel) {
     val options =
         listOf(stringResource(id = R.string.language_en), stringResource(id = R.string.language_pl))
     var expanded by remember { mutableStateOf(false) }
-    var selectedOption by remember { mutableStateOf(options[0]) }
+    var selectedOption by remember { mutableStateOf(viewModel.currentUser.userData?.mapOfSettings?.get(Settings.APPLICATION_LANGUAGE.name) ?: options[0]) }
 
     Row(
         modifier = Modifier
@@ -87,6 +89,9 @@ fun LanguageDropDownMenu() {
                                 )
                             },
                             onClick = {
+                                if(selectedOption != options[index]){
+                                    viewModel.saveSettings(Settings.APPLICATION_LANGUAGE.name, options[index])
+                                }
                                 selectedOption = options[index]
                                 expanded = false
                             },

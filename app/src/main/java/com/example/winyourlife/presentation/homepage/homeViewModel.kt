@@ -6,16 +6,19 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModel
 import com.example.winyourlife.data.dto.UserResponse
+import com.example.winyourlife.domain.UserPreferencesRepository
 import com.example.winyourlife.domain.UserService
 import com.example.winyourlife.domain.dto.Resource
+import com.example.winyourlife.presentation.Settings
 import com.example.winyourlife.presentation.State
 import com.example.winyourlife.presentation.ViewModelCustomInterface
+import com.example.winyourlife.presentation.dataObjects.CurrentUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(val userService: UserService): ViewModel(),
+class HomeViewModel @Inject constructor(val userService: UserService, val currentUser: CurrentUser, val userPreferencesRepository: UserPreferencesRepository): ViewModel(),
     ViewModelCustomInterface {
 
     var state by mutableStateOf(State<UserResponse>())
@@ -29,6 +32,14 @@ class HomeViewModel @Inject constructor(val userService: UserService): ViewModel
                 isLoading = true
             )
             val result = userService.getUser()
+
+            //settings
+            for(setting in Settings.entries){
+                currentUser.userData?.mapOfSettings?.set(setting.name,
+                    userPreferencesRepository.getParameter(setting.name).getOrNull()
+                )
+            }
+
             state = when (result) {
                 is Resource.Success -> {
                     state.copy(

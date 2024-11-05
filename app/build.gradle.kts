@@ -82,5 +82,7 @@ dependencies {
 
     implementation(libs.hilt.navigation.compose)
 
+    implementation(libs.datastore.preferences)
+
     implementation(libs.dionsegijn.konfetti.compose)
 }
