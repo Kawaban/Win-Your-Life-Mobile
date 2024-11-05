@@ -3,6 +3,7 @@ package com.example.winyourlife.presentation.notificationspage
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,9 +26,11 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import com.example.winyourlife.R
+import com.example.winyourlife.presentation.utils.Settings
 import com.example.winyourlife.presentation.customItems.NotificationList
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.dataObjects.NotificationData
+import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun NotificationCard(
@@ -114,10 +117,13 @@ fun NotificationCard(
 
 @Composable
 fun NotificationsPage(navController: NavHostController, viewModel: NotificationsViewModel = hiltViewModel()) {
-    ResponsiveLayout(navController)
-    BackHandler {
-        viewModel.resetViewModel()
-        navController.popBackStack()
+    WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
+        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
+        ResponsiveLayout(navController)
+        BackHandler {
+            viewModel.resetViewModel()
+            navController.popBackStack()
+        }
     }
 }
 

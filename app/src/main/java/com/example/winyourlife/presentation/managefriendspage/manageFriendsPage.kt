@@ -68,7 +68,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ManageFriendsVi
             Spacer(modifier = Modifier.weight(1f))
         }
 
-        SideNavigationBar(navController)
+        SideNavigationBar(navController, viewModel)
     }
 }
 
@@ -100,6 +100,6 @@ fun PortraitLayout(navController: NavHostController, viewModel: ManageFriendsVie
 
         Spacer(modifier = Modifier.weight(1f))
 
-        BottomNavigationBar(navController)
+        BottomNavigationBar(navController, viewModel)
     }
 }

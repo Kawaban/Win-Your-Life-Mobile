@@ -1,4 +1,4 @@
-package com.example.winyourlife.presentation
+package com.example.winyourlife.presentation.utils
 
 import com.example.winyourlife.domain.dto.Resource
 import kotlin.reflect.KProperty

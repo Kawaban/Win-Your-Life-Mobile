@@ -2,6 +2,7 @@ package com.example.winyourlife.presentation.loginpage
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,28 +38,34 @@ import com.example.winyourlife.presentation.customItems.MyVerticalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.TransparentButton
 import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
+import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun LoginPage(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
-    when (viewModel.state.isReady) {
-        true -> {
-            when (viewModel.state.error != null) {
-                true -> {
-                    ErrorScreen(message = viewModel.state.error)
-                }
-                false -> {
-                    viewModel.reset()
-                    navController.navigate(NavigationScreens.HOME.name)
+    WinYourLifeTheme(darkTheme = isSystemInDarkTheme()) {
+        when (viewModel.state.isReady) {
+            true -> {
+                when (viewModel.state.error != null) {
+                    true -> {
+                        ErrorScreen(message = viewModel.state.error)
+                    }
+
+                    false -> {
+                        viewModel.reset()
+                        navController.navigate(NavigationScreens.HOME.name)
+                    }
                 }
             }
-        }
-        false -> {
-            when(viewModel.state.isLoading) {
-                true -> {
-                    LoadingScreen()
-                }
-                false -> {
-                    ResponsiveLayout(viewModel, navController)
+
+            false -> {
+                when (viewModel.state.isLoading) {
+                    true -> {
+                        LoadingScreen()
+                    }
+
+                    false -> {
+                        ResponsiveLayout(viewModel, navController)
+                    }
                 }
             }
         }

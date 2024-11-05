@@ -1,4 +1,4 @@
-package com.example.winyourlife.presentation
+package com.example.winyourlife.presentation.utils
 
 import android.content.Context
 import android.net.Uri

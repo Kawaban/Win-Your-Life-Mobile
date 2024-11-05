@@ -2,6 +2,7 @@ package com.example.winyourlife.presentation.registerpage
 
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -28,30 +29,40 @@ import com.example.winyourlife.presentation.customItems.MyVerticalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.TransparentButton
 import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
+import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun RegisterPage(navController: NavHostController, viewModel: RegisterViewModel = hiltViewModel()) {
-    when (viewModel.state.isReady) {
-        false -> {
-            when(viewModel.state.isLoading){
-                true ->{
-                    LoadingScreen()
-                }
-                false -> {
-                    ResponsiveLayout(navController)
+    WinYourLifeTheme(darkTheme =  isSystemInDarkTheme()) {
+        when (viewModel.state.isReady) {
+            false -> {
+                when (viewModel.state.isLoading) {
+                    true -> {
+                        LoadingScreen()
+                    }
+
+                    false -> {
+                        ResponsiveLayout(navController)
+                    }
                 }
             }
-        }
-        true -> {
-            when (viewModel.state.error != null) {
-                true -> {
-                    ErrorScreen(message = viewModel.state.error)
-                }
-                false -> {
-                    viewModel.reset()
-                    val context = LocalContext.current
-                    Toast.makeText(context,stringResource(id = R.string.account_created_snack), Toast.LENGTH_SHORT).show()
-                    navController.navigate(NavigationScreens.LOGIN.name)
+
+            true -> {
+                when (viewModel.state.error != null) {
+                    true -> {
+                        ErrorScreen(message = viewModel.state.error)
+                    }
+
+                    false -> {
+                        viewModel.reset()
+                        val context = LocalContext.current
+                        Toast.makeText(
+                            context,
+                            stringResource(id = R.string.account_created_snack),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        navController.navigate(NavigationScreens.LOGIN.name)
+                    }
                 }
             }
         }

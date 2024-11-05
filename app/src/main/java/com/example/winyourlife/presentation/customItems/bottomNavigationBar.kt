@@ -18,12 +18,11 @@ import androidx.compose.ui.unit.dp
 import com.example.winyourlife.presentation.navigation.NavigationScreens
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.lifecycle.ViewModel
 import com.example.winyourlife.R
-import com.example.winyourlife.presentation.ViewModelCustomInterface
+import com.example.winyourlife.presentation.utils.ViewModelCustomInterface
 
 @Composable
-fun BottomNavigationBar(navController: NavController, viewModel:ViewModelCustomInterface) {
+fun BottomNavigationBar(navController: NavController, viewModel: ViewModelCustomInterface) {
     BottomAppBar(
         containerColor = MaterialTheme.colorScheme.primary,
         contentColor = MaterialTheme.colorScheme.onPrimary,

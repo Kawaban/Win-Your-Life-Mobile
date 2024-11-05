@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,7 +28,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.R
-import com.example.winyourlife.presentation.ImageEncoder
+import com.example.winyourlife.presentation.utils.ImageEncoder
+import com.example.winyourlife.presentation.utils.Settings
 import com.example.winyourlife.presentation.navigation.NavigationScreens
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
 import com.example.winyourlife.presentation.customItems.Headline
@@ -35,11 +37,16 @@ import com.example.winyourlife.presentation.customItems.MyVerticalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
+import com.example.winyourlife.ui.theme.WinYourLifeTheme
 import java.util.Base64
 
 @Composable
-fun ProfilePage(navController: NavHostController) {
-    ResponsiveLayout(navController)
+fun ProfilePage(navController: NavHostController, viewModel: ProfileViewModel = hiltViewModel()) {
+    WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
+        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
+        ResponsiveLayout(navController)
+    }
+
 }
 
 @Composable

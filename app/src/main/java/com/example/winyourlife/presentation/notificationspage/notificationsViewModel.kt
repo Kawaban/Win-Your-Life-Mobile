@@ -1,12 +1,14 @@
 package com.example.winyourlife.presentation.notificationspage
 
 import androidx.lifecycle.ViewModel
-import com.example.winyourlife.presentation.ViewModelCustomInterface
+import com.example.winyourlife.presentation.utils.ViewModelCustomInterface
+import com.example.winyourlife.presentation.dataObjects.CurrentUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class NotificationsViewModel @Inject constructor() : ViewModel(), ViewModelCustomInterface {
+class NotificationsViewModel @Inject constructor(val currentUser: CurrentUser) : ViewModel(),
+    ViewModelCustomInterface {
     override fun resetViewModel() {
 
     }

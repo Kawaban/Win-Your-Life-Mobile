@@ -9,9 +9,9 @@ import com.example.winyourlife.data.dto.UserResponse
 import com.example.winyourlife.domain.UserPreferencesRepository
 import com.example.winyourlife.domain.UserService
 import com.example.winyourlife.domain.dto.Resource
-import com.example.winyourlife.presentation.Settings
-import com.example.winyourlife.presentation.State
-import com.example.winyourlife.presentation.ViewModelCustomInterface
+import com.example.winyourlife.presentation.utils.Settings
+import com.example.winyourlife.presentation.utils.State
+import com.example.winyourlife.presentation.utils.ViewModelCustomInterface
 import com.example.winyourlife.presentation.dataObjects.CurrentUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

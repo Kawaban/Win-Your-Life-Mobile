@@ -6,7 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-import com.example.winyourlife.presentation.ViewModelCustomInterface
+import com.example.winyourlife.presentation.utils.ViewModelCustomInterface
 
 @HiltViewModel
 class AddFriendViewModel @Inject constructor() : ViewModel(), ViewModelCustomInterface {

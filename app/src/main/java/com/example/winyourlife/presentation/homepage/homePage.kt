@@ -3,6 +3,7 @@ package com.example.winyourlife.presentation.homepage
 import android.media.MediaPlayer
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -37,6 +38,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import com.example.winyourlife.presentation.utils.Settings
+import com.example.winyourlife.ui.theme.WinYourLifeTheme
 import kotlinx.coroutines.delay
 import nl.dionsegijn.konfetti.compose.KonfettiView
 import nl.dionsegijn.konfetti.core.Party
@@ -49,26 +52,30 @@ import java.util.concurrent.TimeUnit
 fun HomePage(navController: NavHostController, viewModel: HomeViewModel = hiltViewModel()) {
 
 //    ResponsiveLayout(viewModel, navController)
+    WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
+        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
+        when (!viewModel.state.isLoading && !viewModel.state.isReady) {
+            true -> {
+                viewModel.getUserName()
+            }
 
-    when (!viewModel.state.isLoading && !viewModel.state.isReady) {
-        true -> {
-            viewModel.getUserName()
-        }
-        false -> {
-            when(viewModel.state.isLoading) {
-                true -> {
-                    LoadingScreen()
-                }
-                false -> {
-                    ResponsiveLayout(viewModel, navController)
+            false -> {
+                when (viewModel.state.isLoading) {
+                    true -> {
+                        LoadingScreen()
+                    }
+
+                    false -> {
+                        ResponsiveLayout(viewModel, navController)
+                    }
                 }
             }
         }
-    }
 
-    BackHandler {
-        viewModel.resetViewModel()
-        navController.popBackStack()
+        BackHandler {
+            viewModel.resetViewModel()
+            navController.popBackStack()
+        }
     }
 }
 

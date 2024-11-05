@@ -15,7 +15,7 @@ import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.res.stringResource
 import com.example.winyourlife.R
-import com.example.winyourlife.presentation.ViewModelCustomInterface
+import com.example.winyourlife.presentation.utils.ViewModelCustomInterface
 import com.example.winyourlife.presentation.navigation.NavigationScreens
 
 @Composable

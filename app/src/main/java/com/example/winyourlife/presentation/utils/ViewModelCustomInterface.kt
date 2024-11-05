@@ -1,4 +1,4 @@
-package com.example.winyourlife.presentation
+package com.example.winyourlife.presentation.utils
 
 interface ViewModelCustomInterface {
     fun resetViewModel()
