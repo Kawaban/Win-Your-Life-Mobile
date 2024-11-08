@@ -1,5 +1,6 @@
 package com.example.winyourlife.presentation.loginpage
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -42,6 +43,8 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun LoginPage(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
+    BackHandler {
+    }
     WinYourLifeTheme(darkTheme = isSystemInDarkTheme()) {
         when (viewModel.state.isReady) {
             true -> {

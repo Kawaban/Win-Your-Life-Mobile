@@ -349,8 +349,8 @@ fun PortraitLayout(navController: NavHostController, viewModel: SettingsViewMode
                                             viewModel.saveSettings(Settings.APPLICATION_LANGUAGE.name, options[index])
                                         }
                                         currentLocale.value = Language.convertStringToLanguage(options[index], context)
-                                        selectedOption = options[index]
                                         Language.setLocale(context = context, localeCode = Language.convertStringToLanguage(options[index], context).code)
+                                        selectedOption = options[index]
                                         expanded = false
                                     },
                                     modifier = Modifier
@@ -370,7 +370,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: SettingsViewMode
 
             OrangeButton({ navController.navigate(NavigationScreens.STATISTICS.name) }, stringResource(id = R.string.statistics_button))
 
-            OrangeButton({ navController.navigate(NavigationScreens.LOGIN.name) }, stringResource(id = R.string.log_out_button))
+            OrangeButton({viewModel.logOut(); navController.navigate(NavigationScreens.LOGIN.name) }, stringResource(id = R.string.log_out_button))
 
             Spacer(modifier = Modifier.height(10.dp))
 

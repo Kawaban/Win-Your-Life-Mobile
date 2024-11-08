@@ -15,4 +15,7 @@ class CurrentUser @Inject constructor(){
         userData!!.name = name
         userData!!.avatar = avatar
     }
+    fun resetUserData(){
+        userData = null
+    }
 }

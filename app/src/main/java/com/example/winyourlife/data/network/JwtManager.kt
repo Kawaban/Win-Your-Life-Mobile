@@ -18,4 +18,8 @@ class JwtManager @Inject constructor() {
     fun isJwtSet(): Boolean {
         return jwt != null
     }
+
+    fun resetJwt() {
+        jwt = null
+    }
 }
