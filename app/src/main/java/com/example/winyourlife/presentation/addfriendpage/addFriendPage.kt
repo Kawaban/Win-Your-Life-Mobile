@@ -78,7 +78,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: AddFriendViewMo
 
             Spacer(modifier = Modifier.weight(1f))
 
-            OrangeButton({}, stringResource(id = R.string.invite_button))
+            OrangeButton({viewModel.addFriend(email)}, stringResource(id = R.string.invite_button))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -120,7 +120,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: AddFriendViewMod
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        OrangeButton({ }, stringResource(id = R.string.invite_button))
+        OrangeButton({viewModel.addFriend(email) }, stringResource(id = R.string.invite_button))
 
         Spacer(modifier = Modifier.weight(1f))
 

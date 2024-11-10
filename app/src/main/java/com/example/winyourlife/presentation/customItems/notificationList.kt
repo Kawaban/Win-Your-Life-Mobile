@@ -28,7 +28,8 @@ fun NotificationList(notifications: List<NotificationData>) {
                 hasActions = notification.hasActions,
                 onClose = notification.onClose,
                 onAccept = notification.onAccept,
-                onReject = notification.onReject
+                onReject = notification.onReject,
+                id = notification.id
             )
         }
     }

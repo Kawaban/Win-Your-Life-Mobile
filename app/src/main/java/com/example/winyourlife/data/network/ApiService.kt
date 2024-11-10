@@ -1,7 +1,10 @@
 package com.example.winyourlife.data.network
 
+import com.example.winyourlife.data.dto.FriendRequestCreate
+import com.example.winyourlife.data.dto.FriendRequestResponse
 import com.example.winyourlife.data.dto.LoginRequest
 import com.example.winyourlife.data.dto.LoginResponse
+import com.example.winyourlife.data.dto.NotificationResponse
 import com.example.winyourlife.data.dto.RegisterRequest
 import com.example.winyourlife.data.dto.UserResponse
 import com.example.winyourlife.data.dto.UserUpdateDataRequest
@@ -23,4 +26,16 @@ interface ApiService {
 
     @PATCH("api/users/data")
     suspend fun updateUserData(@Body userUpdateDataRequest: UserUpdateDataRequest): UserUpdateDataResponse
+
+    @GET("api/notifications")
+    suspend fun getNotifications(): List<NotificationResponse>
+
+    @POST("api/friend-request/send")
+    suspend fun sendFriendRequest(@Body friendRequestCreate: FriendRequestCreate)
+
+    @POST("api/friend-request/accept")
+    suspend fun acceptFriendRequest(@Body friendRequestResponse: FriendRequestResponse)
+
+    @POST("api/friend-request/decline")
+    suspend fun declineFriendRequest(@Body friendRequestResponse: FriendRequestResponse)
 }

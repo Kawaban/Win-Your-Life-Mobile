@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.winyourlife.data.dto.RegisterRequest
 import com.example.winyourlife.domain.AuthenticationService
-import com.example.winyourlife.domain.dto.Resource
+import com.example.winyourlife.domain.wrapper.Resource
 import com.example.winyourlife.presentation.utils.State
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor(val authenticationService: AuthenticationService): ViewModel(){
 
-    var state by mutableStateOf(State<Nothing>())
+    var state by mutableStateOf(State<Unit>())
         private set
 
     fun register(email: String, nick: String, password: String, repeatPassword: String) {

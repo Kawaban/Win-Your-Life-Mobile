@@ -6,23 +6,25 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.winyourlife.data.dto.FriendRequestCreate
+import com.example.winyourlife.domain.NotificationService
 import com.example.winyourlife.presentation.utils.ViewModelCustomInterface
+import kotlinx.coroutines.launch
 
 @HiltViewModel
-class AddFriendViewModel @Inject constructor() : ViewModel(), ViewModelCustomInterface {
+class AddFriendViewModel @Inject constructor(val notificationService: NotificationService) : ViewModel(), ViewModelCustomInterface {
 
-    var emailSent by mutableStateOf(false)
-        private set
-
-    fun sendEmail() {
-        emailSent = true
-    }
-
-    fun reset() {
-        emailSent = false
-    }
 
     override fun resetViewModel() {
 
+    }
+
+
+    fun addFriend(email: String) {
+        viewModelScope.launch {
+            notificationService.sendFriendRequest(FriendRequestCreate(email))
+        }
     }
 }

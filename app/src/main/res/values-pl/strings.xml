@@ -89,4 +89,7 @@
     <string name="expand_description">Rozwiń</string>
     <string name="manage_friends_button">Zarządzaj znajomymi</string>
     <string name="manage_friends_hd">ZARZĄDZAJ ZNAJOMYMI</string>
+    <string name="notification_friend_request">wysłał Ci zaproszenie do znajomych</string>
+    <string name="notification_friend_answer_positive">zaakceptował Twoje zaproszenie do znajomych</string>
+    <string name="notification_friend_answer_negative">odrzucił Twoje zaproszenie do znajomych</string>
 </resources>

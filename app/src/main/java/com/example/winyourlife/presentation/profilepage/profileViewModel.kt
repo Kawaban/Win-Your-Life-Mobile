@@ -20,7 +20,7 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(val userService: UserService, val currentUser: CurrentUser) : ViewModel(),
     ViewModelCustomInterface {
 
-    var stateUpdateData by mutableStateOf(State<Nothing>())
+    var stateUpdateData by mutableStateOf(State<Unit>())
         private set
 
     var isEditProfile by mutableStateOf(false)
@@ -38,14 +38,14 @@ class ProfileViewModel @Inject constructor(val userService: UserService, val cur
             )
             val result = userService.updateUserData(updateUserUpdateDataRequest)
             stateUpdateData = when (result) {
-                is com.example.winyourlife.domain.dto.Resource.Success -> {
+                is com.example.winyourlife.domain.wrapper.Resource.Success -> {
                     stateUpdateData.copy(
                         obj = result,
                         isReady = true,
                         isLoading = false
                     )
                 }
-                is com.example.winyourlife.domain.dto.Resource.Error -> {
+                is com.example.winyourlife.domain.wrapper.Resource.Error -> {
                     stateUpdateData.copy(
                         error = result.message,
                         isReady = true,
@@ -53,7 +53,7 @@ class ProfileViewModel @Inject constructor(val userService: UserService, val cur
                     )
                 }
             }
-            if(result is com.example.winyourlife.domain.dto.Resource.Success){
+            if(result is com.example.winyourlife.domain.wrapper.Resource.Success){
                 currentUser.updateUserData(email, name, avatar)
             }
         }

@@ -106,4 +106,9 @@
     <string name="motivation9">Your life won\’t change if you keep doing the same thing you\’ve always done. Start thinking differently, acting stronger, living bolder.</string>
     <string name="motivation10">If you really want it, you\’ll make it happen. If you don\’t, you\’ll find an excuse. It\’s your choice.</string>
     <string name="prepare_day_button">Preparations</string>
+
+    <string name="notification_friend_request">invites you to be friends</string>
+    <string name="notification_friend_answer_positive">accepted your friend request</string>
+    <string name="notification_friend_answer_negative">rejected your friend request</string>
+
 </resources>
