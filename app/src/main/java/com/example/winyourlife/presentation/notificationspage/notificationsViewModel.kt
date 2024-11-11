@@ -41,7 +41,7 @@ class NotificationsViewModel @Inject constructor(val currentUser: CurrentUser, v
                     message = it.nickSender+" " +context.getString(R.string.notification_friend_request),
                     hasActions = true,
                     onClose = { notificationId -> notificationList = notificationList.filter { it.id != notificationId } },
-                    onAccept = { notificationId ->acceptNotification(notificationId as UUID) },
+                    onAccept = { notificationId -> acceptNotification(notificationId as UUID) },
                     onReject = { notificationId -> declineNotification(notificationId as UUID) }
                 )
                 "FRIEND_REQUEST_ACCEPTED" -> NotificationData(

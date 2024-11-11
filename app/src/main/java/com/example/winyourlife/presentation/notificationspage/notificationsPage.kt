@@ -56,7 +56,7 @@ fun NotificationCard(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.background)
                 .padding(16.dp)
-                .height(130.dp)
+                .height(150.dp)
         ) {
             Row(
                 modifier = Modifier
@@ -96,7 +96,7 @@ fun NotificationCard(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Button(
-                        onClick = { onAccept?.invoke(id) },
+                        onClick = { onAccept?.invoke(id)},
                         colors = ButtonDefaults.buttonColors(
                             containerColor = MaterialTheme.colorScheme.primary
                         ),
