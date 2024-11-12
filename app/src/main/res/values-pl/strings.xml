@@ -68,6 +68,7 @@
     <string name="profile_hd">TWÓJ PROFIL</string>
     <string name="profile_description">Profil</string>
     <string name="email_sent_snack">Email został wysłany.</string>
+    <string name="request_sent_snack">Zaproszenie zostało wysłane.</string>
     <string name="data_saved_snack">Dane zostały zapisane.</string>
     <string name="motivation1">Masz tylko jedno życie, więc na co czekasz? Zacznij działać dzisiaj, albo zawsze będziesz tym, kto tylko ogląda sukcesy innych.</string>
     <string name="motivation2">Świat nie ma litości dla leniwych. Chcesz coś osiągnąć? Musisz pracować 10 razy ciężej niż wszyscy dookoła. Nikt nie poda ci sukcesu na tacy.</string>

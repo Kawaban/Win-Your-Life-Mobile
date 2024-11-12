@@ -2,6 +2,7 @@ package com.example.winyourlife.data.network
 
 import com.example.winyourlife.data.dto.FriendRequestCreate
 import com.example.winyourlife.data.dto.FriendRequestResponse
+import com.example.winyourlife.data.dto.FriendResponse
 import com.example.winyourlife.data.dto.LoginRequest
 import com.example.winyourlife.data.dto.LoginResponse
 import com.example.winyourlife.data.dto.NotificationResponse
@@ -38,4 +39,7 @@ interface ApiService {
 
     @POST("api/friend-request/decline")
     suspend fun declineFriendRequest(@Body friendRequestResponse: FriendRequestResponse)
+
+    @GET("api/users/friends")
+    suspend fun getFriends(): List<FriendResponse>
 }

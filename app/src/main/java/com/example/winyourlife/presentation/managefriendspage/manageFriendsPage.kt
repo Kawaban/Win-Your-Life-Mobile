@@ -40,15 +40,15 @@ fun ResponsiveLayout(navController: NavHostController) {
 @Composable
 fun LandscapeLayout(navController: NavHostController, viewModel: ManageFriendsViewModel = hiltViewModel()) {
 
-    val friends = listOf(
-        FriendData(R.drawable.avatar, "Joe", false, "12", 0),
-        FriendData(R.drawable.avatar, "Ellie", true, "32", 2),
-        FriendData(R.drawable.avatar, "Alex", true, "45", 3),
-        FriendData(R.drawable.avatar, "Sam", false, "28", 4),
-        FriendData(R.drawable.avatar, "Chris", false, "53", 5),
-        FriendData(R.drawable.avatar, "Sam", true, "28", 6),
-        FriendData(R.drawable.avatar, "Chris", true, "53", 1)
-    )
+//    val friends = listOf(
+//        FriendData(R.drawable.avatar, "Joe", false, "12", 0),
+//        FriendData(R.drawable.avatar, "Ellie", true, "32", 2),
+//        FriendData(R.drawable.avatar, "Alex", true, "45", 3),
+//        FriendData(R.drawable.avatar, "Sam", false, "28", 4),
+//        FriendData(R.drawable.avatar, "Chris", false, "53", 5),
+//        FriendData(R.drawable.avatar, "Sam", true, "28", 6),
+//        FriendData(R.drawable.avatar, "Chris", true, "53", 1)
+//    )
 
     Row(
         modifier = Modifier
@@ -63,7 +63,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ManageFriendsVi
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            ReorderableFriendList(friends, 300)
+//            ReorderableFriendList(friends, 300)
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -76,15 +76,15 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ManageFriendsVi
 @Composable
 fun PortraitLayout(navController: NavHostController, viewModel: ManageFriendsViewModel = hiltViewModel()) {
 
-    val friends = listOf(
-        FriendData(R.drawable.avatar, "Joe", false, "12", 0),
-        FriendData(R.drawable.avatar, "Ellie", true, "32", 2),
-        FriendData(R.drawable.avatar, "Alex", true, "45", 3),
-        FriendData(R.drawable.avatar, "Sam", false, "28", 4),
-        FriendData(R.drawable.avatar, "Chris", false, "53", 5),
-        FriendData(R.drawable.avatar, "Sam", true, "28", 6),
-        FriendData(R.drawable.avatar, "Chris", true, "53", 1)
-    )
+//    val friends = listOf(
+//        FriendData(R.drawable.avatar, "Joe", false, "12", 0),
+//        FriendData(R.drawable.avatar, "Ellie", true, "32", 2),
+//        FriendData(R.drawable.avatar, "Alex", true, "45", 3),
+//        FriendData(R.drawable.avatar, "Sam", false, "28", 4),
+//        FriendData(R.drawable.avatar, "Chris", false, "53", 5),
+//        FriendData(R.drawable.avatar, "Sam", true, "28", 6),
+//        FriendData(R.drawable.avatar, "Chris", true, "53", 1)
+//    )
 
     Column(
         modifier = Modifier
@@ -96,7 +96,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: ManageFriendsVie
 
         Spacer(modifier = Modifier.weight(1f))
 
-        ReorderableFriendList(friends, 520)
+//        ReorderableFriendList(friends, 520)
 
         Spacer(modifier = Modifier.weight(1f))
 

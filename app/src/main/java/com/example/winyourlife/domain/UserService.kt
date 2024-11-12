@@ -1,5 +1,6 @@
 package com.example.winyourlife.domain
 
+import com.example.winyourlife.data.dto.FriendResponse
 import com.example.winyourlife.data.dto.UserResponse
 import com.example.winyourlife.data.dto.UserUpdateDataRequest
 import com.example.winyourlife.data.network.ApiService
@@ -28,5 +29,13 @@ class UserService @Inject constructor(private val apiService: ApiService, privat
             }
         }
     }
+
+    suspend fun getFriends(): Resource<List<FriendResponse>> {
+        return performNetworkOperation {
+            apiService.getFriends()
+        }
+    }
+
+
 
 }

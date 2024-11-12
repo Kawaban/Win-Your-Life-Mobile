@@ -10,21 +10,45 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.winyourlife.data.dto.FriendRequestCreate
 import com.example.winyourlife.domain.NotificationService
+import com.example.winyourlife.domain.wrapper.Resource
+import com.example.winyourlife.presentation.dataObjects.CurrentUser
+import com.example.winyourlife.presentation.utils.State
 import com.example.winyourlife.presentation.utils.ViewModelCustomInterface
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class AddFriendViewModel @Inject constructor(val notificationService: NotificationService) : ViewModel(), ViewModelCustomInterface {
+class AddFriendViewModel @Inject constructor(val notificationService: NotificationService, val currentUser: CurrentUser) : ViewModel(), ViewModelCustomInterface {
 
 
     override fun resetViewModel() {
-
+        stateSend = State()
     }
+
+    var stateSend by mutableStateOf(State<Unit>())
 
 
     fun addFriend(email: String) {
         viewModelScope.launch {
-            notificationService.sendFriendRequest(FriendRequestCreate(email))
+            stateSend = stateSend.copy(
+                isLoading = true,
+                isReady = false
+            )
+            val result = notificationService.sendFriendRequest(FriendRequestCreate(email))
+            stateSend = when(result){
+                is Resource.Success ->{
+                    stateSend.copy(
+                        isLoading = false,
+                        isReady = true
+                    )
+                }
+                is Resource.Error -> {
+                    stateSend.copy(
+                        isLoading = false,
+                        isReady = true,
+                        error = result.message
+                    )
+                }
+            }
         }
     }
 }

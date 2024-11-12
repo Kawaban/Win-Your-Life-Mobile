@@ -1,13 +1,16 @@
 package com.example.winyourlife.presentation.addfriendpage
 
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -20,10 +23,30 @@ import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
+import com.example.winyourlife.presentation.utilScreens.LoadingScreen
+import com.example.winyourlife.presentation.utils.Settings
+import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun AddFriendPage(navController: NavHostController, viewModel: AddFriendViewModel = hiltViewModel()) {
-    ResponsiveLayout(navController)
+    //ResponsiveLayout(navController)
+    WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
+        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()
+    ){
+                val context = LocalContext.current
+                when (viewModel.stateSend.isReady) {
+                    true -> {
+                        Toast.makeText(context,stringResource(id = R.string.request_sent_snack), Toast.LENGTH_SHORT).show()
+                    }
+                    false -> {
+
+                    }
+                }
+
+                ResponsiveLayout(navController)
+
+    }
+
     BackHandler {
         viewModel.resetViewModel()
         navController.popBackStack()

@@ -2,6 +2,7 @@ package com.example.winyourlife.presentation.friendspage
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,10 +26,36 @@ import com.example.winyourlife.presentation.customItems.Headline
 import com.example.winyourlife.presentation.customItems.MyVerticalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
+import com.example.winyourlife.presentation.utilScreens.LoadingScreen
+import com.example.winyourlife.presentation.utils.Settings
+import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun FriendsPage(navController: NavHostController, viewModel: FriendsViewModel = hiltViewModel()) {
-    ResponsiveLayout(navController)
+//    ResponsiveLayout(navController)
+    WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
+        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()
+    ){
+        when (!viewModel.stateFriends.isLoading && !viewModel.stateFriends.isReady) {
+            true -> {
+                viewModel.getFriends()
+            }
+
+            false -> {
+                when (viewModel.stateFriends.isLoading) {
+                    true -> {
+                        LoadingScreen()
+                    }
+
+                    false -> {
+                        ResponsiveLayout(
+                            navController
+                        )
+                    }
+                }
+            }
+        }
+    }
     BackHandler {
         viewModel.resetViewModel()
         navController.popBackStack()
@@ -50,15 +77,15 @@ fun ResponsiveLayout(navController: NavHostController) {
 @Composable
 fun LandscapeLayout(navController: NavHostController, viewModel: FriendsViewModel = hiltViewModel()) {
 
-    val friends = listOf(
-        FriendData(R.drawable.avatar, "Joe", false, "12", 0),
-        FriendData(R.drawable.avatar, "Ellie", true, "32", 2),
-        FriendData(R.drawable.avatar, "Alex", true, "45", 3),
-        FriendData(R.drawable.avatar, "Sam", false, "28", 4),
-        FriendData(R.drawable.avatar, "Chris", false, "53", 5),
-        FriendData(R.drawable.avatar, "Sam", true, "28", 6),
-        FriendData(R.drawable.avatar, "Chris", true, "53", 1)
-    )
+//    val friends = listOf(
+//        FriendData(R.drawable.avatar, "Joe", false, "12", 0),
+//        FriendData(R.drawable.avatar, "Ellie", true, "32", 2),
+//        FriendData(R.drawable.avatar, "Alex", true, "45", 3),
+//        FriendData(R.drawable.avatar, "Sam", false, "28", 4),
+//        FriendData(R.drawable.avatar, "Chris", false, "53", 5),
+//        FriendData(R.drawable.avatar, "Sam", true, "28", 6),
+//        FriendData(R.drawable.avatar, "Chris", true, "53", 1)
+//    )
 
     Row(
         modifier = Modifier
@@ -73,7 +100,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: FriendsViewMode
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            FriendList(friends, 300)
+            FriendList(viewModel.friendList, 300)
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -102,15 +129,15 @@ fun LandscapeLayout(navController: NavHostController, viewModel: FriendsViewMode
 @Composable
 fun PortraitLayout(navController: NavHostController, viewModel: FriendsViewModel = hiltViewModel()) {
 
-    val friends = listOf(
-        FriendData(R.drawable.avatar, "Joe", false, "12", 0),
-        FriendData(R.drawable.avatar, "Ellie", true, "32", 2),
-        FriendData(R.drawable.avatar, "Alex", true, "45", 3),
-        FriendData(R.drawable.avatar, "Sam", false, "28", 4),
-        FriendData(R.drawable.avatar, "Chris", false, "53", 5),
-        FriendData(R.drawable.avatar, "Sam", true, "28", 6),
-        FriendData(R.drawable.avatar, "Chris", true, "53", 1)
-    )
+//    val friends = listOf(
+//        FriendData(R.drawable.avatar, "Joe", false, "12", 0),
+//        FriendData(R.drawable.avatar, "Ellie", true, "32", 2),
+//        FriendData(R.drawable.avatar, "Alex", true, "45", 3),
+//        FriendData(R.drawable.avatar, "Sam", false, "28", 4),
+//        FriendData(R.drawable.avatar, "Chris", false, "53", 5),
+//        FriendData(R.drawable.avatar, "Sam", true, "28", 6),
+//        FriendData(R.drawable.avatar, "Chris", true, "53", 1)
+//    )
 
     Column(
         modifier = Modifier
@@ -122,7 +149,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: FriendsViewModel
 
         Spacer(modifier = Modifier.height(90.dp))
 
-        FriendList(friends, 380)
+        FriendList(viewModel.friendList, 380)
 
         Spacer(modifier = Modifier.weight(1f))
 

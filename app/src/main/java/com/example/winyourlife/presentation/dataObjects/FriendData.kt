@@ -1,9 +1,9 @@
 package com.example.winyourlife.presentation.dataObjects
 
 data class FriendData(
-    val avatar: Int,
+    val avatar: ByteArray,
     val nickname: String,
     val isBetter: Boolean,
-    val period: String,
+    val period: Int,
     val id: Int
 )

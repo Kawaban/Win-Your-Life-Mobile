@@ -1,8 +1,12 @@
 package com.example.winyourlife.presentation.customItems
 
+import android.graphics.BitmapFactory
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,17 +15,19 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.winyourlife.R
+import java.util.Base64
 
 @Composable
 fun CustomFriend(
-    avatar: Int,
+    avatar: ByteArray,
     nickname: String,
     isBetter: Boolean,
-    period: String,
+    period: Int,
     id: Int
 ) {
     Box(
@@ -40,13 +46,22 @@ fun CustomFriend(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Image(
-                painter = painterResource(id = avatar),
-                contentDescription = stringResource(id = R.string.friends_avatar_description),
-                modifier = Modifier
-                    .size(40.dp)
-                    .padding(start = 8.dp)
-            )
+            when {
+                    avatar.decodeToString() == Base64.getDecoder().decode("").decodeToString() -> Image(
+                    painter = painterResource(id = R.drawable.avatar),
+                    contentDescription = stringResource(id = R.string.friends_avatar_description),
+                    modifier = Modifier
+                        .size(64.dp)
+                        .padding(16.dp)
+                )
+                else -> Image(
+                    bitmap = BitmapFactory.decodeByteArray(avatar, 0, avatar.size).asImageBitmap(),
+                    contentDescription = stringResource(id = R.string.friends_avatar_description),
+                    modifier = Modifier
+                        .size(64.dp)
+                        .padding(16.dp)
+                )
+            }
 
             Text(
                 text = nickname,
@@ -58,7 +73,7 @@ fun CustomFriend(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = period,
+                    text = period.toString(),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.primary
                 )
