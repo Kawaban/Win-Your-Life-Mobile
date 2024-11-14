@@ -52,6 +52,7 @@ import java.util.concurrent.TimeUnit
 fun HomePage(navController: NavHostController, viewModel: HomeViewModel = hiltViewModel()) {
 
 //    ResponsiveLayout(viewModel, navController)
+
     WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
         when (!viewModel.state.isLoading && !viewModel.state.isReady) {

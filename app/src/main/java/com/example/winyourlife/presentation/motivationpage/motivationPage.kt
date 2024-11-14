@@ -10,6 +10,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -25,10 +27,22 @@ import com.example.winyourlife.R
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
 import com.example.winyourlife.presentation.customItems.Headline
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
+import com.example.winyourlife.presentation.customItems.VideoPlayerDialog
 
 @Composable
 fun MotivationPage(navController: NavHostController, viewModel: MotivationViewModel = hiltViewModel()) {
-    ResponsiveLayout(navController)
+
+    val showVideoDialog by viewModel.showVideoDialog
+    val startPlaybackPosition by viewModel.startPlaybackPosition
+
+    ResponsiveLayout(
+        navController = navController,
+        showVideoDialog = showVideoDialog,
+        startPlaybackPosition = startPlaybackPosition,
+        onShowVideoDialogChange = { viewModel.updateShowVideoDialog(it) },
+        onPlaybackPositionChange = { viewModel.updateStartPlaybackPosition(it) }
+    )
+
     BackHandler {
         viewModel.resetViewModel()
         navController.popBackStack()
@@ -36,20 +50,44 @@ fun MotivationPage(navController: NavHostController, viewModel: MotivationViewMo
 }
 
 @Composable
-fun ResponsiveLayout(navController: NavHostController) {
+fun ResponsiveLayout(
+    navController: NavHostController,
+    showVideoDialog: Boolean,
+    startPlaybackPosition: Long,
+    onShowVideoDialogChange: (Boolean) -> Unit,
+    onPlaybackPositionChange: (Long) -> Unit
+) {
     val configuration = LocalConfiguration.current
     val isPortrait = configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT
 
     if (isPortrait) {
-        PortraitLayout(navController)
+        PortraitLayout(
+            navController = navController,
+            showVideoDialog = showVideoDialog,
+            startPlaybackPosition = startPlaybackPosition,
+            onShowVideoDialogChange = onShowVideoDialogChange,
+            onPlaybackPositionChange = onPlaybackPositionChange
+        )
     } else {
-        LandscapeLayout(navController)
+        LandscapeLayout(
+            navController = navController,
+            showVideoDialog = showVideoDialog,
+            startPlaybackPosition = startPlaybackPosition,
+            onShowVideoDialogChange = onShowVideoDialogChange,
+            onPlaybackPositionChange = onPlaybackPositionChange
+        )
     }
 }
 
 @Composable
-fun LandscapeLayout(navController: NavHostController, viewModel: MotivationViewModel = hiltViewModel()) {
-
+fun LandscapeLayout(
+    navController: NavHostController,
+    viewModel: MotivationViewModel = hiltViewModel(),
+    showVideoDialog: Boolean,
+    startPlaybackPosition: Long,
+    onShowVideoDialogChange: (Boolean) -> Unit,
+    onPlaybackPositionChange: (Long) -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxSize()
@@ -141,7 +179,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: MotivationViewM
                     Spacer(Modifier.width(10.dp))
 
                     Card(
-                        onClick = { },
+                        onClick = { onShowVideoDialogChange(true) },
                         shape = RoundedCornerShape(15.dp),
                         modifier = Modifier.size(60.dp)
                     ) {
@@ -173,12 +211,28 @@ fun LandscapeLayout(navController: NavHostController, viewModel: MotivationViewM
 
         SideNavigationBar(navController, viewModel)
     }
+
+    if (showVideoDialog) {
+        VideoPlayerDialog(
+            startPlaybackPosition = startPlaybackPosition,
+            onPlaybackPositionChange = onPlaybackPositionChange,
+            onDismiss = {
+                onShowVideoDialogChange(false)
+                onPlaybackPositionChange(0L)
+            }
+        )
+    }
 }
 
-
 @Composable
-fun PortraitLayout(navController: NavHostController, viewModel: MotivationViewModel = hiltViewModel()) {
-
+fun PortraitLayout(
+    navController: NavHostController,
+    viewModel: MotivationViewModel = hiltViewModel(),
+    showVideoDialog: Boolean,
+    startPlaybackPosition: Long,
+    onShowVideoDialogChange: (Boolean) -> Unit,
+    onPlaybackPositionChange: (Long) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -225,7 +279,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: MotivationViewMo
             ) {
 
                 Card(
-                    onClick = { },
+                    onClick = {  },
                     shape = RoundedCornerShape(15.dp),
                     modifier = Modifier.size(60.dp)
                 ) {
@@ -246,7 +300,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: MotivationViewMo
                 }
 
                 Card(
-                    onClick = { },
+                    onClick = { onShowVideoDialogChange(true) },
                     shape = RoundedCornerShape(15.dp),
                     modifier = Modifier.size(60.dp)
                 ) {
@@ -269,5 +323,16 @@ fun PortraitLayout(navController: NavHostController, viewModel: MotivationViewMo
         }
 
         BottomNavigationBar(navController, viewModel)
+    }
+
+    if (showVideoDialog) {
+        VideoPlayerDialog(
+            startPlaybackPosition = startPlaybackPosition,
+            onPlaybackPositionChange = onPlaybackPositionChange,
+            onDismiss = {
+                onShowVideoDialogChange(false)
+                onPlaybackPositionChange(0L)
+            }
+        )
     }
 }
