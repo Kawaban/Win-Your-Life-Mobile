@@ -1,7 +1,9 @@
 package com.example.winyourlife.presentation.customItems
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -14,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import com.example.winyourlife.presentation.dataObjects.FriendData
+import kotlin.math.abs
 
 @Composable
 fun ReorderableFriendList(initialFriends: List<FriendData>, height: Int) {
@@ -51,56 +54,68 @@ fun DraggableFriendItem(
     currentIndex: Int,
     totalFriends: Int
 ) {
-    var isDragging by remember { mutableStateOf(false) }
-    var offsetY by remember { mutableStateOf(0f) }
-    var adjustedIndex by remember { mutableStateOf(currentIndex) }
-    val itemHeight = 56.dp
-    val sensitivityFactor = 0.8f
-    var startOffsetY by remember { mutableStateOf(0f) }
-    var startIndex by remember { mutableStateOf(currentIndex) }
+    val itemHeight = 60.dp
+    var startIndex by remember { mutableIntStateOf(currentIndex) }
+    var adjustedIndex by remember { mutableIntStateOf(-1) }
+    var relativeOffsetY by remember { mutableFloatStateOf(0f) }
+    var previousDragAmount by remember { mutableFloatStateOf(0f) }
+    var isActive by remember {mutableStateOf(false)}
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(itemHeight)
-            .background(if (isDragging) Color.LightGray else MaterialTheme.colorScheme.background)
+            .background(
+                if (isActive) Color.LightGray
+                else MaterialTheme.colorScheme.background
+            )
+            .border(2.dp, Color.Gray)
             .pointerInput(Unit) {
+                detectTapGestures(
+                    onLongPress = {
+                        isActive = true
+                        println("nie Weszlem")
+                    }
+                )
+            }
+            .pointerInput(isActive) {
+                println("Weszlem")
                 detectDragGestures(
-                    onDragStart = {
-                        isDragging = true
-                        startOffsetY = offsetY
+                    onDragStart = { _ ->
                         startIndex = currentIndex
                     },
-                    onDragEnd = {
-                        isDragging = false
-                        offsetY = 0f
-                    },
-                    onDragCancel = {
-                        isDragging = false
-                        offsetY = 0f
-                    },
-                    onDrag = { change, dragAmount ->
-                        offsetY += dragAmount.y * sensitivityFactor
+                    onDrag = { _, dragAmount ->
+                        relativeOffsetY += dragAmount.y - previousDragAmount
 
-                        val relativeOffsetY = offsetY - startOffsetY
-                        val targetIndex = (startIndex + (relativeOffsetY / itemHeight.toPx())).toInt()
+                        var shiftInElements = 0
+                        if (relativeOffsetY >= 0) {
+                            shiftInElements = (relativeOffsetY / (itemHeight + 8.dp).toPx()).toInt()
+                        } else {
+                            shiftInElements = (abs(relativeOffsetY) / (itemHeight + 8.dp).toPx()).toInt()
+                            shiftInElements -= shiftInElements + shiftInElements
+                        }
 
-                        if (targetIndex in 0 until totalFriends
-                            && targetIndex != startIndex
-                            && targetIndex != adjustedIndex) {
+                        val targetIndex = (startIndex + shiftInElements).coerceIn(0, totalFriends - 1)
 
+                        if (targetIndex != startIndex && targetIndex != adjustedIndex) {
                             onMove(startIndex, targetIndex)
                             adjustedIndex = targetIndex
                             startIndex = targetIndex
-
-                            change.consume()
+                            previousDragAmount = 0f
+                            relativeOffsetY = 0f
                         }
+                    },
+                    onDragEnd = {
+                        isActive = false
+                        previousDragAmount = 0f
+                        relativeOffsetY = 0f
                     }
                 )
             }
             .padding(8.dp),
         contentAlignment = Alignment.Center
-    ) {
+    )
+    {
         Text(text = friend.nickname, color = MaterialTheme.colorScheme.onBackground)
     }
 }

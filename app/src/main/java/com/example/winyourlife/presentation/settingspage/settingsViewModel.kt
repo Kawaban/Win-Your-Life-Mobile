@@ -15,11 +15,8 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(val userPreferencesRepository: UserPreferencesRepository, val currentUser: CurrentUser, val jwtManager: JwtManager) : ViewModel(),
     ViewModelCustomInterface {
 
-
     override fun resetViewModel() {
-
     }
-
 
     fun saveSettings(name : String, value: String){
         viewModelScope.launch {
@@ -32,6 +29,4 @@ class SettingsViewModel @Inject constructor(val userPreferencesRepository: UserP
         currentUser.resetUserData()
         jwtManager.resetJwt()
     }
-
-
 }

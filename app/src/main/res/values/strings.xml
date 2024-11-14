@@ -31,6 +31,8 @@
     <string name="plus_sign_description" translatable="false">+</string>
     <string name="user_avatar_description">User avatar</string>
     <string name="expand_description">Expand</string>
+    <string name="talk_description">Play speech</string>
+    <string name="movie_description">Play movie</string>
 
     <string name="streak" translatable="false">STREAK:</string>
     <string name="days"> days</string>

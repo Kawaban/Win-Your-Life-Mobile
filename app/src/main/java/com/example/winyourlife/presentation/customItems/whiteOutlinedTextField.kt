@@ -8,6 +8,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
+import androidx.compose.ui.graphics.Color
 
 @Composable
 fun WhiteOutlinedTextField(
@@ -30,19 +31,19 @@ fun WhiteOutlinedTextField(
             .width(280.dp),
         shape = RoundedCornerShape(8.dp),
         colors = OutlinedTextFieldDefaults.colors(
-            focusedContainerColor = MaterialTheme.colorScheme.onBackground,
-            unfocusedContainerColor = MaterialTheme.colorScheme.onBackground,
-            disabledContainerColor = MaterialTheme.colorScheme.onBackground,
-            focusedTextColor = MaterialTheme.colorScheme.secondary,
-            unfocusedTextColor = MaterialTheme.colorScheme.secondary,
-            focusedBorderColor = MaterialTheme.colorScheme.onBackground,
-            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground,
-            cursorColor = MaterialTheme.colorScheme.background,
-            disabledBorderColor = MaterialTheme.colorScheme.onBackground,
-            disabledTextColor = MaterialTheme.colorScheme.background,
-            disabledLabelColor = MaterialTheme.colorScheme.background,
+            focusedContainerColor = Color.White,
+            unfocusedContainerColor = Color.White,
+            disabledContainerColor = Color.White,
+            focusedTextColor = Color.Black,
+            unfocusedTextColor = Color.Black,
+            disabledTextColor = Color.Black,
+            focusedBorderColor = Color.Black,
+            unfocusedBorderColor = Color.Black,
+            disabledBorderColor = Color.Black,
+            cursorColor = Color.Black,
             focusedLabelColor = MaterialTheme.colorScheme.onBackground,
-            unfocusedLabelColor = MaterialTheme.colorScheme.background
+            unfocusedLabelColor = Color.Black,
+            disabledLabelColor = Color.Black
         ),
         enabled = isEditable
     )

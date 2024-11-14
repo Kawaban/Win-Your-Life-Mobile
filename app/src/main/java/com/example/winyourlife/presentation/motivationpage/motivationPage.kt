@@ -4,6 +4,9 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -96,8 +99,73 @@ fun LandscapeLayout(navController: NavHostController, viewModel: MotivationViewM
                     modifier = Modifier
                         .padding(10.dp)
                         .fillMaxWidth(0.7f)
+                        .fillMaxHeight(0.7f)
                         .align(Alignment.CenterStart)
                 )
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .fillMaxWidth(0.7f)
+                        .fillMaxHeight(0.3f)
+                        .align(Alignment.BottomStart)
+                ) {
+
+                    Spacer(Modifier.width(10.dp))
+
+                    Card(
+                        onClick = { },
+                        shape = RoundedCornerShape(15.dp),
+                        modifier = Modifier.size(60.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(
+                                    MaterialTheme.colorScheme.primary,
+                                    shape = RoundedCornerShape(15.dp)
+                                )
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.talk),
+                                contentDescription = stringResource(id = R.string.talk_description),
+                                tint = MaterialTheme.colorScheme.onPrimary,
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .align(Alignment.Center)
+                            )
+                        }
+                    }
+
+                    Spacer(Modifier.width(10.dp))
+
+                    Card(
+                        onClick = { },
+                        shape = RoundedCornerShape(15.dp),
+                        modifier = Modifier.size(60.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(
+                                    MaterialTheme.colorScheme.primary,
+                                    shape = RoundedCornerShape(15.dp)
+                                )
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.movie),
+                                contentDescription = stringResource(id = R.string.movie_description),
+                                tint = MaterialTheme.colorScheme.onPrimary,
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .align(Alignment.Center)
+                            )
+                        }
+                    }
+
+                    Spacer(Modifier.width(10.dp))
+                }
             }
 
             Spacer(modifier = Modifier.weight(1f))
@@ -146,6 +214,58 @@ fun PortraitLayout(navController: NavHostController, viewModel: MotivationViewMo
                     .aspectRatio(0.6f)
                     .align(Alignment.BottomStart)
             )
+
+            Column(
+                modifier = Modifier
+                    .height(200.dp)
+                    .width(100.dp)
+                    .align(Alignment.CenterEnd),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceEvenly
+            ) {
+
+                Card(
+                    onClick = { },
+                    shape = RoundedCornerShape(15.dp),
+                    modifier = Modifier.size(60.dp)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(15.dp))
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.talk),
+                            contentDescription = stringResource(id = R.string.talk_description),
+                            tint = MaterialTheme.colorScheme.onPrimary,
+                            modifier = Modifier
+                                .size(40.dp)
+                                .align(Alignment.Center)
+                        )
+                    }
+                }
+
+                Card(
+                    onClick = { },
+                    shape = RoundedCornerShape(15.dp),
+                    modifier = Modifier.size(60.dp)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(15.dp))
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.movie),
+                            contentDescription = stringResource(id = R.string.movie_description),
+                            tint = MaterialTheme.colorScheme.onPrimary,
+                            modifier = Modifier
+                                .size(40.dp)
+                                .align(Alignment.Center)
+                        )
+                    }
+                }
+            }
         }
 
         BottomNavigationBar(navController, viewModel)

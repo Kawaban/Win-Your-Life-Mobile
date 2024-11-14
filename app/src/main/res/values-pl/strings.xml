@@ -24,6 +24,7 @@
     <string name="motivation_image_description">Motywacyjny obraz</string>
     <string name="close_notification_description">Zamknij powiadomienie</string>
     <string name="user_avatar_description">Avatar użytkownika</string>
+    <string name="talk_description">Odtwórz przemowę</string>
     <string name="days">" dni"</string>
     <string name="notifications_options">OPCJE POWIADOMIEŃ</string>
     <string name="longest_streak">Najdłuższy streak</string>
@@ -93,4 +94,5 @@
     <string name="notification_friend_request">wysłał Ci zaproszenie do znajomych</string>
     <string name="notification_friend_answer_positive">zaakceptował Twoje zaproszenie do znajomych</string>
     <string name="notification_friend_answer_negative">odrzucił Twoje zaproszenie do znajomych</string>
+    <string name="movie_description">Odtwórz film</string>
 </resources>

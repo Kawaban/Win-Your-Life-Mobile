@@ -34,7 +34,7 @@ fun CustomGoal(
     var isCompleted by remember { mutableStateOf(isCompleted) }
 
     val backgroundColor by animateColorAsState(
-        targetValue = if (isCompleted) MaterialTheme.colorScheme.primary else  MaterialTheme.colorScheme.background
+        targetValue = if (isCompleted) MaterialTheme.colorScheme.primary else  MaterialTheme.colorScheme.secondary
     )
 
     var targetPadding by remember { mutableStateOf(8.dp) }
@@ -55,7 +55,8 @@ fun CustomGoal(
     Box(
         modifier = Modifier
             .clickable { isCompleted = !isCompleted }
-            .background(color = backgroundColor, shape = RoundedCornerShape(8.dp))
+            .background(color = backgroundColor,
+                shape = RoundedCornerShape(8.dp))
             .border(
                 width = 1.dp,
                 color = MaterialTheme.colorScheme.primary,
@@ -85,7 +86,7 @@ fun CustomGoal(
             Text(
                 text = label,
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onBackground,
+                color = MaterialTheme.colorScheme.onSecondary,
                 modifier = Modifier.padding(start = 8.dp)
             )
 

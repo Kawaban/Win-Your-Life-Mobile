@@ -62,8 +62,18 @@ fun LandscapeLayout(navController: NavHostController, viewModel: SettingsViewMod
     val initialDarkTheme = isSystemInDarkTheme()
 
     val isDarkTheme = remember {
-        mutableStateOf(initialDarkTheme)
+        mutableStateOf(
+            viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)?.toBooleanStrictOrNull() ?: initialDarkTheme)
     }
+
+    val isDailyReminders = remember {
+        mutableStateOf(viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DAILY_REMINDER.name)?.toBooleanStrictOrNull() ?: true)
+    }
+
+    val isFriendsNotifications = remember {
+        mutableStateOf(viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_FRIENDS_NOTIFICATION.name)?.toBooleanStrictOrNull() ?: true)
+    }
+
     val context = LocalContext.current
     val currentLocale = remember { mutableStateOf(Language.getCurrentLanguage(context)) }
 
@@ -106,7 +116,8 @@ fun LandscapeLayout(navController: NavHostController, viewModel: SettingsViewMod
                         color = MaterialTheme.colorScheme.onBackground
                     )
 
-                    MySwitch(true, { })
+                    MySwitch(isFriendsNotifications.value) { isFriendsNotifications.value = it; viewModel.saveSettings(
+                        Settings.IS_FRIENDS_NOTIFICATION.name,it.toString()) }
                 }
 
                 Row(
@@ -122,7 +133,8 @@ fun LandscapeLayout(navController: NavHostController, viewModel: SettingsViewMod
                         color = MaterialTheme.colorScheme.onBackground
                     )
 
-                    MySwitch(false, { })
+                    MySwitch(isDailyReminders.value) { isDailyReminders.value = it; viewModel.saveSettings(
+                        Settings.IS_DAILY_REMINDER.name,it.toString()) }
                 }
 
                 MyHorizontalDivider()
@@ -140,7 +152,8 @@ fun LandscapeLayout(navController: NavHostController, viewModel: SettingsViewMod
                         color = MaterialTheme.colorScheme.onBackground
                     )
 
-                    MySwitch(isDarkTheme.value) { isDarkTheme.value = it }
+                    MySwitch(isDarkTheme.value) { isDarkTheme.value = it; viewModel.saveSettings(
+                        Settings.IS_DARK_THEME.name,it.toString()) }
                 }
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -195,6 +208,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: SettingsViewMode
     val isFriendsNotifications = remember {
         mutableStateOf(viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_FRIENDS_NOTIFICATION.name)?.toBooleanStrictOrNull() ?: true)
     }
+
     val context = LocalContext.current
     val currentLocale = remember { mutableStateOf(Language.getCurrentLanguage(context)) }
 
