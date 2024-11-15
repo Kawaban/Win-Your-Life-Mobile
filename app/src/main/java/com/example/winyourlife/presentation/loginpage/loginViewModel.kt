@@ -38,6 +38,7 @@ class LoginViewModel @Inject constructor(val authenticationService: Authenticati
                         isReady = true,
                         isLoading = false
                     )
+
                 }
                 is Resource.Error -> {
                     state.copy(

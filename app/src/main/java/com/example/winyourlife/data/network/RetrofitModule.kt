@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 @InstallIn(SingletonComponent::class)
 object RetrofitModule{
-    private const val BASE_URL ="http://192.168.0.115:8080/"
+    private const val BASE_URL ="http://192.168.1.130:8080/"
 
     @Provides
     fun okHttpClient(jwtManager: JwtManager): OkHttpClient {

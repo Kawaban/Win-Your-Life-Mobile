@@ -20,14 +20,36 @@ import com.example.winyourlife.presentation.utils.Settings
 import com.example.winyourlife.presentation.settingspage.SettingsViewModel
 import com.example.winyourlife.presentation.utils.Language
 
+fun mapOptionToLanguageCode(index: Int): String {
+    return when (index) {
+        0 -> "en"
+        1 -> "pl"
+        else -> "en"
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LanguageDropDownMenu(viewModel: SettingsViewModel, context: Context) {
 
-    val options = listOf(stringResource(id = R.string.language_en), stringResource(id = R.string.language_pl))
+    val options = listOf(
+        stringResource(id = R.string.language_en),
+        stringResource(id = R.string.language_pl)
+    )
+
     var expanded by remember { mutableStateOf(false) }
-    var selectedOption by remember { mutableStateOf(viewModel.currentUser.userData?.mapOfSettings?.get(
-        Settings.APPLICATION_LANGUAGE.name) ?: options[0]) }
+
+    var selectedOptionIndex by remember {
+        mutableStateOf(
+            when (viewModel.currentUser.userData?.mapOfSettings?.get(Settings.APPLICATION_LANGUAGE.name)) {
+                "en" -> 0
+                "pl" -> 1
+                else -> 0
+            }
+        )
+    }
+
+    var selectedOption by remember { mutableStateOf(options[selectedOptionIndex]) }
 
     Row(
         modifier = Modifier
@@ -53,7 +75,7 @@ fun LanguageDropDownMenu(viewModel: SettingsViewModel, context: Context) {
                 TextField(
                     readOnly = true,
                     value = selectedOption,
-                    onValueChange = {},
+                    onValueChange = { },
                     modifier = Modifier
                         .weight(1f)
                         .menuAnchor(),
@@ -93,11 +115,22 @@ fun LanguageDropDownMenu(viewModel: SettingsViewModel, context: Context) {
                                 )
                             },
                             onClick = {
-                                if(selectedOption != options[index]){
-                                    viewModel.saveSettings(Settings.APPLICATION_LANGUAGE.name, options[index])
+                                if (selectedOptionIndex != index) {
+                                    val languageCode = mapOptionToLanguageCode(index)
+
+                                    viewModel.saveSettings(
+                                        Settings.APPLICATION_LANGUAGE.name,
+                                        languageCode
+                                    )
+
+                                    selectedOptionIndex = index
+                                    selectedOption = options[index]
+
+                                    Language.setLocale(
+                                        context = context,
+                                        localeCode = languageCode
+                                    )
                                 }
-                                selectedOption = options[index]
-                                Language.setLocale(context = context, localeCode = Language.convertStringToLanguage(options[index], context).code)
                                 expanded = false
                             },
                             modifier = Modifier
