@@ -25,7 +25,7 @@
     <string name="close_notification_description">Zamknij powiadomienie</string>
     <string name="user_avatar_description">Avatar użytkownika</string>
     <string name="talk_description">Odtwórz przemowę</string>
-    <string name="days">" dni"</string>
+    <string name="days">"dni"</string>
     <string name="notifications_options">OPCJE POWIADOMIEŃ</string>
     <string name="longest_streak">Najdłuższy streak</string>
     <string name="tasks_completed">Liczba wykonanych zadań</string>

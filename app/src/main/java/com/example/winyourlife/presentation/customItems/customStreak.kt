@@ -40,7 +40,7 @@ fun CustomStreak(
                 )
 
                 Text(
-                    text = period + stringResource(id = R.string.days),
+                    text = period + " " + stringResource(id = R.string.days),
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary
