@@ -35,8 +35,7 @@ fun OrangeOutlinedTextField(
             .padding(bottom = 16.dp),
         shape = RoundedCornerShape(24.dp),
         colors = OutlinedTextFieldDefaults.colors(
-            focusedContainerColor = MaterialTheme.colorScheme.background,
-            unfocusedContainerColor = MaterialTheme.colorScheme.background,
+            disabledContainerColor = MaterialTheme.colorScheme.secondary,
             disabledBorderColor = MaterialTheme.colorScheme.primary,
             disabledTextColor = MaterialTheme.colorScheme.onBackground
         ),

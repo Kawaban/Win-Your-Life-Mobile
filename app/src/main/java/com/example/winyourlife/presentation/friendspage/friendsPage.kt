@@ -32,7 +32,7 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun FriendsPage(navController: NavHostController, viewModel: FriendsViewModel = hiltViewModel()) {
-//    ResponsiveLayout(navController)
+
     WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()
     ){

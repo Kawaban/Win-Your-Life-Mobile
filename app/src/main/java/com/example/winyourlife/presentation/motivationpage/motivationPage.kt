@@ -5,6 +5,7 @@ import android.media.MediaPlayer
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -34,6 +35,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
+import com.example.winyourlife.presentation.utils.Settings
+import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun MotivationPage(navController: NavHostController, viewModel: MotivationViewModel = hiltViewModel()) {
@@ -41,13 +44,17 @@ fun MotivationPage(navController: NavHostController, viewModel: MotivationViewMo
     val showVideoDialog by viewModel.showVideoDialog
     val startPlaybackPosition by viewModel.startPlaybackPosition
 
-    ResponsiveLayout(
-        navController = navController,
-        showVideoDialog = showVideoDialog,
-        startPlaybackPosition = startPlaybackPosition,
-        onShowVideoDialogChange = { viewModel.updateShowVideoDialog(it) },
-        onPlaybackPositionChange = { viewModel.updateStartPlaybackPosition(it) }
-    )
+    WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
+        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()
+    ) {
+        ResponsiveLayout(
+            navController = navController,
+            showVideoDialog = showVideoDialog,
+            startPlaybackPosition = startPlaybackPosition,
+            onShowVideoDialogChange = { viewModel.updateShowVideoDialog(it) },
+            onPlaybackPositionChange = { viewModel.updateStartPlaybackPosition(it) }
+        )
+    }
 
     BackHandler {
         viewModel.resetViewModel()

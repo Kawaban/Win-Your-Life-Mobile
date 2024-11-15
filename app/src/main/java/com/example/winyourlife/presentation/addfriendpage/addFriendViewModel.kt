@@ -7,7 +7,6 @@ import javax.inject.Inject
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.winyourlife.data.dto.FriendRequestCreate
 import com.example.winyourlife.domain.NotificationService
 import com.example.winyourlife.domain.wrapper.Resource
@@ -19,13 +18,11 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class AddFriendViewModel @Inject constructor(val notificationService: NotificationService, val currentUser: CurrentUser) : ViewModel(), ViewModelCustomInterface {
 
-
     override fun resetViewModel() {
         stateSend = State()
     }
 
     var stateSend by mutableStateOf(State<Unit>())
-
 
     fun addFriend(email: String) {
         viewModelScope.launch {

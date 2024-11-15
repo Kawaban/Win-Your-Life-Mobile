@@ -30,7 +30,6 @@ import com.example.winyourlife.R
 import com.example.winyourlife.presentation.utils.Settings
 import com.example.winyourlife.presentation.customItems.NotificationList
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
-import com.example.winyourlife.presentation.dataObjects.NotificationData
 import com.example.winyourlife.presentation.utilScreens.LoadingScreen
 import com.example.winyourlife.ui.theme.WinYourLifeTheme
 import java.util.UUID

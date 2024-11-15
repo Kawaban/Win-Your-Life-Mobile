@@ -75,8 +75,6 @@ fun LandscapeLayout(navController: NavHostController, viewModel: SettingsViewMod
     }
 
     val context = LocalContext.current
-    val currentLocale = remember { mutableStateOf(Language.getCurrentLanguage(context)) }
-
 
     WinYourLifeTheme(darkTheme = isDarkTheme.value) {
 
@@ -168,7 +166,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: SettingsViewMod
             ) {
                 Spacer(modifier = Modifier.weight(1f))
 
-                LanguageDropDownMenu(viewModel, context, currentLocale)
+                LanguageDropDownMenu(viewModel, context)
 
                 Spacer(modifier = Modifier.weight(0.8f))
 
@@ -359,7 +357,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: SettingsViewMode
                                         )
                                     },
                                     onClick = {
-                                        if(selectedOption != options[index]){
+                                        if (selectedOption != options[index]){
                                             viewModel.saveSettings(Settings.APPLICATION_LANGUAGE.name, options[index])
                                         }
                                         currentLocale.value = Language.convertStringToLanguage(options[index], context)

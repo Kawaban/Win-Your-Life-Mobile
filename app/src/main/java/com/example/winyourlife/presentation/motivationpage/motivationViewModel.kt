@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.winyourlife.R
+import com.example.winyourlife.presentation.dataObjects.CurrentUser
 import com.example.winyourlife.presentation.utils.ViewModelCustomInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +14,7 @@ import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
-class MotivationViewModel @Inject constructor() : ViewModel(), ViewModelCustomInterface {
+class MotivationViewModel @Inject constructor(val currentUser: CurrentUser) : ViewModel(), ViewModelCustomInterface {
 
     private val _randomMotivation = MutableStateFlow<Pair<Int, Int>?>(null)
     val randomMotivation: StateFlow<Pair<Int, Int>?> = _randomMotivation

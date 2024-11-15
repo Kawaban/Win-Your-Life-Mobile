@@ -51,8 +51,7 @@ fun CustomStreak(
             .width(280.dp),
         shape = RoundedCornerShape(24.dp),
         colors = OutlinedTextFieldDefaults.colors(
-            focusedContainerColor = MaterialTheme.colorScheme.secondary,
-            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+            disabledContainerColor = MaterialTheme.colorScheme.secondary,
             disabledBorderColor = MaterialTheme.colorScheme.primary,
             disabledTextColor = MaterialTheme.colorScheme.onSecondary
         ),
