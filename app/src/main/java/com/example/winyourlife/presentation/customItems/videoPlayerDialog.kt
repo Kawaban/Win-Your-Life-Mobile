@@ -2,20 +2,19 @@ package com.example.winyourlife.presentation.customItems
 
 import android.content.Context
 import android.net.Uri
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.Dialog
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -28,6 +27,8 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun VideoPlayerDialog(
+    width: Int,
+    height: Int,
     startPlaybackPosition: Long,
     onPlaybackPositionChange: (Long) -> Unit,
     onDismiss: () -> Unit
@@ -60,26 +61,15 @@ fun VideoPlayerDialog(
         sharedPreferences.edit().putLong("playback_position", exoPlayer.currentPosition).apply()
         onDismiss()
     }) {
-        Box(
+        Card(
+            shape = RoundedCornerShape(16.dp),
+            border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary),
             modifier = Modifier
-                .width(360.dp)
-                .height(180.dp)
-                .clip(RoundedCornerShape(16.dp))
-                .background(MaterialTheme.colorScheme.background)
-                .border(
-                    width = 2.dp,
-                    color = MaterialTheme.colorScheme.primary,
-                    shape = RoundedCornerShape(16.dp)
-                )
+                .width(width.dp)
+                .height(height.dp)
+                .background(Color.Black)
         ) {
-            Box(
-                modifier = Modifier
-                    .width(350.dp)
-                    .height(170.dp)
-                    .align(Alignment.Center)
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(Color.Black)
-            ) {
+            Box {
                 AndroidView(
                     factory = {
                         PlayerView(context).apply {
@@ -87,7 +77,9 @@ fun VideoPlayerDialog(
                             useController = true
                         }
                     },
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .background(Color.Black)
+                        .fillMaxSize()
                 )
             }
 

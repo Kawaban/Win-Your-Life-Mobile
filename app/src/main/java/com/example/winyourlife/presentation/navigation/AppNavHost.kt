@@ -22,13 +22,13 @@ import com.example.winyourlife.presentation.settingspage.SettingsPage
 import com.example.winyourlife.presentation.statisticspage.StatisticsPage
 
 //TODO prepare next day page, create new task page, manage tasks page, manage friends page
-//TODO motivation speech, notification classes, snack bars, sound effects
+//TODO notification classes, snack bars, reload page
 
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    startDestination: String = NavigationScreens.LOGIN.name,
+    startDestination: String = NavigationScreens.MOTIVATION.name,
 ) {
     NavHost(
         modifier = modifier,

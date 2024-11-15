@@ -22,6 +22,7 @@ hilt-nvaigation-compose = "1.0.0"
 datastore-preferences = "1.0.0"
 appcompat = "1.7.0"
 media3Ui = "1.4.1"
+runtimeLivedata = "1.7.5"
 
 
 [libraries]
@@ -62,6 +63,7 @@ hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-com
 datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore-preferences" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-media3-ui = { group = "androidx.media3", name = "media3-ui", version.ref = "media3Ui" }
+androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
 
 
 [plugins]

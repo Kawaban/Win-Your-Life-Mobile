@@ -1,5 +1,7 @@
 package com.example.winyourlife.presentation.motivationpage
 
+import android.content.Context
+import android.media.MediaPlayer
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -10,7 +12,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +29,11 @@ import com.example.winyourlife.presentation.customItems.BottomNavigationBar
 import com.example.winyourlife.presentation.customItems.Headline
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.customItems.VideoPlayerDialog
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun MotivationPage(navController: NavHostController, viewModel: MotivationViewModel = hiltViewModel()) {
@@ -46,6 +52,10 @@ fun MotivationPage(navController: NavHostController, viewModel: MotivationViewMo
     BackHandler {
         viewModel.resetViewModel()
         navController.popBackStack()
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.randomizeMotivation()
     }
 }
 
@@ -88,6 +98,9 @@ fun LandscapeLayout(
     onShowVideoDialogChange: (Boolean) -> Unit,
     onPlaybackPositionChange: (Long) -> Unit
 ) {
+    val context = LocalContext.current
+    val randomMotivation by viewModel.randomMotivation.collectAsState()
+
     Row(
         modifier = Modifier
             .fillMaxSize()
@@ -128,8 +141,9 @@ fun LandscapeLayout(
                 modifier = Modifier
                     .fillMaxSize(0.85f)
             ) {
+
                 Text(
-                    text = stringResource(id = R.string.motivation1),
+                    text = randomMotivation?.let { context.getString(it.first) } ?: "",
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground,
                     lineHeight = 24.sp,
@@ -153,7 +167,11 @@ fun LandscapeLayout(
                     Spacer(Modifier.width(10.dp))
 
                     Card(
-                        onClick = { },
+                        onClick = {
+                            randomMotivation?.second?.let { mp3ResId ->
+                                playAudio(context, mp3ResId)
+                            }
+                        },
                         shape = RoundedCornerShape(15.dp),
                         modifier = Modifier.size(60.dp)
                     ) {
@@ -214,6 +232,8 @@ fun LandscapeLayout(
 
     if (showVideoDialog) {
         VideoPlayerDialog(
+            width = 720,
+            height = 360,
             startPlaybackPosition = startPlaybackPosition,
             onPlaybackPositionChange = onPlaybackPositionChange,
             onDismiss = {
@@ -233,6 +253,10 @@ fun PortraitLayout(
     onShowVideoDialogChange: (Boolean) -> Unit,
     onPlaybackPositionChange: (Long) -> Unit
 ) {
+
+    val context = LocalContext.current
+    val randomMotivation by viewModel.randomMotivation.collectAsState()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -248,7 +272,7 @@ fun PortraitLayout(
                 .weight(1f)
         ) {
             Text(
-                text = stringResource(id = R.string.motivation1),
+                text = randomMotivation?.let { context.getString(it.first) } ?: "",
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground,
                 lineHeight = 24.sp,
@@ -279,7 +303,11 @@ fun PortraitLayout(
             ) {
 
                 Card(
-                    onClick = {  },
+                    onClick = {
+                        randomMotivation?.second?.let { mp3ResId ->
+                            playAudio(context, mp3ResId)
+                        }
+                    },
                     shape = RoundedCornerShape(15.dp),
                     modifier = Modifier.size(60.dp)
                 ) {
@@ -327,6 +355,8 @@ fun PortraitLayout(
 
     if (showVideoDialog) {
         VideoPlayerDialog(
+            width = 360,
+            height = 180,
             startPlaybackPosition = startPlaybackPosition,
             onPlaybackPositionChange = onPlaybackPositionChange,
             onDismiss = {
@@ -335,4 +365,9 @@ fun PortraitLayout(
             }
         )
     }
+}
+
+fun playAudio(context: Context, audioResId: Int) {
+    val mediaPlayer = MediaPlayer.create(context, audioResId)
+    mediaPlayer.start()
 }
