@@ -154,7 +154,19 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ProfileViewMode
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            OrangeButton({viewModel.updateUserData(email=email?:"", name = nickname?:"", avatar = avatar?: Base64.getDecoder().decode(""))}, stringResource(id = R.string.change_data_button))
+            OrangeButton(
+                onClick = {
+                    if (viewModel.isEditProfile)
+                        viewModel.updateUserData(
+                            email = email ?: "",
+                            name = nickname ?: "",
+                            avatar = avatar ?: Base64.getDecoder().decode(""))
+                    else viewModel.editProfile()
+                },
+                if (!viewModel.isEditProfile)
+                    stringResource(id = R.string.change_data_button)
+                else stringResource(id = R.string.save_data_button)
+            )
 
             OrangeButton({ navController.navigate(NavigationScreens.RESET_PASSWORD.name) }, stringResource(id = R.string.change_password_button))
 
@@ -180,7 +192,6 @@ fun PortraitLayout(navController: NavHostController, viewModel: ProfileViewModel
     var avatar by remember {
         mutableStateOf(viewModel.currentUser.userData?.avatar)
     }
-
 
     val pickMedia = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         avatar = if (uri != null)
@@ -227,7 +238,19 @@ fun PortraitLayout(navController: NavHostController, viewModel: ProfileViewModel
 
         Spacer(modifier = Modifier.weight(1f))
 
-        OrangeButton(onClick = {if (viewModel.isEditProfile) viewModel.updateUserData(email=email?:"", name = nickname?:"", avatar =avatar?:Base64.getDecoder().decode("")) else viewModel.editProfile()}, if(!viewModel.isEditProfile) stringResource(id = R.string.change_data_button) else stringResource(id = R.string.save_data_button))
+        OrangeButton(
+            onClick = {
+                if (viewModel.isEditProfile)
+                    viewModel.updateUserData(
+                        email = email ?: "",
+                        name = nickname ?: "",
+                        avatar = avatar ?: Base64.getDecoder().decode(""))
+                else viewModel.editProfile()
+            },
+            if (!viewModel.isEditProfile)
+                stringResource(id = R.string.change_data_button)
+            else stringResource(id = R.string.save_data_button)
+        )
 
         OrangeButton({ viewModel.resetViewModel(); navController.navigate(NavigationScreens.RESET_PASSWORD.name) }, stringResource(id = R.string.change_password_button))
 

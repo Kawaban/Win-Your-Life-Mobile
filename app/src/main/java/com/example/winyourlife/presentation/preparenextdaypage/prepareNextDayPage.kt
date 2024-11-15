@@ -146,6 +146,8 @@ fun LandscapeLayout(navController: NavHostController, viewModel: PrepareNextDayV
 
             Spacer(modifier = Modifier.height(50.dp))
 
+            OrangeButton({ navController.navigate(NavigationScreens.MANAGE_TASKS.name) }, stringResource(id = R.string.manage_tasks_button))
+
             OrangeButton({ navController.navigate(NavigationScreens.CREATE_TASK.name) }, stringResource(id = R.string.create_task_button))
 
             Spacer(modifier = Modifier.weight(1f))
@@ -219,6 +221,8 @@ fun PortraitLayout(navController: NavHostController, viewModel: PrepareNextDayVi
         Spacer(modifier = Modifier.weight(1f))
 
         MyHorizontalDivider()
+
+        OrangeButton({ navController.navigate(NavigationScreens.MANAGE_TASKS.name) }, stringResource(id = R.string.manage_tasks_button))
 
         OrangeButton({ navController.navigate(NavigationScreens.CREATE_TASK.name) }, stringResource(id = R.string.create_task_button))
 

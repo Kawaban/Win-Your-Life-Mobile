@@ -10,6 +10,7 @@ enum class NavigationScreens {
     FORGOT_PASSWORD,
     FRIENDS,
     MANAGE_FRIENDS,
+    MANAGE_TASKS,
     MOTIVATION,
     NOTIFICATIONS,
     PROFILE,

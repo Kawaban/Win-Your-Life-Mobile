@@ -67,6 +67,7 @@
     <string name="sign_up_button">Sign up</string>
     <string name="forgot_password_button">Forgot your password?</string>
     <string name="create_task_button">Create a new task</string>
+    <string name="manage_tasks_button">Manage tasks</string>
     <string name="register_button">Register</string>
     <string name="change_password_button">Change password</string>
     <string name="statistics_button">Statistics</string>
@@ -74,6 +75,7 @@
     <string name="save_data_button">Save data</string>
     <string name="manage_friends_button">Manage friends</string>
 
+    <string name="manage_tasks_hd">MANAGE TASKS</string>
     <string name="manage_friends_hd">MANAGE FRIENDS</string>
     <string name="notifications_hd">NOTIFICATIONS</string>
     <string name="add_friend_hd">ADD NEW FRIEND</string>

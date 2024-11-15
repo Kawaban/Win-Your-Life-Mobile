@@ -51,8 +51,6 @@ import java.util.concurrent.TimeUnit
 @Composable
 fun HomePage(navController: NavHostController, viewModel: HomeViewModel = hiltViewModel()) {
 
-//    ResponsiveLayout(viewModel, navController)
-
     WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
         when (!viewModel.state.isLoading && !viewModel.state.isReady) {
@@ -187,8 +185,10 @@ fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) 
                 Spacer(modifier = Modifier.weight(1f))
 
                 OrangeButton({
-                    showConfetti = true
-                    mediaPlayer.start() },
+                    viewModel.resetViewModel(); navController.navigate(NavigationScreens.PREPARE_NEXT_DAY.name)
+//                showConfetti = true
+//                mediaPlayer.start()
+                },
                     stringResource(id = R.string.prepare_day_button))
 
                 OrangeButton({viewModel.resetViewModel(); navController.navigate(NavigationScreens.FRIENDS.name) },
@@ -313,8 +313,10 @@ fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
             Spacer(modifier = Modifier.height(10.dp))
 
             OrangeButton({
-                showConfetti = true
-                mediaPlayer.start() },
+                viewModel.resetViewModel(); navController.navigate(NavigationScreens.PREPARE_NEXT_DAY.name)
+//                showConfetti = true
+//                mediaPlayer.start()
+                },
                 stringResource(id = R.string.prepare_day_button))
 
             OrangeButton(

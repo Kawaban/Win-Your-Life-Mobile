@@ -95,4 +95,6 @@
     <string name="notification_friend_answer_positive">zaakceptował Twoje zaproszenie do znajomych</string>
     <string name="notification_friend_answer_negative">odrzucił Twoje zaproszenie do znajomych</string>
     <string name="movie_description">Odtwórz film</string>
+    <string name="manage_tasks_hd">ZARZĄDZAJ ZADANIAMI</string>
+    <string name="manage_tasks_button">Zarządzaj zadaniami</string>
 </resources>
