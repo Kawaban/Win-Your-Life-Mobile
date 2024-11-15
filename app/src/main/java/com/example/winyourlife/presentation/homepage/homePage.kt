@@ -291,9 +291,7 @@ fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
         ) {
 
             Headline(
-                stringResource(id = R.string.home_hd1) +" "+ (viewModel.state.obj?.data?.name) + stringResource(
-                    id = R.string.home_hd2
-                )
+                stringResource(id = R.string.home_hd1) +" "+ (viewModel.state.obj?.data?.name) + "!"
             )
 
             Spacer(modifier = Modifier.height(20.dp))

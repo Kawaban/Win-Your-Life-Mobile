@@ -122,7 +122,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: StatisticsViewM
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            OrangeOutlinedTextField("210" + stringResource(id = R.string.days2))
+            OrangeOutlinedTextField("210" + " " + stringResource(id = R.string.days2))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -192,7 +192,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: StatisticsViewMo
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        OrangeOutlinedTextField("210" + stringResource(id = R.string.days2))
+        OrangeOutlinedTextField("210" + " " + stringResource(id = R.string.days2))
 
         Spacer(modifier = Modifier.weight(1f))
 

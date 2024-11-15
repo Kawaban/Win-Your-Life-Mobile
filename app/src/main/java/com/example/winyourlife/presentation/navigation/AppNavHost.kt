@@ -22,7 +22,7 @@ import com.example.winyourlife.presentation.resetpasswordpage.ResetPasswordPage
 import com.example.winyourlife.presentation.settingspage.SettingsPage
 import com.example.winyourlife.presentation.statisticspage.StatisticsPage
 
-//TODO snack bars, refresh box, no logging out
+//TODO snack bars, refresh box, no logging out, animated transitions
 
 @Composable
 fun AppNavHost(

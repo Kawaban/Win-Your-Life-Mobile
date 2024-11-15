@@ -28,14 +28,14 @@
     <string name="app_logo_description">App logo</string>
     <string name="motivation_image_description">Motivational Image</string>
     <string name="close_notification_description">Close notification</string>
-    <string name="plus_sign_description" translatable="false">+</string>
+    <string name="plus_sign_description">Plus sign</string>
     <string name="user_avatar_description">User avatar</string>
     <string name="expand_description">Expand</string>
     <string name="talk_description">Play speech</string>
     <string name="movie_description">Play movie</string>
 
     <string name="streak" translatable="false">STREAK:</string>
-    <string name="days"> days</string>
+    <string name="days">days</string>
 
     <string name="notifications_options">NOTIFICATIONS OPTIONS</string>
 
@@ -43,7 +43,7 @@
     <string name="tasks_completed">Number of tasks completed</string>
     <string name="days_won">Number of days won</string>
     <string name="account_since">You\'ve been with us for …</string>
-    <string name="days2"> days!</string>
+    <string name="days2">days!</string>
 
     <string name="friends_notifications_switch">Friend\'s notifications</string>
     <string name="daily_reminders_switch">Daily reminders</string>
@@ -83,7 +83,6 @@
     <string name="reset_password_hd">RESET PASSWORD</string>
     <string name="friends_hd">YOUR FRIENDS</string>
     <string name="home_hd1">HELLO </string>
-    <string name="home_hd2" translatable="false">!</string>
     <string name="motivation_hd">MOTIVATION</string>
     <string name="prepare_day_hd">PREPARE THE NEXT DAY</string>
     <string name="register_hd">CREATE AN ACCOUNT</string>
@@ -96,8 +95,8 @@
     <string name="error2">Unknown error</string>
 
     <string name="account_created_snack">Account has been created</string>
-    <string name="email_sent_snack">An email has been sent.</string>
-    <string name="request_sent_snack">A request has been sent.</string>
+    <string name="email_sent_snack">An email has been sent</string>
+    <string name="request_sent_snack">A request has been sent</string>
     <string name="data_saved_snack">Data has been saved</string>
 
     <string name="motivation1">You only have one life, so what are you waiting for? Start taking action today, or you\’ll always be the one watching others succeed.</string>

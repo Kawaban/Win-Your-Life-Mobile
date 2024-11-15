@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalConfiguration
@@ -156,16 +157,20 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ProfileViewMode
 
             OrangeButton(
                 onClick = {
-                    if (viewModel.isEditProfile)
+                    if (viewModel.isEditProfile) {
                         viewModel.updateUserData(
                             email = email ?: "",
                             name = nickname ?: "",
-                            avatar = avatar ?: Base64.getDecoder().decode(""))
+                            avatar = avatar ?: Base64.getDecoder().decode("")
+                        )
+                        viewModel.editProfile()
+                    }
                     else viewModel.editProfile()
                 },
                 if (!viewModel.isEditProfile)
                     stringResource(id = R.string.change_data_button)
-                else stringResource(id = R.string.save_data_button)
+                else
+                    stringResource(id = R.string.save_data_button)
             )
 
             OrangeButton({ navController.navigate(NavigationScreens.RESET_PASSWORD.name) }, stringResource(id = R.string.change_password_button))
@@ -216,7 +221,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: ProfileViewModel
                 painter = painterResource(id = R.drawable.avatar),
                 contentDescription = stringResource(id = R.string.user_avatar_description),
                 modifier = Modifier
-                    .clickable { if(viewModel.isEditProfile) pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }
+                    .clickable { if (viewModel.isEditProfile) pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }
                     .size(128.dp)
                     .padding(16.dp)
             )
@@ -224,7 +229,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: ProfileViewModel
                 bitmap = BitmapFactory.decodeByteArray(avatar, 0, avatar!!.size).asImageBitmap(),
                 contentDescription = stringResource(id = R.string.user_avatar_description),
                 modifier = Modifier
-                    .clickable { if(viewModel.isEditProfile) pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }
+                    .clickable { if (viewModel.isEditProfile) pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }
                     .size(128.dp)
                     .padding(16.dp)
             )
@@ -240,16 +245,20 @@ fun PortraitLayout(navController: NavHostController, viewModel: ProfileViewModel
 
         OrangeButton(
             onClick = {
-                if (viewModel.isEditProfile)
-                    viewModel.updateUserData(
-                        email = email ?: "",
-                        name = nickname ?: "",
-                        avatar = avatar ?: Base64.getDecoder().decode(""))
+                if (viewModel.isEditProfile) {
+                        viewModel.updateUserData(
+                            email = email ?: "",
+                            name = nickname ?: "",
+                            avatar = avatar ?: Base64.getDecoder().decode("")
+                        )
+                        viewModel.editProfile()
+                    }
                 else viewModel.editProfile()
             },
             if (!viewModel.isEditProfile)
                 stringResource(id = R.string.change_data_button)
-            else stringResource(id = R.string.save_data_button)
+            else
+                stringResource(id = R.string.save_data_button)
         )
 
         OrangeButton({ viewModel.resetViewModel(); navController.navigate(NavigationScreens.RESET_PASSWORD.name) }, stringResource(id = R.string.change_password_button))
