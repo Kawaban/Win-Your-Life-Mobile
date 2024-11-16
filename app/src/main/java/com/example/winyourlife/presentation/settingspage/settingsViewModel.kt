@@ -2,6 +2,7 @@ package com.example.winyourlife.presentation.settingspage
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.winyourlife.data.network.JwtManager
 import com.example.winyourlife.domain.UserPreferencesRepository
 import com.example.winyourlife.presentation.utils.ViewModelCustomInterface
@@ -29,8 +30,10 @@ class SettingsViewModel @Inject constructor(val userPreferencesRepository: UserP
     }
 
     fun logOut(){
-        currentUser.resetUserData()
-        jwtManager.resetJwt()
+        viewModelScope.launch{
+            currentUser.resetUserData()
+            jwtManager.resetJwt()
+        }
     }
 
 

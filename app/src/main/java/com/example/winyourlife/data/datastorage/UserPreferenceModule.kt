@@ -15,7 +15,7 @@ import javax.inject.Singleton
 
 val Context.userDataStore: DataStore<Preferences> by preferencesDataStore(
     // just my preference of naming including the package name
-    name = "com.example.myappname.user_preferences"
+    name = "com.example.winyourlife.user_preferences"
 )
 
 @Module

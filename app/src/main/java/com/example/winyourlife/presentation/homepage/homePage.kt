@@ -1,6 +1,7 @@
 package com.example.winyourlife.presentation.homepage
 
 import android.media.MediaPlayer
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -50,10 +51,11 @@ import java.util.concurrent.TimeUnit
 
 @Composable
 fun HomePage(navController: NavHostController, viewModel: HomeViewModel = hiltViewModel()) {
-
-//    ResponsiveLayout(viewModel, navController)
-    WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
-        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
+    BackHandler {
+        viewModel.resetViewModel()
+        navController.popBackStack()
+    }
+//    ResponsiveLayout(viewModel, navController
         when (!viewModel.state.isLoading && !viewModel.state.isReady) {
             true -> {
                 viewModel.getUserName()
@@ -66,17 +68,27 @@ fun HomePage(navController: NavHostController, viewModel: HomeViewModel = hiltVi
                     }
 
                     false -> {
-                        ResponsiveLayout(viewModel, navController)
+                        when(viewModel.state.error == null) {
+                            true -> {
+                                WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
+                                    ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
+                                    ResponsiveLayout(viewModel, navController)
+                                }
+                            }
+
+                            false ->{
+                                viewModel.resetJwtManager()
+                                viewModel.resetViewModel()
+                                navController.navigate(NavigationScreens.LOGIN.name)
+                            }
+
+                        }
                     }
                 }
             }
         }
 
-        BackHandler {
-            viewModel.resetViewModel()
-            navController.popBackStack()
-        }
-    }
+
 }
 
 @Composable
