@@ -1,5 +1,6 @@
 package com.example.winyourlife.presentation.loginpage
 
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -32,7 +34,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.R
 import com.example.winyourlife.presentation.navigation.NavigationScreens
-import com.example.winyourlife.presentation.utilScreens.ErrorScreen
 import com.example.winyourlife.presentation.utilScreens.LoadingScreen
 import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
 import com.example.winyourlife.presentation.customItems.MyVerticalDivider
@@ -40,6 +41,7 @@ import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.TransparentButton
 import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
 import com.example.winyourlife.presentation.utils.Settings
+import com.example.winyourlife.presentation.utils.mapExceptionText
 import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
@@ -48,11 +50,13 @@ fun LoginPage(navController: NavHostController, viewModel: LoginViewModel = hilt
     }
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
+        val context = LocalContext.current
         when (viewModel.state.isReady) {
             true -> {
                 when (viewModel.state.error != null) {
                     true -> {
-                        ErrorScreen(message = viewModel.state.error)
+                        Toast.makeText(context, mapExceptionText(viewModel.state.error!!, context), Toast.LENGTH_SHORT).show()
+                        viewModel.reset()
                     }
 
                     false -> {

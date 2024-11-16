@@ -98,4 +98,16 @@
     <string name="manage_tasks_hd">ZARZĄDZAJ ZADANIAMI</string>
     <string name="manage_tasks_button">Zarządzaj zadaniami</string>
     <string name="plus_sign_description">Znak plus</string>
+
+
+
+    <string name="exception_network">Błąd sieci</string>
+    <string name="exception_server">Błąd połączenia z serwerem</string>
+    <string name="exception_unknown">Nieznany błąd</string>
+    <string name="exception_internal_server">Wewnętrzny błąd serwera</string>
+    <string name="exception_bad_input">Niepoprawne wpisane dane</string>
+    <string name="bad_credentials">Niepoprawne dane logowania</string>
+    <string name="exception_user_already_exists">Użytkownik już istnieje</string>
+
+
 </resources>

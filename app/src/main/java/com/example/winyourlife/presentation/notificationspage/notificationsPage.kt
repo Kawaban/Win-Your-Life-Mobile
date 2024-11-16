@@ -1,5 +1,6 @@
 package com.example.winyourlife.presentation.notificationspage
 
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -31,6 +32,7 @@ import com.example.winyourlife.presentation.utils.Settings
 import com.example.winyourlife.presentation.customItems.NotificationList
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.utilScreens.LoadingScreen
+import com.example.winyourlife.presentation.utils.mapExceptionText
 import com.example.winyourlife.ui.theme.WinYourLifeTheme
 import java.util.UUID
 
@@ -135,7 +137,15 @@ fun NotificationsPage(navController: NavHostController, viewModel: Notifications
                     }
 
                     false -> {
-                       ResponsiveLayout(navController)
+                        when (viewModel.stateNotifications.error == null) {
+                            true -> {
+                                ResponsiveLayout(navController)
+                            }
+                            false ->{
+                                Toast.makeText(context, mapExceptionText(viewModel.stateNotifications.error!!, context), Toast.LENGTH_SHORT).show()
+                                viewModel.resetViewModel()
+                            }
+                        }
                     }
                 }
             }

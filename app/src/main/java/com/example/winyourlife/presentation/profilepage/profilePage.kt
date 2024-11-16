@@ -38,6 +38,7 @@ import com.example.winyourlife.presentation.customItems.MyVerticalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
+import com.example.winyourlife.presentation.utils.mapExceptionText
 import com.example.winyourlife.ui.theme.WinYourLifeTheme
 import java.util.Base64
 
@@ -65,7 +66,7 @@ fun ResponsiveLayout(navController: NavHostController, viewModel: ProfileViewMod
         true -> {
             when(viewModel.stateUpdateData.error != null){
                 true -> {
-                    // ErrorScreen(message = viewModel.stateUpdateData.error)
+                    Toast.makeText(context, mapExceptionText(viewModel.stateUpdateData.error!!, context), Toast.LENGTH_SHORT).show()
                 }
                 false -> {
                     Toast.makeText(context,stringResource(id = R.string.data_saved_snack), Toast.LENGTH_SHORT).show()

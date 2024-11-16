@@ -2,6 +2,8 @@ package com.example.winyourlife.data.network
 
 import com.example.winyourlife.data.dto.ErrorResponse
 import com.example.winyourlife.data.exceptions.APIException
+import com.example.winyourlife.data.exceptions.InternalServerError
+import com.example.winyourlife.presentation.utils.ExceptionText
 import com.google.gson.Gson
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -17,14 +19,37 @@ class ErrorInterceptor : Interceptor {
             val errorResponse = errorBody?.let {
                 gson.fromJson(it, ErrorResponse::class.java)
             }
+            println(errorResponse)
 
-            throw APIException(errorResponse?.error ?: "Unknown error")
+            throw APIException(mapApiException(errorResponse?.error?.message))
         }
 
         if(response.code() == 500){
-            throw IOException("Internal Server Error")
+            throw InternalServerError("Internal Server Error")
         }
 
         return response
     }
+
+    private fun mapApiException(error:String?):String{
+        return when(error){
+            "Wrong password or email" -> {
+                ExceptionText.BadCredentials.text
+            }
+            "Email already used" -> {
+                ExceptionText.UserAlreadyExists.text
+            }
+            "Entity not found" -> {
+                ExceptionText.BadInput.text
+            }
+            "Invalid input" -> {
+                ExceptionText.BadInput.text
+            }
+            else -> {
+                ExceptionText.Unknown.text
+            }
+        }
+    }
+
+
 }

@@ -21,7 +21,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.R
 import com.example.winyourlife.presentation.navigation.NavigationScreens
-import com.example.winyourlife.presentation.utilScreens.ErrorScreen
 import com.example.winyourlife.presentation.customItems.Headline
 import com.example.winyourlife.presentation.utilScreens.LoadingScreen
 import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
@@ -30,12 +29,14 @@ import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.TransparentButton
 import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
 import com.example.winyourlife.presentation.utils.Settings
+import com.example.winyourlife.presentation.utils.mapExceptionText
 import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun RegisterPage(navController: NavHostController, viewModel: RegisterViewModel = hiltViewModel()) {
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
+        val context = LocalContext.current
         when (viewModel.state.isReady) {
             false -> {
                 when (viewModel.state.isLoading) {
@@ -52,12 +53,16 @@ fun RegisterPage(navController: NavHostController, viewModel: RegisterViewModel 
             true -> {
                 when (viewModel.state.error != null) {
                     true -> {
-                        ErrorScreen(message = viewModel.state.error)
+                        Toast.makeText(
+                            context,
+                            mapExceptionText(viewModel.state.error!!, context),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        viewModel.reset()
                     }
 
                     false -> {
                         viewModel.reset()
-                        val context = LocalContext.current
                         Toast.makeText(
                             context,
                             stringResource(id = R.string.account_created_snack),

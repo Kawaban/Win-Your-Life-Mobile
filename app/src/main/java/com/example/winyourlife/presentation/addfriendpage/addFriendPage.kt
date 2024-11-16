@@ -24,6 +24,7 @@ import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
 import com.example.winyourlife.presentation.utils.Settings
+import com.example.winyourlife.presentation.utils.mapExceptionText
 import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
@@ -32,12 +33,22 @@ fun AddFriendPage(navController: NavHostController, viewModel: AddFriendViewMode
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
         val context = LocalContext.current
-        when (viewModel.stateSend.isReady) {
+        when (viewModel.stateSend.isReady && viewModel.stateSend.error == null) {
             true -> {
                 Toast.makeText(context,stringResource(id = R.string.request_sent_snack), Toast.LENGTH_SHORT).show()
             }
             false -> {
+                when (viewModel.stateSend.error != null) {
+                    true -> {
+                        Toast.makeText(context, mapExceptionText(viewModel.stateSend.error!!,context), Toast.LENGTH_SHORT)
+                            .show()
+                        viewModel.resetViewModel()
+                    }
 
+                    false -> {
+                        //chill
+                    }
+                }
             }
         }
 

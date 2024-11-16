@@ -115,4 +115,13 @@
     <string name="notification_friend_answer_positive">accepted your friend request</string>
     <string name="notification_friend_answer_negative">rejected your friend request</string>
 
+    <string name="exception_network">Network error</string>
+    <string name="exception_server">Server connection error</string>
+    <string name="exception_unknown">Unknown error</string>
+    <string name="exception_internal_server">Internal Server error</string>
+    <string name="exception_bad_input">Bad input error</string>
+    <string name="bad_credentials">Bad credentials</string>
+    <string name="exception_user_already_exists">User already exists</string>
+
+
 </resources>

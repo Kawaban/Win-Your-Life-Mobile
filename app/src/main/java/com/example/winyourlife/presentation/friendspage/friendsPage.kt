@@ -1,5 +1,6 @@
 package com.example.winyourlife.presentation.friendspage
 
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -13,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -28,6 +30,7 @@ import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.utilScreens.LoadingScreen
 import com.example.winyourlife.presentation.utils.Settings
+import com.example.winyourlife.presentation.utils.mapExceptionText
 import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
@@ -35,6 +38,7 @@ fun FriendsPage(navController: NavHostController, viewModel: FriendsViewModel = 
 
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()){
+        val context = LocalContext.current
         when (!viewModel.stateFriends.isLoading && !viewModel.stateFriends.isReady) {
             true -> {
                 viewModel.getFriends()
@@ -47,9 +51,17 @@ fun FriendsPage(navController: NavHostController, viewModel: FriendsViewModel = 
                     }
 
                     false -> {
-                        ResponsiveLayout(
-                            navController
-                        )
+                        when (viewModel.stateFriends.error == null) {
+                            true -> {
+                                ResponsiveLayout(
+                                    navController
+                                )
+                            }
+                            false ->{
+                                Toast.makeText(context, mapExceptionText(viewModel.stateFriends.error!!, context), Toast.LENGTH_SHORT).show()
+                                viewModel.resetViewModel()
+                            }
+                        }
                     }
                 }
             }
