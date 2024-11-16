@@ -58,12 +58,6 @@ class HomeViewModel @Inject constructor(val userService: UserService, val curren
                     }
 
                 }
-                //settings
-                for(setting in Settings.entries){
-                    currentUser.userData?.mapOfSettings?.set(setting.name,
-                        userPreferencesRepository.getParameter(setting.name).getOrNull()
-                    )
-                }
             }
             else{
                 delay(20)

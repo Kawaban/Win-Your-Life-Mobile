@@ -23,7 +23,7 @@ class SettingsViewModel @Inject constructor(val userPreferencesRepository: UserP
         viewModelScope.launch {
             userPreferencesRepository.setParameter(name, value)
         }
-        currentUser.userData?.mapOfSettings?.set(name, value)
+        currentUser.mapOfSettings[name] = value
     }
 
     fun logOut(){

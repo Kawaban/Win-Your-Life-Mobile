@@ -57,15 +57,15 @@ fun LandscapeLayout(navController: NavHostController, viewModel: SettingsViewMod
 
     val isDarkTheme = remember {
         mutableStateOf(
-            viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)?.toBooleanStrictOrNull() ?: initialDarkTheme)
+            viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]?.toBooleanStrictOrNull() ?: initialDarkTheme)
     }
 
     val isDailyReminders = remember {
-        mutableStateOf(viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DAILY_REMINDER.name)?.toBooleanStrictOrNull() ?: true)
+        mutableStateOf(viewModel.currentUser.mapOfSettings[Settings.IS_DAILY_REMINDER.name]?.toBooleanStrictOrNull() ?: true)
     }
 
     val isFriendsNotifications = remember {
-        mutableStateOf(viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_FRIENDS_NOTIFICATION.name)?.toBooleanStrictOrNull() ?: true)
+        mutableStateOf(viewModel.currentUser.mapOfSettings[Settings.IS_FRIENDS_NOTIFICATION.name]?.toBooleanStrictOrNull() ?: true)
     }
 
     val context = LocalContext.current
@@ -189,15 +189,15 @@ fun PortraitLayout(navController: NavHostController, viewModel: SettingsViewMode
 
     val isDarkTheme = remember {
         mutableStateOf(
-            viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)?.toBooleanStrictOrNull() ?: initialDarkTheme)
+            viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]?.toBooleanStrictOrNull() ?: initialDarkTheme)
     }
 
     val isDailyReminders = remember {
-        mutableStateOf(viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DAILY_REMINDER.name)?.toBooleanStrictOrNull() ?: true)
+        mutableStateOf(viewModel.currentUser.mapOfSettings[Settings.IS_DAILY_REMINDER.name]?.toBooleanStrictOrNull() ?: true)
     }
 
     val isFriendsNotifications = remember {
-        mutableStateOf(viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_FRIENDS_NOTIFICATION.name)?.toBooleanStrictOrNull() ?: true)
+        mutableStateOf(viewModel.currentUser.mapOfSettings[Settings.IS_FRIENDS_NOTIFICATION.name]?.toBooleanStrictOrNull() ?: true)
     }
 
     val context = LocalContext.current

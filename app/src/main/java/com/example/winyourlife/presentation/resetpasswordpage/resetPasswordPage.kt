@@ -26,9 +26,8 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun ResetPasswordPage(navController: NavHostController, viewModel: ResetPasswordViewModel = hiltViewModel()) {
-    WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
-        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()
-    ) {
+    WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
+        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
         when (viewModel.state.isReady) {
             true -> {
                 when (viewModel.state.error != null) {

@@ -43,7 +43,7 @@ import java.util.Base64
 
 @Composable
 fun ProfilePage(navController: NavHostController, viewModel: ProfileViewModel = hiltViewModel()) {
-    WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
+    WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
         ResponsiveLayout(navController)
     }

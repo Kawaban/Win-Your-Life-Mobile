@@ -33,9 +33,8 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 @Composable
 fun FriendsPage(navController: NavHostController, viewModel: FriendsViewModel = hiltViewModel()) {
 
-    WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
-        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()
-    ){
+    WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
+        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()){
         when (!viewModel.stateFriends.isLoading && !viewModel.stateFriends.isReady) {
             true -> {
                 viewModel.getFriends()

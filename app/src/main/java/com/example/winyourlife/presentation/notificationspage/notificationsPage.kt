@@ -120,7 +120,7 @@ fun NotificationCard(
 
 @Composable
 fun NotificationsPage(navController: NavHostController, viewModel: NotificationsViewModel = hiltViewModel()) {
-    WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
+    WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
         val context = LocalContext.current
         when (!viewModel.stateNotifications.isLoading && !viewModel.stateNotifications.isReady) {

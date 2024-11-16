@@ -8,13 +8,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.winyourlife.data.dto.LoginRequest
 import com.example.winyourlife.domain.AuthenticationService
 import com.example.winyourlife.domain.wrapper.Resource
+import com.example.winyourlife.presentation.dataObjects.CurrentUser
 import com.example.winyourlife.presentation.utils.State
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(val authenticationService: AuthenticationService) : ViewModel() {
+class LoginViewModel @Inject constructor(val authenticationService: AuthenticationService, val currentUser: CurrentUser) : ViewModel() {
 
     var state by mutableStateOf(State<Unit>())
         private set

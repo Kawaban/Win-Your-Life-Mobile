@@ -55,32 +55,32 @@ fun HomePage(navController: NavHostController, viewModel: HomeViewModel = hiltVi
         navController.popBackStack()
     }
 //    ResponsiveLayout(viewModel, navController
-    when (!viewModel.state.isLoading && !viewModel.state.isReady) {
-        true -> {
-            viewModel.getUserName()
-        }
+    WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
+        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
+        when (!viewModel.state.isLoading && !viewModel.state.isReady) {
+            true -> {
+                viewModel.getUserName()
+            }
 
-        false -> {
-            when (viewModel.state.isLoading) {
-                true -> {
-                    LoadingScreen()
-                }
+            false -> {
+                when (viewModel.state.isLoading) {
+                    true -> {
+                        LoadingScreen()
+                    }
 
-                false -> {
-                    when(viewModel.state.error == null) {
-                        true -> {
-                            WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
-                                ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
+                    false -> {
+                        when (viewModel.state.error == null) {
+                            true -> {
                                 ResponsiveLayout(viewModel, navController)
                             }
-                        }
 
-                        false ->{
-                            viewModel.resetJwtManager()
-                            viewModel.resetViewModel()
-                            navController.navigate(NavigationScreens.LOGIN.name)
-                        }
+                            false -> {
+                                viewModel.resetJwtManager()
+                                viewModel.resetViewModel()
+                                navController.navigate(NavigationScreens.LOGIN.name)
+                            }
 
+                        }
                     }
                 }
             }

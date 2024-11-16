@@ -41,7 +41,7 @@ fun LanguageDropDownMenu(viewModel: SettingsViewModel, context: Context) {
 
     var selectedOptionIndex by remember {
         mutableStateOf(
-            when (viewModel.currentUser.userData?.mapOfSettings?.get(Settings.APPLICATION_LANGUAGE.name)) {
+            when (viewModel.currentUser.mapOfSettings[Settings.APPLICATION_LANGUAGE.name]) {
                 "en" -> 0
                 "pl" -> 1
                 else -> 0

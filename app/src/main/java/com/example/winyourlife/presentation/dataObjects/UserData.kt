@@ -9,5 +9,5 @@ data class UserData(
     var completedTasks: Int,
 //    val numberOfDaysWon: Int,
 //    val accountSince: Int,
-    val mapOfSettings : MutableMap<String, String?> = mutableMapOf()
+
 )

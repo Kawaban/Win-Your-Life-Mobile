@@ -44,9 +44,8 @@ fun MotivationPage(navController: NavHostController, viewModel: MotivationViewMo
     val showVideoDialog by viewModel.showVideoDialog
     val startPlaybackPosition by viewModel.startPlaybackPosition
 
-    WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
-        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()
-    ) {
+    WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
+        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
         ResponsiveLayout(
             navController = navController,
             showVideoDialog = showVideoDialog,

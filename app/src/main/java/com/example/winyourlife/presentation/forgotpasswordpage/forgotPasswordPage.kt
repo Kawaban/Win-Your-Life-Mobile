@@ -23,9 +23,8 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun ForgotPasswordPage(navController: NavHostController, viewModel: ForgotPasswordViewModel = hiltViewModel()) {
-    WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
-        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()
-    ) {
+    WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
+        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
         ResponsiveLayout(navController)
     }
 }

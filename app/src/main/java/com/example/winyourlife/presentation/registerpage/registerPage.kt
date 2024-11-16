@@ -29,11 +29,13 @@ import com.example.winyourlife.presentation.customItems.MyVerticalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.TransparentButton
 import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
+import com.example.winyourlife.presentation.utils.Settings
 import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun RegisterPage(navController: NavHostController, viewModel: RegisterViewModel = hiltViewModel()) {
-    WinYourLifeTheme(darkTheme =  isSystemInDarkTheme()) {
+    WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
+        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
         when (viewModel.state.isReady) {
             false -> {
                 when (viewModel.state.isLoading) {

@@ -22,7 +22,7 @@ class ErrorInterceptor : Interceptor {
         }
 
         if(response.code() == 500){
-            throw IOException("Internal Server Error");
+            throw IOException("Internal Server Error")
         }
 
         return response
