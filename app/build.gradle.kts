@@ -62,6 +62,8 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.media3.ui)
+    implementation(libs.androidx.runtime.livedata)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -86,4 +88,6 @@ dependencies {
     implementation(libs.datastore.preferences)
 
     implementation(libs.dionsegijn.konfetti.compose)
+
+    implementation(libs.androidx.media3.exoplayer)
 }

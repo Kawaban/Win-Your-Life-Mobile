@@ -1,29 +1,32 @@
 package com.example.winyourlife.presentation.customItems
 
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.keyframes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import com.example.winyourlife.R
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.keyframes
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
-import com.example.winyourlife.R
+import kotlinx.coroutines.delay
 
 @Composable
 fun CustomGoal(
@@ -34,7 +37,7 @@ fun CustomGoal(
     var isCompleted by remember { mutableStateOf(isCompleted) }
 
     val backgroundColor by animateColorAsState(
-        targetValue = if (isCompleted) MaterialTheme.colorScheme.primary else  MaterialTheme.colorScheme.background
+        targetValue = if (isCompleted) MaterialTheme.colorScheme.primary else  MaterialTheme.colorScheme.secondary
     )
 
     var targetPadding by remember { mutableStateOf(8.dp) }
@@ -48,14 +51,15 @@ fun CustomGoal(
 
     LaunchedEffect(isCompleted) {
         targetPadding = 14.dp
-        kotlinx.coroutines.delay(200)
+        delay(200)
         targetPadding = 8.dp
     }
 
     Box(
         modifier = Modifier
             .clickable { isCompleted = !isCompleted }
-            .background(color = backgroundColor, shape = RoundedCornerShape(8.dp))
+            .background(color = backgroundColor,
+                shape = RoundedCornerShape(8.dp))
             .border(
                 width = 1.dp,
                 color = MaterialTheme.colorScheme.primary,
@@ -85,7 +89,7 @@ fun CustomGoal(
             Text(
                 text = label,
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onBackground,
+                color = MaterialTheme.colorScheme.onSecondary,
                 modifier = Modifier.padding(start = 8.dp)
             )
 

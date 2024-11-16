@@ -32,7 +32,7 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun FriendsPage(navController: NavHostController, viewModel: FriendsViewModel = hiltViewModel()) {
-//    ResponsiveLayout(navController)
+
     WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()
     ){
@@ -114,8 +114,6 @@ fun LandscapeLayout(navController: NavHostController, viewModel: FriendsViewMode
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            OrangeButton({ navController.navigate(NavigationScreens.MANAGE_FRIENDS.name) }, stringResource(id = R.string.manage_friends_button))
-
             OrangeButton({ navController.navigate(NavigationScreens.ADD_FRIEND.name) }, stringResource(id = R.string.add_friend_button))
 
             Spacer(modifier = Modifier.weight(1f))
@@ -152,8 +150,6 @@ fun PortraitLayout(navController: NavHostController, viewModel: FriendsViewModel
         FriendList(viewModel.friendList, 380)
 
         Spacer(modifier = Modifier.weight(1f))
-
-        OrangeButton({ navController.navigate(NavigationScreens.MANAGE_FRIENDS.name) }, stringResource(id = R.string.manage_friends_button))
 
         OrangeButton({ navController.navigate(NavigationScreens.ADD_FRIEND.name) }, stringResource(id = R.string.add_friend_button))
 

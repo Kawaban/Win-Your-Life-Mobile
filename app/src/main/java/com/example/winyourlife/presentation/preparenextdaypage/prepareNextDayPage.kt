@@ -2,6 +2,7 @@ package com.example.winyourlife.presentation.preparenextdaypage
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -35,10 +36,16 @@ import com.example.winyourlife.presentation.customItems.MyVerticalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.dataObjects.TaskData
+import com.example.winyourlife.presentation.utils.Settings
+import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun PrepareNextDayPage(navController: NavHostController, viewModel: PrepareNextDayViewModel = hiltViewModel()) {
-    ResponsiveLayout(navController)
+    WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
+        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()
+    ) {
+        ResponsiveLayout(navController)
+    }
     BackHandler {
         viewModel.resetViewModel()
         navController.popBackStack()
@@ -139,6 +146,8 @@ fun LandscapeLayout(navController: NavHostController, viewModel: PrepareNextDayV
 
             Spacer(modifier = Modifier.height(50.dp))
 
+            OrangeButton({ navController.navigate(NavigationScreens.MANAGE_TASKS.name) }, stringResource(id = R.string.manage_tasks_button))
+
             OrangeButton({ navController.navigate(NavigationScreens.CREATE_TASK.name) }, stringResource(id = R.string.create_task_button))
 
             Spacer(modifier = Modifier.weight(1f))
@@ -212,6 +221,8 @@ fun PortraitLayout(navController: NavHostController, viewModel: PrepareNextDayVi
         Spacer(modifier = Modifier.weight(1f))
 
         MyHorizontalDivider()
+
+        OrangeButton({ navController.navigate(NavigationScreens.MANAGE_TASKS.name) }, stringResource(id = R.string.manage_tasks_button))
 
         OrangeButton({ navController.navigate(NavigationScreens.CREATE_TASK.name) }, stringResource(id = R.string.create_task_button))
 

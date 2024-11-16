@@ -24,13 +24,14 @@
     <string name="motivation_image_description">Motywacyjny obraz</string>
     <string name="close_notification_description">Zamknij powiadomienie</string>
     <string name="user_avatar_description">Avatar użytkownika</string>
-    <string name="days">" dni"</string>
+    <string name="talk_description">Odtwórz przemowę</string>
+    <string name="days">"dni"</string>
     <string name="notifications_options">OPCJE POWIADOMIEŃ</string>
     <string name="longest_streak">Najdłuższy streak</string>
     <string name="tasks_completed">Liczba wykonanych zadań</string>
     <string name="days_won">Liczba wygranych dni</string>
     <string name="account_since">Jesteś z nami od …</string>
-    <string name="days2">" dni!"</string>
+    <string name="days2">dni!</string>
     <string name="friends_notifications_switch">Akcje znajomych</string>
     <string name="daily_reminders_switch">Codzienne przypomnienia</string>
     <string name="dark_theme_switch">Ciemny motyw</string>
@@ -67,9 +68,9 @@
     <string name="statistics_hd">STATYSTYKI</string>
     <string name="profile_hd">TWÓJ PROFIL</string>
     <string name="profile_description">Profil</string>
-    <string name="email_sent_snack">Email został wysłany.</string>
-    <string name="request_sent_snack">Zaproszenie zostało wysłane.</string>
-    <string name="data_saved_snack">Dane zostały zapisane.</string>
+    <string name="email_sent_snack">Email został wysłany</string>
+    <string name="request_sent_snack">Zaproszenie zostało wysłane</string>
+    <string name="data_saved_snack">Dane zostały zapisane</string>
     <string name="motivation1">Masz tylko jedno życie, więc na co czekasz? Zacznij działać dzisiaj, albo zawsze będziesz tym, kto tylko ogląda sukcesy innych.</string>
     <string name="motivation2">Świat nie ma litości dla leniwych. Chcesz coś osiągnąć? Musisz pracować 10 razy ciężej niż wszyscy dookoła. Nikt nie poda ci sukcesu na tacy.</string>
     <string name="motivation3">Twoje wymówki są bezwartościowe. Porażka to wybór, a sukces to decyzja. Którą ścieżką zamierzasz iść?</string>
@@ -93,4 +94,8 @@
     <string name="notification_friend_request">wysłał Ci zaproszenie do znajomych</string>
     <string name="notification_friend_answer_positive">zaakceptował Twoje zaproszenie do znajomych</string>
     <string name="notification_friend_answer_negative">odrzucił Twoje zaproszenie do znajomych</string>
+    <string name="movie_description">Odtwórz film</string>
+    <string name="manage_tasks_hd">ZARZĄDZAJ ZADANIAMI</string>
+    <string name="manage_tasks_button">Zarządzaj zadaniami</string>
+    <string name="plus_sign_description">Znak plus</string>
 </resources>

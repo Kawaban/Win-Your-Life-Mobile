@@ -53,13 +53,13 @@ class ProfileViewModel @Inject constructor(val userService: UserService, val cur
                     )
                 }
             }
-            if(result is com.example.winyourlife.domain.wrapper.Resource.Success){
+            if (result is com.example.winyourlife.domain.wrapper.Resource.Success){
                 currentUser.updateUserData(email, name, avatar)
             }
         }
     }
 
-    fun editProfile(){
+    fun editProfile() {
         isEditProfile = !isEditProfile
     }
 
@@ -67,6 +67,4 @@ class ProfileViewModel @Inject constructor(val userService: UserService, val cur
         isEditProfile = false
         stateUpdateData = State()
     }
-
-
 }

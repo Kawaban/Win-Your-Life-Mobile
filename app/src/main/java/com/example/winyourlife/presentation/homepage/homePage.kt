@@ -1,7 +1,6 @@
 package com.example.winyourlife.presentation.homepage
 
 import android.media.MediaPlayer
-import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -56,37 +55,37 @@ fun HomePage(navController: NavHostController, viewModel: HomeViewModel = hiltVi
         navController.popBackStack()
     }
 //    ResponsiveLayout(viewModel, navController
-        when (!viewModel.state.isLoading && !viewModel.state.isReady) {
-            true -> {
-                viewModel.getUserName()
-            }
+    when (!viewModel.state.isLoading && !viewModel.state.isReady) {
+        true -> {
+            viewModel.getUserName()
+        }
 
-            false -> {
-                when (viewModel.state.isLoading) {
-                    true -> {
-                        LoadingScreen()
-                    }
+        false -> {
+            when (viewModel.state.isLoading) {
+                true -> {
+                    LoadingScreen()
+                }
 
-                    false -> {
-                        when(viewModel.state.error == null) {
-                            true -> {
-                                WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
-                                    ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
-                                    ResponsiveLayout(viewModel, navController)
-                                }
+                false -> {
+                    when(viewModel.state.error == null) {
+                        true -> {
+                            WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
+                                ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
+                                ResponsiveLayout(viewModel, navController)
                             }
-
-                            false ->{
-                                viewModel.resetJwtManager()
-                                viewModel.resetViewModel()
-                                navController.navigate(NavigationScreens.LOGIN.name)
-                            }
-
                         }
+
+                        false ->{
+                            viewModel.resetJwtManager()
+                            viewModel.resetViewModel()
+                            navController.navigate(NavigationScreens.LOGIN.name)
+                        }
+
                     }
                 }
             }
         }
+    }
 
 
 }
@@ -198,8 +197,10 @@ fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) 
                 Spacer(modifier = Modifier.weight(1f))
 
                 OrangeButton({
-                    showConfetti = true
-                    mediaPlayer.start() },
+                    viewModel.resetViewModel(); navController.navigate(NavigationScreens.PREPARE_NEXT_DAY.name)
+//                showConfetti = true
+//                mediaPlayer.start()
+                },
                     stringResource(id = R.string.prepare_day_button))
 
                 OrangeButton({viewModel.resetViewModel(); navController.navigate(NavigationScreens.FRIENDS.name) },
@@ -302,9 +303,7 @@ fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
         ) {
 
             Headline(
-                stringResource(id = R.string.home_hd1) +" "+ (viewModel.state.obj?.data?.name) + stringResource(
-                    id = R.string.home_hd2
-                )
+                stringResource(id = R.string.home_hd1) +" "+ (viewModel.state.obj?.data?.name) + "!"
             )
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -324,8 +323,10 @@ fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
             Spacer(modifier = Modifier.height(10.dp))
 
             OrangeButton({
-                showConfetti = true
-                mediaPlayer.start() },
+                viewModel.resetViewModel(); navController.navigate(NavigationScreens.PREPARE_NEXT_DAY.name)
+//                showConfetti = true
+//                mediaPlayer.start()
+                },
                 stringResource(id = R.string.prepare_day_button))
 
             OrangeButton(

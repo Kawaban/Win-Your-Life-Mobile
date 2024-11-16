@@ -1,6 +1,7 @@
 package com.example.winyourlife.presentation.resetpasswordpage
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -20,28 +21,37 @@ import com.example.winyourlife.presentation.utilScreens.LoadingScreen
 import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
+import com.example.winyourlife.presentation.utils.Settings
+import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun ResetPasswordPage(navController: NavHostController, viewModel: ResetPasswordViewModel = hiltViewModel()) {
-    when (viewModel.state.isReady) {
-        true -> {
-            when (viewModel.state.error != null) {
-                true -> {
-                    ErrorScreen(message = viewModel.state.error)
-                }
-                false -> {
-                    viewModel.reset()
-                    navController.navigate(NavigationScreens.HOME.name)
+    WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
+        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()
+    ) {
+        when (viewModel.state.isReady) {
+            true -> {
+                when (viewModel.state.error != null) {
+                    true -> {
+                        ErrorScreen(message = viewModel.state.error)
+                    }
+
+                    false -> {
+                        viewModel.resetViewModel()
+                        navController.navigate(NavigationScreens.HOME.name)
+                    }
                 }
             }
-        }
-        false -> {
-            when(viewModel.state.isLoading) {
-                true -> {
-                    LoadingScreen()
-                }
-                false -> {
-                    ResponsiveLayout(navController)
+
+            false -> {
+                when (viewModel.state.isLoading) {
+                    true -> {
+                        LoadingScreen()
+                    }
+
+                    false -> {
+                        ResponsiveLayout(navController)
+                    }
                 }
             }
         }

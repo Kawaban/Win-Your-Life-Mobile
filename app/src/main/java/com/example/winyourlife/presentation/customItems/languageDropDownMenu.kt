@@ -1,6 +1,6 @@
 package com.example.winyourlife.presentation.customItems
+
 import android.content.Context
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,25 +14,42 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.core.os.LocaleListCompat
 import com.example.winyourlife.R
 import com.example.winyourlife.presentation.utils.Settings
 import com.example.winyourlife.presentation.settingspage.SettingsViewModel
 import com.example.winyourlife.presentation.utils.Language
 
+fun mapOptionToLanguageCode(index: Int): String {
+    return when (index) {
+        0 -> "en"
+        1 -> "pl"
+        else -> "en"
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LanguageDropDownMenu(viewModel: SettingsViewModel, context: Context, currentLocale: MutableState<Language>) {
-//    val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("en")
-//    AppCompatDelegate.setApplicationLocales(appLocale)
+fun LanguageDropDownMenu(viewModel: SettingsViewModel, context: Context) {
 
-    val options =
-        listOf(stringResource(id = R.string.language_en), stringResource(id = R.string.language_pl))
+    val options = listOf(
+        stringResource(id = R.string.language_en),
+        stringResource(id = R.string.language_pl)
+    )
+
     var expanded by remember { mutableStateOf(false) }
-    var selectedOption by remember { mutableStateOf(viewModel.currentUser.userData?.mapOfSettings?.get(
-        Settings.APPLICATION_LANGUAGE.name) ?: options[0]) }
+
+    var selectedOptionIndex by remember {
+        mutableStateOf(
+            when (viewModel.currentUser.userData?.mapOfSettings?.get(Settings.APPLICATION_LANGUAGE.name)) {
+                "en" -> 0
+                "pl" -> 1
+                else -> 0
+            }
+        )
+    }
+
+    var selectedOption by remember { mutableStateOf(options[selectedOptionIndex]) }
 
     Row(
         modifier = Modifier
@@ -58,7 +75,7 @@ fun LanguageDropDownMenu(viewModel: SettingsViewModel, context: Context, current
                 TextField(
                     readOnly = true,
                     value = selectedOption,
-                    onValueChange = {},
+                    onValueChange = { },
                     modifier = Modifier
                         .weight(1f)
                         .menuAnchor(),
@@ -98,12 +115,22 @@ fun LanguageDropDownMenu(viewModel: SettingsViewModel, context: Context, current
                                 )
                             },
                             onClick = {
-                                if(selectedOption != options[index]){
-                                    viewModel.saveSettings(Settings.APPLICATION_LANGUAGE.name, options[index])
+                                if (selectedOptionIndex != index) {
+                                    val languageCode = mapOptionToLanguageCode(index)
+
+                                    viewModel.saveSettings(
+                                        Settings.APPLICATION_LANGUAGE.name,
+                                        languageCode
+                                    )
+
+                                    selectedOptionIndex = index
+                                    selectedOption = options[index]
+
+                                    Language.setLocale(
+                                        context = context,
+                                        localeCode = languageCode
+                                    )
                                 }
-                                //currentLocale.value = Language.convertStringToLanguage(options[index], context)
-                                selectedOption = options[index]
-                                Language.setLocale(context = context, localeCode = Language.convertStringToLanguage(options[index], context).code)
                                 expanded = false
                             },
                             modifier = Modifier

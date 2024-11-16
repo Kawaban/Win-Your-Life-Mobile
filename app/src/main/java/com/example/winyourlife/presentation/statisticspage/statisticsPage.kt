@@ -2,17 +2,13 @@ package com.example.winyourlife.presentation.statisticspage
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,10 +20,16 @@ import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
 import com.example.winyourlife.presentation.customItems.MyVerticalDivider
 import com.example.winyourlife.presentation.customItems.OrangeOutlinedTextField
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
+import com.example.winyourlife.presentation.utils.Settings
+import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun StatisticsPage(navController: NavHostController, viewModel: StatisticsViewModel = hiltViewModel()) {
-    ResponsiveLayout(navController)
+    WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
+        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()
+    ) {
+        ResponsiveLayout(navController)
+    }
     BackHandler {
         viewModel.resetViewModel()
         navController.popBackStack()
@@ -48,13 +50,6 @@ fun ResponsiveLayout(navController: NavHostController) {
 
 @Composable
 fun LandscapeLayout(navController: NavHostController, viewModel: StatisticsViewModel = hiltViewModel()) {
-
-    var nickname by remember {
-        mutableStateOf("")
-    }
-    var email by remember {
-        mutableStateOf("")
-    }
 
     Row(
         modifier = Modifier
@@ -78,7 +73,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: StatisticsViewM
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            OrangeOutlinedTextField("37" + stringResource(id = R.string.days))
+            OrangeOutlinedTextField("37" + " " + stringResource(id = R.string.days))
 
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -127,7 +122,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: StatisticsViewM
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            OrangeOutlinedTextField("210" + stringResource(id = R.string.days2))
+            OrangeOutlinedTextField("210" + " " + stringResource(id = R.string.days2))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -158,7 +153,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: StatisticsViewMo
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        OrangeOutlinedTextField("37" + stringResource(id = R.string.days))
+        OrangeOutlinedTextField("37" + " " + stringResource(id = R.string.days))
 
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -197,7 +192,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: StatisticsViewMo
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        OrangeOutlinedTextField("210" + stringResource(id = R.string.days2))
+        OrangeOutlinedTextField("210" + " " + stringResource(id = R.string.days2))
 
         Spacer(modifier = Modifier.weight(1f))
 

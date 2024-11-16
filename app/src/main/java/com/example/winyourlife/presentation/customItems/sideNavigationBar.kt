@@ -32,7 +32,7 @@ fun SideNavigationBar(navController: NavController, viewModel: ViewModelCustomIn
             Icon(Icons.Default.Settings, contentDescription = stringResource(id = R.string.settings_description), tint = MaterialTheme.colorScheme.onPrimary)
         }
         IconButton(onClick = {viewModel.resetViewModel(); navController.navigate(NavigationScreens.PROFILE.name) }) {
-            Icon(Icons.Default.AccountCircle, contentDescription = stringResource(id = R.string.profile_description))
+            Icon(Icons.Default.AccountCircle, contentDescription = stringResource(id = R.string.profile_description),tint = MaterialTheme.colorScheme.onPrimary)
         }
         IconButton(onClick = {viewModel.resetViewModel(); navController.navigate(NavigationScreens.NOTIFICATIONS.name) }) {
             Icon(Icons.Default.Notifications, contentDescription = stringResource(id = R.string.notifications_description), tint = MaterialTheme.colorScheme.onPrimary)

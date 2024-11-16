@@ -76,15 +76,17 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ManageFriendsVi
 @Composable
 fun PortraitLayout(navController: NavHostController, viewModel: ManageFriendsViewModel = hiltViewModel()) {
 
-//    val friends = listOf(
-//        FriendData(R.drawable.avatar, "Joe", false, "12", 0),
-//        FriendData(R.drawable.avatar, "Ellie", true, "32", 2),
-//        FriendData(R.drawable.avatar, "Alex", true, "45", 3),
-//        FriendData(R.drawable.avatar, "Sam", false, "28", 4),
-//        FriendData(R.drawable.avatar, "Chris", false, "53", 5),
-//        FriendData(R.drawable.avatar, "Sam", true, "28", 6),
-//        FriendData(R.drawable.avatar, "Chris", true, "53", 1)
-//    )
+    val byteArray = ByteArray(10)
+
+    val friends = listOf(
+        FriendData(byteArray, "Joe", false, 12, 0),
+        FriendData(byteArray, "Ellie", true, 32, 2),
+        FriendData(byteArray, "Alex", true, 45, 3),
+        FriendData(byteArray, "Sam", false, 28, 4),
+        FriendData(byteArray, "Chris", false, 43, 5),
+        FriendData(byteArray, "Sam", true, 28, 6),
+        FriendData(byteArray, "Chris", true, 53, 1)
+    )
 
     Column(
         modifier = Modifier
@@ -96,7 +98,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: ManageFriendsVie
 
         Spacer(modifier = Modifier.weight(1f))
 
-//        ReorderableFriendList(friends, 520)
+        ReorderableFriendList(friends, 520)
 
         Spacer(modifier = Modifier.weight(1f))
 

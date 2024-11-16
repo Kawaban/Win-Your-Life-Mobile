@@ -23,28 +23,26 @@ import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.customItems.WhiteOutlinedTextField
-import com.example.winyourlife.presentation.utilScreens.LoadingScreen
 import com.example.winyourlife.presentation.utils.Settings
 import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun AddFriendPage(navController: NavHostController, viewModel: AddFriendViewModel = hiltViewModel()) {
-    //ResponsiveLayout(navController)
+
     WinYourLifeTheme(darkTheme = viewModel.currentUser.userData?.mapOfSettings?.get(Settings.IS_DARK_THEME.name)
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()
-    ){
-                val context = LocalContext.current
-                when (viewModel.stateSend.isReady) {
-                    true -> {
-                        Toast.makeText(context,stringResource(id = R.string.request_sent_snack), Toast.LENGTH_SHORT).show()
-                    }
-                    false -> {
+    ) {
+        val context = LocalContext.current
+        when (viewModel.stateSend.isReady) {
+            true -> {
+                Toast.makeText(context,stringResource(id = R.string.request_sent_snack), Toast.LENGTH_SHORT).show()
+            }
+            false -> {
 
-                    }
-                }
+            }
+        }
 
-                ResponsiveLayout(navController)
-
+        ResponsiveLayout(navController)
     }
 
     BackHandler {

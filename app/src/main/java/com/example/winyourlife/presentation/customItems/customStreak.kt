@@ -36,11 +36,11 @@ fun CustomStreak(
                 Text(
                     text = stringResource(id = R.string.streak),
                     style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onBackground
+                    color = MaterialTheme.colorScheme.onSecondary
                 )
 
                 Text(
-                    text = period + stringResource(id = R.string.days),
+                    text = period + " " + stringResource(id = R.string.days),
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary
@@ -51,10 +51,9 @@ fun CustomStreak(
             .width(280.dp),
         shape = RoundedCornerShape(24.dp),
         colors = OutlinedTextFieldDefaults.colors(
-            focusedContainerColor = MaterialTheme.colorScheme.background,
-            unfocusedContainerColor = MaterialTheme.colorScheme.background,
+            disabledContainerColor = MaterialTheme.colorScheme.secondary,
             disabledBorderColor = MaterialTheme.colorScheme.primary,
-            disabledTextColor = MaterialTheme.colorScheme.onBackground
+            disabledTextColor = MaterialTheme.colorScheme.onSecondary
         ),
         enabled = false
     )
