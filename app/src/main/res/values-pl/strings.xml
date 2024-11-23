@@ -98,6 +98,7 @@
     <string name="manage_tasks_hd">ZARZĄDZAJ ZADANIAMI</string>
     <string name="manage_tasks_button">Zarządzaj zadaniami</string>
     <string name="plus_sign_description">Znak plus</string>
+    <string name="task_created_snack">Zadanie zostało utworzone</string>
 
 
 
@@ -108,6 +109,8 @@
     <string name="exception_bad_input">Niepoprawne wpisane dane</string>
     <string name="bad_credentials">Niepoprawne dane logowania</string>
     <string name="exception_user_already_exists">Użytkownik już istnieje</string>
+    <string name="exception_passwords_not_match">Hasła nie pasują do siebie</string>
+    <string name="exception_password_is_not_valid">"Hasło musi zawierać co najmniej 8 znaków, jedną wielką literę, jedną małą literę i jedną cyfrę."</string>
 
 
 </resources>

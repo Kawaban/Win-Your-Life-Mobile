@@ -75,7 +75,6 @@ fun HomePage(navController: NavHostController, viewModel: HomeViewModel = hiltVi
                             }
 
                             false -> {
-                                viewModel.resetJwtManager()
                                 viewModel.resetViewModel()
                                 navController.navigate(NavigationScreens.LOGIN.name)
                             }

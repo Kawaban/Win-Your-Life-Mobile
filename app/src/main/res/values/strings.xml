@@ -98,6 +98,7 @@
     <string name="email_sent_snack">An email has been sent</string>
     <string name="request_sent_snack">A request has been sent</string>
     <string name="data_saved_snack">Data has been saved</string>
+    <string name="task_created_snack">Task has been created</string>
 
     <string name="motivation1">You only have one life, so what are you waiting for? Start taking action today, or you\’ll always be the one watching others succeed.</string>
     <string name="motivation2">The world has no mercy for the lazy. Want to achieve something? You need to work ten times harder than everyone else around you. No one\’s handing you success on a silver platter.</string>
@@ -122,6 +123,9 @@
     <string name="exception_bad_input">Bad input error</string>
     <string name="bad_credentials">Bad credentials</string>
     <string name="exception_user_already_exists">User already exists</string>
+    <string name="exception_passwords_not_match">Passwords do not match</string>
+    <string name="exception_password_is_not_valid">"Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one number"</string>
+
 
 
 </resources>

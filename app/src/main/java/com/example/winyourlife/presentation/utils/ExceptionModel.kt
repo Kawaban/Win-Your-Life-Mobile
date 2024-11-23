@@ -11,6 +11,8 @@ enum class ExceptionText(val text: String){
     BadCredentials("Bad credentials"),
     UserAlreadyExists("User already exists"),
     BadInput("Bad input"),
+    PasswordsDoNotMatch("Passwords do not match"),
+    PasswordMustContain("Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one number")
 }
 
 
@@ -36,6 +38,12 @@ fun mapExceptionText(error: String, context: Context):CharSequence{
         }
         ExceptionText.BadInput.text -> {
             context.getText(R.string.exception_bad_input)
+        }
+        ExceptionText.PasswordsDoNotMatch.text -> {
+            context.getText(R.string.exception_passwords_not_match)
+        }
+        ExceptionText.PasswordMustContain.text -> {
+            context.getText(R.string.exception_password_is_not_valid)
         }
         else -> {
             context.getText(R.string.exception_unknown)

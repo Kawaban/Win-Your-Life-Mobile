@@ -10,9 +10,9 @@ import com.example.winyourlife.domain.UserService
 import com.example.winyourlife.presentation.utils.State
 import com.example.winyourlife.presentation.utils.ViewModelCustomInterface
 import com.example.winyourlife.presentation.dataObjects.CurrentUser
+import com.example.winyourlife.presentation.utils.ImageEncoder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.util.Base64
 import javax.inject.Inject
 
 
@@ -29,7 +29,7 @@ class ProfileViewModel @Inject constructor(val userService: UserService, val cur
     fun updateUserData(email: String, name: String, avatar: ByteArray) {
         viewModelScope.launch {
             val updateUserUpdateDataRequest =
-                UserUpdateDataRequest(name, email, Base64.getEncoder().encodeToString(avatar))
+                UserUpdateDataRequest(name, email, ImageEncoder().encodeImageToString(avatar))
 
             stateUpdateData = stateUpdateData.copy(
                 error = null,

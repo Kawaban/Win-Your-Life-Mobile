@@ -9,8 +9,11 @@ import com.example.winyourlife.data.dto.RegisterRequest
 import com.example.winyourlife.domain.AuthenticationService
 import com.example.winyourlife.domain.wrapper.Resource
 import com.example.winyourlife.presentation.dataObjects.CurrentUser
+import com.example.winyourlife.presentation.utils.ExceptionText
+import com.example.winyourlife.presentation.utils.PasswordValidator
 import com.example.winyourlife.presentation.utils.State
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,6 +26,26 @@ class RegisterViewModel @Inject constructor(val authenticationService: Authentic
     fun register(email: String, nick: String, password: String, repeatPassword: String) {
 
         viewModelScope.launch {
+
+            if(!PasswordValidator().validatePassword(password)){
+                state = state.copy(
+                    error = ExceptionText.PasswordMustContain.text,
+                    isReady = true,
+                    isLoading = false
+                )
+                return@launch
+            }
+
+            if(!PasswordValidator().checkPasswordsMatch(password, repeatPassword)){
+                state = state.copy(
+                    error = ExceptionText.PasswordsDoNotMatch.text,
+                    isReady = true,
+                    isLoading = false
+                )
+                return@launch
+            }
+
+
             val registerRequest = RegisterRequest(email, nick, password)
 
             state = state.copy(

@@ -72,7 +72,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: StatisticsViewM
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            OrangeOutlinedTextField("37" + " " + stringResource(id = R.string.days))
+            OrangeOutlinedTextField((viewModel.currentUser.userData?.longestStreak ?: 0).toString() + " " + stringResource(id = R.string.days))
 
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -85,7 +85,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: StatisticsViewM
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            OrangeOutlinedTextField("1112")
+            OrangeOutlinedTextField((viewModel.currentUser.userData?.completedTasks ?: 0).toString())
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -108,7 +108,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: StatisticsViewM
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            OrangeOutlinedTextField("64")
+            OrangeOutlinedTextField((viewModel.currentUser.userData?.wonDays ?: 0).toString())
 
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -121,7 +121,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: StatisticsViewM
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            OrangeOutlinedTextField("210" + " " + stringResource(id = R.string.days2))
+            OrangeOutlinedTextField((viewModel.currentUser.userData?.daysIn ?: 0).toString() + " " + stringResource(id = R.string.days2))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -152,7 +152,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: StatisticsViewMo
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        OrangeOutlinedTextField("37" + " " + stringResource(id = R.string.days))
+        OrangeOutlinedTextField((viewModel.currentUser.userData?.longestStreak ?: 0).toString() + " " + stringResource(id = R.string.days))
 
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -165,7 +165,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: StatisticsViewMo
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        OrangeOutlinedTextField("1112")
+        OrangeOutlinedTextField((viewModel.currentUser.userData?.completedTasks ?: 0).toString())
 
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -178,7 +178,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: StatisticsViewMo
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        OrangeOutlinedTextField("64")
+        OrangeOutlinedTextField((viewModel.currentUser.userData?.wonDays ?: 0).toString())
 
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -191,7 +191,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: StatisticsViewMo
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        OrangeOutlinedTextField("210" + " " + stringResource(id = R.string.days2))
+        OrangeOutlinedTextField((viewModel.currentUser.userData?.daysIn ?: 0).toString() + " " + stringResource(id = R.string.days2))
 
         Spacer(modifier = Modifier.weight(1f))
 

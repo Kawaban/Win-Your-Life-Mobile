@@ -18,8 +18,14 @@ object RetrofitModule{
         return OkHttpClient.Builder()
             .addInterceptor(ErrorInterceptor())
             .addInterceptor { chain ->
+                if(jwtManager.getJwt() == null){
+                    return@addInterceptor chain.proceed(chain.request())
+                }
+                if(chain.request().url().toString().contains("login") || chain.request().url().toString().contains("register")){
+                    return@addInterceptor chain.proceed(chain.request())
+                }
                 val request = chain.request().newBuilder()
-                    .addHeader("Authorization", jwtManager.getJwt() ?: "")
+                    .addHeader("Authorization", jwtManager.getJwt())
                     .build()
                 chain.proceed(request)
             }

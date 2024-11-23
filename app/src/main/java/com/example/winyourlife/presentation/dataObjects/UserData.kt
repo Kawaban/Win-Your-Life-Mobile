@@ -7,7 +7,6 @@ data class UserData(
     var streak: Int,
     var longestStreak: Int,
     var completedTasks: Int,
-//    val numberOfDaysWon: Int,
-//    val accountSince: Int,
-
+    val wonDays: Int,
+    val daysIn: Int
 )

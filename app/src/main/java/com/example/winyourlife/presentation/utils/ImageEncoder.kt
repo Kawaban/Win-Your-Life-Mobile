@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
+import java.util.Base64
 
 
 class ImageEncoder{
@@ -29,4 +30,9 @@ class ImageEncoder{
             ByteArray(0)
         }
     }
+
+    fun encodeImageToString(image:ByteArray):String{
+        return Base64.getEncoder().encodeToString(image)
+    }
+
 }

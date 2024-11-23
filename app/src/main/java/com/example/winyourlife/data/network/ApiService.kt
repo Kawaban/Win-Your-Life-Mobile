@@ -1,5 +1,6 @@
 package com.example.winyourlife.data.network
 
+import com.example.winyourlife.data.dto.CreateTaskRequest
 import com.example.winyourlife.data.dto.FriendRequestCreate
 import com.example.winyourlife.data.dto.FriendRequestResponse
 import com.example.winyourlife.data.dto.FriendResponse
@@ -7,6 +8,7 @@ import com.example.winyourlife.data.dto.LoginRequest
 import com.example.winyourlife.data.dto.LoginResponse
 import com.example.winyourlife.data.dto.NotificationResponse
 import com.example.winyourlife.data.dto.RegisterRequest
+import com.example.winyourlife.data.dto.TaskResponse
 import com.example.winyourlife.data.dto.UserResponse
 import com.example.winyourlife.data.dto.UserUpdateDataRequest
 import com.example.winyourlife.data.dto.UserUpdateDataResponse
@@ -42,4 +44,10 @@ interface ApiService {
 
     @GET("api/users/friends")
     suspend fun getFriends(): List<FriendResponse>
+
+    @GET("api/tasks")
+    suspend fun getAllTasks(): List<TaskResponse>
+
+    @POST("api/tasks")
+    suspend fun createTask(@Body createTaskRequest: CreateTaskRequest)
 }
