@@ -22,7 +22,7 @@ import com.example.winyourlife.R
 import com.example.winyourlife.presentation.navigation.NavigationScreens
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
 import com.example.winyourlife.presentation.customItems.CustomStreak
-import com.example.winyourlife.presentation.customItems.TaskList
+import com.example.winyourlife.presentation.customItems.TodayTaskList
 import com.example.winyourlife.presentation.customItems.Headline
 import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
 import com.example.winyourlife.presentation.customItems.MyVerticalDivider
@@ -54,7 +54,7 @@ fun HomePage(navController: NavHostController, viewModel: HomeViewModel = hiltVi
         viewModel.resetViewModel()
         navController.popBackStack()
     }
-//    ResponsiveLayout(viewModel, navController
+
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
         when (!viewModel.state.isLoading && !viewModel.state.isReady) {
@@ -85,8 +85,6 @@ fun HomePage(navController: NavHostController, viewModel: HomeViewModel = hiltVi
             }
         }
     }
-
-
 }
 
 @Composable
@@ -173,7 +171,7 @@ fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) 
             ) {
                 Spacer(modifier = Modifier.weight(1f))
 
-                TaskList(tasks = tasks, 250)
+                TodayTaskList(tasks = tasks, 250)
 
                 Spacer(modifier = Modifier.weight(1f))
             }
@@ -313,7 +311,7 @@ fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
 
             MyHorizontalDivider()
 
-            TaskList(tasks = tasks, 250)
+            TodayTaskList(tasks = tasks, 250)
 
             Spacer(modifier = Modifier.weight(1f))
 

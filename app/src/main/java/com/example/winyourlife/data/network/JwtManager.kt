@@ -29,5 +29,4 @@ class JwtManager @Inject constructor(private val userPreferencesRepository: User
     suspend fun setJwtFromCache(){
         this.jwt = "Bearer " + (userPreferencesRepository.getParameter("token").getOrNull()?:"")
     }
-
 }

@@ -12,7 +12,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.winyourlife.data.network.JwtManager
-import com.example.winyourlife.domain.UserPreferencesRepository
 import com.example.winyourlife.presentation.dataObjects.CurrentUser
 import com.example.winyourlife.presentation.navigation.AppNavHost
 import com.example.winyourlife.presentation.utils.Language

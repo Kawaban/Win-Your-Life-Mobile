@@ -28,11 +28,12 @@
     <string name="app_logo_description">App logo</string>
     <string name="motivation_image_description">Motivational Image</string>
     <string name="close_notification_description">Close notification</string>
-    <string name="plus_sign_description">Plus sign</string>
     <string name="user_avatar_description">User avatar</string>
     <string name="expand_description">Expand</string>
     <string name="talk_description">Play speech</string>
     <string name="movie_description">Play movie</string>
+    <string name="delete_task_description">Delete task</string>
+    <string name="edit_task_description">Edit task</string>
 
     <string name="streak" translatable="false">STREAK:</string>
     <string name="days">days</string>
@@ -74,6 +75,7 @@
     <string name="change_data_button">Change data</string>
     <string name="save_data_button">Save data</string>
     <string name="manage_friends_button">Manage friends</string>
+    <string name="add_task_button">Add a task</string>
 
     <string name="manage_tasks_hd">MANAGE TASKS</string>
     <string name="manage_friends_hd">MANAGE FRIENDS</string>
@@ -89,6 +91,7 @@
     <string name="settings_hd">SETTINGS</string>
     <string name="statistics_hd">STATISTICS</string>
     <string name="profile_hd">YOUR PROFILE</string>
+    <string name="edit_task_hd">EDIT A TASK</string>
 
     <string name="loading">Loading …</string>
     <string name="error1">"Error: </string>

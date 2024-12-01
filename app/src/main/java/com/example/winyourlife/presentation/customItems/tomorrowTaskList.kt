@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.example.winyourlife.presentation.dataObjects.TaskData
 
 @Composable
-fun TaskList(tasks: List<TaskData>, height: Int) {
+fun TomorrowTaskList(tasks: List<TaskData>, height: Int) {
     LazyColumn(
         modifier = Modifier
             .width(316.dp)
@@ -21,10 +21,10 @@ fun TaskList(tasks: List<TaskData>, height: Int) {
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(tasks) { task ->
-            CustomGoal(
-                isCompleted = task.isCompleted,
+            TomorrowTask(
                 label = task.label,
-                image = task.image
+                image = task.image,
+                onDelete = {}
             )
         }
     }

@@ -1,4 +1,4 @@
-package com.example.winyourlife.presentation.createtaskpage
+package com.example.winyourlife.presentation.editTaskPage
 
 import android.graphics.BitmapFactory
 import android.widget.Toast
@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.R
+import com.example.winyourlife.presentation.createtaskpage.CreateTaskViewModel
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
 import com.example.winyourlife.presentation.customItems.Headline
 import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
@@ -47,7 +48,7 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 import java.util.Base64
 
 @Composable
-fun CreateTaskPage(navController: NavHostController, viewModel: CreateTaskViewModel = hiltViewModel()) {
+fun EditTaskPage(navController: NavHostController, viewModel: EditTaskViewModel = hiltViewModel()) {
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
         ResponsiveLayout(navController)
@@ -64,7 +65,7 @@ fun CreateTaskPage(navController: NavHostController, viewModel: CreateTaskViewMo
                     Toast.makeText(context, mapExceptionText(viewModel.state.error!!, context), Toast.LENGTH_SHORT).show()
                 }
                 false -> {
-                    Toast.makeText(context,stringResource(id = R.string.task_created_snack), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, stringResource(id = R.string.data_saved_snack), Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -189,7 +190,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: CreateTaskViewMo
             .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Headline(stringResource(id = R.string.create_task_hd))
+        Headline(stringResource(id = R.string.edit_task_hd))
 
         Spacer(modifier = Modifier.weight(1f))
 

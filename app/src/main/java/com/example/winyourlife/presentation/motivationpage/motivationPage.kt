@@ -239,7 +239,7 @@ fun LandscapeLayout(
     if (showVideoDialog) {
         VideoPlayerDialog(
             width = 720,
-            height = 360,
+            height = 250,
             startPlaybackPosition = startPlaybackPosition,
             onPlaybackPositionChange = onPlaybackPositionChange,
             onDismiss = {
@@ -361,8 +361,8 @@ fun PortraitLayout(
 
     if (showVideoDialog) {
         VideoPlayerDialog(
-            width = 360,
-            height = 180,
+            width = 420,
+            height = 250,
             startPlaybackPosition = startPlaybackPosition,
             onPlaybackPositionChange = onPlaybackPositionChange,
             onDismiss = {

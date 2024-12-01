@@ -9,10 +9,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,16 +16,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.R
+import com.example.winyourlife.presentation.customItems.TomorrowTaskList
 import com.example.winyourlife.presentation.navigation.NavigationScreens
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
-import com.example.winyourlife.presentation.customItems.TaskList
 import com.example.winyourlife.presentation.customItems.Headline
 import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
 import com.example.winyourlife.presentation.customItems.MyVerticalDivider
@@ -108,18 +102,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: PrepareNextDayV
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            TaskList(tasks = tasks, 250)
-
-            Button(
-                onClick = {},
-                modifier = Modifier
-                    .padding(bottom = 16.dp)
-                    .size(60.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.onBackground),
-                shape = RoundedCornerShape(12.dp)
-            ) {
-                Text(text = stringResource(id = R.string.plus_sign_description), color = MaterialTheme.colorScheme.background, fontSize = 20.sp, fontWeight = Bold)
-            }
+            TomorrowTaskList(tasks = tasks, 270)
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -145,9 +128,9 @@ fun LandscapeLayout(navController: NavHostController, viewModel: PrepareNextDayV
 
             Spacer(modifier = Modifier.height(50.dp))
 
-            OrangeButton({ navController.navigate(NavigationScreens.MANAGE_TASKS.name) }, stringResource(id = R.string.manage_tasks_button))
+            OrangeButton({  }, stringResource(id = R.string.add_task_button))
 
-            OrangeButton({ navController.navigate(NavigationScreens.CREATE_TASK.name) }, stringResource(id = R.string.create_task_button))
+            OrangeButton({ navController.navigate(NavigationScreens.MANAGE_TASKS.name) }, stringResource(id = R.string.manage_tasks_button))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -160,6 +143,26 @@ fun LandscapeLayout(navController: NavHostController, viewModel: PrepareNextDayV
 fun PortraitLayout(navController: NavHostController, viewModel: PrepareNextDayViewModel = hiltViewModel()) {
 
     val tasks = listOf(
+        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = true,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
         TaskData(
             isCompleted = false,
             label = "Touch grass",
@@ -202,28 +205,17 @@ fun PortraitLayout(navController: NavHostController, viewModel: PrepareNextDayVi
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
-        TaskList(tasks = tasks, 320)
-
-        Button(
-            onClick = {},
-            modifier = Modifier
-                .padding(bottom = 16.dp)
-                .size(60.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.onBackground),
-            shape = RoundedCornerShape(12.dp)
-        ) {
-            Text(text = stringResource(id = R.string.plus_sign_description), color = MaterialTheme.colorScheme.background, fontSize = 20.sp, fontWeight = Bold)
-        }
+        TomorrowTaskList(tasks = tasks, 340)
 
         Spacer(modifier = Modifier.weight(1f))
 
         MyHorizontalDivider()
 
-        OrangeButton({ navController.navigate(NavigationScreens.MANAGE_TASKS.name) }, stringResource(id = R.string.manage_tasks_button))
+        OrangeButton({  }, stringResource(id = R.string.add_task_button))
 
-        OrangeButton({ navController.navigate(NavigationScreens.CREATE_TASK.name) }, stringResource(id = R.string.create_task_button))
+        OrangeButton({ navController.navigate(NavigationScreens.MANAGE_TASKS.name) }, stringResource(id = R.string.manage_tasks_button))
 
         Spacer(modifier = Modifier.height(30.dp))
 

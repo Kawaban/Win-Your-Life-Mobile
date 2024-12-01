@@ -6,18 +6,27 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.R
+import com.example.winyourlife.presentation.customItems.TomorrowTaskList
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
+import com.example.winyourlife.presentation.customItems.EveryTaskList
 import com.example.winyourlife.presentation.customItems.Headline
+import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
+import com.example.winyourlife.presentation.customItems.MyVerticalDivider
+import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
+import com.example.winyourlife.presentation.dataObjects.TaskData
+import com.example.winyourlife.presentation.navigation.NavigationScreens
 import com.example.winyourlife.presentation.utils.Settings
 import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
@@ -44,6 +53,34 @@ fun ResponsiveLayout(navController: NavHostController) {
 @Composable
 fun LandscapeLayout(navController: NavHostController, viewModel: ManageTasksViewModel = hiltViewModel()) {
 
+    val tasks = listOf(
+        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = true,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        )
+    )
+
     Row(
         modifier = Modifier
             .fillMaxSize()
@@ -57,7 +94,21 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ManageTasksView
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
+            EveryTaskList(tasks = tasks, 270)
 
+            Spacer(modifier = Modifier.weight(1f))
+        }
+
+        MyVerticalDivider()
+
+        Column(
+            modifier = Modifier
+                .weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.weight(1f))
+
+            OrangeButton({ navController.navigate(NavigationScreens.CREATE_TASK.name) }, stringResource(id = R.string.create_task_button))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -70,6 +121,58 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ManageTasksView
 @Composable
 fun PortraitLayout(navController: NavHostController, viewModel: ManageTasksViewModel = hiltViewModel()) {
 
+    val tasks = listOf(
+        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = true,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = true,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        ),
+        TaskData(
+            isCompleted = false,
+            label = "Touch grass",
+            image = R.drawable.avatar
+        )
+    )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -80,9 +183,15 @@ fun PortraitLayout(navController: NavHostController, viewModel: ManageTasksViewM
 
         Spacer(modifier = Modifier.weight(1f))
 
-
+        EveryTaskList(tasks, 470)
 
         Spacer(modifier = Modifier.weight(1f))
+
+        MyHorizontalDivider()
+
+        OrangeButton({ navController.navigate(NavigationScreens.CREATE_TASK.name) }, stringResource(id = R.string.create_task_button))
+
+        Spacer(modifier = Modifier.height(30.dp))
 
         BottomNavigationBar(navController, viewModel)
     }

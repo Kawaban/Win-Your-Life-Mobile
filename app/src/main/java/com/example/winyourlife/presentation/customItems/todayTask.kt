@@ -29,7 +29,7 @@ import androidx.compose.ui.res.painterResource
 import kotlinx.coroutines.delay
 
 @Composable
-fun CustomGoal(
+fun TodayTask(
     isCompleted: Boolean,
     label: String,
     image: Int

@@ -97,10 +97,7 @@
     <string name="movie_description">Odtwórz film</string>
     <string name="manage_tasks_hd">ZARZĄDZAJ ZADANIAMI</string>
     <string name="manage_tasks_button">Zarządzaj zadaniami</string>
-    <string name="plus_sign_description">Znak plus</string>
     <string name="task_created_snack">Zadanie zostało utworzone</string>
-
-
 
     <string name="exception_network">Błąd sieci</string>
     <string name="exception_server">Błąd połączenia z serwerem</string>
@@ -111,6 +108,8 @@
     <string name="exception_user_already_exists">Użytkownik już istnieje</string>
     <string name="exception_passwords_not_match">Hasła nie pasują do siebie</string>
     <string name="exception_password_is_not_valid">"Hasło musi zawierać co najmniej 8 znaków, jedną wielką literę, jedną małą literę i jedną cyfrę."</string>
-
-
+    <string name="add_task_button">Dodaj zadanie</string>
+    <string name="delete_task_description">Usuń zadanie</string>
+    <string name="edit_task_description">Edytuj zadanie</string>
+    <string name="edit_task_hd">EDYTUJ ZADANIE</string>
 </resources>

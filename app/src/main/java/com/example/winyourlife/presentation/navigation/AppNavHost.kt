@@ -7,11 +7,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.winyourlife.presentation.addfriendpage.AddFriendPage
 import com.example.winyourlife.presentation.createtaskpage.CreateTaskPage
+import com.example.winyourlife.presentation.editTaskPage.EditTaskPage
 import com.example.winyourlife.presentation.forgotpasswordpage.ForgotPasswordPage
 import com.example.winyourlife.presentation.friendspage.FriendsPage
 import com.example.winyourlife.presentation.homepage.HomePage
 import com.example.winyourlife.presentation.loginpage.LoginPage
-import com.example.winyourlife.presentation.managefriendspage.ManageFriendsPage
 import com.example.winyourlife.presentation.managetaskspage.ManageTasksPage
 import com.example.winyourlife.presentation.motivationpage.MotivationPage
 import com.example.winyourlife.presentation.notificationspage.NotificationsPage
@@ -22,7 +22,8 @@ import com.example.winyourlife.presentation.resetpasswordpage.ResetPasswordPage
 import com.example.winyourlife.presentation.settingspage.SettingsPage
 import com.example.winyourlife.presentation.statisticspage.StatisticsPage
 
-//TODO snack bars, refresh box, no logging out, animated transitions
+//TODO refresh, data validation, are you sure pop up
+//TODO notifications, motivation, tasks
 
 @Composable
 fun AppNavHost(
@@ -53,14 +54,14 @@ fun AppNavHost(
         composable(NavigationScreens.CREATE_TASK.name) {
            CreateTaskPage(navController)
         }
+        composable(NavigationScreens.EDIT_TASK.name) {
+            EditTaskPage(navController)
+        }
         composable(NavigationScreens.FORGOT_PASSWORD.name) {
             ForgotPasswordPage(navController)
         }
         composable(NavigationScreens.FRIENDS.name) {
             FriendsPage(navController)
-        }
-        composable(NavigationScreens.MANAGE_FRIENDS.name) {
-            ManageFriendsPage(navController)
         }
         composable(NavigationScreens.MANAGE_TASKS.name) {
             ManageTasksPage(navController)
