@@ -12,7 +12,8 @@ enum class ExceptionText(val text: String){
     UserAlreadyExists("User already exists"),
     BadInput("Bad input"),
     PasswordsDoNotMatch("Passwords do not match"),
-    PasswordMustContain("Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one number")
+    PasswordMustContain("Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one number"),
+    TaskAlreadyExists("Task already exists")
 }
 
 
@@ -44,6 +45,9 @@ fun mapExceptionText(error: String, context: Context):CharSequence{
         }
         ExceptionText.PasswordMustContain.text -> {
             context.getText(R.string.exception_password_is_not_valid)
+        }
+        ExceptionText.TaskAlreadyExists.text -> {
+            context.getText(R.string.exception_task_already_exists)
         }
         else -> {
             context.getText(R.string.exception_unknown)

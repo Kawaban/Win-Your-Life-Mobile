@@ -112,4 +112,12 @@
     <string name="delete_task_description">Usuń zadanie</string>
     <string name="edit_task_description">Edytuj zadanie</string>
     <string name="edit_task_hd">EDYTUJ ZADANIE</string>
+    <string name="exception_task_already_exists">Zadanie już istnieje</string>
+
+    <string name="message_daily_reminder">Nie zapomnij o codziennych zadaniach!</string>
+    <string name="title_daily_reminder">Codzienne przypomnienie</string>
+
+
+
+
 </resources>

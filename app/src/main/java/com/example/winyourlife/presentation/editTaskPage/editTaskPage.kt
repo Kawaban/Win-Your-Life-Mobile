@@ -51,7 +51,7 @@ import java.util.Base64
 fun EditTaskPage(navController: NavHostController, viewModel: EditTaskViewModel = hiltViewModel()) {
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
-        ResponsiveLayout(navController)
+        ResponsiveLayout(navController, viewModel)
     }
     BackHandler {
         viewModel.resetViewModel()
@@ -74,19 +74,19 @@ fun EditTaskPage(navController: NavHostController, viewModel: EditTaskViewModel 
 }
 
 @Composable
-fun ResponsiveLayout(navController: NavHostController) {
+fun ResponsiveLayout(navController: NavHostController, viewModel: EditTaskViewModel) {
     val configuration = LocalConfiguration.current
     val isPortrait = configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT
 
     if (isPortrait) {
-        PortraitLayout(navController)
+        PortraitLayout(navController, viewModel)
     } else {
-        LandscapeLayout(navController)
+        LandscapeLayout(navController, viewModel)
     }
 }
 
 @Composable
-fun LandscapeLayout(navController: NavHostController, viewModel: CreateTaskViewModel = hiltViewModel()) {
+fun LandscapeLayout(navController: NavHostController, viewModel: EditTaskViewModel) {
 
     var taskName by remember {
         mutableStateOf("")
@@ -147,7 +147,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: CreateTaskViewM
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            WhiteOutlinedTextField(taskName, {taskName = it}, stringResource(id = R.string.task_name_label), true)
+            WhiteOutlinedTextField(taskName, {taskName = it}, stringResource(id = R.string.task_name_label), false)
 
             Spacer(modifier = Modifier.height(30.dp))
 
@@ -155,7 +155,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: CreateTaskViewM
 
             OrangeButton({pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))}, stringResource(id = R.string.pick_image_button))
 
-            OrangeButton({viewModel.createTask(taskName, taskImage)}, stringResource(id = R.string.save_task_button))
+            OrangeButton({viewModel.editTask(taskImage, taskName)}, stringResource(id = R.string.save_task_button))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -165,7 +165,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: CreateTaskViewM
 }
 
 @Composable
-fun PortraitLayout(navController: NavHostController, viewModel: CreateTaskViewModel = hiltViewModel()) {
+fun PortraitLayout(navController: NavHostController, viewModel: EditTaskViewModel) {
 
     var taskName by remember {
         mutableStateOf("")
@@ -213,7 +213,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: CreateTaskViewMo
 
         Spacer(modifier = Modifier.weight(1f))
 
-        WhiteOutlinedTextField(taskName, {taskName = it}, stringResource(id = R.string.task_name_label), true)
+        WhiteOutlinedTextField(taskName, {taskName = it}, stringResource(id = R.string.task_name_label), false)
 
         Spacer(modifier = Modifier.height(30.dp))
 
@@ -221,7 +221,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: CreateTaskViewMo
 
         OrangeButton({pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))}, stringResource(id = R.string.pick_image_button))
 
-        OrangeButton({viewModel.createTask(taskName,taskImage)}, stringResource(id = R.string.save_task_button))
+        OrangeButton({viewModel.editTask(taskImage,taskName)}, stringResource(id = R.string.save_task_button))
 
         Spacer(modifier = Modifier.height(30.dp))
 

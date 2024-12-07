@@ -20,13 +20,16 @@ suspend fun <T> performNetworkOperation(
         Resource.Error(e.message ?: ExceptionText.Unknown.text, null)
     } catch (e: InternalServerError){
         println(e.printStackTrace())
+        println("xdd")
         Resource.Error(ExceptionText.InternalServer.text, null)
     }
     catch (e: IOException) {
         println(e.printStackTrace())
+        println("wpp")
         Resource.Error(ExceptionText.Net.text, null)
     } catch (e: Exception) {
         println(e.printStackTrace())
+        println("ahahah")
         Resource.Error(ExceptionText.Unknown.text, null)
     }
 }

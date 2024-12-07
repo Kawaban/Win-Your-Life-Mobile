@@ -102,33 +102,35 @@ fun ResponsiveLayout(viewModel: HomeViewModel, navController: NavHostController)
 @Composable
 fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) {
 
-    val tasks = listOf(
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = true,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        )
-    )
+//    val tasks = listOf(
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = byteArrayOf()
+//        ),
+//        TaskData(
+//            isCompleted = true,
+//            label = "Touch grass",
+//            image = byteArrayOf()
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = byteArrayOf()
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = byteArrayOf()
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = byteArrayOf()
+//        )
+//    )
+
+
 
     val context = LocalContext.current
 
@@ -171,7 +173,7 @@ fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) 
             ) {
                 Spacer(modifier = Modifier.weight(1f))
 
-                TodayTaskList(tasks = tasks, 250)
+                TodayTaskList(tasks = viewModel.currentUser.userData?.activeTasks ?: listOf(), 250, viewModel)
 
                 Spacer(modifier = Modifier.weight(1f))
             }
@@ -237,33 +239,33 @@ fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) 
 @Composable
 fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
 
-    val tasks = listOf(
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = true,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        )
-    )
+//    val tasks = listOf(
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = byteArrayOf()
+//        ),
+//        TaskData(
+//            isCompleted = true,
+//            label = "Touch grass",
+//            image = byteArrayOf()
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = byteArrayOf()
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = byteArrayOf()
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = byteArrayOf()
+//        )
+//    )
 
     val context = LocalContext.current
 
@@ -305,13 +307,13 @@ fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            CustomStreak("26")
+            CustomStreak(viewModel.currentUser.userData?.streak.toString())
 
             Spacer(modifier = Modifier.height(10.dp))
 
             MyHorizontalDivider()
 
-            TodayTaskList(tasks = tasks, 250)
+            TodayTaskList(tasks = viewModel.tasks, 250, viewModel)
 
             Spacer(modifier = Modifier.weight(1f))
 

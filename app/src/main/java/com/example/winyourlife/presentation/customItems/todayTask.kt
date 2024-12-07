@@ -1,5 +1,6 @@
 package com.example.winyourlife.presentation.customItems
 
+import android.graphics.BitmapFactory
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.MaterialTheme
@@ -25,19 +26,24 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.res.painterResource
+import com.example.winyourlife.presentation.homepage.HomeViewModel
 import kotlinx.coroutines.delay
+import java.util.Base64
 
 @Composable
 fun TodayTask(
-    isCompleted: Boolean,
+    isComplete: Boolean,
     label: String,
-    image: Int
+    image: ByteArray,
+    viewModel: HomeViewModel
 ) {
-    var isCompleted by remember { mutableStateOf(isCompleted) }
+
+    var isCompletedx by remember { mutableStateOf(isComplete) }
 
     val backgroundColor by animateColorAsState(
-        targetValue = if (isCompleted) MaterialTheme.colorScheme.primary else  MaterialTheme.colorScheme.secondary
+        targetValue = if (isCompletedx) MaterialTheme.colorScheme.primary else  MaterialTheme.colorScheme.secondary
     )
 
     var targetPadding by remember { mutableStateOf(8.dp) }
@@ -49,7 +55,7 @@ fun TodayTask(
         }
     )
 
-    LaunchedEffect(isCompleted) {
+    LaunchedEffect(isCompletedx) {
         targetPadding = 14.dp
         delay(200)
         targetPadding = 8.dp
@@ -57,7 +63,7 @@ fun TodayTask(
 
     Box(
         modifier = Modifier
-            .clickable { isCompleted = !isCompleted }
+            .clickable { isCompletedx = !isCompletedx;viewModel.setTaskCompletion(label,isCompletedx) }
             .background(color = backgroundColor,
                 shape = RoundedCornerShape(8.dp))
             .border(
@@ -74,9 +80,10 @@ fun TodayTask(
             modifier = Modifier.width(280.dp)
         ) {
             Checkbox(
-                checked = isCompleted,
+                checked = isCompletedx,
                 onCheckedChange = { checked ->
-                    isCompleted = checked
+                    isCompletedx = checked;
+                    viewModel.setTaskCompletion(label,isCompletedx)
                 },
                 colors = CheckboxDefaults.colors(
                     checkmarkColor = MaterialTheme.colorScheme.onBackground,
@@ -84,6 +91,7 @@ fun TodayTask(
                     checkedColor = MaterialTheme.colorScheme.background
                 ),
                 modifier = Modifier.size(24.dp)
+
             )
 
             Text(
@@ -93,13 +101,22 @@ fun TodayTask(
                 modifier = Modifier.padding(start = 8.dp)
             )
 
-            Image(
-                painter = painterResource(id = image),
-                contentDescription = stringResource(id = R.string.task_image_description),
-                modifier = Modifier
-                    .size(40.dp)
-                    .padding(start = 8.dp)
-            )
+            when {
+                image.decodeToString() == Base64.getDecoder().decode("").decodeToString() -> Image(
+                    painter = painterResource(id = R.drawable.avatar),
+                    contentDescription = stringResource(id = R.string.friends_avatar_description),
+                    modifier = Modifier
+                        .size(40.dp)
+                        .padding(8.dp)
+                )
+                else -> Image(
+                    bitmap = BitmapFactory.decodeByteArray(image, 0, image.size).asImageBitmap(),
+                    contentDescription = stringResource(id = R.string.friends_avatar_description),
+                    modifier = Modifier
+                        .size(40.dp)
+                        .padding(8.dp)
+                )
+            }
         }
     }
 }
