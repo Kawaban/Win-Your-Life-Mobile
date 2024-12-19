@@ -10,9 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.winyourlife.presentation.dataObjects.TaskData
+import com.example.winyourlife.presentation.homepage.HomeViewModel
 
 @Composable
-fun TodayTaskList(tasks: List<TaskData>, height: Int) {
+fun TodayTaskList(tasks: List<TaskData>, height: Int, viewModel: HomeViewModel) {
     LazyColumn(
         modifier = Modifier
             .width(316.dp)
@@ -22,9 +23,10 @@ fun TodayTaskList(tasks: List<TaskData>, height: Int) {
     ) {
         items(tasks) { task ->
             TodayTask(
-                isCompleted = task.isCompleted,
+                isComplete = task.isCompleted,
                 label = task.label,
-                image = task.image
+                image = task.image,
+                viewModel = viewModel
             )
         }
     }

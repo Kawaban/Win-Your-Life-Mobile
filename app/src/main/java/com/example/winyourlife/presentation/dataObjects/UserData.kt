@@ -8,5 +8,9 @@ data class UserData(
     var longestStreak: Int,
     var completedTasks: Int,
     val wonDays: Int,
-    val daysIn: Int
+    val daysIn: Int,
+    val allTasks: List<TaskData>,
+    val preparedTasks: MutableList<TaskData>,
+    val activeTasks: List<TaskData>
+
 )

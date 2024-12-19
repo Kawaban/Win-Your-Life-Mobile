@@ -53,33 +53,33 @@ fun ResponsiveLayout(navController: NavHostController) {
 @Composable
 fun LandscapeLayout(navController: NavHostController, viewModel: ManageTasksViewModel = hiltViewModel()) {
 
-    val tasks = listOf(
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = true,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        )
-    )
+//    val tasks = listOf(
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image =
+//        ),
+//        TaskData(
+//            isCompleted = true,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        )
+//    )
 
     Row(
         modifier = Modifier
@@ -94,7 +94,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ManageTasksView
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            EveryTaskList(tasks = tasks, 270)
+            EveryTaskList(tasks = viewModel.currentUser.userData?.allTasks ?: listOf(), 270)
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -121,57 +121,57 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ManageTasksView
 @Composable
 fun PortraitLayout(navController: NavHostController, viewModel: ManageTasksViewModel = hiltViewModel()) {
 
-    val tasks = listOf(
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = true,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = true,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        )
-    )
+//    val tasks = listOf(
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = true,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = true,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        )
+//    )
 
     Column(
         modifier = Modifier
@@ -183,7 +183,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: ManageTasksViewM
 
         Spacer(modifier = Modifier.weight(1f))
 
-        EveryTaskList(tasks, 470)
+        EveryTaskList(viewModel.currentUser.userData?.allTasks ?: listOf(), 470)
 
         Spacer(modifier = Modifier.weight(1f))
 

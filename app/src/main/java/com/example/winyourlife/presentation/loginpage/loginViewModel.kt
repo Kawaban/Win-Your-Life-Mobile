@@ -11,6 +11,7 @@ import com.example.winyourlife.domain.wrapper.Resource
 import com.example.winyourlife.presentation.dataObjects.CurrentUser
 import com.example.winyourlife.presentation.utils.State
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,8 +31,10 @@ class LoginViewModel @Inject constructor(val authenticationService: Authenticati
                 isReady = false,
                 isLoading = true
             )
-
+            println("result.message")
             val result = authenticationService.login(loginRequest)
+            delay(100)
+            println("lol" + result.message)
             state = when (result) {
                 is Resource.Success -> {
                     state.copy(

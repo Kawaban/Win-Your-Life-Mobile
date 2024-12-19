@@ -1,5 +1,6 @@
 package com.example.winyourlife.presentation.customItems
 
+import android.graphics.BitmapFactory
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.MaterialTheme
@@ -19,12 +20,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.res.painterResource
+import java.util.Base64
 
 @Composable
 fun EveryTask(
     label: String,
-    image: Int,
+    image: ByteArray,
     onEdit: () -> Unit,
     onDelete: () -> Unit
 ) {
@@ -59,13 +62,22 @@ fun EveryTask(
                     modifier = Modifier.padding(start = 8.dp)
                 )
 
-                Image(
-                    painter = painterResource(id = image),
-                    contentDescription = stringResource(id = R.string.task_image_description),
-                    modifier = Modifier
-                        .size(40.dp)
-                        .padding(start = 8.dp)
-                )
+                when {
+                    image.decodeToString() == Base64.getDecoder().decode("").decodeToString() -> Image(
+                        painter = painterResource(id = R.drawable.avatar),
+                        contentDescription = stringResource(id = R.string.friends_avatar_description),
+                        modifier = Modifier
+                            .size(40.dp)
+                            .padding(8.dp)
+                    )
+                    else -> Image(
+                        bitmap = BitmapFactory.decodeByteArray(image, 0, image.size).asImageBitmap(),
+                        contentDescription = stringResource(id = R.string.friends_avatar_description),
+                        modifier = Modifier
+                            .size(40.dp)
+                            .padding(8.dp)
+                    )
+                }
             }
         }
 

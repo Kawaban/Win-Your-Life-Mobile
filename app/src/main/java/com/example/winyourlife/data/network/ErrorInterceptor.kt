@@ -19,7 +19,6 @@ class ErrorInterceptor : Interceptor {
             val errorResponse = errorBody?.let {
                 gson.fromJson(it, ErrorResponse::class.java)
             }
-            println(errorResponse)
 
             throw APIException(mapApiException(errorResponse?.error?.message))
         }
@@ -44,6 +43,9 @@ class ErrorInterceptor : Interceptor {
             }
             "Invalid input" -> {
                 ExceptionText.BadInput.text
+            }
+            "Task already exists" -> {
+                ExceptionText.TaskAlreadyExists.text
             }
             else -> {
                 ExceptionText.Unknown.text

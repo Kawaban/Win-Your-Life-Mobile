@@ -1,5 +1,8 @@
 package com.example.winyourlife.presentation
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.Window
@@ -11,6 +14,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
+import com.example.winyourlife.R
+import com.example.winyourlife.data.background.DailyReminderWorker
 import com.example.winyourlife.data.network.JwtManager
 import com.example.winyourlife.presentation.dataObjects.CurrentUser
 import com.example.winyourlife.presentation.navigation.AppNavHost
@@ -20,6 +27,8 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.util.Calendar
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -39,6 +48,43 @@ class MainActivity : ComponentActivity() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
             Language.configureLocaleOnStartForDevicesLowerThanTiramisu(this)
 
+//        createNotificationChannel()
+
+
+//        println("find" + WorkManager.getInstance(this).getWorkInfosByTag("dailyReminder").get())
+//        // check if not created
+//        if(WorkManager.getInstance(this).getWorkInfosByTag("dailyReminder").get().isEmpty()) {
+//
+//            val currentTime = System.currentTimeMillis()
+//            val midnight = Calendar.getInstance().apply {
+//                timeInMillis = currentTime
+//                set(Calendar.HOUR_OF_DAY, 17)
+//                set(Calendar.MINUTE, 32)
+//                set(Calendar.SECOND, 0)
+//                set(Calendar.MILLISECOND, 0)
+//                if (timeInMillis <= currentTime) {
+//                    add(Calendar.DAY_OF_YEAR, 1)
+//                }
+//            }.timeInMillis
+//
+//            val delay = midnight - currentTime
+//
+//            println("Delay:$delay")
+//
+//
+//            val uploadWorker = PeriodicWorkRequest.Builder(
+//                DailyReminderWorker::class.java, 24, TimeUnit.HOURS
+//            )
+//                .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+//                .addTag("dailyReminder")
+//                .build()
+//            WorkManager.getInstance(this).enqueue(uploadWorker)
+//
+//            println("Created worker")
+//        }
+
+
+
         runBlocking{
             launch {
                 jwtManager.setJwtFromCache()
@@ -55,5 +101,20 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    private fun createNotificationChannel() {
+
+            val name = "CHANNEL_NAME"
+            val descriptionText = "CHANNEL_DESCRIPTION"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel("CHANNEL_ID", name, importance).apply {
+                description = descriptionText
+            }
+
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+
     }
 }

@@ -90,4 +90,9 @@ dependencies {
     implementation(libs.dionsegijn.konfetti.compose)
 
     implementation(libs.androidx.media3.exoplayer)
+
+    implementation(libs.androidx.work.manager)
+
+    implementation(libs.androidx.hilt.work)
+
 }

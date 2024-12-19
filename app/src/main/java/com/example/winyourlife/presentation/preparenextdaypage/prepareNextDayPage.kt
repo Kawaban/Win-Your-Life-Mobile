@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -35,6 +36,12 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun PrepareNextDayPage(navController: NavHostController, viewModel: PrepareNextDayViewModel = hiltViewModel()) {
+
+    LaunchedEffect(Unit) {
+        viewModel.initializeList(viewModel.currentUser.userData?.preparedTasks?: listOf())
+    }
+
+
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
         ResponsiveLayout(navController)
@@ -61,33 +68,33 @@ fun ResponsiveLayout(navController: NavHostController) {
 @Composable
 fun LandscapeLayout(navController: NavHostController, viewModel: PrepareNextDayViewModel = hiltViewModel()) {
 
-    val tasks = listOf(
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = true,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        )
-    )
+//    val tasks = listOf(
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = true,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        )
+//    )
 
     Row(
         modifier = Modifier
@@ -102,7 +109,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: PrepareNextDayV
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            TomorrowTaskList(tasks = tasks, 270)
+            TomorrowTaskList(viewModel, 270)
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -142,48 +149,48 @@ fun LandscapeLayout(navController: NavHostController, viewModel: PrepareNextDayV
 @Composable
 fun PortraitLayout(navController: NavHostController, viewModel: PrepareNextDayViewModel = hiltViewModel()) {
 
-    val tasks = listOf(
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = true,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = true,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        ),
-        TaskData(
-            isCompleted = false,
-            label = "Touch grass",
-            image = R.drawable.avatar
-        )
-    )
+//    val tasks = listOf(
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = true,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = true,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        ),
+//        TaskData(
+//            isCompleted = false,
+//            label = "Touch grass",
+//            image = R.drawable.avatar
+//        )
+//    )
 
     Column(
         modifier = Modifier
@@ -207,13 +214,19 @@ fun PortraitLayout(navController: NavHostController, viewModel: PrepareNextDayVi
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        TomorrowTaskList(tasks = tasks, 340)
+//        viewModel.preparedTasks.forEach(){
+//            println(it.label)
+//        }
+
+        TomorrowTaskList(viewModel = viewModel, 340)
 
         Spacer(modifier = Modifier.weight(1f))
 
         MyHorizontalDivider()
 
-        OrangeButton({  }, stringResource(id = R.string.add_task_button))
+        OrangeButton({viewModel.addItem(viewModel.currentUser.userData?.allTasks?.first()?:TaskData("xd",
+            byteArrayOf(),false)
+        )  }, stringResource(id = R.string.add_task_button))
 
         OrangeButton({ navController.navigate(NavigationScreens.MANAGE_TASKS.name) }, stringResource(id = R.string.manage_tasks_button))
 

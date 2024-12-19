@@ -128,7 +128,9 @@
     <string name="exception_user_already_exists">User already exists</string>
     <string name="exception_passwords_not_match">Passwords do not match</string>
     <string name="exception_password_is_not_valid">"Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one number"</string>
+    <string name="exception_task_already_exists">Task already exists</string>
 
-
+    <string name="message_daily_reminder">Don\'t forget to complete your daily tasks!</string>
+    <string name="title_daily_reminder">Daily reminder</string>
 
 </resources>
