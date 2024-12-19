@@ -54,9 +54,14 @@ fun VideoPlayerDialog(
     }
 
     LaunchedEffect(exoPlayer) {
+        var lastPosition = savedPosition
         while (true) {
-            onPlaybackPositionChange(exoPlayer.currentPosition)
-            sharedPreferences.edit().putLong("playback_position", exoPlayer.currentPosition).apply()
+            val currentPosition = exoPlayer.currentPosition
+            if (currentPosition != lastPosition) {
+                onPlaybackPositionChange(currentPosition)
+                sharedPreferences.edit().putLong("playback_position", currentPosition).apply()
+                lastPosition = currentPosition
+            }
             delay(1000L)
         }
     }

@@ -1,7 +1,5 @@
 package com.example.winyourlife.presentation.motivationpage
 
-import android.content.Context
-import android.media.MediaPlayer
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -32,17 +30,22 @@ import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.customItems.VideoPlayerDialog
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import com.example.winyourlife.presentation.utils.PreferencesManager
 import com.example.winyourlife.presentation.utils.Settings
 import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun MotivationPage(navController: NavHostController, viewModel: MotivationViewModel = hiltViewModel()) {
 
-    val showVideoDialog by viewModel.showVideoDialog
-    val startPlaybackPosition by viewModel.startPlaybackPosition
+    val showVideoDialog by viewModel.showVideoDialog.collectAsState()
+    val startPlaybackPosition by viewModel.startPlaybackPosition.collectAsState()
+    val context = LocalContext.current
+    val preferencesManager = remember { PreferencesManager(context) }
 
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
@@ -51,7 +54,7 @@ fun MotivationPage(navController: NavHostController, viewModel: MotivationViewMo
             showVideoDialog = showVideoDialog,
             startPlaybackPosition = startPlaybackPosition,
             onShowVideoDialogChange = { viewModel.updateShowVideoDialog(it) },
-            onPlaybackPositionChange = { viewModel.updateStartPlaybackPosition(it) }
+            onPlaybackPositionChange = { viewModel.updatePlaybackPosition(it) }
         )
     }
 
@@ -62,6 +65,15 @@ fun MotivationPage(navController: NavHostController, viewModel: MotivationViewMo
 
     LaunchedEffect(Unit) {
         viewModel.randomizeMotivation()
+    }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            viewModel.resetViewModel()
+            if (viewModel.isPlaying()) {
+                viewModel.stopAudio()
+            }
+        }
     }
 }
 
@@ -175,7 +187,7 @@ fun LandscapeLayout(
                     Card(
                         onClick = {
                             randomMotivation?.second?.let { mp3ResId ->
-                                playAudio(context, mp3ResId)
+                                viewModel.playAudio(context, mp3ResId)
                             }
                         },
                         shape = RoundedCornerShape(15.dp),
@@ -203,7 +215,12 @@ fun LandscapeLayout(
                     Spacer(Modifier.width(10.dp))
 
                     Card(
-                        onClick = { onShowVideoDialogChange(true) },
+                        onClick = {
+                            if (viewModel.isPlaying()) {
+                                viewModel.stopAudio()
+                            }
+                            onShowVideoDialogChange(true)
+                        },
                         shape = RoundedCornerShape(15.dp),
                         modifier = Modifier.size(60.dp)
                     ) {
@@ -241,7 +258,9 @@ fun LandscapeLayout(
             width = 720,
             height = 250,
             startPlaybackPosition = startPlaybackPosition,
-            onPlaybackPositionChange = onPlaybackPositionChange,
+            onPlaybackPositionChange = { newPosition ->
+                viewModel.updatePlaybackPosition(newPosition)
+            },
             onDismiss = {
                 onShowVideoDialogChange(false)
                 onPlaybackPositionChange(0L)
@@ -311,7 +330,7 @@ fun PortraitLayout(
                 Card(
                     onClick = {
                         randomMotivation?.second?.let { mp3ResId ->
-                            playAudio(context, mp3ResId)
+                            viewModel.playAudio(context, mp3ResId)
                         }
                     },
                     shape = RoundedCornerShape(15.dp),
@@ -334,7 +353,12 @@ fun PortraitLayout(
                 }
 
                 Card(
-                    onClick = { onShowVideoDialogChange(true) },
+                    onClick = {
+                        if (viewModel.isPlaying()) {
+                            viewModel.stopAudio()
+                        }
+                        onShowVideoDialogChange(true)
+                    },
                     shape = RoundedCornerShape(15.dp),
                     modifier = Modifier.size(60.dp)
                 ) {
@@ -364,16 +388,12 @@ fun PortraitLayout(
             width = 420,
             height = 250,
             startPlaybackPosition = startPlaybackPosition,
-            onPlaybackPositionChange = onPlaybackPositionChange,
-            onDismiss = {
+            onPlaybackPositionChange = { newPosition ->
+                viewModel.updatePlaybackPosition(newPosition)
+            },onDismiss = {
                 onShowVideoDialogChange(false)
                 onPlaybackPositionChange(0L)
             }
         )
     }
-}
-
-fun playAudio(context: Context, audioResId: Int) {
-    val mediaPlayer = MediaPlayer.create(context, audioResId)
-    mediaPlayer.start()
 }
