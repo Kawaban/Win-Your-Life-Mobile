@@ -119,11 +119,6 @@ class HomeViewModel @Inject constructor(val userService: UserService, val curren
         tasks.find { it.label == taskName }?.isCompleted = status
 
         currentUser.userData?.activeTasks?.find { it.label == taskName }?.isCompleted = status
-    }
-
-
-    override fun resetViewModel () {
-        state = State()
 
         viewModelScope.launch {
             val result = currentUser.userData?.activeTasks?.map{mapTaskDataToTaskCompletion(it)}
@@ -136,7 +131,11 @@ class HomeViewModel @Inject constructor(val userService: UserService, val curren
             taskService.completeTasks(result?: listOf())
 
         }
+    }
 
+
+    override fun resetViewModel () {
+        state = State()
 
     }
 

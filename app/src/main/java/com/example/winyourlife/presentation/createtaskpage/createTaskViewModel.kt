@@ -9,6 +9,7 @@ import com.example.winyourlife.data.dto.CreateTaskRequest
 import com.example.winyourlife.domain.TaskService
 import com.example.winyourlife.domain.wrapper.Resource
 import com.example.winyourlife.presentation.dataObjects.CurrentUser
+import com.example.winyourlife.presentation.dataObjects.TaskData
 import com.example.winyourlife.presentation.utils.ImageEncoder
 import com.example.winyourlife.presentation.utils.State
 import com.example.winyourlife.presentation.utils.ViewModelCustomInterface
@@ -47,6 +48,8 @@ class CreateTaskViewModel @Inject constructor(val currentUser: CurrentUser, val 
                     )
                 }
             }
+            currentUser.userData?.allTasks?.add(TaskData(taskName, taskImage,false))
+
         }
 
     }

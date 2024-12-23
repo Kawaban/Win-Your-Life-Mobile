@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
-import com.example.winyourlife.R
 import com.example.winyourlife.data.background.DailyReminderWorker
 import com.example.winyourlife.data.network.JwtManager
 import com.example.winyourlife.presentation.dataObjects.CurrentUser
@@ -48,39 +47,37 @@ class MainActivity : ComponentActivity() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
             Language.configureLocaleOnStartForDevicesLowerThanTiramisu(this)
 
-//        createNotificationChannel()
+        createNotificationChannel()
 
 
 //        println("find" + WorkManager.getInstance(this).getWorkInfosByTag("dailyReminder").get())
-//        // check if not created
+        // check if not created
 //        if(WorkManager.getInstance(this).getWorkInfosByTag("dailyReminder").get().isEmpty()) {
-//
-//            val currentTime = System.currentTimeMillis()
-//            val midnight = Calendar.getInstance().apply {
-//                timeInMillis = currentTime
-//                set(Calendar.HOUR_OF_DAY, 17)
-//                set(Calendar.MINUTE, 32)
-//                set(Calendar.SECOND, 0)
-//                set(Calendar.MILLISECOND, 0)
-//                if (timeInMillis <= currentTime) {
-//                    add(Calendar.DAY_OF_YEAR, 1)
-//                }
-//            }.timeInMillis
-//
-//            val delay = midnight - currentTime
-//
-//            println("Delay:$delay")
-//
-//
-//            val uploadWorker = PeriodicWorkRequest.Builder(
-//                DailyReminderWorker::class.java, 24, TimeUnit.HOURS
-//            )
-//                .setInitialDelay(delay, TimeUnit.MILLISECONDS)
-//                .addTag("dailyReminder")
-//                .build()
-//            WorkManager.getInstance(this).enqueue(uploadWorker)
-//
-//            println("Created worker")
+
+            val currentTime = System.currentTimeMillis()
+            val midnight = Calendar.getInstance().apply {
+                timeInMillis = currentTime
+                set(Calendar.HOUR_OF_DAY, 22)
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
+                if (timeInMillis <= currentTime) {
+                    add(Calendar.DAY_OF_YEAR, 1)
+                }
+            }.timeInMillis
+
+            val delay = midnight - currentTime
+
+
+            val uploadWorker = PeriodicWorkRequest.Builder(
+                DailyReminderWorker::class.java, 24, TimeUnit.HOURS
+            )
+                .setInitialDelay(20000, TimeUnit.MILLISECONDS)
+                .addTag("dailyReminder")
+                .build()
+            WorkManager.getInstance(this).enqueue(uploadWorker)
+
+            println("Created worker")
 //        }
 
 

@@ -9,7 +9,7 @@ data class UserData(
     var completedTasks: Int,
     val wonDays: Int,
     val daysIn: Int,
-    val allTasks: List<TaskData>,
+    val allTasks: MutableList<TaskData>,
     val preparedTasks: MutableList<TaskData>,
     val activeTasks: List<TaskData>
 

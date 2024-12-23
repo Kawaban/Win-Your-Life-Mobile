@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.winyourlife"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.winyourlife"
@@ -91,8 +91,10 @@ dependencies {
 
     implementation(libs.androidx.media3.exoplayer)
 
-    implementation(libs.androidx.work.manager)
+    implementation(libs.androidx.work)
 
     implementation(libs.androidx.hilt.work)
+
+//    implementation(libs.startup.android)
 
 }

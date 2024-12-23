@@ -3,19 +3,27 @@ package com.example.winyourlife
 import android.app.Application
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
+import androidx.work.WorkManager
+import com.example.winyourlife.data.background.CustomWorkerFactory
 import dagger.Provides
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
 @HiltAndroidApp
-class WinYourLifeApplication: Application(), Configuration.Provider{
+class WinYourLifeApplication() : Application(), Configuration.Provider {
 
     @Inject
-    lateinit var workerFactory : HiltWorkerFactory
+    lateinit var workerFactory: CustomWorkerFactory
 
-    override fun getWorkManagerConfiguration(): Configuration {
-        return Configuration.Builder()
-            .setWorkerFactory(workerFactory)
-            .build()
+    override val workManagerConfiguration: Configuration
+        get() = Configuration.Builder()
+                .setWorkerFactory(workerFactory)
+                .build()
+
+
+    override fun onCreate() {
+        super.onCreate()
+
+        WorkManager.initialize(this, workManagerConfiguration)
     }
 }

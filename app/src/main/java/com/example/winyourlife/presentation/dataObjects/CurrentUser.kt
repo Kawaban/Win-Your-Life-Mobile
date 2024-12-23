@@ -22,7 +22,14 @@ class CurrentUser @Inject constructor(val userPreferencesRepository: UserPrefere
     }
     suspend fun setSettings(){
         for(setting in Settings.entries){
-            this.mapOfSettings[setting.name] = userPreferencesRepository.getParameter(setting.name).getOrNull()
+            val result = userPreferencesRepository.getParameter(setting.name).getOrNull()
+            this.mapOfSettings[setting.name] = result
+
+//            println("Setting: ${setting.name} Value: $result")
+            if(setting.name == Settings.IS_DAILY_REMINDER.name && result == null)
+//                println("gege")
+                userPreferencesRepository.setParameter(setting.name, "true")
+                userPreferencesRepository.setParameter("isCompleted", "false")
         }
     }
 }
