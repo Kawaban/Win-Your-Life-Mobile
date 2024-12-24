@@ -22,14 +22,14 @@ import com.example.winyourlife.presentation.resetpasswordpage.ResetPasswordPage
 import com.example.winyourlife.presentation.settingspage.SettingsPage
 import com.example.winyourlife.presentation.statisticspage.StatisticsPage
 
-//TODO refresh, data validation, are you sure pop up
-//TODO notifications, motivation, tasks
+//TODO refresh, are_you_sure pop up
+//TODO tasks
 
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    startDestination: String = NavigationScreens.HOME.name,
+    startDestination: String = NavigationScreens.HOME.name
 ) {
     NavHost(
         modifier = modifier,

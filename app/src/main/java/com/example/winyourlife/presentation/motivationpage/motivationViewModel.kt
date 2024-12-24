@@ -5,7 +5,6 @@ import android.media.MediaPlayer
 import androidx.lifecycle.ViewModel
 import com.example.winyourlife.R
 import com.example.winyourlife.presentation.dataObjects.CurrentUser
-import com.example.winyourlife.presentation.utils.PreferencesManager
 import com.example.winyourlife.presentation.utils.ViewModelCustomInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,19 +13,17 @@ import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
-class MotivationViewModel @Inject constructor(val currentUser: CurrentUser,
-                                              private val preferencesManager: PreferencesManager
-) : ViewModel(), ViewModelCustomInterface {
+class MotivationViewModel @Inject constructor(val currentUser: CurrentUser) : ViewModel(), ViewModelCustomInterface {
 
-    private val _startPlaybackPosition = MutableStateFlow(0L)
-    val startPlaybackPosition: StateFlow<Long> = _startPlaybackPosition
+    private var _counter: Int = 0
 
     private val _randomMotivation = MutableStateFlow<Pair<Int, Int>?>(null)
-    val randomMotivation: StateFlow<Pair<Int, Int>?> = _randomMotivation
 
-    private val _showVideoDialog = MutableStateFlow(false)
-    val showVideoDialog: StateFlow<Boolean> = _showVideoDialog
+    private var _showVideoDialogState = MutableStateFlow(false)
+    val showVideoDialogState: StateFlow<Boolean> = _showVideoDialogState
 
+    private val _playbackPosition = MutableStateFlow(0L)
+    val playbackPosition: StateFlow<Long> = _playbackPosition
 
     private val stringList = listOf(
         R.string.motivation1, R.string.motivation2, R.string.motivation3,
@@ -49,7 +46,7 @@ class MotivationViewModel @Inject constructor(val currentUser: CurrentUser,
 
     private var mediaPlayer: MediaPlayer? = null
 
-    fun randomizeMotivation() {
+    private fun randomizeMotivation() {
         val currentLanguage = Locale.getDefault().language
         val mp3List = mp3Resources[currentLanguage] ?: mp3Resources["en"]
 
@@ -88,16 +85,26 @@ class MotivationViewModel @Inject constructor(val currentUser: CurrentUser,
         if (isPlaying()) {
             stopAudio()
         }
-        _showVideoDialog.value = false
-        _startPlaybackPosition.value = 0L
+
+        _playbackPosition.value = 0L
+        _showVideoDialogState.value = false
     }
 
     fun updateShowVideoDialog(value: Boolean) {
-        _showVideoDialog.value = value
+        _showVideoDialogState.value = value
     }
 
     fun updatePlaybackPosition(position: Long) {
-        _startPlaybackPosition.value = position
-        preferencesManager.savePlaybackPosition(position)
+        _playbackPosition.value = position
+    }
+
+    fun getRandomMotivation(): Pair<Int, Int>? {
+        
+        if (_counter == 0) {
+            randomizeMotivation()
+            _counter++
+        }
+
+        return _randomMotivation.value
     }
 }

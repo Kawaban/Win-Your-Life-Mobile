@@ -11,7 +11,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -30,31 +29,24 @@ import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.customItems.VideoPlayerDialog
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalContext
-import com.example.winyourlife.presentation.utils.PreferencesManager
 import com.example.winyourlife.presentation.utils.Settings
 import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun MotivationPage(navController: NavHostController, viewModel: MotivationViewModel = hiltViewModel()) {
 
-    val showVideoDialog by viewModel.showVideoDialog.collectAsState()
-    val startPlaybackPosition by viewModel.startPlaybackPosition.collectAsState()
-    val context = LocalContext.current
-    val preferencesManager = remember { PreferencesManager(context) }
+    val randomMotivation = rememberSaveable {mutableStateOf<Pair<Int, Int>?>(null)}
 
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
         ResponsiveLayout(
             navController = navController,
-            showVideoDialog = showVideoDialog,
-            startPlaybackPosition = startPlaybackPosition,
-            onShowVideoDialogChange = { viewModel.updateShowVideoDialog(it) },
-            onPlaybackPositionChange = { viewModel.updatePlaybackPosition(it) }
+            randomMotivation = randomMotivation.value
         )
     }
 
@@ -64,26 +56,14 @@ fun MotivationPage(navController: NavHostController, viewModel: MotivationViewMo
     }
 
     LaunchedEffect(Unit) {
-        viewModel.randomizeMotivation()
-    }
-
-    DisposableEffect(Unit) {
-        onDispose {
-            viewModel.resetViewModel()
-            if (viewModel.isPlaying()) {
-                viewModel.stopAudio()
-            }
-        }
+        randomMotivation.value = viewModel.getRandomMotivation()
     }
 }
 
 @Composable
 fun ResponsiveLayout(
     navController: NavHostController,
-    showVideoDialog: Boolean,
-    startPlaybackPosition: Long,
-    onShowVideoDialogChange: (Boolean) -> Unit,
-    onPlaybackPositionChange: (Long) -> Unit
+    randomMotivation:  Pair<Int, Int>?
 ) {
     val configuration = LocalConfiguration.current
     val isPortrait = configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT
@@ -91,18 +71,12 @@ fun ResponsiveLayout(
     if (isPortrait) {
         PortraitLayout(
             navController = navController,
-            showVideoDialog = showVideoDialog,
-            startPlaybackPosition = startPlaybackPosition,
-            onShowVideoDialogChange = onShowVideoDialogChange,
-            onPlaybackPositionChange = onPlaybackPositionChange
+            randomMotivation = randomMotivation
         )
     } else {
         LandscapeLayout(
             navController = navController,
-            showVideoDialog = showVideoDialog,
-            startPlaybackPosition = startPlaybackPosition,
-            onShowVideoDialogChange = onShowVideoDialogChange,
-            onPlaybackPositionChange = onPlaybackPositionChange
+            randomMotivation = randomMotivation
         )
     }
 }
@@ -111,13 +85,15 @@ fun ResponsiveLayout(
 fun LandscapeLayout(
     navController: NavHostController,
     viewModel: MotivationViewModel = hiltViewModel(),
-    showVideoDialog: Boolean,
-    startPlaybackPosition: Long,
-    onShowVideoDialogChange: (Boolean) -> Unit,
-    onPlaybackPositionChange: (Long) -> Unit
+    randomMotivation: Pair<Int, Int>?
 ) {
     val context = LocalContext.current
-    val randomMotivation by viewModel.randomMotivation.collectAsState()
+
+    val showDialogState = viewModel.showVideoDialogState.collectAsState(initial = false)
+    val showDialog = showDialogState.value
+
+    val playbackPositionState = viewModel.playbackPosition.collectAsState(initial = 0L)
+    val playbackPosition = playbackPositionState.value
 
     Row(
         modifier = Modifier
@@ -219,7 +195,7 @@ fun LandscapeLayout(
                             if (viewModel.isPlaying()) {
                                 viewModel.stopAudio()
                             }
-                            onShowVideoDialogChange(true)
+                            viewModel.updateShowVideoDialog(true)
                         },
                         shape = RoundedCornerShape(15.dp),
                         modifier = Modifier.size(60.dp)
@@ -253,17 +229,17 @@ fun LandscapeLayout(
         SideNavigationBar(navController, viewModel)
     }
 
-    if (showVideoDialog) {
+    if (showDialog) {
         VideoPlayerDialog(
-            width = 720,
+            width = 420,
             height = 250,
-            startPlaybackPosition = startPlaybackPosition,
+            startPlaybackPosition = playbackPosition,
             onPlaybackPositionChange = { newPosition ->
                 viewModel.updatePlaybackPosition(newPosition)
             },
             onDismiss = {
-                onShowVideoDialogChange(false)
-                onPlaybackPositionChange(0L)
+                viewModel.updateShowVideoDialog(false)
+                viewModel.updatePlaybackPosition(0L)
             }
         )
     }
@@ -273,14 +249,16 @@ fun LandscapeLayout(
 fun PortraitLayout(
     navController: NavHostController,
     viewModel: MotivationViewModel = hiltViewModel(),
-    showVideoDialog: Boolean,
-    startPlaybackPosition: Long,
-    onShowVideoDialogChange: (Boolean) -> Unit,
-    onPlaybackPositionChange: (Long) -> Unit
+    randomMotivation: Pair<Int, Int>?
 ) {
 
     val context = LocalContext.current
-    val randomMotivation by viewModel.randomMotivation.collectAsState()
+
+    val showDialogState = viewModel.showVideoDialogState.collectAsState(initial = false)
+    val showDialog = showDialogState.value
+
+    val playbackPositionState = viewModel.playbackPosition.collectAsState(initial = 0L)
+    val playbackPosition = playbackPositionState.value
 
     Column(
         modifier = Modifier
@@ -357,7 +335,7 @@ fun PortraitLayout(
                         if (viewModel.isPlaying()) {
                             viewModel.stopAudio()
                         }
-                        onShowVideoDialogChange(true)
+                        viewModel.updateShowVideoDialog(true)
                     },
                     shape = RoundedCornerShape(15.dp),
                     modifier = Modifier.size(60.dp)
@@ -383,16 +361,17 @@ fun PortraitLayout(
         BottomNavigationBar(navController, viewModel)
     }
 
-    if (showVideoDialog) {
+    if (showDialog) {
         VideoPlayerDialog(
             width = 420,
             height = 250,
-            startPlaybackPosition = startPlaybackPosition,
+            startPlaybackPosition = playbackPosition,
             onPlaybackPositionChange = { newPosition ->
                 viewModel.updatePlaybackPosition(newPosition)
-            },onDismiss = {
-                onShowVideoDialogChange(false)
-                onPlaybackPositionChange(0L)
+            },
+            onDismiss = {
+                viewModel.updateShowVideoDialog(false)
+                viewModel.updatePlaybackPosition(0L)
             }
         )
     }

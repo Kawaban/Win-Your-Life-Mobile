@@ -1,6 +1,5 @@
 package com.example.winyourlife.presentation.customItems
 
-import android.content.Context
 import android.net.Uri
 import androidx.annotation.OptIn
 import androidx.compose.foundation.BorderStroke
@@ -38,8 +37,6 @@ fun VideoPlayerDialog(
     onDismiss: () -> Unit
 ) {
     val context = LocalContext.current
-    val sharedPreferences = context.getSharedPreferences("video_player_prefs", Context.MODE_PRIVATE)
-    val savedPosition = sharedPreferences.getLong("playback_position", startPlaybackPosition)
 
     val exoPlayer = remember {
         ExoPlayer.Builder(context).build().apply {
@@ -47,19 +44,18 @@ fun VideoPlayerDialog(
                 Uri.parse("android.resource://" + context.packageName + "/" + R.raw.one_chance)
             )
             setMediaItem(mediaItem)
-            seekTo(savedPosition)
+            seekTo(startPlaybackPosition)
             prepare()
             playWhenReady = true
         }
     }
 
     LaunchedEffect(exoPlayer) {
-        var lastPosition = savedPosition
+        var lastPosition = startPlaybackPosition
         while (true) {
             val currentPosition = exoPlayer.currentPosition
             if (currentPosition != lastPosition) {
                 onPlaybackPositionChange(currentPosition)
-                sharedPreferences.edit().putLong("playback_position", currentPosition).apply()
                 lastPosition = currentPosition
             }
             delay(1000L)
@@ -67,7 +63,6 @@ fun VideoPlayerDialog(
     }
 
     Dialog(onDismissRequest = {
-        sharedPreferences.edit().putLong("playback_position", exoPlayer.currentPosition).apply()
         onDismiss()
     }) {
         Card(
@@ -97,7 +92,6 @@ fun VideoPlayerDialog(
 
             DisposableEffect(exoPlayer) {
                 onDispose {
-                    sharedPreferences.edit().putLong("playback_position", exoPlayer.currentPosition).apply()
                     exoPlayer.release()
                 }
             }
