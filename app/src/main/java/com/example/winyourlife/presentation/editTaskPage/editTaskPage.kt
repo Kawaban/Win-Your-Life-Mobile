@@ -33,7 +33,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.R
-import com.example.winyourlife.presentation.createtaskpage.CreateTaskViewModel
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
 import com.example.winyourlife.presentation.customItems.Headline
 import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
@@ -49,18 +48,22 @@ import java.util.Base64
 
 @Composable
 fun EditTaskPage(navController: NavHostController, viewModel: EditTaskViewModel = hiltViewModel()) {
+
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
         ResponsiveLayout(navController, viewModel)
     }
+
     BackHandler {
         viewModel.resetViewModel()
         navController.popBackStack()
     }
+
     val context = LocalContext.current
-    when(viewModel.state.isReady){
+
+    when (viewModel.state.isReady) {
         true -> {
-            when(viewModel.state.error != null){
+            when (viewModel.state.error != null) {
                 true -> {
                     Toast.makeText(context, mapExceptionText(viewModel.state.error!!, context), Toast.LENGTH_SHORT).show()
                 }
@@ -93,7 +96,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: EditTaskViewMod
     }
 
     var taskImage by remember {
-        mutableStateOf<ByteArray>("".toByteArray())
+        mutableStateOf("".toByteArray())
     }
 
     val context = LocalContext.current
@@ -172,7 +175,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: EditTaskViewMode
     }
 
     var taskImage by remember {
-        mutableStateOf<ByteArray>("".toByteArray())
+        mutableStateOf("".toByteArray())
     }
 
     val context = LocalContext.current

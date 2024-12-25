@@ -57,13 +57,15 @@ fun CreateTaskPage(navController: NavHostController, viewModel: CreateTaskViewMo
         navController.popBackStack()
     }
     val context = LocalContext.current
-    when(viewModel.state.isReady){
+    when (viewModel.state.isReady) {
         true -> {
-            when(viewModel.state.error != null){
+            when (viewModel.state.error != null) {
                 true -> {
                     Toast.makeText(context, mapExceptionText(viewModel.state.error!!, context), Toast.LENGTH_SHORT).show()
                 }
                 false -> {
+                    viewModel.resetViewModel()
+                    navController.popBackStack()
                     Toast.makeText(context,stringResource(id = R.string.task_created_snack), Toast.LENGTH_SHORT).show()
                 }
             }
@@ -92,7 +94,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: CreateTaskViewM
     }
 
     var taskImage by remember {
-        mutableStateOf<ByteArray>("".toByteArray())
+        mutableStateOf("".toByteArray())
     }
 
     val context = LocalContext.current
@@ -119,15 +121,15 @@ fun LandscapeLayout(navController: NavHostController, viewModel: CreateTaskViewM
 
             when {
                 taskImage.decodeToString() == Base64.getDecoder().decode("").decodeToString() -> Image(
-                    painter = painterResource(id = R.drawable.avatar),
-                    contentDescription = stringResource(id = R.string.user_avatar_description),
+                    painter = painterResource(id = R.drawable.task),
+                    contentDescription = stringResource(id = R.string.task_image_description),
                     modifier = Modifier
                         .size(128.dp)
                         .padding(16.dp)
                 )
                 else -> Image(
                     bitmap = BitmapFactory.decodeByteArray(taskImage, 0, taskImage.size).asImageBitmap(),
-                    contentDescription = stringResource(id = R.string.user_avatar_description),
+                    contentDescription = stringResource(id = R.string.task_image_description),
                     modifier = Modifier
                         .size(128.dp)
                         .padding(16.dp)
@@ -171,7 +173,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: CreateTaskViewMo
     }
 
     var taskImage by remember {
-        mutableStateOf<ByteArray>("".toByteArray())
+        mutableStateOf("".toByteArray())
     }
 
     val context = LocalContext.current
@@ -195,15 +197,15 @@ fun PortraitLayout(navController: NavHostController, viewModel: CreateTaskViewMo
 
         when {
             taskImage.decodeToString() == Base64.getDecoder().decode("").decodeToString() -> Image(
-                painter = painterResource(id = R.drawable.avatar),
-                contentDescription = stringResource(id = R.string.user_avatar_description),
+                painter = painterResource(id = R.drawable.task),
+                contentDescription = stringResource(id = R.string.task_image_description),
                 modifier = Modifier
                     .size(128.dp)
                     .padding(16.dp)
             )
             else -> Image(
                 bitmap = BitmapFactory.decodeByteArray(taskImage, 0, taskImage.size).asImageBitmap(),
-                contentDescription = stringResource(id = R.string.user_avatar_description),
+                contentDescription = stringResource(id = R.string.task_image_description),
                 modifier = Modifier
                     .size(128.dp)
                     .padding(16.dp)

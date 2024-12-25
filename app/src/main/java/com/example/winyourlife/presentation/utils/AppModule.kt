@@ -17,7 +17,7 @@ object AppModule {
     }
 
     @Provides
-    fun providePreferencesManager(context: Context): PreferencesManager {
-        return PreferencesManager(context)
+    fun providePreferencesManager(): PreferencesManager {
+        return PreferencesManager()
     }
 }

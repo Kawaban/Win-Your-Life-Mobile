@@ -18,6 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EditTaskViewModel @Inject constructor(val currentUser: CurrentUser, val taskService: TaskService) : ViewModel(), ViewModelCustomInterface {
+
     override fun resetViewModel() {
         state = State()
     }
@@ -47,13 +48,11 @@ class EditTaskViewModel @Inject constructor(val currentUser: CurrentUser, val ta
                 }
             }
 
-            if(result is Resource.Success){
+            if (result is Resource.Success) {
                 currentUser.userData?.allTasks?.find { it.label == taskName }?.image = taskImage
                 currentUser.userData?.activeTasks?.find { it.label == taskName }?.image = taskImage
                 currentUser.userData?.preparedTasks?.find { it.label == taskName }?.image = taskImage
             }
-
         }
-
     }
 }
