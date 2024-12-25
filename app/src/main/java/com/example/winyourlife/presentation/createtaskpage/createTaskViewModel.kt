@@ -19,6 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CreateTaskViewModel @Inject constructor(val currentUser: CurrentUser, val taskService: TaskService) : ViewModel(), ViewModelCustomInterface {
+
     override fun resetViewModel() {
         state = State()
     }
@@ -27,14 +28,18 @@ class CreateTaskViewModel @Inject constructor(val currentUser: CurrentUser, val 
 
     fun createTask(taskName: String, taskImage: ByteArray) {
         viewModelScope.launch {
+
             val task = CreateTaskRequest(taskName, ImageEncoder().encodeImageToString(taskImage))
+
             state = state.copy(
                 isLoading = true,
                 isReady = false
             )
+
             val result = taskService.createTask(task)
-            state = when(result){
-                is Resource.Success ->{
+
+            state = when (result) {
+                is Resource.Success -> {
                     state.copy(
                         isLoading = false,
                         isReady = true
@@ -49,9 +54,6 @@ class CreateTaskViewModel @Inject constructor(val currentUser: CurrentUser, val 
                 }
             }
             currentUser.userData?.allTasks?.add(TaskData(taskName, taskImage,false))
-
         }
-
     }
-
 }

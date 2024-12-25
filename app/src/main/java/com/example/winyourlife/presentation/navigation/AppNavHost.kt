@@ -3,8 +3,10 @@ package com.example.winyourlife.presentation.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.winyourlife.presentation.addfriendpage.AddFriendPage
 import com.example.winyourlife.presentation.createtaskpage.CreateTaskPage
 import com.example.winyourlife.presentation.editTaskPage.EditTaskPage
@@ -57,6 +59,13 @@ fun AppNavHost(
         composable(NavigationScreens.EDIT_TASK.name) {
             EditTaskPage(navController)
         }
+//        composable(
+//            NavigationScreens.EDIT_TASK.name + "/{index}",
+//            arguments = listOf(navArgument("index") { type = NavType.IntType })
+//        ) { backStackEntry ->
+//            val taskIndex = backStackEntry.arguments?.getInt("index") ?: -1
+//            EditTaskPage(navController, taskIndex)
+//        }
         composable(NavigationScreens.FORGOT_PASSWORD.name) {
             ForgotPasswordPage(navController)
         }

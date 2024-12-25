@@ -11,10 +11,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.winyourlife.presentation.managetaskspage.ManageTasksViewModel
+import com.example.winyourlife.presentation.preparenextdaypage.PrepareNextDayViewModel
 
 @Composable
-fun EveryTaskList(viewModel:ManageTasksViewModel, height: Int) {
+fun SelectEveryTaskList(viewModel:PrepareNextDayViewModel, height: Int) {
     val tasks by viewModel.items.collectAsState()
 
     LazyColumn(
@@ -25,11 +25,19 @@ fun EveryTaskList(viewModel:ManageTasksViewModel, height: Int) {
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         itemsIndexed(tasks) { index, task ->
+//            SelectEveryTask(
+//                label = task.label,
+//                image = task.image,
+//                onClick = {
+//                    viewModel.addItem(index)
+//                    viewModel.hideDialog()
+//                }
+//            )
             EveryTask(
                 label = task.label,
                 image = task.image,
-                onEdit = { viewModel.editTask(index) },
-                onDelete = { viewModel.removeTask(index) }
+                onEdit = {},
+                onDelete = {}
             )
         }
     }

@@ -3,32 +3,44 @@ package com.example.winyourlife.presentation.preparenextdaypage
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.R
 import com.example.winyourlife.presentation.customItems.TomorrowTaskList
 import com.example.winyourlife.presentation.navigation.NavigationScreens
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
+import com.example.winyourlife.presentation.customItems.EveryTaskList
 import com.example.winyourlife.presentation.customItems.Headline
 import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
 import com.example.winyourlife.presentation.customItems.MyVerticalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
+import com.example.winyourlife.presentation.customItems.SelectEveryTaskList
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.dataObjects.TaskData
 import com.example.winyourlife.presentation.utils.Settings
@@ -44,11 +56,11 @@ fun PrepareNextDayPage(navController: NavHostController, viewModel: PrepareNextD
         viewModel.initializeList(viewModel.currentUser.userData?.preparedTasks?: listOf())
     }
 
-
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
         ResponsiveLayout(navController)
     }
+
     BackHandler {
         viewModel.resetViewModel()
         navController.popBackStack()
@@ -71,33 +83,7 @@ fun ResponsiveLayout(navController: NavHostController) {
 @Composable
 fun LandscapeLayout(navController: NavHostController, viewModel: PrepareNextDayViewModel = hiltViewModel()) {
 
-//    val tasks = listOf(
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = true,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        )
-//    )
+    val showDialog by viewModel.showDialog.collectAsState()
 
     Row(
         modifier = Modifier
@@ -138,7 +124,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: PrepareNextDayV
 
             Spacer(modifier = Modifier.height(50.dp))
 
-            OrangeButton({  }, stringResource(id = R.string.add_task_button))
+            OrangeButton( onClick = { viewModel.showDialog() }, stringResource(id = R.string.add_task_button))
 
             OrangeButton({ navController.navigate(NavigationScreens.MANAGE_TASKS.name) }, stringResource(id = R.string.manage_tasks_button))
 
@@ -147,53 +133,29 @@ fun LandscapeLayout(navController: NavHostController, viewModel: PrepareNextDayV
 
         SideNavigationBar(navController, viewModel)
     }
+
+    if (showDialog) {
+        Dialog(
+            onDismissRequest = { viewModel.hideDialog() }
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(width = 400.dp, height = 400.dp)
+                    .padding(16.dp)
+            ) {
+                SelectEveryTaskList(
+                    viewModel = viewModel,
+                    height = 400
+                )
+            }
+        }
+    }
 }
 
 @Composable
 fun PortraitLayout(navController: NavHostController, viewModel: PrepareNextDayViewModel = hiltViewModel()) {
 
-//    val tasks = listOf(
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = true,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = true,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        )
-//    )
+    val showDialog by viewModel.showDialog.collectAsState()
 
     Column(
         modifier = Modifier
@@ -217,24 +179,35 @@ fun PortraitLayout(navController: NavHostController, viewModel: PrepareNextDayVi
 
         Spacer(modifier = Modifier.height(10.dp))
 
-//        viewModel.preparedTasks.forEach(){
-//            println(it.label)
-//        }
-
         TomorrowTaskList(viewModel = viewModel, 340)
 
         Spacer(modifier = Modifier.weight(1f))
 
         MyHorizontalDivider()
 
-        OrangeButton({viewModel.addItem(viewModel.currentUser.userData?.allTasks?.first()?:TaskData("xd",
-            byteArrayOf(),false)
-        )  }, stringResource(id = R.string.add_task_button))
+        OrangeButton( onClick = { viewModel.showDialog() }, stringResource(id = R.string.add_task_button))
 
         OrangeButton({ navController.navigate(NavigationScreens.MANAGE_TASKS.name) }, stringResource(id = R.string.manage_tasks_button))
 
         Spacer(modifier = Modifier.height(30.dp))
 
         BottomNavigationBar(navController, viewModel)
+    }
+
+    if (showDialog) {
+        Dialog(
+            onDismissRequest = { viewModel.hideDialog() }
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(width = 400.dp, height = 600.dp)
+                    .padding(16.dp)
+            ) {
+                SelectEveryTaskList(
+                    viewModel = viewModel,
+                    height = 600
+                )
+            }
+        }
     }
 }

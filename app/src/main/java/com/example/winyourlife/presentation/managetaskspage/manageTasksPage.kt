@@ -1,5 +1,6 @@
 package com.example.winyourlife.presentation.managetaskspage
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -17,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.winyourlife.R
-import com.example.winyourlife.presentation.customItems.TomorrowTaskList
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
 import com.example.winyourlife.presentation.customItems.EveryTaskList
 import com.example.winyourlife.presentation.customItems.Headline
@@ -25,16 +26,25 @@ import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
 import com.example.winyourlife.presentation.customItems.MyVerticalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
-import com.example.winyourlife.presentation.dataObjects.TaskData
 import com.example.winyourlife.presentation.navigation.NavigationScreens
 import com.example.winyourlife.presentation.utils.Settings
 import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun ManageTasksPage(navController: NavHostController, viewModel: ManageTasksViewModel = hiltViewModel()) {
+
+    LaunchedEffect(Unit) {
+        viewModel.initializeList(viewModel.currentUser.userData?.preparedTasks?: listOf())
+    }
+
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
         ResponsiveLayout(navController)
+    }
+
+    BackHandler {
+        viewModel.resetViewModel()
+        navController.popBackStack()
     }
 }
 
@@ -53,34 +63,6 @@ fun ResponsiveLayout(navController: NavHostController) {
 @Composable
 fun LandscapeLayout(navController: NavHostController, viewModel: ManageTasksViewModel = hiltViewModel()) {
 
-//    val tasks = listOf(
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image =
-//        ),
-//        TaskData(
-//            isCompleted = true,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        )
-//    )
-
     Row(
         modifier = Modifier
             .fillMaxSize()
@@ -94,7 +76,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ManageTasksView
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            EveryTaskList(tasks = viewModel.currentUser.userData?.allTasks ?: listOf(), 270)
+            EveryTaskList(viewModel, 270)
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -121,58 +103,6 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ManageTasksView
 @Composable
 fun PortraitLayout(navController: NavHostController, viewModel: ManageTasksViewModel = hiltViewModel()) {
 
-//    val tasks = listOf(
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = true,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = true,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = R.drawable.avatar
-//        )
-//    )
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -183,7 +113,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: ManageTasksViewM
 
         Spacer(modifier = Modifier.weight(1f))
 
-        EveryTaskList(viewModel.currentUser.userData?.allTasks ?: listOf(), 470)
+        EveryTaskList(viewModel, 470)
 
         Spacer(modifier = Modifier.weight(1f))
 

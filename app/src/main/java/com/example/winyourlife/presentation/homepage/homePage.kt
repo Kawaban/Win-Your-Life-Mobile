@@ -28,7 +28,6 @@ import com.example.winyourlife.presentation.customItems.MyHorizontalDivider
 import com.example.winyourlife.presentation.customItems.MyVerticalDivider
 import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
-import com.example.winyourlife.presentation.dataObjects.TaskData
 import com.example.winyourlife.presentation.utilScreens.LoadingScreen
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.DisposableEffect
@@ -50,6 +49,7 @@ import java.util.concurrent.TimeUnit
 
 @Composable
 fun HomePage(navController: NavHostController, viewModel: HomeViewModel = hiltViewModel()) {
+
     BackHandler {
         viewModel.resetViewModel()
         navController.popBackStack()
@@ -102,40 +102,8 @@ fun ResponsiveLayout(viewModel: HomeViewModel, navController: NavHostController)
 @Composable
 fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) {
 
-//    val tasks = listOf(
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = byteArrayOf()
-//        ),
-//        TaskData(
-//            isCompleted = true,
-//            label = "Touch grass",
-//            image = byteArrayOf()
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = byteArrayOf()
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = byteArrayOf()
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = byteArrayOf()
-//        )
-//    )
-
-
-
     val context = LocalContext.current
-
     var mediaPlayer = remember { MediaPlayer.create(context, R.raw.day_won) }
-
     var showConfetti by remember { mutableStateOf(false) }
 
     val konfettiPartyLeft = Party(
@@ -173,7 +141,7 @@ fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) 
             ) {
                 Spacer(modifier = Modifier.weight(1f))
 
-                TodayTaskList(tasks = viewModel.currentUser.userData?.activeTasks ?: listOf(), 250, viewModel)
+                TodayTaskList(viewModel, 250)
 
                 Spacer(modifier = Modifier.weight(1f))
             }
@@ -239,38 +207,8 @@ fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) 
 @Composable
 fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
 
-//    val tasks = listOf(
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = byteArrayOf()
-//        ),
-//        TaskData(
-//            isCompleted = true,
-//            label = "Touch grass",
-//            image = byteArrayOf()
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = byteArrayOf()
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = byteArrayOf()
-//        ),
-//        TaskData(
-//            isCompleted = false,
-//            label = "Touch grass",
-//            image = byteArrayOf()
-//        )
-//    )
-
     val context = LocalContext.current
-
     var mediaPlayer = remember { MediaPlayer.create(context, R.raw.day_won) }
-
     var showConfetti by remember { mutableStateOf(false) }
 
     val konfettiPartyLeft = Party(
@@ -313,7 +251,7 @@ fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
 
             MyHorizontalDivider()
 
-            TodayTaskList(tasks = viewModel.tasks, 250, viewModel)
+            TodayTaskList(viewModel, 250)
 
             Spacer(modifier = Modifier.weight(1f))
 

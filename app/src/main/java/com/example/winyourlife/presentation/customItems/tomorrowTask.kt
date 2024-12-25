@@ -62,15 +62,15 @@ fun TomorrowTask(
 
                 when {
                     image.decodeToString() == Base64.getDecoder().decode("").decodeToString() -> Image(
-                        painter = painterResource(id = R.drawable.avatar),
-                        contentDescription = stringResource(id = R.string.friends_avatar_description),
+                        painter = painterResource(id = R.drawable.task),
+                        contentDescription = stringResource(id = R.string.task_image_description),
                         modifier = Modifier
                             .size(40.dp)
                             .padding(8.dp)
                     )
                     else -> Image(
                         bitmap = BitmapFactory.decodeByteArray(image, 0, image.size).asImageBitmap(),
-                        contentDescription = stringResource(id = R.string.friends_avatar_description),
+                        contentDescription = stringResource(id = R.string.task_image_description),
                         modifier = Modifier
                             .size(40.dp)
                             .padding(8.dp)
