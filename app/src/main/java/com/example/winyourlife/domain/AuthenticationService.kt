@@ -24,4 +24,10 @@ class AuthenticationService @Inject constructor(private val apiService: ApiServi
             apiService.register(registerRequest)
         }
     }
+
+    suspend fun remindPassword(email: String): Resource<Unit> {
+        return performNetworkOperation {
+            apiService.remindPassword(email)
+        }
+    }
 }

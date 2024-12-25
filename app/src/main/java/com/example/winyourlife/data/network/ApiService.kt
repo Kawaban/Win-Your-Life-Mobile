@@ -23,6 +23,7 @@ import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface ApiService {
     @POST("api/auth/login")
@@ -78,6 +79,9 @@ interface ApiService {
 
     @DELETE("api/users/friends")
     suspend fun deleteFriend(@Body friendDelete: DeleteFriendRequest)
+
+    @GET("api/auth/remind-password/{email}")
+    suspend fun remindPassword(@Path("email") email: String)
 
 
 

@@ -262,7 +262,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: ProfileViewModel
                 stringResource(id = R.string.save_data_button)
         )
 
-        OrangeButton({ viewModel.resetViewModel(); navController.navigate(NavigationScreens.RESET_PASSWORD.name) }, stringResource(id = R.string.change_password_button))
+        OrangeButton({ viewModel.remindPassword() }, stringResource(id = R.string.change_password_button))
 
         Spacer(modifier = Modifier.weight(1f))
 

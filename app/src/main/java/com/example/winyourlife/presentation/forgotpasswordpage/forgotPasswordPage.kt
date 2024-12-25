@@ -23,8 +23,7 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun ForgotPasswordPage(navController: NavHostController, viewModel: ForgotPasswordViewModel = hiltViewModel()) {
-    WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
-        ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
+    WinYourLifeTheme(darkTheme = isSystemInDarkTheme()) {
         ResponsiveLayout(navController)
     }
 }
@@ -75,7 +74,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ForgotPasswordV
 
             WhiteOutlinedTextField(email,{ email = it },stringResource(id = R.string.email_label), true)
 
-            OrangeButton({}, stringResource(id = R.string.send_email_button))
+            OrangeButton({viewModel.remindPassword(email)}, stringResource(id = R.string.send_email_button))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -115,7 +114,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: ForgotPasswordVi
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        OrangeButton({}, stringResource(id = R.string.send_email_button))
+        OrangeButton({viewModel.remindPassword(email)}, stringResource(id = R.string.send_email_button))
 
         Spacer(modifier = Modifier.weight(1f))
     }

@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.winyourlife.data.dto.UserUpdateDataRequest
+import com.example.winyourlife.domain.AuthenticationService
 import com.example.winyourlife.domain.UserService
 import com.example.winyourlife.presentation.utils.State
 import com.example.winyourlife.presentation.utils.ViewModelCustomInterface
@@ -17,7 +18,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(val userService: UserService, val currentUser: CurrentUser) : ViewModel(),
+class ProfileViewModel @Inject constructor(val userService: UserService, val currentUser: CurrentUser, val authenticationService: AuthenticationService) : ViewModel(),
     ViewModelCustomInterface {
 
     var stateUpdateData by mutableStateOf(State<Unit>())
@@ -56,6 +57,12 @@ class ProfileViewModel @Inject constructor(val userService: UserService, val cur
             if (result is com.example.winyourlife.domain.wrapper.Resource.Success){
                 currentUser.updateUserData(email, name, avatar)
             }
+        }
+    }
+
+    fun remindPassword() {
+        viewModelScope.launch {
+            authenticationService.remindPassword(currentUser.userData?.email ?: "")
         }
     }
 

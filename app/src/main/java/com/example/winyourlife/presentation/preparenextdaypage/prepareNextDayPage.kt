@@ -33,9 +33,12 @@ import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.dataObjects.TaskData
 import com.example.winyourlife.presentation.utils.Settings
 import com.example.winyourlife.ui.theme.WinYourLifeTheme
+import kotlinx.coroutines.delay
 
 @Composable
 fun PrepareNextDayPage(navController: NavHostController, viewModel: PrepareNextDayViewModel = hiltViewModel()) {
+
+
 
     LaunchedEffect(Unit) {
         viewModel.initializeList(viewModel.currentUser.userData?.preparedTasks?: listOf())
