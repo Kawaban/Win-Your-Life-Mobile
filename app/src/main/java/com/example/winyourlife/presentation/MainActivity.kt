@@ -26,7 +26,6 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.util.Calendar
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -39,7 +38,6 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var currentUser: CurrentUser
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -49,38 +47,13 @@ class MainActivity : ComponentActivity() {
 
         createNotificationChannel()
 
-
-//        println("find" + WorkManager.getInstance(this).getWorkInfosByTag("dailyReminder").get())
-        // check if not created
-//        if(WorkManager.getInstance(this).getWorkInfosByTag("dailyReminder").get().isEmpty()) {
-
-            val currentTime = System.currentTimeMillis()
-            val midnight = Calendar.getInstance().apply {
-                timeInMillis = currentTime
-                set(Calendar.HOUR_OF_DAY, 22)
-                set(Calendar.MINUTE, 0)
-                set(Calendar.SECOND, 0)
-                set(Calendar.MILLISECOND, 0)
-                if (timeInMillis <= currentTime) {
-                    add(Calendar.DAY_OF_YEAR, 1)
-                }
-            }.timeInMillis
-
-            val delay = midnight - currentTime
-
-
-            val uploadWorker = PeriodicWorkRequest.Builder(
-                DailyReminderWorker::class.java, 24, TimeUnit.HOURS
-            )
-                .setInitialDelay(20000, TimeUnit.MILLISECONDS)
-                .addTag("dailyReminder")
-                .build()
-            WorkManager.getInstance(this).enqueue(uploadWorker)
-
-            println("Created worker")
-//        }
-
-
+        val uploadWorker = PeriodicWorkRequest.Builder(
+            DailyReminderWorker::class.java, 24, TimeUnit.HOURS
+        )
+            .setInitialDelay(20000, TimeUnit.MILLISECONDS)
+            .addTag("dailyReminder")
+            .build()
+        WorkManager.getInstance(this).enqueue(uploadWorker)
 
         runBlocking{
             launch {
@@ -90,11 +63,18 @@ class MainActivity : ComponentActivity() {
         }
 
         enableEdgeToEdge()
+
         setContent {
-            WinYourLifeTheme(darkTheme = currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
-                ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()){
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    AppNavHost(navController = rememberNavController())
+            WinYourLifeTheme(
+                darkTheme = currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
+                    ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()
+            ) {
+                Scaffold(
+                    modifier = Modifier.fillMaxSize()
+                ) { _ ->
+                    AppNavHost(
+                        navController = rememberNavController()
+                    )
                 }
             }
         }
@@ -112,6 +92,5 @@ class MainActivity : ComponentActivity() {
             val notificationManager: NotificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
-
     }
 }

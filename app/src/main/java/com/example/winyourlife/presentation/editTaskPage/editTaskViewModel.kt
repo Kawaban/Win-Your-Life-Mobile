@@ -25,14 +25,35 @@ class EditTaskViewModel @Inject constructor(val currentUser: CurrentUser, val ta
 
     var state by mutableStateOf(State<Unit>())
 
-    fun editTask(taskImage: ByteArray, taskName: String){
+    var taskName = mutableStateOf("")
+        private set
+
+    var taskImage = mutableStateOf(ByteArray(0))
+        private set
+
+    fun updateTaskName(newName: String) {
+        taskName.value = newName
+    }
+
+    fun loadTask(taskIndex: Int) {
+        val task = currentUser.userData?.allTasks?.getOrNull(taskIndex)
+
+        if (task != null) {
+            taskName.value = task.label
+            taskImage.value = task.image
+        }
+    }
+
+    fun editTask(taskImage: ByteArray, taskName: String) {
         viewModelScope.launch {
             state = state.copy(
                 isLoading = true
             )
+            
             val result = taskService.updateTask(TaskUpdate(taskName, ImageEncoder().encodeImageToString(taskImage)))
-            state = when(result){
-                is Resource.Success ->{
+
+            state = when (result) {
+                is Resource.Success -> {
                     state.copy(
                         obj = result,
                         isReady = true,
@@ -48,7 +69,7 @@ class EditTaskViewModel @Inject constructor(val currentUser: CurrentUser, val ta
                 }
             }
 
-            if (result is Resource.Success) {
+            if (result is Resource.Success) {//TODO what if we change label?
                 currentUser.userData?.allTasks?.find { it.label == taskName }?.image = taskImage
                 currentUser.userData?.activeTasks?.find { it.label == taskName }?.image = taskImage
                 currentUser.userData?.preparedTasks?.find { it.label == taskName }?.image = taskImage

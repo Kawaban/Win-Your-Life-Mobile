@@ -1,5 +1,6 @@
 package com.example.winyourlife.presentation.forgotpasswordpage
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
@@ -24,24 +25,28 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 @Composable
 fun ForgotPasswordPage(navController: NavHostController, viewModel: ForgotPasswordViewModel = hiltViewModel()) {
     WinYourLifeTheme(darkTheme = isSystemInDarkTheme()) {
-        ResponsiveLayout(navController)
+        ResponsiveLayout()
+    }
+    BackHandler {
+        viewModel.resetViewModel()
+        navController.popBackStack()
     }
 }
 
 @Composable
-fun ResponsiveLayout(navController: NavHostController) {
+fun ResponsiveLayout() {
     val configuration = LocalConfiguration.current
     val isPortrait = configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT
 
     if (isPortrait) {
-        PortraitLayout(navController)
+        PortraitLayout()
     } else {
-        LandscapeLayout(navController)
+        LandscapeLayout()
     }
 }
 
 @Composable
-fun LandscapeLayout(navController: NavHostController, viewModel: ForgotPasswordViewModel = hiltViewModel()) {
+fun LandscapeLayout(viewModel: ForgotPasswordViewModel = hiltViewModel()) {
 
     var email by remember {
         mutableStateOf("")
@@ -82,7 +87,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ForgotPasswordV
 }
 
 @Composable
-fun PortraitLayout(navController: NavHostController, viewModel: ForgotPasswordViewModel = hiltViewModel()) {
+fun PortraitLayout(viewModel: ForgotPasswordViewModel = hiltViewModel()) {
 
     var email by remember {
         mutableStateOf("")

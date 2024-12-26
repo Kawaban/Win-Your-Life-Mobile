@@ -12,5 +12,4 @@ data class UserData(
     val allTasks: MutableList<TaskData>,
     val preparedTasks: MutableList<TaskData>,
     val activeTasks: List<TaskData>
-
 )

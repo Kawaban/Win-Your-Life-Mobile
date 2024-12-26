@@ -6,17 +6,17 @@ import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import java.util.Base64
 
-
 class ImageEncoder{
     fun encodeImage(image: Uri?, context: Context): ByteArray {
         return try {
-            if(image == null) return ByteArray(0)
+            if (image == null) return ByteArray(0)
 
             val inputStream: InputStream? = context.contentResolver.openInputStream(image)
 
             val outputStream = ByteArrayOutputStream()
             val buffer = ByteArray(1024)
             var bytesRead: Int
+
             while (inputStream?.read(buffer).also { bytesRead = it ?: -1 } != -1) {
                 outputStream.write(buffer, 0, bytesRead)
             }
@@ -34,5 +34,4 @@ class ImageEncoder{
     fun encodeImageToString(image:ByteArray):String{
         return Base64.getEncoder().encodeToString(image)
     }
-
 }

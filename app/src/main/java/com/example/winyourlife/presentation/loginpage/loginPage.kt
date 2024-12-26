@@ -17,10 +17,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -46,21 +42,21 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun LoginPage(navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
-    BackHandler {
-    }
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
+
         val context = LocalContext.current
+
         when (viewModel.state.isReady) {
             true -> {
                 when (viewModel.state.error != null) {
                     true -> {
                         Toast.makeText(context, mapExceptionText(viewModel.state.error!!, context), Toast.LENGTH_SHORT).show()
-                        viewModel.reset()
+                        viewModel.resetViewModel()
                     }
 
                     false -> {
-                        viewModel.reset()
+                        viewModel.resetViewModel()
                         navController.navigate(NavigationScreens.HOME.name)
                     }
                 }
@@ -79,6 +75,10 @@ fun LoginPage(navController: NavHostController, viewModel: LoginViewModel = hilt
             }
         }
     }
+
+    BackHandler {
+        viewModel.resetViewModel()
+    }
 }
 
 @Composable
@@ -95,14 +95,6 @@ fun ResponsiveLayout(viewModel: LoginViewModel, navController: NavHostController
 
 @Composable
 fun LandscapeLayout(viewModel: LoginViewModel, navController: NavHostController) {
-
-    var email by remember {
-        mutableStateOf("")
-    }
-
-    var password by remember {
-        mutableStateOf("")
-    }
 
     Row(
         modifier = Modifier
@@ -124,7 +116,7 @@ fun LandscapeLayout(viewModel: LoginViewModel, navController: NavHostController)
                     .height(145.dp)
                     .padding(16.dp)
             ) {
-                Box() {
+                Box {
                     Image(
                         painter = painterResource(id = R.drawable.logo),
                         contentDescription = stringResource(id = R.string.app_logo_description),
@@ -135,9 +127,9 @@ fun LandscapeLayout(viewModel: LoginViewModel, navController: NavHostController)
 
             Spacer(modifier = Modifier.weight(1f))
 
-            WhiteOutlinedTextField(email,{ email = it },stringResource(id = R.string.email_label), true)
+            WhiteOutlinedTextField(viewModel.email.value,{ viewModel.updateEmail(it) },stringResource(id = R.string.email_label), true)
 
-            WhiteOutlinedTextField(password,{ password = it },stringResource(id = R.string.password_label), true, PasswordVisualTransformation())
+            WhiteOutlinedTextField(viewModel.password.value,{ viewModel.updatePassword(it) },stringResource(id = R.string.password_label), true, PasswordVisualTransformation())
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -151,10 +143,9 @@ fun LandscapeLayout(viewModel: LoginViewModel, navController: NavHostController)
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            OrangeButton({ viewModel.login(email, password) }, stringResource(id = R.string.log_in_button))
+            OrangeButton({ viewModel.login(viewModel.email.value, viewModel.password.value) }, stringResource(id = R.string.log_in_button))
 
             OrangeButton({
-                viewModel.reset()
                 navController.navigate(NavigationScreens.REGISTER.name)
             }, stringResource(id = R.string.sign_up_button))
 
@@ -163,7 +154,6 @@ fun LandscapeLayout(viewModel: LoginViewModel, navController: NavHostController)
             MyHorizontalDivider()
 
             TransparentButton({
-                viewModel.reset()
                 navController.navigate(NavigationScreens.FORGOT_PASSWORD.name)
             }, stringResource(id = R.string.forgot_password_button))
 
@@ -174,14 +164,6 @@ fun LandscapeLayout(viewModel: LoginViewModel, navController: NavHostController)
 
 @Composable
 fun PortraitLayout(viewModel: LoginViewModel, navController: NavHostController) {
-
-    var email by remember {
-        mutableStateOf("")
-    }
-
-    var password by remember {
-        mutableStateOf("")
-    }
 
     Column(
         modifier = Modifier
@@ -210,16 +192,15 @@ fun PortraitLayout(viewModel: LoginViewModel, navController: NavHostController) 
 
         Spacer(modifier = Modifier.weight(1f))
 
-        WhiteOutlinedTextField(email,{ email = it },stringResource(id = R.string.email_label), true)
+        WhiteOutlinedTextField(viewModel.email.value,{ viewModel.updateEmail(it) },stringResource(id = R.string.email_label), true)
 
-        WhiteOutlinedTextField(password,{ password = it },stringResource(id = R.string.password_label), true, PasswordVisualTransformation())
+        WhiteOutlinedTextField(viewModel.password.value,{ viewModel.updatePassword(it) },stringResource(id = R.string.password_label), true, PasswordVisualTransformation())
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        OrangeButton({ viewModel.login(email, password) }, stringResource(id = R.string.log_in_button))
+        OrangeButton({ viewModel.login(viewModel.email.value, viewModel.password.value) }, stringResource(id = R.string.log_in_button))
 
         OrangeButton({
-            viewModel.reset()
             navController.navigate(NavigationScreens.REGISTER.name)
         }, stringResource(id = R.string.sign_up_button))
 
@@ -228,7 +209,6 @@ fun PortraitLayout(viewModel: LoginViewModel, navController: NavHostController) 
         MyHorizontalDivider()
 
         TransparentButton({
-            viewModel.reset()
             navController.navigate(NavigationScreens.FORGOT_PASSWORD.name)
         }, stringResource(id = R.string.forgot_password_button))
 

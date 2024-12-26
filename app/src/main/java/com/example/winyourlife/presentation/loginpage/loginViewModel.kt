@@ -10,16 +10,31 @@ import com.example.winyourlife.domain.AuthenticationService
 import com.example.winyourlife.domain.wrapper.Resource
 import com.example.winyourlife.presentation.dataObjects.CurrentUser
 import com.example.winyourlife.presentation.utils.State
+import com.example.winyourlife.presentation.utils.ViewModelCustomInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(val authenticationService: AuthenticationService, val currentUser: CurrentUser) : ViewModel() {
+class LoginViewModel @Inject constructor(private val authenticationService: AuthenticationService, val currentUser: CurrentUser) : ViewModel(),
+    ViewModelCustomInterface {
 
     var state by mutableStateOf(State<Unit>())
         private set
+
+    var email = mutableStateOf("")
+        private set
+
+    var password = mutableStateOf("")
+        private set
+
+    fun updateEmail(newEmail: String) {
+        email.value = newEmail
+    }
+
+    fun updatePassword(newPassword: String) {
+        email.value = newPassword
+    }
 
     fun login(email: String, password: String) {
 
@@ -31,10 +46,9 @@ class LoginViewModel @Inject constructor(val authenticationService: Authenticati
                 isReady = false,
                 isLoading = true
             )
-            println("result.message")
+
             val result = authenticationService.login(loginRequest)
-            delay(100)
-            println("lol" + result.message)
+
             state = when (result) {
                 is Resource.Success -> {
                     state.copy(
@@ -55,7 +69,7 @@ class LoginViewModel @Inject constructor(val authenticationService: Authenticati
         }
     }
 
-    fun reset () {
+    override fun resetViewModel () {
         state = State()
     }
 }

@@ -27,6 +27,25 @@ class ProfileViewModel @Inject constructor(val userService: UserService, val cur
     var isEditProfile by mutableStateOf(false)
         private set
 
+    var nickname = mutableStateOf("")
+        private set
+
+    var email = mutableStateOf("")
+        private set
+
+    fun updateNickname(newNickname: String) {
+        nickname.value = newNickname
+    }
+
+    fun updateEmail(newEmail: String) {
+        email.value = newEmail
+    }
+
+    fun loadProfile() {
+        nickname.value = currentUser.userData?.name ?: ""
+        email.value = currentUser.userData?.email ?: ""
+    }
+
     fun updateUserData(email: String, name: String, avatar: ByteArray) {
         viewModelScope.launch {
             val updateUserUpdateDataRequest =

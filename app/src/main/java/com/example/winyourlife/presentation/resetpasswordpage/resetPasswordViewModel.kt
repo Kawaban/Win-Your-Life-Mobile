@@ -15,6 +15,20 @@ class ResetPasswordViewModel @Inject constructor(val currentUser: CurrentUser) :
     var state by mutableStateOf(State<Nothing>())
         private set
 
+    var password = mutableStateOf("")
+        private set
+
+    var repeatPassword = mutableStateOf("")
+        private set
+
+    fun updatePassword(newPassword: String) {
+        password.value = newPassword
+    }
+
+    fun updateRepeatPassword(newRepeatPassword: String) {
+        repeatPassword.value = newRepeatPassword
+    }
+
     override fun resetViewModel() {
         state = State()
     }

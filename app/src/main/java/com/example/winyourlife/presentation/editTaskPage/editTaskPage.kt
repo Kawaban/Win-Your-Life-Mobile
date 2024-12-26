@@ -18,10 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
@@ -47,11 +44,15 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 import java.util.Base64
 
 @Composable
-fun EditTaskPage(navController: NavHostController, viewModel: EditTaskViewModel = hiltViewModel()) {
+fun EditTaskPage(navController: NavHostController, taskIndex: Int, viewModel: EditTaskViewModel = hiltViewModel()) {
 
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
         ResponsiveLayout(navController, viewModel)
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.loadTask(taskIndex)
     }
 
     BackHandler {
@@ -91,18 +92,10 @@ fun ResponsiveLayout(navController: NavHostController, viewModel: EditTaskViewMo
 @Composable
 fun LandscapeLayout(navController: NavHostController, viewModel: EditTaskViewModel) {
 
-    var taskName by remember {
-        mutableStateOf("")
-    }
-
-    var taskImage by remember {
-        mutableStateOf("".toByteArray())
-    }
-
     val context = LocalContext.current
 
     val pickMedia = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        taskImage = if (uri != null)
+        viewModel.taskImage.value = if (uri != null)
             ImageEncoder().encodeImage(uri, context)
         else
             "".toByteArray()
@@ -122,16 +115,16 @@ fun LandscapeLayout(navController: NavHostController, viewModel: EditTaskViewMod
             Spacer(modifier = Modifier.weight(1f))
 
             when {
-                taskImage.decodeToString() == Base64.getDecoder().decode("").decodeToString() -> Image(
-                    painter = painterResource(id = R.drawable.avatar),
-                    contentDescription = stringResource(id = R.string.user_avatar_description),
+                viewModel.taskImage.value.decodeToString() == Base64.getDecoder().decode("").decodeToString() -> Image(
+                    painter = painterResource(id = R.drawable.task),
+                    contentDescription = stringResource(id = R.string.task_image_description),
                     modifier = Modifier
                         .size(128.dp)
                         .padding(16.dp)
                 )
                 else -> Image(
-                    bitmap = BitmapFactory.decodeByteArray(taskImage, 0, taskImage.size).asImageBitmap(),
-                    contentDescription = stringResource(id = R.string.user_avatar_description),
+                    bitmap = BitmapFactory.decodeByteArray(viewModel.taskImage.value, 0, viewModel.taskImage.value.size).asImageBitmap(),
+                    contentDescription = stringResource(id = R.string.task_image_description),
                     modifier = Modifier
                         .size(128.dp)
                         .padding(16.dp)
@@ -150,7 +143,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: EditTaskViewMod
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            WhiteOutlinedTextField(taskName, {taskName = it}, stringResource(id = R.string.task_name_label), false)
+            WhiteOutlinedTextField(viewModel.taskName.value, {viewModel.updateTaskName(it)}, stringResource(id = R.string.task_name_label), true)
 
             Spacer(modifier = Modifier.height(30.dp))
 
@@ -158,7 +151,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: EditTaskViewMod
 
             OrangeButton({pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))}, stringResource(id = R.string.pick_image_button))
 
-            OrangeButton({viewModel.editTask(taskImage, taskName)}, stringResource(id = R.string.save_task_button))
+            OrangeButton({viewModel.editTask(viewModel.taskImage.value, viewModel.taskName.value)}, stringResource(id = R.string.save_task_button))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -170,18 +163,10 @@ fun LandscapeLayout(navController: NavHostController, viewModel: EditTaskViewMod
 @Composable
 fun PortraitLayout(navController: NavHostController, viewModel: EditTaskViewModel) {
 
-    var taskName by remember {
-        mutableStateOf("")
-    }
-
-    var taskImage by remember {
-        mutableStateOf("".toByteArray())
-    }
-
     val context = LocalContext.current
 
     val pickMedia = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        taskImage = if (uri != null)
+        viewModel.taskImage.value = if (uri != null)
             ImageEncoder().encodeImage(uri, context)
         else
             "".toByteArray()
@@ -198,25 +183,25 @@ fun PortraitLayout(navController: NavHostController, viewModel: EditTaskViewMode
         Spacer(modifier = Modifier.weight(1f))
 
         when {
-            taskImage.decodeToString() == Base64.getDecoder().decode("").decodeToString() -> Image(
-                painter = painterResource(id = R.drawable.avatar),
-                contentDescription = stringResource(id = R.string.user_avatar_description),
+            viewModel.taskImage.value.decodeToString() == Base64.getDecoder().decode("").decodeToString() -> Image(
+                painter = painterResource(id = R.drawable.task),
+                contentDescription = stringResource(id = R.string.task_image_description),
                 modifier = Modifier
                     .size(128.dp)
                     .padding(16.dp)
             )
             else -> Image(
-                bitmap = BitmapFactory.decodeByteArray(taskImage, 0, taskImage.size).asImageBitmap(),
-                contentDescription = stringResource(id = R.string.user_avatar_description),
+                bitmap = BitmapFactory.decodeByteArray(viewModel.taskImage.value, 0, viewModel.taskImage.value.size).asImageBitmap(),
+                contentDescription = stringResource(id = R.string.task_image_description),
                 modifier = Modifier
-                    .size(128.dp)
+                    .size(200.dp)
                     .padding(16.dp)
             )
         }
 
         Spacer(modifier = Modifier.weight(1f))
 
-        WhiteOutlinedTextField(taskName, {taskName = it}, stringResource(id = R.string.task_name_label), false)
+        WhiteOutlinedTextField(viewModel.taskName.value, {viewModel.updateTaskName(it)}, stringResource(id = R.string.task_name_label), true)
 
         Spacer(modifier = Modifier.height(30.dp))
 
@@ -224,7 +209,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: EditTaskViewMode
 
         OrangeButton({pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))}, stringResource(id = R.string.pick_image_button))
 
-        OrangeButton({viewModel.editTask(taskImage,taskName)}, stringResource(id = R.string.save_task_button))
+        OrangeButton({viewModel.editTask(viewModel.taskImage.value,viewModel.taskName.value)}, stringResource(id = R.string.save_task_button))
 
         Spacer(modifier = Modifier.height(30.dp))
 

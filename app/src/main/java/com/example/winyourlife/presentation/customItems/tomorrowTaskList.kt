@@ -15,7 +15,7 @@ import com.example.winyourlife.presentation.preparenextdaypage.PrepareNextDayVie
 
 @Composable
 fun TomorrowTaskList(viewModel:PrepareNextDayViewModel, height: Int) {
-    val tasks by viewModel.items.collectAsState()
+    val tasks by viewModel.preparedTasks.collectAsState()
 
     LazyColumn(
         modifier = Modifier

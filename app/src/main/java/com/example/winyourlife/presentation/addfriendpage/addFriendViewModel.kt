@@ -22,6 +22,13 @@ class AddFriendViewModel @Inject constructor(val notificationService: Notificati
         stateSend = State()
     }
 
+    var email = mutableStateOf("")
+        private set
+
+    fun updateEmail(newEmail: String) {
+        email.value = newEmail
+    }
+
     var stateSend by mutableStateOf(State<Unit>())
 
     fun addFriend(email: String) {

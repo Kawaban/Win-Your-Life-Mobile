@@ -20,8 +20,9 @@ import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
-class NotificationsViewModel @Inject constructor(val currentUser: CurrentUser, val notificationService: NotificationService) : ViewModel(),
+class NotificationsViewModel @Inject constructor(val currentUser: CurrentUser, private val notificationService: NotificationService) : ViewModel(),
     ViewModelCustomInterface {
+
     override fun resetViewModel() {
         notificationList = listOf()
         stateNotifications = State()
@@ -32,9 +33,9 @@ class NotificationsViewModel @Inject constructor(val currentUser: CurrentUser, v
     var stateNotifications by mutableStateOf(State<List<NotificationResponse>>())
         private set
 
-    fun mapNotificationResponseToNotificationData(notificationResponse: List<NotificationResponse>, context: Context): List<NotificationData> {
+    private fun mapNotificationResponseToNotificationData(notificationResponse: List<NotificationResponse>, context: Context): List<NotificationData> {
         return notificationResponse.map { it ->
-            when(it.type){
+            when (it.type) {
                 "FRIEND_REQUEST" -> NotificationData(
                     id = it.id,
                     time = it.time,
@@ -99,7 +100,7 @@ class NotificationsViewModel @Inject constructor(val currentUser: CurrentUser, v
         }
     }
 
-    fun acceptNotification(notificationId: UUID) {
+    private fun acceptNotification(notificationId: UUID) {
         viewModelScope.launch {
             val result = notificationService.acceptFriendRequest(FriendRequestResponse(notificationId))
             if(result is com.example.winyourlife.domain.wrapper.Resource.Success){
@@ -108,7 +109,7 @@ class NotificationsViewModel @Inject constructor(val currentUser: CurrentUser, v
         }
     }
 
-    fun declineNotification(notificationId: UUID) {
+    private fun declineNotification(notificationId: UUID) {
         viewModelScope.launch {
             val result = notificationService.declineFriendRequest(FriendRequestResponse(notificationId))
             if(result is com.example.winyourlife.domain.wrapper.Resource.Success){
@@ -116,6 +117,4 @@ class NotificationsViewModel @Inject constructor(val currentUser: CurrentUser, v
             }
         }
     }
-
-
 }

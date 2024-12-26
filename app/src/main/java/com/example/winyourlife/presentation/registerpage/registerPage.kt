@@ -1,15 +1,12 @@
 package com.example.winyourlife.presentation.registerpage
 
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -36,7 +33,9 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 fun RegisterPage(navController: NavHostController, viewModel: RegisterViewModel = hiltViewModel()) {
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
+
         val context = LocalContext.current
+
         when (viewModel.state.isReady) {
             false -> {
                 when (viewModel.state.isLoading) {
@@ -49,7 +48,6 @@ fun RegisterPage(navController: NavHostController, viewModel: RegisterViewModel 
                     }
                 }
             }
-
             true -> {
                 when (viewModel.state.error != null) {
                     true -> {
@@ -58,11 +56,10 @@ fun RegisterPage(navController: NavHostController, viewModel: RegisterViewModel 
                             mapExceptionText(viewModel.state.error!!, context),
                             Toast.LENGTH_SHORT
                         ).show()
-                        viewModel.reset()
                     }
 
                     false -> {
-                        viewModel.reset()
+                        viewModel.resetViewModel()
                         Toast.makeText(
                             context,
                             stringResource(id = R.string.account_created_snack),
@@ -73,6 +70,11 @@ fun RegisterPage(navController: NavHostController, viewModel: RegisterViewModel 
                 }
             }
         }
+    }
+
+    BackHandler {
+        viewModel.resetViewModel()
+        navController.popBackStack()
     }
 }
 
@@ -91,22 +93,6 @@ fun ResponsiveLayout(navController: NavHostController) {
 @Composable
 fun LandscapeLayout(navController: NavHostController, viewModel: RegisterViewModel = hiltViewModel()) {
 
-    var nickname by remember {
-        mutableStateOf ("")
-    }
-
-    var email by remember {
-        mutableStateOf ("")
-    }
-
-    var password by remember {
-        mutableStateOf ("")
-    }
-
-    var repeatPassword by remember {
-        mutableStateOf ("")
-    }
-
     Row(
         modifier = Modifier
             .fillMaxSize()
@@ -120,14 +106,13 @@ fun LandscapeLayout(navController: NavHostController, viewModel: RegisterViewMod
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            WhiteOutlinedTextField(nickname,{ nickname = it },stringResource(id = R.string.nickname_label), true)
+            WhiteOutlinedTextField(viewModel.nickname.value,{ viewModel.updateNickname(it) },stringResource(id = R.string.nickname_label), true)
 
-            WhiteOutlinedTextField(email,{ email = it },stringResource(id = R.string.email_label), true)
+            WhiteOutlinedTextField(viewModel.email.value,{ viewModel.updateEmail(it) },stringResource(id = R.string.email_label), true)
 
-            WhiteOutlinedTextField(password,{ password = it },stringResource(id = R.string.password_label), true, PasswordVisualTransformation())
+            WhiteOutlinedTextField(viewModel.password.value,{ viewModel.updatePassword(it) },stringResource(id = R.string.password_label), true, PasswordVisualTransformation())
 
-            WhiteOutlinedTextField(repeatPassword,{ repeatPassword = it },
-                stringResource(id = R.string.repeat_password_label), true, PasswordVisualTransformation())
+            WhiteOutlinedTextField(viewModel.repeatPassword.value,{ viewModel.updateRepeatPassword(it) },stringResource(id = R.string.repeat_password_label), true, PasswordVisualTransformation())
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -141,16 +126,20 @@ fun LandscapeLayout(navController: NavHostController, viewModel: RegisterViewMod
         ) {
             Spacer(modifier = Modifier.weight(1f))
 
-            OrangeButton({viewModel.register(email, nickname, password, repeatPassword)}, stringResource(id = R.string.register_button))
+            OrangeButton(
+                {
+                    viewModel.register(
+                    viewModel.email.value, viewModel.nickname.value,
+                    viewModel.password.value, viewModel.repeatPassword.value)
+                },
+                stringResource(id = R.string.register_button)
+            )
 
             Spacer(modifier = Modifier.weight(0.4f))
 
             MyHorizontalDivider()
 
-            TransparentButton({
-                viewModel.reset()
-                navController.navigate(NavigationScreens.LOGIN.name)
-            }, stringResource(id = R.string.register_text))
+            TransparentButton({ navController.navigate(NavigationScreens.LOGIN.name) }, stringResource(id = R.string.register_text))
 
             Spacer(modifier = Modifier.weight(0.4f))
         }
@@ -159,22 +148,6 @@ fun LandscapeLayout(navController: NavHostController, viewModel: RegisterViewMod
 
 @Composable
 fun PortraitLayout(navController: NavHostController, viewModel: RegisterViewModel = hiltViewModel()) {
-
-    var nickname by remember {
-        mutableStateOf ("")
-    }
-
-    var email by remember {
-        mutableStateOf ("")
-    }
-
-    var password by remember {
-        mutableStateOf ("")
-    }
-
-    var repeatPassword by remember {
-        mutableStateOf ("")
-    }
 
     Column(
         modifier = Modifier
@@ -186,26 +159,29 @@ fun PortraitLayout(navController: NavHostController, viewModel: RegisterViewMode
 
         Spacer(modifier = Modifier.weight(1f))
 
-        WhiteOutlinedTextField(nickname,{ nickname = it },stringResource(id = R.string.nickname_label), true)
+        WhiteOutlinedTextField(viewModel.nickname.value,{ viewModel.updateNickname(it) },stringResource(id = R.string.nickname_label), true)
 
-        WhiteOutlinedTextField(email,{ email = it },stringResource(id = R.string.email_label), true)
+        WhiteOutlinedTextField(viewModel.email.value,{ viewModel.updateEmail(it) },stringResource(id = R.string.email_label), true)
 
-        WhiteOutlinedTextField(password,{ password = it },stringResource(id = R.string.password_label), true, PasswordVisualTransformation())
+        WhiteOutlinedTextField(viewModel.password.value,{ viewModel.updatePassword(it) },stringResource(id = R.string.password_label), true, PasswordVisualTransformation())
 
-        WhiteOutlinedTextField(repeatPassword,{ repeatPassword = it },stringResource(id = R.string.repeat_password_label), true, PasswordVisualTransformation())
+        WhiteOutlinedTextField(viewModel.repeatPassword.value,{ viewModel.updateRepeatPassword(it) },stringResource(id = R.string.repeat_password_label), true, PasswordVisualTransformation())
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        OrangeButton({viewModel.register(email, nickname, password, repeatPassword)}, stringResource(id = R.string.register_button))
-
+        OrangeButton(
+            {
+                viewModel.register(
+                    viewModel.email.value, viewModel.nickname.value,
+                    viewModel.password.value, viewModel.repeatPassword.value)
+            },
+            stringResource(id = R.string.register_button)
+        )
         Spacer(modifier = Modifier.weight(1f))
 
         MyHorizontalDivider()
 
-        TransparentButton({
-            viewModel.reset()
-            navController.navigate(NavigationScreens.LOGIN.name)
-        }, stringResource(id = R.string.register_text))
+        TransparentButton({ navController.navigate(NavigationScreens.LOGIN.name) }, stringResource(id = R.string.register_text))
 
         Spacer(modifier = Modifier.height(50.dp))
     }

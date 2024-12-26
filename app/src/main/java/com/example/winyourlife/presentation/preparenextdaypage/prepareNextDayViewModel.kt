@@ -21,13 +21,22 @@ import javax.inject.Inject
 @HiltViewModel
 class PrepareNextDayViewModel @Inject constructor(val currentUser: CurrentUser, private val taskService: TaskService) : ViewModel(), ViewModelCustomInterface {
 
-    override fun resetViewModel() {
-        prepareTasks()
-        state = State()
-    }
+    var state by mutableStateOf(State<Unit>())
+        private set
+
+    private val _preparedTasks = MutableStateFlow<List<TaskData>>(emptyList())
+    val preparedTasks: StateFlow<List<TaskData>> = _preparedTasks
+
+    private val _allTasks = MutableStateFlow<List<TaskData>>(emptyList())
+    val allTasks: StateFlow<List<TaskData>> = _allTasks
 
     private val _showDialog = MutableStateFlow(false)
     val showDialog: StateFlow<Boolean> = _showDialog
+
+    init {
+        _allTasks.value = currentUser.userData?.allTasks?: listOf()
+        _preparedTasks.value = currentUser.userData?.preparedTasks?: listOf()
+    }
 
     fun showDialog() {
         _showDialog.value = true
@@ -37,28 +46,20 @@ class PrepareNextDayViewModel @Inject constructor(val currentUser: CurrentUser, 
         _showDialog.value = false
     }
 
-    var state by mutableStateOf(State<Unit>())
-        private set
-
-    private val _items = MutableStateFlow<List<TaskData>>(emptyList())
-    val items: StateFlow<List<TaskData>> = _items
-
-    private val _tasks = MutableStateFlow<List<TaskData>>(emptyList())
-    val tasks: StateFlow<List<TaskData>> = _tasks
-
-    fun initializeList(initialList: List<TaskData>) {
-        _items.value = initialList
+    override fun resetViewModel() {
+        prepareTasks()
+        state = State()
     }
 
-    fun addItem(newItemIndex: Int) {
-        _items.value += _tasks.value.toMutableList()[newItemIndex]
+    fun addTask(newItemIndex: Int) {//TODO
+        _preparedTasks.value += _allTasks.value.toMutableList()[newItemIndex]
     }
 
-    fun removeTask(index: Int) {
-        _items.value = _items.value.toMutableList().apply { removeAt(index) }
+    fun removeTask(index: Int) {//TODO
+        _preparedTasks.value = _preparedTasks.value.toMutableList().apply { removeAt(index) }
     }
 
-    private fun prepareTasks() {
+    private fun prepareTasks() {//TODO what does this do?
 
         viewModelScope.launch {
             state = state.copy(
@@ -68,10 +69,7 @@ class PrepareNextDayViewModel @Inject constructor(val currentUser: CurrentUser, 
             val ta = TaskPreparation(currentUser.userData?.preparedTasks?.map { it.label }?: listOf())
             val result = taskService.prepareTasks(ta)
 
-            val ta2 = TaskPreparation(currentUser.userData?.allTasks?.map { it.label }?: listOf())
-            val result2 = taskService.prepareTasks(ta2)
-
-            state = when (result) { // TODO result && result2
+            state = when (result) {
                 is Resource.Success -> {
                     state.copy(
                         obj = result,

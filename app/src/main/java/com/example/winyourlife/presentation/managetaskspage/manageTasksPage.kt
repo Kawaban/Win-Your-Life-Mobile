@@ -32,14 +32,14 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun ManageTasksPage(navController: NavHostController, viewModel: ManageTasksViewModel = hiltViewModel()) {
-
-    LaunchedEffect(Unit) {
-        viewModel.initializeList(viewModel.currentUser.userData?.preparedTasks?: listOf())
-    }
-
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
         ResponsiveLayout(navController)
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.updateNavController(navController)
+        viewModel.loadTasks()
     }
 
     BackHandler {
