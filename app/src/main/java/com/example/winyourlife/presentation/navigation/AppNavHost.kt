@@ -24,9 +24,6 @@ import com.example.winyourlife.presentation.resetpasswordpage.ResetPasswordPage
 import com.example.winyourlife.presentation.settingspage.SettingsPage
 import com.example.winyourlife.presentation.statisticspage.StatisticsPage
 
-//TODO refresh, are_you_sure pop up
-//TODO tasks
-
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,
@@ -56,16 +53,13 @@ fun AppNavHost(
         composable(NavigationScreens.CREATE_TASK.name) {
            CreateTaskPage(navController)
         }
-        composable(NavigationScreens.EDIT_TASK.name) {
-            EditTaskPage(navController)
+       composable(
+            NavigationScreens.EDIT_TASK.name + "/{index}",
+            arguments = listOf(navArgument("index") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val taskIndex = backStackEntry.arguments?.getInt("index") ?: -1
+            EditTaskPage(navController, taskIndex)
         }
-//        composable(
-//            NavigationScreens.EDIT_TASK.name + "/{index}",
-//            arguments = listOf(navArgument("index") { type = NavType.IntType })
-//        ) { backStackEntry ->
-//            val taskIndex = backStackEntry.arguments?.getInt("index") ?: -1
-//            EditTaskPage(navController, taskIndex)
-//        }
         composable(NavigationScreens.FORGOT_PASSWORD.name) {
             ForgotPasswordPage(navController)
         }

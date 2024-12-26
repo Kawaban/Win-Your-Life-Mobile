@@ -32,9 +32,13 @@ fun AddFriendPage(navController: NavHostController, viewModel: AddFriendViewMode
 
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
+
         val context = LocalContext.current
+
         when (viewModel.stateSend.isReady && viewModel.stateSend.error == null) {
             true -> {
+                viewModel.resetViewModel()
+                navController.popBackStack()
                 Toast.makeText(context,stringResource(id = R.string.request_sent_snack), Toast.LENGTH_SHORT).show()
             }
             false -> {
@@ -45,9 +49,7 @@ fun AddFriendPage(navController: NavHostController, viewModel: AddFriendViewMode
                         viewModel.resetViewModel()
                     }
 
-                    false -> {
-                        //chill
-                    }
+                    false -> { }
                 }
             }
         }
@@ -76,10 +78,6 @@ fun ResponsiveLayout(navController: NavHostController) {
 @Composable
 fun LandscapeLayout(navController: NavHostController, viewModel: AddFriendViewModel = hiltViewModel()) {
 
-    var email by remember {
-        mutableStateOf("")
-    }
-
     Row(
         modifier = Modifier
             .fillMaxSize()
@@ -105,11 +103,11 @@ fun LandscapeLayout(navController: NavHostController, viewModel: AddFriendViewMo
 
             Spacer(modifier = Modifier.weight(1f))
 
-            WhiteOutlinedTextField(email,{ email = it },stringResource(id = R.string.email_label), true)
+            WhiteOutlinedTextField(viewModel.email.value,{ viewModel.updateEmail(it) },stringResource(id = R.string.email_label), true)
 
             Spacer(modifier = Modifier.weight(1f))
 
-            OrangeButton({viewModel.addFriend(email)}, stringResource(id = R.string.invite_button))
+            OrangeButton({viewModel.addFriend(viewModel.email.value)}, stringResource(id = R.string.invite_button))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -120,10 +118,6 @@ fun LandscapeLayout(navController: NavHostController, viewModel: AddFriendViewMo
 
 @Composable
 fun PortraitLayout(navController: NavHostController, viewModel: AddFriendViewModel = hiltViewModel()) {
-
-    var email by remember {
-        mutableStateOf("")
-    }
 
     Column(
         modifier = Modifier
@@ -147,11 +141,11 @@ fun PortraitLayout(navController: NavHostController, viewModel: AddFriendViewMod
 
         Spacer(modifier = Modifier.weight(0.3f))
 
-        WhiteOutlinedTextField(email,{ email = it },stringResource(id = R.string.email_label), true)
+        WhiteOutlinedTextField(viewModel.email.value,{ viewModel.updateEmail(it) },stringResource(id = R.string.email_label), true)
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        OrangeButton({viewModel.addFriend(email) }, stringResource(id = R.string.invite_button))
+        OrangeButton({viewModel.addFriend(viewModel.email.value) }, stringResource(id = R.string.invite_button))
 
         Spacer(modifier = Modifier.weight(1f))
 

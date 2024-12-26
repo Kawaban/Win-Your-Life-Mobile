@@ -16,7 +16,6 @@ enum class ExceptionText(val text: String){
     TaskAlreadyExists("Task already exists")
 }
 
-
 fun mapExceptionText(error: String, context: Context):CharSequence{
     return when(error){
         ExceptionText.Net.text -> {

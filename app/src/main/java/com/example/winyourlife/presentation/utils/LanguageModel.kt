@@ -5,22 +5,15 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.LocaleList
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.LocaleListCompat
 import com.example.winyourlife.R
 import java.util.Locale
 
-
 sealed class Language {
 
-    //common properties
     abstract val code: String
     abstract val titleRes: Int
 
     companion object {
-
-        //Make sure you add all the languages here
-        val allowedLocales = listOf(English, Polish)
 
         fun setLocale(context: Context, localeCode: String) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -31,24 +24,11 @@ sealed class Language {
             }
         }
 
-        internal fun getCurrentLanguage(context: Context): Language {
-            return this.allowedLocales.find { it.code == getCurrentLocale(context) } ?: English
-        }
+        private const val SHARED_PREF_SELECTED_LOCALE_KEY = "LocalePreference"
 
-        private fun getCurrentLocale(context: Context): String {
-            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                context.getSystemService(LocaleManager::class.java).applicationLocales.toLanguageTags()
-            } else {
-                AppCompatDelegate.getApplicationLocales().toLanguageTags()
-            }
-        }
-
-
-        // REQUIRED FOR API LEVEL 32 AND LOWER AND/OR FOR WITHOUT ACTIVITY RE-CREATION
-        private const val sharedPrefSelectedLocaleKey = "LocalePreference"
         private fun getLocaleSharedPreference(context: Context): SharedPreferences? {
             return context.applicationContext?.getSharedPreferences(
-                sharedPrefSelectedLocaleKey,
+                SHARED_PREF_SELECTED_LOCALE_KEY,
                 Context.MODE_PRIVATE
             )
         }
@@ -66,40 +46,25 @@ sealed class Language {
             val sharedPref = getLocaleSharedPreference(context) ?: return
 
             with(sharedPref.edit()) {
-                putString(sharedPrefSelectedLocaleKey, localeTag)
+                putString(SHARED_PREF_SELECTED_LOCALE_KEY, localeTag)
                 apply()
             }
             setLocaleForDevicesLowerThanTiramisu(localeTag, context)
         }
 
-        //This needs to be called OnStart() or OnCreation() of the Activity for Android API level 32 and below
         fun configureLocaleOnStartForDevicesLowerThanTiramisu(context: Context) {
             setLocaleForDevicesLowerThanTiramisu(
                 context = context,
                 localeTag = getLocaleSharedPreference(context)?.getString(
-                    sharedPrefSelectedLocaleKey,
+                    SHARED_PREF_SELECTED_LOCALE_KEY,
                     English.code
                 ) ?: English.code
             )
         }
-
-        fun convertStringToLanguage(language: String, context: Context): Language {
-            return when (language) {
-                context.getString(R.string.language_en) -> English
-                context.getString(R.string.language_pl) -> Polish
-                else -> English
-            }
-        }
     }
 
-    object English : Language() {
+    data object English : Language() {
         override val code: String = "en"
         override val titleRes: Int = R.string.language_en
     }
-
-    object Polish : Language() {
-        override val code: String = "pl"
-        override val titleRes: Int = R.string.language_pl
-    }
-
 }

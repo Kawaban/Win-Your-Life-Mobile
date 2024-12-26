@@ -5,11 +5,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.example.winyourlife.data.dto.TaskPreparation
 import com.example.winyourlife.domain.TaskService
 import com.example.winyourlife.domain.wrapper.Resource
 import com.example.winyourlife.presentation.dataObjects.CurrentUser
 import com.example.winyourlife.presentation.dataObjects.TaskData
+import com.example.winyourlife.presentation.navigation.NavigationScreens
 import com.example.winyourlife.presentation.utils.State
 import com.example.winyourlife.presentation.utils.ViewModelCustomInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,22 +31,37 @@ class ManageTasksViewModel @Inject constructor(val currentUser: CurrentUser, pri
     var state by mutableStateOf(State<Unit>())
         private set
 
-    private val _items = MutableStateFlow<List<TaskData>>(emptyList())
-    val items: StateFlow<List<TaskData>> = _items
+    var navController by mutableStateOf<NavController?>(null)
+        private set
 
-    fun initializeList(initialList: List<TaskData>) {
-        _items.value = initialList
+    fun updateNavController(controller: NavController) {
+        navController = controller
     }
 
-    fun removeTask(index: Int) {
-        _items.value = _items.value.toMutableList().apply { removeAt(index) }
+    private val _items = MutableStateFlow<List<TaskData>>(listOf())
+    private val items: StateFlow<List<TaskData>> = _items
+
+    fun loadTasks() {
+        if (currentUser.userData == null) {
+            _items.value = emptyList()
+        } else {
+            _items.value = currentUser.userData?.allTasks ?: emptyList()
+        }
+    }
+
+    fun removeTask(position: Int) {//TODO
+        _items.value = _items.value.toMutableList().apply { removeAt(position) }
+    }
+
+    fun getTasks(): StateFlow<List<TaskData>> {
+        return items
     }
 
     fun editTask(index: Int) {
-//        navController.navigate(NavigationScreens.EDIT_TASK.name + "/$index")
+        navController?.navigate(NavigationScreens.EDIT_TASK.name + "/$index")
     }
 
-    private fun prepareTasks() {
+    private fun prepareTasks() {//TODO what does this do?
 
         viewModelScope.launch {
             state = state.copy(

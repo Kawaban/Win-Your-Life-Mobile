@@ -16,10 +16,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalConfiguration
@@ -49,6 +49,14 @@ fun ProfilePage(navController: NavHostController, viewModel: ProfileViewModel = 
         ResponsiveLayout(navController)
     }
 
+    LaunchedEffect(Unit) {
+        viewModel.loadProfile()
+    }
+
+    BackHandler {
+        viewModel.resetViewModel()
+        navController.popBackStack()
+    }
 }
 
 @Composable
@@ -56,13 +64,14 @@ fun ResponsiveLayout(navController: NavHostController, viewModel: ProfileViewMod
     val configuration = LocalConfiguration.current
     val isPortrait = configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT
     val context = LocalContext.current
+
     if (isPortrait) {
        PortraitLayout(navController)
     } else {
         LandscapeLayout(navController)
     }
 
-    when(viewModel.stateUpdateData.isReady){
+    when (viewModel.stateUpdateData.isReady) {
         true -> {
             when(viewModel.stateUpdateData.error != null){
                 true -> {
@@ -75,24 +84,12 @@ fun ResponsiveLayout(navController: NavHostController, viewModel: ProfileViewMod
         }
         false -> {}
     }
-
-    BackHandler {
-        viewModel.resetViewModel()
-        navController.popBackStack()
-    }
 }
 
 @Composable
 fun LandscapeLayout(navController: NavHostController, viewModel: ProfileViewModel = hiltViewModel()) {
 
     val context = LocalContext.current
-
-    var nickname by remember {
-        mutableStateOf(viewModel.currentUser.userData?.name)
-    }
-    var email by remember {
-        mutableStateOf(viewModel.currentUser.userData?.email)
-    }
 
     var avatar by remember {
         mutableStateOf(viewModel.currentUser.userData?.avatar)
@@ -140,9 +137,9 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ProfileViewMode
 
             Spacer(modifier = Modifier.weight(1f))
 
-            WhiteOutlinedTextField(nickname ?: "",{ nickname = it },stringResource(id = R.string.nickname_label), false)
+            WhiteOutlinedTextField(viewModel.nickname.value,{ viewModel.updateNickname(it) },stringResource(id = R.string.nickname_label), false)
 
-            WhiteOutlinedTextField(email ?: "",{ email = it },stringResource(id = R.string.email_label), false)
+            WhiteOutlinedTextField(viewModel.email.value,{ viewModel.updateEmail(it) },stringResource(id = R.string.email_label), false)
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -160,8 +157,8 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ProfileViewMode
                 onClick = {
                     if (viewModel.isEditProfile) {
                         viewModel.updateUserData(
-                            email = email ?: "",
-                            name = nickname ?: "",
+                            email = viewModel.email.value,
+                            name = viewModel.nickname.value,
                             avatar = avatar ?: Base64.getDecoder().decode("")
                         )
                         viewModel.editProfile()
@@ -187,13 +184,6 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ProfileViewMode
 fun PortraitLayout(navController: NavHostController, viewModel: ProfileViewModel = hiltViewModel()) {
 
     val context = LocalContext.current
-
-    var nickname by remember {
-        mutableStateOf(viewModel.currentUser.userData?.name)
-    }
-    var email by remember {
-        mutableStateOf(viewModel.currentUser.userData?.email)
-    }
 
     var avatar by remember {
         mutableStateOf(viewModel.currentUser.userData?.avatar)
@@ -238,9 +228,9 @@ fun PortraitLayout(navController: NavHostController, viewModel: ProfileViewModel
 
         Spacer(modifier = Modifier.weight(1f))
 
-        WhiteOutlinedTextField(nickname ?: "",{ nickname = it },stringResource(id = R.string.nickname_label), viewModel.isEditProfile)
+        WhiteOutlinedTextField(viewModel.nickname.value,{ viewModel.updateNickname(it) },stringResource(id = R.string.nickname_label), viewModel.isEditProfile)
 
-        WhiteOutlinedTextField(email ?: "",{ email = it },stringResource(id = R.string.email_label), viewModel.isEditProfile)
+        WhiteOutlinedTextField(viewModel.email.value,{ viewModel.updateEmail(it) },stringResource(id = R.string.email_label), viewModel.isEditProfile)
 
         Spacer(modifier = Modifier.weight(1f))
 
@@ -248,8 +238,8 @@ fun PortraitLayout(navController: NavHostController, viewModel: ProfileViewModel
             onClick = {
                 if (viewModel.isEditProfile) {
                         viewModel.updateUserData(
-                            email = email ?: "",
-                            name = nickname ?: "",
+                            email = viewModel.email.value,
+                            name = viewModel.nickname.value,
                             avatar = avatar ?: Base64.getDecoder().decode("")
                         )
                         viewModel.editProfile()

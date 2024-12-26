@@ -32,10 +32,7 @@ import com.example.winyourlife.presentation.utilScreens.LoadingScreen
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import com.example.winyourlife.presentation.utils.Settings
 import com.example.winyourlife.ui.theme.WinYourLifeTheme
@@ -78,7 +75,6 @@ fun HomePage(navController: NavHostController, viewModel: HomeViewModel = hiltVi
                                 viewModel.resetViewModel()
                                 navController.navigate(NavigationScreens.LOGIN.name)
                             }
-
                         }
                     }
                 }
@@ -104,7 +100,6 @@ fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) 
 
     val context = LocalContext.current
     var mediaPlayer = remember { MediaPlayer.create(context, R.raw.day_won) }
-    var showConfetti by remember { mutableStateOf(false) }
 
     val konfettiPartyLeft = Party(
         emitter = Emitter(duration = 1, TimeUnit.SECONDS)
@@ -163,12 +158,7 @@ fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) 
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                OrangeButton({
-                    viewModel.resetViewModel(); navController.navigate(NavigationScreens.PREPARE_NEXT_DAY.name)
-//                showConfetti = true
-//                mediaPlayer.start()
-                },
-                    stringResource(id = R.string.prepare_day_button))
+                OrangeButton({ viewModel.resetViewModel(); navController.navigate(NavigationScreens.PREPARE_NEXT_DAY.name) }, stringResource(id = R.string.prepare_day_button))
 
                 OrangeButton({viewModel.resetViewModel(); navController.navigate(NavigationScreens.FRIENDS.name) },
                     stringResource(id = R.string.your_friends_button))
@@ -182,14 +172,14 @@ fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) 
             SideNavigationBar(navController, viewModel)
         }
 
-        if (showConfetti) {
+        if (viewModel.dayCompleted) {
+            mediaPlayer.start()
             KonfettiView(
                 modifier = Modifier.fillMaxSize(),
                 parties = listOf(konfettiPartyLeft, konfettiPartyRight)
             )
             LaunchedEffect(Unit) {
                 delay(4000)
-                showConfetti = false
                 mediaPlayer.stop()
                 mediaPlayer.reset()
                 mediaPlayer = MediaPlayer.create(context, R.raw.day_won)
@@ -209,7 +199,6 @@ fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
 
     val context = LocalContext.current
     var mediaPlayer = remember { MediaPlayer.create(context, R.raw.day_won) }
-    var showConfetti by remember { mutableStateOf(false) }
 
     val konfettiPartyLeft = Party(
         emitter = Emitter(duration = 1, TimeUnit.SECONDS)
@@ -259,12 +248,7 @@ fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            OrangeButton({
-                viewModel.resetViewModel(); navController.navigate(NavigationScreens.PREPARE_NEXT_DAY.name)
-//                showConfetti = true
-//                mediaPlayer.start()
-                },
-                stringResource(id = R.string.prepare_day_button))
+            OrangeButton({ viewModel.resetViewModel(); navController.navigate(NavigationScreens.PREPARE_NEXT_DAY.name) }, stringResource(id = R.string.prepare_day_button))
 
             OrangeButton(
                 {viewModel.resetViewModel(); navController.navigate(NavigationScreens.FRIENDS.name) },
@@ -281,14 +265,14 @@ fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
             BottomNavigationBar(navController, viewModel)
         }
 
-        if (showConfetti) {
+        if (viewModel.dayCompleted) {
+            mediaPlayer.start()
             KonfettiView(
                 modifier = Modifier.fillMaxSize(),
                 parties = listOf(konfettiPartyLeft, konfettiPartyRight)
             )
             LaunchedEffect(Unit) {
                 delay(4000)
-                showConfetti = false
                 mediaPlayer.stop()
                 mediaPlayer.reset()
                 mediaPlayer = MediaPlayer.create(context, R.raw.day_won)

@@ -24,6 +24,20 @@ class CreateTaskViewModel @Inject constructor(val currentUser: CurrentUser, val 
         state = State()
     }
 
+    var taskName = mutableStateOf("")
+        private set
+
+    var taskImage = mutableStateOf(ByteArray(0))
+        private set
+
+    fun updateTaskName(newName: String) {
+        taskName.value = newName
+    }
+
+    fun updateTaskImage(newImage: ByteArray) {
+        taskImage.value = newImage
+    }
+
     var state by mutableStateOf(State<Unit>())
 
     fun createTask(taskName: String, taskImage: ByteArray) {

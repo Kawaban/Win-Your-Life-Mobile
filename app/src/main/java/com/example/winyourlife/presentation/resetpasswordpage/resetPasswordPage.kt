@@ -1,6 +1,7 @@
 package com.example.winyourlife.presentation.resetpasswordpage
 
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
@@ -30,7 +31,9 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 fun ResetPasswordPage(navController: NavHostController, viewModel: ResetPasswordViewModel = hiltViewModel()) {
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
+
         val context = LocalContext.current
+
         when (viewModel.state.isReady) {
             true -> {
                 when (viewModel.state.error != null) {
@@ -53,36 +56,33 @@ fun ResetPasswordPage(navController: NavHostController, viewModel: ResetPassword
                     }
 
                     false -> {
-                        ResponsiveLayout(navController)
+                        ResponsiveLayout()
                     }
                 }
             }
         }
     }
+
+    BackHandler {
+        viewModel.resetViewModel()
+        navController.popBackStack()
+    }
 }
 
 @Composable
-fun ResponsiveLayout(navController: NavHostController) {
+fun ResponsiveLayout() {
     val configuration = LocalConfiguration.current
     val isPortrait = configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT
 
     if (isPortrait) {
-       PortraitLayout(navController)
+       PortraitLayout()
     } else {
-        LandscapeLayout(navController)
+        LandscapeLayout()
     }
 }
 
 @Composable
-fun LandscapeLayout(navController: NavHostController, viewModel: ResetPasswordViewModel = hiltViewModel()) {
-
-    var password by remember {
-        mutableStateOf("")
-    }
-
-    var repeatPassword by remember {
-        mutableStateOf("")
-    }
+fun LandscapeLayout(viewModel: ResetPasswordViewModel = hiltViewModel()) {
 
     Row(
         modifier = Modifier
@@ -107,10 +107,10 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ResetPasswordVi
 
             Spacer(modifier = Modifier.weight(1f))
 
-            WhiteOutlinedTextField(password,{ password = it },
+            WhiteOutlinedTextField(viewModel.password.value,{ viewModel.updatePassword(it) },
                 stringResource(id = R.string.password_label), true, PasswordVisualTransformation())
 
-            WhiteOutlinedTextField(repeatPassword,{ repeatPassword = it },stringResource(id = R.string.repeat_password_label), true, PasswordVisualTransformation())
+            WhiteOutlinedTextField(viewModel.repeatPassword.value,{ viewModel.updateRepeatPassword(it) },stringResource(id = R.string.repeat_password_label), true, PasswordVisualTransformation())
 
             Spacer(modifier = Modifier.weight(1f))
 
@@ -122,15 +122,8 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ResetPasswordVi
 }
 
 @Composable
-fun PortraitLayout(navController: NavHostController, viewModel: ResetPasswordViewModel = hiltViewModel()) {
+fun PortraitLayout(viewModel: ResetPasswordViewModel = hiltViewModel()) {
 
-    var password by remember {
-        mutableStateOf("")
-    }
-
-    var repeatPassword by remember {
-        mutableStateOf("")
-    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -152,9 +145,9 @@ fun PortraitLayout(navController: NavHostController, viewModel: ResetPasswordVie
 
         Spacer(modifier = Modifier.weight(0.3f))
 
-        WhiteOutlinedTextField(password,{ password = it },stringResource(id = R.string.password_label), true, PasswordVisualTransformation())
+        WhiteOutlinedTextField(viewModel.password.value,{ viewModel.updatePassword(it) },stringResource(id = R.string.password_label), true, PasswordVisualTransformation())
 
-        WhiteOutlinedTextField(repeatPassword,{ repeatPassword = it },stringResource(id = R.string.repeat_password_label), true, PasswordVisualTransformation())
+        WhiteOutlinedTextField(viewModel.repeatPassword.value,{ viewModel.updateRepeatPassword(it) },stringResource(id = R.string.repeat_password_label), true, PasswordVisualTransformation())
 
         Spacer(modifier = Modifier.height(30.dp))
 

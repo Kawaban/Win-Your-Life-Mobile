@@ -15,7 +15,7 @@ import com.example.winyourlife.presentation.preparenextdaypage.PrepareNextDayVie
 
 @Composable
 fun SelectEveryTaskList(viewModel:PrepareNextDayViewModel, height: Int) {
-    val tasks by viewModel.items.collectAsState()
+    val tasks by viewModel.allTasks.collectAsState()
 
     LazyColumn(
         modifier = Modifier
@@ -25,19 +25,13 @@ fun SelectEveryTaskList(viewModel:PrepareNextDayViewModel, height: Int) {
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         itemsIndexed(tasks) { index, task ->
-//            SelectEveryTask(
-//                label = task.label,
-//                image = task.image,
-//                onClick = {
-//                    viewModel.addItem(index)
-//                    viewModel.hideDialog()
-//                }
-//            )
-            EveryTask(
+            SelectEveryTask(
                 label = task.label,
                 image = task.image,
-                onEdit = {},
-                onDelete = {}
+                onClick = {
+                    viewModel.addTask(index)
+                    viewModel.hideDialog()
+                }
             )
         }
     }

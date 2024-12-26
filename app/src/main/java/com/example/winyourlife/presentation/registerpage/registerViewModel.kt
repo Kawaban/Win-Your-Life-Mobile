@@ -12,22 +12,51 @@ import com.example.winyourlife.presentation.dataObjects.CurrentUser
 import com.example.winyourlife.presentation.utils.ExceptionText
 import com.example.winyourlife.presentation.utils.PasswordValidator
 import com.example.winyourlife.presentation.utils.State
+import com.example.winyourlife.presentation.utils.ViewModelCustomInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor(val authenticationService: AuthenticationService, val currentUser: CurrentUser): ViewModel(){
+class RegisterViewModel @Inject constructor(private val authenticationService: AuthenticationService, val currentUser: CurrentUser): ViewModel(),
+    ViewModelCustomInterface {
 
     var state by mutableStateOf(State<Unit>())
         private set
+
+    var nickname = mutableStateOf("")
+        private set
+
+    var email = mutableStateOf("")
+        private set
+
+    var password = mutableStateOf("")
+        private set
+
+    var repeatPassword = mutableStateOf("")
+        private set
+
+    fun updateNickname(newNickname: String) {
+        nickname.value = newNickname
+    }
+
+    fun updateEmail(newEmail: String) {
+        email.value = newEmail
+    }
+
+    fun updatePassword(newPassword: String) {
+        password.value = newPassword
+    }
+
+    fun updateRepeatPassword(newRepeatPassword: String) {
+        repeatPassword.value = newRepeatPassword
+    }
 
     fun register(email: String, nick: String, password: String, repeatPassword: String) {
 
         viewModelScope.launch {
 
-            if(!PasswordValidator().validatePassword(password)){
+            if (!PasswordValidator().validatePassword(password)) {
                 state = state.copy(
                     error = ExceptionText.PasswordMustContain.text,
                     isReady = true,
@@ -36,7 +65,7 @@ class RegisterViewModel @Inject constructor(val authenticationService: Authentic
                 return@launch
             }
 
-            if(!PasswordValidator().checkPasswordsMatch(password, repeatPassword)){
+            if (!PasswordValidator().checkPasswordsMatch(password, repeatPassword)) {
                 state = state.copy(
                     error = ExceptionText.PasswordsDoNotMatch.text,
                     isReady = true,
@@ -44,7 +73,6 @@ class RegisterViewModel @Inject constructor(val authenticationService: Authentic
                 )
                 return@launch
             }
-
 
             val registerRequest = RegisterRequest(email, nick, password)
 
@@ -55,6 +83,7 @@ class RegisterViewModel @Inject constructor(val authenticationService: Authentic
             )
 
             val result = authenticationService.register(registerRequest)
+
             state = when (result) {
                 is Resource.Success -> {
                     state.copy(
@@ -74,7 +103,7 @@ class RegisterViewModel @Inject constructor(val authenticationService: Authentic
         }
     }
 
-    fun reset () {
+    override fun resetViewModel () {
         state = State()
     }
 }

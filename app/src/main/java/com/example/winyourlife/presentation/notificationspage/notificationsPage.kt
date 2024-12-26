@@ -124,7 +124,9 @@ fun NotificationCard(
 fun NotificationsPage(navController: NavHostController, viewModel: NotificationsViewModel = hiltViewModel()) {
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
+
         val context = LocalContext.current
+
         when (!viewModel.stateNotifications.isLoading && !viewModel.stateNotifications.isReady) {
             true -> {
                 viewModel.getNotifications(context)
@@ -135,7 +137,6 @@ fun NotificationsPage(navController: NavHostController, viewModel: Notifications
                     true -> {
                         LoadingScreen()
                     }
-
                     false -> {
                         when (viewModel.stateNotifications.error == null) {
                             true -> {
@@ -150,6 +151,7 @@ fun NotificationsPage(navController: NavHostController, viewModel: Notifications
                 }
             }
         }
+
         BackHandler {
             viewModel.resetViewModel()
             navController.popBackStack()
@@ -171,41 +173,6 @@ fun ResponsiveLayout(navController: NavHostController) {
 
 @Composable
 fun LandscapeLayout(navController: NavHostController, viewModel: NotificationsViewModel = hiltViewModel()) {
-
-//    val notifications = listOf(
-//        NotificationData(
-//            time = "9:41 AM",
-//            message = "Greg invites you to be friends!",
-//            hasActions = true,
-//            onClose = { },
-//            onAccept = { },
-//            onReject = { }
-//        ),
-//        NotificationData(
-//            time = "9:41 AM",
-//            message = "Don't forget to plan your tasks for tomorrow!",
-//            hasActions = false,
-//            onClose = { }
-//        ),
-//        NotificationData(
-//            time = "9:41 AM",
-//            message = "Marcin accepted your friend request!",
-//            hasActions = false,
-//            onClose = { }
-//        ),
-//        NotificationData(
-//            time = "9:41 AM",
-//            message = "Marcin accepted your friend request!",
-//            hasActions = false,
-//            onClose = { }
-//        ),
-//        NotificationData(
-//            time = "9:41 AM",
-//            message = "Marcin accepted your friend request!",
-//            hasActions = false,
-//            onClose = { }
-//        )
-//    )
 
     Row(
         modifier = Modifier
@@ -231,41 +198,6 @@ fun LandscapeLayout(navController: NavHostController, viewModel: NotificationsVi
 
 @Composable
 fun PortraitLayout(navController: NavHostController, viewModel: NotificationsViewModel = hiltViewModel()) {
-
-//    val notifications = listOf(
-//        NotificationData(
-//            time = "9:41 AM",
-//            message = "Greg invites you to be friends!",
-//            hasActions = true,
-//            onClose = { },
-//            onAccept = { },
-//            onReject = { }
-//        ),
-//        NotificationData(
-//            time = "9:41 AM",
-//            message = "Don't forget to plan your tasks for tomorrow!",
-//            hasActions = false,
-//            onClose = { }
-//        ),
-//        NotificationData(
-//            time = "9:41 AM",
-//            message = "Marcin accepted your friend request!",
-//            hasActions = false,
-//            onClose = { }
-//        ),
-//        NotificationData(
-//            time = "9:41 AM",
-//            message = "Marcin accepted your friend request!",
-//            hasActions = false,
-//            onClose = { }
-//        ),
-//        NotificationData(
-//            time = "9:41 AM",
-//            message = "Marcin accepted your friend request!",
-//            hasActions = false,
-//            onClose = { }
-//        )
-//    )
 
     Column(
         modifier = Modifier

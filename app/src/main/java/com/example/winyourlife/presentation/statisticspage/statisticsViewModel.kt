@@ -8,8 +8,5 @@ import javax.inject.Inject
 
 @HiltViewModel
 class StatisticsViewModel @Inject constructor(val currentUser: CurrentUser) : ViewModel(), ViewModelCustomInterface {
-    override fun resetViewModel() {
-
-    }
-
+    override fun resetViewModel() { }
 }

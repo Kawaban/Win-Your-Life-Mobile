@@ -1,5 +1,6 @@
 package com.example.winyourlife.presentation.forgotpasswordpage
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
@@ -25,28 +26,28 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 fun ForgotPasswordPage(navController: NavHostController, viewModel: ForgotPasswordViewModel = hiltViewModel()) {
     WinYourLifeTheme(darkTheme = viewModel.currentUser.mapOfSettings[Settings.IS_DARK_THEME.name]
         ?.toBooleanStrictOrNull() ?: isSystemInDarkTheme()) {
-        ResponsiveLayout(navController)
+        ResponsiveLayout()
+    }
+    BackHandler {
+        viewModel.resetViewModel()
+        navController.popBackStack()
     }
 }
 
 @Composable
-fun ResponsiveLayout(navController: NavHostController) {
+fun ResponsiveLayout() {
     val configuration = LocalConfiguration.current
     val isPortrait = configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT
 
     if (isPortrait) {
-        PortraitLayout(navController)
+        PortraitLayout()
     } else {
-        LandscapeLayout(navController)
+        LandscapeLayout()
     }
 }
 
 @Composable
-fun LandscapeLayout(navController: NavHostController, viewModel: ForgotPasswordViewModel = hiltViewModel()) {
-
-    var email by remember {
-        mutableStateOf("")
-    }
+fun LandscapeLayout(viewModel: ForgotPasswordViewModel = hiltViewModel()) {
 
     Row(
         modifier = Modifier
@@ -73,9 +74,9 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ForgotPasswordV
 
             Spacer(modifier = Modifier.weight(1f))
 
-            WhiteOutlinedTextField(email,{ email = it },stringResource(id = R.string.email_label), true)
+            WhiteOutlinedTextField(viewModel.email.value,{ viewModel.updateEmail(it) },stringResource(id = R.string.email_label), true)
 
-            OrangeButton({}, stringResource(id = R.string.send_email_button))
+            OrangeButton({ viewModel.resetPassword() }, stringResource(id = R.string.send_email_button))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -83,11 +84,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ForgotPasswordV
 }
 
 @Composable
-fun PortraitLayout(navController: NavHostController, viewModel: ForgotPasswordViewModel = hiltViewModel()) {
-
-    var email by remember {
-        mutableStateOf("")
-    }
+fun PortraitLayout(viewModel: ForgotPasswordViewModel = hiltViewModel()) {
 
     Column(
         modifier = Modifier
@@ -111,11 +108,11 @@ fun PortraitLayout(navController: NavHostController, viewModel: ForgotPasswordVi
 
         Spacer(modifier = Modifier.height(60.dp))
 
-        WhiteOutlinedTextField(email,{ email = it },stringResource(id = R.string.email_label), true)
+        WhiteOutlinedTextField(viewModel.email.value,{ viewModel.updateEmail(it) },stringResource(id = R.string.email_label), true)
 
         Spacer(modifier = Modifier.height(30.dp))
 
-        OrangeButton({}, stringResource(id = R.string.send_email_button))
+        OrangeButton({ viewModel.resetPassword() }, stringResource(id = R.string.send_email_button))
 
         Spacer(modifier = Modifier.weight(1f))
     }
