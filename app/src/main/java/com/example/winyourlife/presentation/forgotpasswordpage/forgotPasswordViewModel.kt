@@ -50,6 +50,6 @@ class ForgotPasswordViewModel @Inject constructor(val authenticationService: Aut
 
 
     override fun resetViewModel() {
-
+        state = State()
     }
 }
