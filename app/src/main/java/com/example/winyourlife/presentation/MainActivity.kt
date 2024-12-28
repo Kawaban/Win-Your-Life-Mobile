@@ -26,6 +26,7 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.util.Calendar
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -47,10 +48,24 @@ class MainActivity : ComponentActivity() {
 
         createNotificationChannel()
 
+        val currentTime = System.currentTimeMillis()
+        val midnight = Calendar.getInstance().apply {
+            timeInMillis = currentTime
+            set(Calendar.HOUR_OF_DAY, 22)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+            if (timeInMillis <= currentTime) {
+                add(Calendar.DAY_OF_YEAR, 1)
+            }
+        }.timeInMillis
+
+        val delay = midnight - currentTime
+
         val uploadWorker = PeriodicWorkRequest.Builder(
             DailyReminderWorker::class.java, 24, TimeUnit.HOURS
         )
-            .setInitialDelay(20000, TimeUnit.MILLISECONDS)
+            .setInitialDelay(delay, TimeUnit.MILLISECONDS)
             .addTag("dailyReminder")
             .build()
         WorkManager.getInstance(this).enqueue(uploadWorker)

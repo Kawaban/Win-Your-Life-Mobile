@@ -1,5 +1,6 @@
 package com.example.winyourlife.presentation.forgotpasswordpage
 
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -9,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -24,6 +26,8 @@ import com.example.winyourlife.ui.theme.WinYourLifeTheme
 
 @Composable
 fun ForgotPasswordPage(navController: NavHostController, viewModel: ForgotPasswordViewModel = hiltViewModel()) {
+
+
     WinYourLifeTheme(darkTheme = isSystemInDarkTheme()) {
         ResponsiveLayout()
     }
@@ -31,6 +35,28 @@ fun ForgotPasswordPage(navController: NavHostController, viewModel: ForgotPasswo
         viewModel.resetViewModel()
         navController.popBackStack()
     }
+
+    val context = LocalContext.current
+
+    when (viewModel.state.isReady && viewModel.state.error == null) {
+        true -> {
+            Toast.makeText(context, stringResource(id = R.string.email_sent_snack), Toast.LENGTH_SHORT)
+                .show()
+        }
+
+        false -> {
+            when (viewModel.state.error != null) {
+                true -> {
+                    Toast.makeText(context, viewModel.state.error, Toast.LENGTH_SHORT).show()
+                    viewModel.resetViewModel()
+                }
+                false -> {
+                    // do nothing
+                }
+            }
+        }
+    }
+
 }
 
 @Composable

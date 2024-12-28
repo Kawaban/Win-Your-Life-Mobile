@@ -68,8 +68,8 @@ interface ApiService {
     @PUT("api/tasks")
     suspend fun updateTask(@Body taskUpdate: TaskUpdate)
 
-    @DELETE("api/tasks")
-    suspend fun deleteTask(@Body taskDelete: TaskDelete)
+    @DELETE("api/tasks/{taskName}")
+    suspend fun deleteTask(@Path("taskName") taskDelete: String)
 
     @PATCH("api/tasks/completion")
     suspend fun completeTask(@Body taskCompletion:List<TaskCompletion>)
@@ -80,7 +80,7 @@ interface ApiService {
     @DELETE("api/users/friends")
     suspend fun deleteFriend(@Body friendDelete: DeleteFriendRequest)
 
-    @GET("api/auth/remind-password/{email}")
+    @POST("api/auth/remind-password/{email}")
     suspend fun remindPassword(@Path("email") email: String)
 
 

@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.example.winyourlife.data.dto.TaskDelete
 import com.example.winyourlife.data.dto.TaskPreparation
 import com.example.winyourlife.domain.TaskService
 import com.example.winyourlife.domain.wrapper.Resource
@@ -24,7 +25,6 @@ import javax.inject.Inject
 class ManageTasksViewModel @Inject constructor(val currentUser: CurrentUser, private val taskService: TaskService) : ViewModel(), ViewModelCustomInterface {
 
     override fun resetViewModel() {
-        prepareTasks()
         state = State()
     }
 
@@ -49,8 +49,37 @@ class ManageTasksViewModel @Inject constructor(val currentUser: CurrentUser, pri
         }
     }
 
-    fun removeTask(position: Int) {//TODO
-        _items.value = _items.value.toMutableList().apply { removeAt(position) }
+    fun removeTask(position: Int) {
+        viewModelScope.launch {
+            state = state.copy(
+                isLoading = true
+            )
+
+            val result = taskService.deleteTask(_items.value[position].label)
+
+            state = when (result) {
+                is Resource.Success -> {
+                    state.copy(
+                        isLoading = false,
+                        isReady = true
+                    )
+                }
+                is Resource.Error -> {
+                    state.copy(
+                        isLoading = false,
+                        isReady = true,
+                        error = result.message
+                    )
+                }
+
+            }
+            if(result is Resource.Success){
+                currentUser.userData?.allTasks?.remove(_items.value[position])
+                currentUser.userData?.preparedTasks?.remove(_items.value[position])
+                _items.value = _items.value.toMutableList().apply { removeAt(position) }
+            }
+        }
+
     }
 
     fun getTasks(): StateFlow<List<TaskData>> {
@@ -58,35 +87,9 @@ class ManageTasksViewModel @Inject constructor(val currentUser: CurrentUser, pri
     }
 
     fun editTask(index: Int) {
+        resetViewModel()
         navController?.navigate(NavigationScreens.EDIT_TASK.name + "/$index")
     }
 
-    private fun prepareTasks() {//TODO what does this do?
 
-        viewModelScope.launch {
-            state = state.copy(
-                isLoading = true
-            )
-
-            val ta = TaskPreparation(currentUser.userData?.allTasks?.map { it.label }?: listOf())
-            val result = taskService.prepareTasks(ta)
-
-            state = when (result) {
-                is Resource.Success -> {
-                    state.copy(
-                        obj = result,
-                        isReady = true,
-                        isLoading = false
-                    )
-                }
-                is Resource.Error -> {
-                    state.copy(
-                        error = result.message,
-                        isReady = true,
-                        isLoading = false
-                    )
-                }
-            }
-        }
-    }
 }

@@ -36,7 +36,8 @@ class HomeViewModel @Inject constructor(private val userService: UserService,
     private val _items = MutableStateFlow<List<TaskData>>(emptyList())
     val items: StateFlow<List<TaskData>> = _items
 
-    var dayCompleted: Boolean = false
+    var dayCompleted by mutableStateOf(false)
+        private set
 
     fun getUserName() {
         viewModelScope.launch {
@@ -77,20 +78,17 @@ class HomeViewModel @Inject constructor(private val userService: UserService,
         }
     }
 
-    fun toggleTaskCompletion(index: Int) {//TODO confetti doesn't work
+    fun toggleTaskCompletion(index: Int) {
         val task = _items.value.getOrNull(index) ?: return
         task.isCompleted = !task.isCompleted
-        currentUser.userData?.activeTasks?.getOrNull(index)?.isCompleted = task.isCompleted
+        currentUser.userData?.activeTasks?.find { it.label == task.label }?.isCompleted = task.isCompleted
+
+        dayCompleted = currentUser.userData?.activeTasks?.all { it.isCompleted } == true
 
         viewModelScope.launch {
             val result = currentUser.userData?.activeTasks?.map { mapTaskDataToTaskCompletion(it) }
-            val allCompleted = currentUser.userData?.activeTasks?.all { it.isCompleted } == true
 
-            if (allCompleted) {
-                dayCompleted = true
-            }
-
-            userPreferencesRepository.setParameter("isCompleted", allCompleted.toString())
+            userPreferencesRepository.setParameter("isCompleted", dayCompleted.toString())
             taskService.completeTasks(result ?: listOf())
         }
     }

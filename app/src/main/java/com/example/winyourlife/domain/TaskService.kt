@@ -38,7 +38,7 @@ class TaskService @Inject constructor(private val apiService: ApiService) {
         }
     }
 
-    suspend fun deleteTask(taskDelete: TaskDelete): Resource<Unit> {
+    suspend fun deleteTask(taskDelete: String): Resource<Unit> {
         return performNetworkOperation {
             apiService.deleteTask(taskDelete)
         }

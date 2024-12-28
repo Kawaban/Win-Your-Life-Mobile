@@ -47,26 +47,27 @@ class PrepareNextDayViewModel @Inject constructor(val currentUser: CurrentUser, 
     }
 
     override fun resetViewModel() {
-        prepareTasks()
         state = State()
     }
 
-    fun addTask(newItemIndex: Int) {//TODO
+    fun addTask(newItemIndex: Int) {
         _preparedTasks.value += _allTasks.value.toMutableList()[newItemIndex]
+        prepareTasks()
     }
 
-    fun removeTask(index: Int) {//TODO
+    fun removeTask(index: Int) {
         _preparedTasks.value = _preparedTasks.value.toMutableList().apply { removeAt(index) }
+        prepareTasks()
     }
 
-    private fun prepareTasks() {//TODO what does this do?
+    private fun prepareTasks() {
 
         viewModelScope.launch {
             state = state.copy(
                 isLoading = true
             )
 
-            val ta = TaskPreparation(currentUser.userData?.preparedTasks?.map { it.label }?: listOf())
+            val ta = TaskPreparation(_preparedTasks.value.map { it.label })
             val result = taskService.prepareTasks(ta)
 
             state = when (result) {

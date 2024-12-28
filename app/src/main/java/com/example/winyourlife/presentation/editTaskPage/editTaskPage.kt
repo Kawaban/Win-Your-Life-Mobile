@@ -151,7 +151,7 @@ fun LandscapeLayout(navController: NavHostController, viewModel: EditTaskViewMod
 
             OrangeButton({pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))}, stringResource(id = R.string.pick_image_button))
 
-            OrangeButton({viewModel.editTask(viewModel.taskImage.value, viewModel.taskName.value)}, stringResource(id = R.string.save_task_button))
+            OrangeButton({viewModel.editTask()}, stringResource(id = R.string.save_task_button))
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -209,7 +209,7 @@ fun PortraitLayout(navController: NavHostController, viewModel: EditTaskViewMode
 
         OrangeButton({pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))}, stringResource(id = R.string.pick_image_button))
 
-        OrangeButton({viewModel.editTask(viewModel.taskImage.value,viewModel.taskName.value)}, stringResource(id = R.string.save_task_button))
+        OrangeButton({viewModel.editTask()}, stringResource(id = R.string.save_task_button))
 
         Spacer(modifier = Modifier.height(30.dp))
 

@@ -33,7 +33,7 @@ class LoginViewModel @Inject constructor(private val authenticationService: Auth
     }
 
     fun updatePassword(newPassword: String) {
-        email.value = newPassword
+        password.value = newPassword
     }
 
     fun login(email: String, password: String) {

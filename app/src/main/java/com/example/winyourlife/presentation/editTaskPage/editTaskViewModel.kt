@@ -31,6 +31,9 @@ class EditTaskViewModel @Inject constructor(val currentUser: CurrentUser, val ta
     var taskImage = mutableStateOf(ByteArray(0))
         private set
 
+    var taskOldName = mutableStateOf("")
+        private set
+
     fun updateTaskName(newName: String) {
         taskName.value = newName
     }
@@ -39,18 +42,19 @@ class EditTaskViewModel @Inject constructor(val currentUser: CurrentUser, val ta
         val task = currentUser.userData?.allTasks?.getOrNull(taskIndex)
 
         if (task != null) {
+            taskOldName.value = task.label
             taskName.value = task.label
             taskImage.value = task.image
         }
     }
 
-    fun editTask(taskImage: ByteArray, taskName: String) {
+    fun editTask() {
         viewModelScope.launch {
             state = state.copy(
                 isLoading = true
             )
             
-            val result = taskService.updateTask(TaskUpdate(taskName, ImageEncoder().encodeImageToString(taskImage)))
+            val result = taskService.updateTask(TaskUpdate(taskOldName.value,taskName.value, ImageEncoder().encodeImageToString(taskImage.value)))
 
             state = when (result) {
                 is Resource.Success -> {
@@ -69,10 +73,15 @@ class EditTaskViewModel @Inject constructor(val currentUser: CurrentUser, val ta
                 }
             }
 
-            if (result is Resource.Success) {//TODO what if we change label?
-                currentUser.userData?.allTasks?.find { it.label == taskName }?.image = taskImage
-                currentUser.userData?.activeTasks?.find { it.label == taskName }?.image = taskImage
-                currentUser.userData?.preparedTasks?.find { it.label == taskName }?.image = taskImage
+            if (result is Resource.Success) {
+                currentUser.userData?.allTasks?.find { it.label == taskOldName.value }?.image = taskImage.value
+                currentUser.userData?.allTasks?.find { it.label == taskOldName.value }?.label = taskName.value
+
+                currentUser.userData?.activeTasks?.find { it.label == taskOldName.value }?.image = taskImage.value
+                currentUser.userData?.activeTasks?.find { it.label == taskOldName.value }?.label = taskName.value
+
+                currentUser.userData?.preparedTasks?.find { it.label == taskOldName.value }?.image = taskImage.value
+                currentUser.userData?.preparedTasks?.find { it.label == taskOldName.value }?.label = taskName.value
             }
         }
     }
