@@ -31,7 +31,6 @@ import androidx.navigation.NavHostController
 import com.example.winyourlife.R
 import com.example.winyourlife.presentation.utils.ImageEncoder
 import com.example.winyourlife.presentation.utils.Settings
-import com.example.winyourlife.presentation.navigation.NavigationScreens
 import com.example.winyourlife.presentation.customItems.BottomNavigationBar
 import com.example.winyourlife.presentation.customItems.Headline
 import com.example.winyourlife.presentation.customItems.MyVerticalDivider
@@ -73,7 +72,7 @@ fun ResponsiveLayout(navController: NavHostController, viewModel: ProfileViewMod
 
     when (viewModel.stateUpdateData.isReady) {
         true -> {
-            when(viewModel.stateUpdateData.error != null){
+            when (viewModel.stateUpdateData.error != null) {
                 true -> {
                     Toast.makeText(context, mapExceptionText(viewModel.stateUpdateData.error!!, context), Toast.LENGTH_SHORT).show()
                 }
@@ -171,12 +170,21 @@ fun LandscapeLayout(navController: NavHostController, viewModel: ProfileViewMode
                     stringResource(id = R.string.save_data_button)
             )
 
-            OrangeButton({ viewModel.remindPassword() }, stringResource(id = R.string.change_password_button))
+            OrangeButton(
+                {
+                    viewModel.remindPassword()
+                },
+                stringResource(id = R.string.change_password_button))
 
             Spacer(modifier = Modifier.weight(1f))
         }
 
         SideNavigationBar(navController, viewModel)
+    }
+
+    if (viewModel.showToast) {
+        Toast.makeText(context, stringResource(id = R.string.email_sent_snack), Toast.LENGTH_SHORT).show()
+        viewModel.toggleShowToast()
     }
 }
 
@@ -252,10 +260,19 @@ fun PortraitLayout(navController: NavHostController, viewModel: ProfileViewModel
                 stringResource(id = R.string.save_data_button)
         )
 
-        OrangeButton({ viewModel.remindPassword() }, stringResource(id = R.string.change_password_button))
+        OrangeButton(
+            {
+                viewModel.remindPassword()
+            },
+            stringResource(id = R.string.change_password_button))
 
         Spacer(modifier = Modifier.weight(1f))
 
         BottomNavigationBar(navController, viewModel)
+    }
+
+    if (viewModel.showToast) {
+        Toast.makeText(context, stringResource(id = R.string.email_sent_snack), Toast.LENGTH_SHORT).show()
+        viewModel.toggleShowToast()
     }
 }
