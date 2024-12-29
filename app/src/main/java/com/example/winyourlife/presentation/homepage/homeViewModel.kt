@@ -1,10 +1,13 @@
 package com.example.winyourlife.presentation.homepage
 
+import android.content.Context
+import android.media.MediaPlayer
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModel
+import com.example.winyourlife.R
 import com.example.winyourlife.data.dto.TaskCompletion
 import com.example.winyourlife.data.dto.UserResponse
 import com.example.winyourlife.data.network.JwtManager
@@ -38,6 +41,35 @@ class HomeViewModel @Inject constructor(private val userService: UserService,
 
     var dayCompleted by mutableStateOf(false)
         private set
+
+    private var taskCompletionHandled: Boolean = true
+
+    private var mediaPlayer: MediaPlayer? = null
+
+    fun playAudio(context: Context) {
+        if (mediaPlayer?.isPlaying == true) return
+
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+
+        mediaPlayer = MediaPlayer.create(context, R.raw.day_won).apply {
+            setOnCompletionListener {
+                release()
+                mediaPlayer = null
+                taskCompletionHandled = false
+                dayCompleted = false
+            }
+            start()
+        }
+    }
+
+    fun stopAudio() {
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+        mediaPlayer = null
+        taskCompletionHandled = false
+        dayCompleted = false
+    }
 
     fun getUserName() {
         viewModelScope.launch {
@@ -83,7 +115,10 @@ class HomeViewModel @Inject constructor(private val userService: UserService,
         task.isCompleted = !task.isCompleted
         currentUser.userData?.activeTasks?.find { it.label == task.label }?.isCompleted = task.isCompleted
 
-        dayCompleted = currentUser.userData?.activeTasks?.all { it.isCompleted } == true
+        if (taskCompletionHandled && currentUser.userData?.activeTasks?.all { it.isCompleted } == true) {
+            dayCompleted = true
+            taskCompletionHandled = false
+        }
 
         viewModelScope.launch {
             val result = currentUser.userData?.activeTasks?.map { mapTaskDataToTaskCompletion(it) }
@@ -101,6 +136,9 @@ class HomeViewModel @Inject constructor(private val userService: UserService,
     }
 
     override fun resetViewModel() {
+        if (mediaPlayer?.isPlaying == true) {
+            stopAudio()
+        }
         state = State()
     }
 }

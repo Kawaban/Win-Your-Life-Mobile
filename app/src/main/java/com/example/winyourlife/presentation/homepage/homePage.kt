@@ -1,6 +1,5 @@
 package com.example.winyourlife.presentation.homepage
 
-import android.media.MediaPlayer
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -30,9 +29,7 @@ import com.example.winyourlife.presentation.customItems.OrangeButton
 import com.example.winyourlife.presentation.customItems.SideNavigationBar
 import com.example.winyourlife.presentation.utilScreens.LoadingScreen
 import androidx.compose.foundation.layout.Box
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import com.example.winyourlife.presentation.utils.Settings
 import com.example.winyourlife.ui.theme.WinYourLifeTheme
@@ -99,7 +96,6 @@ fun ResponsiveLayout(viewModel: HomeViewModel, navController: NavHostController)
 fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) {
 
     val context = LocalContext.current
-    var mediaPlayer = remember { MediaPlayer.create(context, R.raw.day_won) }
 
     val konfettiPartyLeft = Party(
         emitter = Emitter(duration = 1, TimeUnit.SECONDS)
@@ -173,23 +169,15 @@ fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) 
         }
 
         if (viewModel.dayCompleted) {
-            mediaPlayer.start()
+            viewModel.playAudio(context)
             KonfettiView(
                 modifier = Modifier.fillMaxSize(),
                 parties = listOf(konfettiPartyLeft, konfettiPartyRight)
             )
-            LaunchedEffect(Unit) {
+            LaunchedEffect(key1 = viewModel.dayCompleted) {
                 delay(4000)
-                mediaPlayer.stop()
-                mediaPlayer.reset()
-                mediaPlayer = MediaPlayer.create(context, R.raw.day_won)
+                viewModel.stopAudio()
             }
-        }
-    }
-
-    DisposableEffect(Unit) {
-        onDispose {
-            mediaPlayer.release()
         }
     }
 }
@@ -198,7 +186,6 @@ fun LandscapeLayout(viewModel: HomeViewModel, navController: NavHostController) 
 fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
 
     val context = LocalContext.current
-    var mediaPlayer = remember { MediaPlayer.create(context, R.raw.day_won) }
 
     val konfettiPartyLeft = Party(
         emitter = Emitter(duration = 1, TimeUnit.SECONDS)
@@ -266,23 +253,15 @@ fun PortraitLayout(viewModel: HomeViewModel, navController: NavHostController) {
         }
 
         if (viewModel.dayCompleted) {
-            mediaPlayer.start()
+            viewModel.playAudio(context)
             KonfettiView(
                 modifier = Modifier.fillMaxSize(),
                 parties = listOf(konfettiPartyLeft, konfettiPartyRight)
             )
-            LaunchedEffect(Unit) {
+            LaunchedEffect(key1 = viewModel.dayCompleted) {
                 delay(4000)
-                mediaPlayer.stop()
-                mediaPlayer.reset()
-                mediaPlayer = MediaPlayer.create(context, R.raw.day_won)
+                viewModel.stopAudio()
             }
-        }
-    }
-
-    DisposableEffect(Unit) {
-        onDispose {
-            mediaPlayer.release()
         }
     }
 }

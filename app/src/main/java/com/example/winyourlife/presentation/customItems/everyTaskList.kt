@@ -15,7 +15,7 @@ import com.example.winyourlife.presentation.managetaskspage.ManageTasksViewModel
 
 @Composable
 fun EveryTaskList(viewModel:ManageTasksViewModel, height: Int) {
-    val tasks by viewModel.getTasks().collectAsState()
+    val tasks by viewModel.items.collectAsState()
 
     LazyColumn(
         modifier = Modifier

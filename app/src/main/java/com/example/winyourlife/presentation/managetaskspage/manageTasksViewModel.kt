@@ -6,8 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import com.example.winyourlife.data.dto.TaskDelete
-import com.example.winyourlife.data.dto.TaskPreparation
 import com.example.winyourlife.domain.TaskService
 import com.example.winyourlife.domain.wrapper.Resource
 import com.example.winyourlife.presentation.dataObjects.CurrentUser
@@ -38,8 +36,8 @@ class ManageTasksViewModel @Inject constructor(val currentUser: CurrentUser, pri
         navController = controller
     }
 
-    private val _items = MutableStateFlow<List<TaskData>>(listOf())
-    private val items: StateFlow<List<TaskData>> = _items
+    private val _items = MutableStateFlow<List<TaskData>>(emptyList())
+    val items: StateFlow<List<TaskData>> = _items
 
     fun loadTasks() {
         if (currentUser.userData == null) {
@@ -50,12 +48,18 @@ class ManageTasksViewModel @Inject constructor(val currentUser: CurrentUser, pri
     }
 
     fun removeTask(position: Int) {
+        _items.value = _items.value.toMutableList().apply { removeAt(position) }
+        deleteTask(position)
+    }
+
+    private fun deleteTask(position: Int) {
         viewModelScope.launch {
             state = state.copy(
                 isLoading = true
             )
 
-            val result = taskService.deleteTask(_items.value[position].label)
+            val taskLabel = _items.value[position].label
+            val result = taskService.deleteTask(taskLabel)
 
             state = when (result) {
                 is Resource.Success -> {
@@ -71,25 +75,18 @@ class ManageTasksViewModel @Inject constructor(val currentUser: CurrentUser, pri
                         error = result.message
                     )
                 }
-
             }
-            if(result is Resource.Success){
-                currentUser.userData?.allTasks?.remove(_items.value[position])
-                currentUser.userData?.preparedTasks?.remove(_items.value[position])
-                _items.value = _items.value.toMutableList().apply { removeAt(position) }
+
+            if (result is Resource.Success) {
+                currentUser.userData?.allTasks?.removeIf { it.label == taskLabel }
+                currentUser.userData?.preparedTasks?.removeIf { it.label == taskLabel }
+                currentUser.userData?.activeTasks?.removeIf { it.label == taskLabel }
             }
         }
-
-    }
-
-    fun getTasks(): StateFlow<List<TaskData>> {
-        return items
     }
 
     fun editTask(index: Int) {
         resetViewModel()
         navController?.navigate(NavigationScreens.EDIT_TASK.name + "/$index")
     }
-
-
 }
