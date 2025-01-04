@@ -34,8 +34,14 @@ class PrepareNextDayViewModel @Inject constructor(val currentUser: CurrentUser, 
     val showDialog: StateFlow<Boolean> = _showDialog
 
     init {
-        _allTasks.value = currentUser.userData?.allTasks?: listOf()
-        _preparedTasks.value = currentUser.userData?.preparedTasks?: listOf()
+        val allTasks = currentUser.userData?.allTasks ?: listOf()
+        val preparedTasks = currentUser.userData?.preparedTasks ?: listOf()
+        val preparedTaskLabels = preparedTasks.map { it.label }
+
+        _allTasks.value = allTasks.filter { task ->
+            task.label !in preparedTaskLabels
+        }
+        _preparedTasks.value = preparedTasks
     }
 
     fun showDialog() {
@@ -52,6 +58,7 @@ class PrepareNextDayViewModel @Inject constructor(val currentUser: CurrentUser, 
 
     fun addTask(newItemIndex: Int) {
         _preparedTasks.value += _allTasks.value.toMutableList()[newItemIndex]
+        _allTasks.value = _allTasks.value.toMutableList().apply { removeAt(newItemIndex) }
         prepareTasks()
     }
 
@@ -61,7 +68,6 @@ class PrepareNextDayViewModel @Inject constructor(val currentUser: CurrentUser, 
     }
 
     private fun prepareTasks() {
-
         viewModelScope.launch {
             state = state.copy(
                 isLoading = true

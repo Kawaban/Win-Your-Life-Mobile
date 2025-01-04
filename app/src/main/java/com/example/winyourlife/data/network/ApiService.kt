@@ -10,7 +10,6 @@ import com.example.winyourlife.data.dto.LoginResponse
 import com.example.winyourlife.data.dto.NotificationResponse
 import com.example.winyourlife.data.dto.RegisterRequest
 import com.example.winyourlife.data.dto.TaskCompletion
-import com.example.winyourlife.data.dto.TaskDelete
 import com.example.winyourlife.data.dto.TaskPreparation
 import com.example.winyourlife.data.dto.TaskResponse
 import com.example.winyourlife.data.dto.TaskUpdate
@@ -72,10 +71,10 @@ interface ApiService {
     suspend fun deleteTask(@Path("taskName") taskDelete: String)
 
     @PATCH("api/tasks/completion")
-    suspend fun completeTask(@Body taskCompletion:List<TaskCompletion>)
+    suspend fun completeTask(@Body taskCompletion: List<TaskCompletion>)
 
     @PATCH("api/tasks/preparation")
-    suspend fun prepareTask(@Body taskPreparation:TaskPreparation)
+    suspend fun prepareTask(@Body taskPreparation: TaskPreparation)
 
     @DELETE("api/users/friends/{email}")
     suspend fun deleteFriend(@Path("email") email: String)

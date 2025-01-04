@@ -14,7 +14,6 @@ enum class NavigationScreens {
     MOTIVATION,
     NOTIFICATIONS,
     PROFILE,
-    RESET_PASSWORD,
     SETTINGS,
     STATISTICS
 }

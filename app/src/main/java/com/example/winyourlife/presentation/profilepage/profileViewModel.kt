@@ -33,6 +33,9 @@ class ProfileViewModel @Inject constructor(val userService: UserService, val cur
     var email = mutableStateOf("")
         private set
 
+    var showToast by mutableStateOf(false)
+        private set
+
     fun updateNickname(newNickname: String) {
         nickname.value = newNickname
     }
@@ -80,6 +83,7 @@ class ProfileViewModel @Inject constructor(val userService: UserService, val cur
     }
 
     fun remindPassword() {
+        showToast = true
         viewModelScope.launch {
             authenticationService.remindPassword(currentUser.userData?.email ?: "")
         }
@@ -89,7 +93,11 @@ class ProfileViewModel @Inject constructor(val userService: UserService, val cur
         isEditProfile = !isEditProfile
     }
 
-    override fun resetViewModel(){
+    fun toggleShowToast() {
+        showToast = !showToast
+    }
+
+    override fun resetViewModel() {
         isEditProfile = false
         stateUpdateData = State()
     }

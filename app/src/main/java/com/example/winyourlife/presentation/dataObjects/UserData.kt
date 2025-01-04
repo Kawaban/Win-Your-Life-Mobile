@@ -11,5 +11,5 @@ data class UserData(
     val daysIn: Int,
     val allTasks: MutableList<TaskData>,
     val preparedTasks: MutableList<TaskData>,
-    val activeTasks: List<TaskData>
+    val activeTasks: MutableList<TaskData>
 )

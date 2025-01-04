@@ -65,7 +65,7 @@ fun CreateTaskPage(navController: NavHostController, viewModel: CreateTaskViewMo
                 false -> {
                     viewModel.resetViewModel()
                     navController.popBackStack()
-                    Toast.makeText(context,stringResource(id = R.string.task_created_snack), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, stringResource(id = R.string.task_created_snack), Toast.LENGTH_SHORT).show()
                 }
             }
         }
