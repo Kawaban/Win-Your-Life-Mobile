@@ -20,7 +20,6 @@ import com.example.winyourlife.presentation.notificationspage.NotificationsPage
 import com.example.winyourlife.presentation.preparenextdaypage.PrepareNextDayPage
 import com.example.winyourlife.presentation.profilepage.ProfilePage
 import com.example.winyourlife.presentation.registerpage.RegisterPage
-import com.example.winyourlife.presentation.resetpasswordpage.ResetPasswordPage
 import com.example.winyourlife.presentation.settingspage.SettingsPage
 import com.example.winyourlife.presentation.statisticspage.StatisticsPage
 
@@ -77,9 +76,6 @@ fun AppNavHost(
         }
         composable(NavigationScreens.PROFILE.name) {
             ProfilePage(navController)
-        }
-        composable(NavigationScreens.RESET_PASSWORD.name) {
-            ResetPasswordPage(navController)
         }
         composable(NavigationScreens.SETTINGS.name) {
            SettingsPage(navController)

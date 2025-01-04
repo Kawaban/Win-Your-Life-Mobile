@@ -5,5 +5,6 @@ data class FriendData(
     val nickname: String,
     val isBetter: Boolean,
     val period: Int,
-    val id: Int
+    val id: Int,
+    val email: String
 )

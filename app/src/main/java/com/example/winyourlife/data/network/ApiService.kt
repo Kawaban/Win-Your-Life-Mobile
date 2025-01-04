@@ -77,8 +77,8 @@ interface ApiService {
     @PATCH("api/tasks/preparation")
     suspend fun prepareTask(@Body taskPreparation:TaskPreparation)
 
-    @DELETE("api/users/friends")
-    suspend fun deleteFriend(@Body friendDelete: DeleteFriendRequest)
+    @DELETE("api/users/friends/{email}")
+    suspend fun deleteFriend(@Path("email") email: String)
 
     @POST("api/auth/remind-password/{email}")
     suspend fun remindPassword(@Path("email") email: String)

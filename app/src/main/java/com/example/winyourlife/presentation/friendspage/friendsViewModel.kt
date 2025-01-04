@@ -20,7 +20,10 @@ import javax.inject.Inject
 @HiltViewModel
 class FriendsViewModel @Inject constructor(private val userService: UserService, val currentUser: CurrentUser) : ViewModel(), ViewModelCustomInterface {
 
-    override fun resetViewModel() { }
+    override fun resetViewModel() {
+        stateFriends = State()
+        friendList = listOf()
+    }
 
     var friendList by mutableStateOf(listOf<FriendData>())
 
@@ -34,7 +37,8 @@ class FriendsViewModel @Inject constructor(private val userService: UserService,
                 nickname = it.name,
                 id = friendResponse.indexOf(it),
                 period = it.longestStreak,
-                isBetter = (currentUser.userData?.longestStreak ?: 0) < it.longestStreak
+                isBetter = (currentUser.userData?.longestStreak ?: 0) < it.longestStreak,
+                email = it.email
             )
         }
     }
@@ -63,6 +67,17 @@ class FriendsViewModel @Inject constructor(private val userService: UserService,
                          isLoading = false
                      )
                 }
+            }
+        }
+    }
+
+
+    fun deleteFriend(email:String){
+        viewModelScope.launch {
+            val result = userService.deleteFriend(email)
+            if(result is Resource.Success){
+                resetViewModel()
+                getFriends()
             }
         }
     }

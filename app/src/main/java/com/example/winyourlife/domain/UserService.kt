@@ -37,9 +37,9 @@ class UserService @Inject constructor(private val apiService: ApiService, privat
         }
     }
 
-    suspend fun deleteFriend(deleteFriendRequest: DeleteFriendRequest): Resource<Unit> {
+    suspend fun deleteFriend(email : String): Resource<Unit> {
         return performNetworkOperation {
-            apiService.deleteFriend(deleteFriendRequest)
+            apiService.deleteFriend(email)
         }
     }
 
