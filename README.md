@@ -1,7 +1,7 @@
 # Win your Life!
 
 ### EN
-**Win your Life!** is an advanced TODO list mobile application designed to support users in
+**Win your Life!** is a mobile application designed to support users in
 systematic planning and implementation of daily tasks. The application allows you to organize your time and develop positive
 habits by taking on challenges and monitoring your progress. It offers an interface optimized for
 usability and modern functionalities supporting productivity.
@@ -26,7 +26,7 @@ The application was designed and implemented in **Kotlin** using:
 - **Support for two language versions**: Polish and English.
 
 ### PL
-**Win your Life!** to zaawansowana aplikacja mobilna typu TODO lista, stworzona w celu wspierania użytkowników w 
+**Win your Life!** to zaawansowana aplikacja mobilna typu stworzona w celu wspierania użytkowników w 
 systematycznym planowaniu i realizacji codziennych zadań. Aplikacja umożliwia organizację czasu i rozwój pozytywnych 
 nawyków poprzez podejmowanie wyzwań oraz monitorowanie postępów. Oferuje interfejs zoptymalizowany pod kątem 
 użyteczności oraz nowoczesne funkcjonalności wspierające produktywność.
