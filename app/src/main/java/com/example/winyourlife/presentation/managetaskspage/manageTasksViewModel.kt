@@ -48,8 +48,8 @@ class ManageTasksViewModel @Inject constructor(val currentUser: CurrentUser, pri
     }
 
     fun removeTask(position: Int) {
-        _items.value = _items.value.toMutableList().apply { removeAt(position) }
         deleteTask(position)
+        _items.value = _items.value.toMutableList().apply { removeAt(position) }
     }
 
     private fun deleteTask(position: Int) {
