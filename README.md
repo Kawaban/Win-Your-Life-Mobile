@@ -23,7 +23,6 @@ The application was designed and implemented in **Kotlin** using:
 - **Material Design 3**: Modern visual style with full support for dynamic colors.
 - **Internationalization**: Support for multiple language versions using `string resources`.
 - **Theming**: Implementation of light and dark themes compatible with Material You.
-- **Support for two language versions**: Polish and English.
 
 ### PL
 **Win your Life!** to aplikacja mobilna zaprojektowana, aby wspierać użytkowników w
@@ -48,7 +47,6 @@ Aplikacja została zaprojektowana i zaimplementowana w języku **Kotlin** przy u
 - **Material Design 3**: Nowoczesny styl wizualny z pełnym wsparciem dla dynamicznej kolorystyki.
 - **Internationalization**: Wsparcie dla wielu wersji językowych za pomocą `string resources`.
 - **Theming**: Implementacja motywów jasnego i ciemnego zgodnych z Material You.
-- **Obsługa dwóch wersji językowych**: Polski i angielski.
 
 ## Authors
 - [Aliaksei Samoshyn](https://github.com/Kawaban)  
