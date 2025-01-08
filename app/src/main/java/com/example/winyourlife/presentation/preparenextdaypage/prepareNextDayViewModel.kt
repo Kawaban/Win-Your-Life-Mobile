@@ -33,7 +33,7 @@ class PrepareNextDayViewModel @Inject constructor(val currentUser: CurrentUser, 
     private val _showDialog = MutableStateFlow(false)
     val showDialog: StateFlow<Boolean> = _showDialog
 
-    init {
+    fun loadTasks() {
         val allTasks = currentUser.userData?.allTasks ?: listOf()
         val preparedTasks = currentUser.userData?.preparedTasks ?: listOf()
         val preparedTaskLabels = preparedTasks.map { it.label }

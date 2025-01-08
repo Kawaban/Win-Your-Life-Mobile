@@ -16,7 +16,7 @@ import com.example.winyourlife.presentation.utils.State
 
 
 @HiltViewModel
-class ForgotPasswordViewModel @Inject constructor(val authenticationService: AuthenticationService) : ViewModel(), ViewModelCustomInterface {
+class ForgotPasswordViewModel @Inject constructor(val authenticationService: AuthenticationService, val currentUser: CurrentUser) : ViewModel(), ViewModelCustomInterface {
 
 
     var state by mutableStateOf(State<Unit>())
