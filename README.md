@@ -38,8 +38,7 @@ użyteczności i nowoczesnych funkcjonalności wspierających produktywność.
 - **Wsparcie społecznościowe**: Dodawanie znajomych, śledzenie ich aktywności i możliwość wzajemnej motywacji.
 - **Dostosowanie wyglądu**: Wsparcie dla jasnego i ciemnego motywu aplikacji.
 - **Wersje językowe**: Polska i angielska wersja językowa z opcją szybkiego przełączania.
-- **Lektor AI**: Skorzystano z modelu głosu Andrew Tate stworzonego przez AI, który motywuje użytkowników do działania w
--  trakcie korzystania z aplikacji.
+- **Lektor AI**: Skorzystano z modelu głosu Andrew Tate stworzonego przez AI, który motywuje użytkowników do działania w trakcie korzystania z aplikacji.
 
 ## Technologia
 Aplikacja została zaprojektowana i zaimplementowana w języku **Kotlin** przy użyciu:
