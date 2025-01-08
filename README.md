@@ -26,10 +26,10 @@ The application was designed and implemented in **Kotlin** using:
 - **Support for two language versions**: Polish and English.
 
 ### PL
-**Win your Life!** to zaawansowana aplikacja mobilna typu stworzona w celu wspierania użytkowników w 
-systematycznym planowaniu i realizacji codziennych zadań. Aplikacja umożliwia organizację czasu i rozwój pozytywnych 
-nawyków poprzez podejmowanie wyzwań oraz monitorowanie postępów. Oferuje interfejs zoptymalizowany pod kątem 
-użyteczności oraz nowoczesne funkcjonalności wspierające produktywność.
+**Win your Life!** to aplikacja mobilna zaprojektowana, aby wspierać użytkowników w
+systematycznym planowaniu i realizacji codziennych zadań. Aplikacja pozwala organizować czas i rozwijać pozytywne
+nawyki poprzez podejmowanie wyzwań i monitorowanie postępów. Oferuje interfejs zoptymalizowany pod kątem
+użyteczności i nowoczesnych funkcjonalności wspierających produktywność.
 
 ## Główne funkcje
 - **Zarządzanie zadaniami**: Tworzenie, edytowanie i usuwanie zadań.
