@@ -65,7 +65,8 @@ class MainActivity : ComponentActivity() {
         val uploadWorker = PeriodicWorkRequest.Builder(
             DailyReminderWorker::class.java, 24, TimeUnit.HOURS
         )
-            .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+//            .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+            .setInitialDelay(1000 * 30, TimeUnit.MILLISECONDS)
             .addTag("dailyReminder")
             .build()
         WorkManager.getInstance(this).enqueue(uploadWorker)

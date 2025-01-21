@@ -10,7 +10,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class AuthenticationService @Inject constructor(private val apiService: ApiService, private val jwtManager: JwtManager) {
+open class AuthenticationService @Inject constructor(private val apiService: ApiService, private val jwtManager: JwtManager) {
 
     suspend fun login(loginRequest: LoginRequest): Resource<Unit> {
         return performNetworkOperation {

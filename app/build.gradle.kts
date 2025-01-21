@@ -52,7 +52,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -64,11 +63,28 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.media3.ui)
     implementation(libs.androidx.runtime.livedata)
+    implementation(libs.androidx.work.testing)
+    implementation(libs.androidx.navigation.testing)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.dagger.hilt.android.testing)
+
+    kspAndroidTest(libs.hilt.android.compiler.v2511)
+    androidTestImplementation(libs.mockito.android)
+    androidTestImplementation(libs.mockito.core)
+    androidTestImplementation(libs.mockito.kotlin)
+    testImplementation(libs.mockk)
+
+
+
+
+
+
+
+
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
@@ -94,6 +110,8 @@ dependencies {
     implementation(libs.androidx.work)
 
     implementation(libs.androidx.hilt.work)
+
+    implementation(libs.kotlinx.coroutines.test)
 
 //    implementation(libs.startup.android)
 

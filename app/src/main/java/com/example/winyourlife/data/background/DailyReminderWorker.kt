@@ -25,10 +25,7 @@ class DailyReminderWorker @AssistedInject constructor(
         println("trying to send notification")
         val isCompleted = userPreferencesRepository.getParameter("isCompleted").getOrNull()
         val isDailyReminder = userPreferencesRepository.getParameter(Settings.IS_DAILY_REMINDER.name).getOrNull()
-        println(":"+isCompleted)
-        println(":"+isDailyReminder)
         if(isDailyReminder == "true" && isCompleted == "false"){
-//        if(true){
             val builder = NotificationCompat.Builder(appContext, "CHANNEL_ID")
                 .setSmallIcon(R.drawable.appicon)
                 .setContentTitle(appContext.getString(R.string.title_daily_reminder))

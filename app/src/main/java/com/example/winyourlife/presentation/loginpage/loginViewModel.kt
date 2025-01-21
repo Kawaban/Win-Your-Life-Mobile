@@ -19,6 +19,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(private val authenticationService: AuthenticationService, val currentUser: CurrentUser) : ViewModel(),
     ViewModelCustomInterface {
 
+
     var state by mutableStateOf(State<Unit>())
         private set
 
@@ -48,7 +49,6 @@ class LoginViewModel @Inject constructor(private val authenticationService: Auth
             )
 
             val result = authenticationService.login(loginRequest)
-
             state = when (result) {
                 is Resource.Success -> {
                     state.copy(
