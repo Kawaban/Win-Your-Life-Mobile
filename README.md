@@ -60,7 +60,6 @@ Aplikacja została zaprojektowana i zaimplementowana w języku **Kotlin** przy u
 ![image](https://github.com/user-attachments/assets/b3631d03-cd8f-45fb-b231-1a793193b112)
 ![image](https://github.com/user-attachments/assets/58a62fef-bb22-4b70-a43c-cdc2755f72a4)
 ![image](https://github.com/user-attachments/assets/55b795ee-14ba-486f-b13a-1b9e901205ae)
-![image](https://github.com/user-attachments/assets/ff74e3d2-ddd5-41da-8c3c-07aaea621cb1)
 ![image](https://github.com/user-attachments/assets/fef02c8e-8d89-42a9-a72b-3296a9fa59cf)
 
 
