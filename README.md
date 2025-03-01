@@ -50,4 +50,26 @@ Aplikacja została zaprojektowana i zaimplementowana w języku **Kotlin** przy u
 
 ## Authors
 - [Aliaksei Samoshyn](https://github.com/Kawaban)  
-- [Jan Powęski](https://github.com/Poweski)  
+- [Jan Powęski](https://github.com/Poweski)
+
+![image](https://github.com/user-attachments/assets/a8a7b6bb-b591-4409-a969-e0a8340cad6f)
+![image](https://github.com/user-attachments/assets/2f6c09d7-4859-4279-b50e-159e7de306cf)
+![image](https://github.com/user-attachments/assets/cbc9ef6f-7f84-472f-a1cd-c9361c7c0bd8)
+![image](https://github.com/user-attachments/assets/04e1e370-47ea-4a31-80cf-81850bad69a1)
+![image](https://github.com/user-attachments/assets/a2b95560-f807-4528-92c6-2908faa56e05)
+![image](https://github.com/user-attachments/assets/b3631d03-cd8f-45fb-b231-1a793193b112)
+![image](https://github.com/user-attachments/assets/58a62fef-bb22-4b70-a43c-cdc2755f72a4)
+![image](https://github.com/user-attachments/assets/55b795ee-14ba-486f-b13a-1b9e901205ae)
+![image](https://github.com/user-attachments/assets/ff74e3d2-ddd5-41da-8c3c-07aaea621cb1)
+![image](https://github.com/user-attachments/assets/fef02c8e-8d89-42a9-a72b-3296a9fa59cf)
+
+
+
+
+
+
+
+
+
+
+
